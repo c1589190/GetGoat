@@ -293,9 +293,10 @@ public class MapDemo {
         String contentType = "application/json";
 
         try {
-            // Handle /api/map/units/{code} sub-paths (skip /units/sources)
+            // Handle /api/map/units/{code} sub-paths (skip /units/sources and /units/batch)
             if (path.startsWith("/api/map/units/") && path.length() > 15
-                    && !path.equals("/api/map/units/sources")) {
+                    && !path.equals("/api/map/units/sources")
+                    && !path.equals("/api/map/units/batch")) {
                 String code = java.net.URLDecoder.decode(path.substring(15), "UTF-8");
                 String method = exchange.getRequestMethod();
                 if ("DELETE".equals(method)) {
@@ -339,9 +340,21 @@ public class MapDemo {
                         boolean ok = branchManager.applyNode(treeId, nodeId);
                         response = ok ? "{\"ok\":true,\"applied\":\"" + esc(nodeId) + "\"}"
                                       : "{\"error\":\"node not found\"}";
-                    } else if ("nodes".equals(parts[1]) && "POST".equals(exchange.getRequestMethod())) {
+                    } else if ("nodes".equals(parts[1]) && parts.length == 2 && "POST".equals(exchange.getRequestMethod())) {
                         String body = new String(exchange.getRequestBody().readAllBytes());
                         response = handleBranchAddRound(treeId, body);
+                    } else if ("nodes".equals(parts[1]) && parts.length >= 3) {
+                        String nodeId = parts[2];
+                        if ("DELETE".equals(exchange.getRequestMethod()))
+                            response = "{\"deleted\":" + branchManager.deleteNode(treeId, nodeId) + "}";
+                        else if ("PATCH".equals(exchange.getRequestMethod())) {
+                            String q = exchange.getRequestURI().getQuery();
+                            String newName = getQueryStringParam(q, "name", null);
+                            String newStrategy = getQueryStringParam(q, "strategy", null);
+                            String newOutcome = getQueryStringParam(q, "outcome", null);
+                            response = "{\"updated\":" + branchManager.updateNode(treeId, nodeId, newName, newStrategy, newOutcome) + "}";
+                        } else
+                            response = branchManager.exportNodeJson(treeId, nodeId);
                     } else {
                         response = "{\"error\":\"Unknown branch endpoint: " + path + "\"}";
                     }
@@ -474,6 +487,15 @@ public class MapDemo {
                 case "/api/map/units/sources" ->
                     "{\"sources\":" + new com.fasterxml.jackson.databind.ObjectMapper()
                         .writeValueAsString(unitsManager.listSources()) + "}";
+                case "/api/map/units/batch" -> {
+                    if ("POST".equals(exchange.getRequestMethod())) {
+                        String body = new String(exchange.getRequestBody().readAllBytes());
+                        yield handleUnitBatchCreate(body);
+                    }
+                    if ("DELETE".equals(exchange.getRequestMethod()))
+                        yield handleUnitBatchDelete();
+                    yield "{\"error\":\"Use POST to batch create, DELETE to clear\"}";
+                }
                 case "/api/branches" -> {
                     if ("POST".equals(exchange.getRequestMethod())) {
                         String body = new String(exchange.getRequestBody().readAllBytes());
@@ -921,6 +943,38 @@ public class MapDemo {
         } catch (Exception e) {
             return "{\"error\":\"" + e.getMessage() + "\"}";
         }
+    }
+
+    private static String handleUnitBatchCreate(String body) {
+        try {
+            var arr = new com.fasterxml.jackson.databind.ObjectMapper().readTree(body);
+            int created = 0;
+            for (var n : arr) {
+                String code = n.has("code") ? n.get("code").asText() : null;
+                if (code == null || code.isEmpty()) continue;
+                String name = n.has("name") ? n.get("name").asText() : code;
+                String source = n.has("source") ? n.get("source").asText() : "custom";
+                String type = n.has("type") ? n.get("type").asText() : "generic";
+                double lat = n.has("lat") ? n.get("lat").asDouble() : 0;
+                double lng = n.has("lng") ? n.get("lng").asDouble() : 0;
+                try {
+                    var u = unitsManager.create(code, name, source, type, lat, lng);
+                    if (n.has("color")) u.setColor(n.get("color").asText());
+                    if (n.has("status")) u.setStatus(n.get("status").asText());
+                    if (n.has("description")) u.setDescription(n.get("description").asText());
+                    created++;
+                } catch (IllegalArgumentException ignored) {}
+            }
+            return "{\"ok\":true,\"created\":" + created + "}";
+        } catch (Exception e) {
+            return "{\"error\":\"" + e.getMessage() + "\"}";
+        }
+    }
+
+    private static String handleUnitBatchDelete() {
+        int n = unitsManager.count();
+        unitsManager.deleteAll();
+        return "{\"ok\":true,\"deleted\":" + n + "}";
     }
 
     private static String handleBranchCreate(String body) {

@@ -31,11 +31,13 @@ public class McpServer {
 
     private final MapManager mapManager;
     private final UnitsManager unitsManager;
+    private final com.getgoat.map.branch.BranchManager branchManager;
     private final ToolRegistry registry;
 
     public McpServer() {
         this.mapManager = new MapManager();
         this.unitsManager = new UnitsManager();
+        this.branchManager = new com.getgoat.map.branch.BranchManager(unitsManager);
         this.registry = new ToolRegistry();
         registerTools();
     }
@@ -51,6 +53,14 @@ public class McpServer {
         registry.register(new UnitCreateTool(unitsManager));
         registry.register(new UnitMoveTool(unitsManager));
         registry.register(new UnitDeleteTool(unitsManager));
+        // Branch tools
+        registry.register(new BranchListTool(branchManager));
+        registry.register(new BranchNodesTool(branchManager));
+        registry.register(new BranchApplyTool(branchManager));
+        registry.register(new BranchSaveRoundTool(branchManager));
+        // Workspace tools
+        registry.register(new WorkspaceSaveTool(branchManager, unitsManager));
+        registry.register(new WorkspaceLoadTool(branchManager, unitsManager));
     }
 
     public void init() {
@@ -58,6 +68,13 @@ public class McpServer {
         log("Initializing map at " + res + "° resolution...");
         mapManager.initialize(res);
         log("Map ready: " + mapManager.getStats().totalCells() + " cells");
+
+        // Load workspace
+        String wsDir = ConfigManager.getProperty("workspace.dir", null);
+        if (wsDir != null && !wsDir.isEmpty()) {
+            branchManager.setWorkspace(wsDir);
+            log("Workspace loaded from " + wsDir + " (" + unitsManager.count() + " units)");
+        }
     }
 
     // ---- MCP JSON-RPC loop ----

@@ -20,6 +20,7 @@ public class BranchManager {
 
     private final Map<String, BranchTree> trees = new LinkedHashMap<>();
     private Path storePath;
+    private Path workspaceDir;
     private boolean workspaceReady = false;
     private final UnitsManager unitsManager;
 
@@ -34,6 +35,7 @@ public class BranchManager {
             Path dir = Paths.get(workspaceDir);
             if (!dir.isAbsolute()) dir = Paths.get(System.getProperty("user.dir")).resolve(workspaceDir);
             if (!Files.isDirectory(dir)) Files.createDirectories(dir);
+            this.workspaceDir = dir;
             this.storePath = dir.resolve(DEFAULT_STORE);
             workspaceReady = true;
             loadFromDisk();
@@ -44,6 +46,41 @@ public class BranchManager {
 
     public boolean isWorkspaceReady() { return workspaceReady; }
     public Path getStorePath() { return storePath; }
+    public Path getWorkspaceDir() { return workspaceDir; }
+
+    /** Reload branches + units from workspace json files. */
+    public String reloadWorkspace() {
+        if (workspaceDir == null) return "{\"error\":\"no workspace configured\"}";
+        // Reload branches
+        loadFromDisk();
+        // Also reload units if units.json exists
+        Path unitsFile = workspaceDir.resolve("units.json");
+        int unitsLoaded = 0;
+        if (Files.exists(unitsFile)) {
+            try {
+                unitsManager.deleteAll();
+                String content = Files.readString(unitsFile);
+                var arr = new com.fasterxml.jackson.databind.ObjectMapper().readTree(content);
+                for (var node : arr) {
+                    String code = node.has("code") ? node.get("code").asText() : null;
+                    if (code == null || code.isEmpty()) continue;
+                    String name = node.has("name") ? node.get("name").asText() : code;
+                    String source = node.has("source") ? node.get("source").asText() : "custom";
+                    String type = node.has("type") ? node.get("type").asText() : "generic";
+                    double lat = node.has("lat") ? node.get("lat").asDouble() : 0;
+                    double lng = node.has("lng") ? node.get("lng").asDouble() : 0;
+                    var u = unitsManager.create(code, name, source, type, lat, lng);
+                    if (node.has("color")) u.setColor(node.get("color").asText());
+                    if (node.has("status")) u.setStatus(node.get("status").asText());
+                    if (node.has("description")) u.setDescription(node.get("description").asText());
+                    unitsLoaded++;
+                }
+            } catch (Exception e) {
+                LOG.warning("Failed to reload units from workspace: " + e.getMessage());
+            }
+        }
+        return "{\"ok\":true,\"branches\":" + trees.size() + ",\"units\":" + unitsLoaded + "}";
+    }
 
     // ---- Persistence ----
 
@@ -378,6 +415,31 @@ public class BranchManager {
         } catch (Exception e) {
             return "[]";
         }
+    }
+
+    /** Delete a node from the tree (and all its children recursively). */
+    public boolean deleteNode(String treeId, String nodeId) {
+        BranchTree tree = trees.get(treeId);
+        if (tree == null) return false;
+        BranchNode root = tree.getRoot();
+        if (root == null) return false;
+        if (root.getId().equals(nodeId)) return false; // can't delete root
+        boolean removed = root.removeChild(nodeId);
+        if (removed) { saveToDisk(); LOG.info("Deleted node " + nodeId + " from tree " + treeId); }
+        return removed;
+    }
+
+    /** Update a node's metadata (name, strategy, outcome). */
+    public boolean updateNode(String treeId, String nodeId, String newName, String newStrategy, String newOutcome) {
+        BranchTree tree = trees.get(treeId);
+        if (tree == null) return false;
+        BranchNode node = tree.findNode(nodeId);
+        if (node == null) return false;
+        if (newName != null && !newName.isEmpty()) node.setName(newName);
+        if (newStrategy != null && !newStrategy.isEmpty()) node.setStrategy(newStrategy);
+        if (newOutcome != null) node.setOutcome(newOutcome);
+        saveToDisk();
+        return true;
     }
 
     /** Get a specific node's detail (snapshots, moves, etc.) */
