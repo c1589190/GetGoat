@@ -4,6 +4,7 @@ import com.getgoat.map.geometry.SphericalEngine;
 import com.getgoat.map.manager.MapManager;
 import com.getgoat.map.manager.UnitsManager;
 import com.getgoat.map.branch.BranchManager;
+import com.getgoat.map.commander.CommanderManager;
 import com.getgoat.map.model.*;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
@@ -57,6 +58,8 @@ public class MapDemo {
         new com.getgoat.map.manager.UnitsManager();
     private static final BranchManager branchManager =
         new BranchManager(unitsManager);
+    private static final CommanderManager commanderManager =
+        new CommanderManager(unitsManager, branchManager);
     private static final com.getgoat.tools.ToolRegistry toolRegistry =
         new com.getgoat.tools.ToolRegistry();
 
@@ -88,7 +91,10 @@ public class MapDemo {
         // 2. Load workspace
         String wsDir = com.getgoat.map.ConfigManager.getProperty("workspace.dir", null);
         if (wsDir != null && !wsDir.isEmpty()) {
+            Path wsPath = Paths.get(wsDir);
+            if (!wsPath.isAbsolute()) wsPath = Paths.get(System.getProperty("user.dir")).resolve(wsDir);
             branchManager.setWorkspace(wsDir);
+            commanderManager.setWorkspace(wsPath);
             LOG.info("Workspace loaded from " + wsDir);
             loadUnitsFromWorkspace(wsDir);
         }
@@ -313,6 +319,60 @@ public class MapDemo {
                     }
                 } else {
                     response = unitsManager.exportOneJson(code);
+                }
+            // Handle /api/commander/{side}/... sub-paths
+            } else if (path.startsWith("/api/commander/") && path.length() > 15) {
+                String sub = path.substring(15); // e.g. "nationalist/prompt"
+                String[] parts = sub.split("/");
+                if (parts.length >= 1) {
+                    String side = parts[0];
+                    if (!"nationalist".equals(side) && !"japanese".equals(side)
+                            && !"cpc".equals(side)) {
+                        response = "{\"error\":\"Side must be nationalist, japanese, or cpc\"}";
+                    } else if (parts.length == 2 && "prompt".equals(parts[1])) {
+                        if ("PUT".equals(exchange.getRequestMethod())) {
+                            String body = new String(exchange.getRequestBody().readAllBytes());
+                            try {
+                                commanderManager.setSystemPrompt(side, body);
+                                response = "{\"ok\":true}";
+                            } catch (Exception e) {
+                                response = "{\"error\":\"" + e.getMessage() + "\"}";
+                            }
+                        } else {
+                            response = commanderManager.getSystemPrompt(side);
+                        }
+                    } else if (parts.length == 2 && "context".equals(parts[1])) {
+                        String q = exchange.getRequestURI().getQuery();
+                        String treeId = getQueryStringParam(q, "tree", null);
+                        String nodeId = getQueryStringParam(q, "node", null);
+                        if (treeId == null || nodeId == null)
+                            response = "{\"error\":\"tree and node params required\"}";
+                        else
+                            response = commanderManager.buildContext(side, treeId, nodeId);
+                    } else if (parts.length == 3 && "cache".equals(parts[1])) {
+                        int round = Integer.parseInt(parts[2]);
+                        if ("PUT".equals(exchange.getRequestMethod())) {
+                            String body = new String(exchange.getRequestBody().readAllBytes());
+                            try {
+                                var n = new com.fasterxml.jackson.databind.ObjectMapper().readTree(body);
+                                String treeId = n.has("treeId") ? n.get("treeId").asText() : "";
+                                String nodeId = n.has("nodeId") ? n.get("nodeId").asText() : "";
+                                String transcript = n.has("transcript") ?
+                                    n.get("transcript").toString() : body;
+                                commanderManager.saveCache(side, round, treeId, nodeId, transcript);
+                                response = "{\"ok\":true,\"round\":" + round + "}";
+                            } catch (Exception e) {
+                                response = "{\"error\":\"" + e.getMessage() + "\"}";
+                            }
+                        } else {
+                            String cached = commanderManager.loadCache(side, round);
+                            response = cached != null ? cached : "null";
+                        }
+                    } else {
+                        response = "{\"error\":\"Unknown commander endpoint\"}";
+                    }
+                } else {
+                    response = "{\"error\":\"Invalid commander path\"}";
                 }
             // Handle /api/branches/{treeId}/... sub-paths
             } else if (path.startsWith("/api/branches/") && path.length() > 14) {

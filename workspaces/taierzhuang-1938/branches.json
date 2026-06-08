@@ -1,0 +1,359 @@
+[ {
+  "id" : "f36a927d",
+  "name" : "台儿庄战役",
+  "createdAt" : 1780940245045,
+  "root" : {
+    "id" : "3a8bd45f",
+    "name" : "台儿庄战役 — 初始部署",
+    "description" : "Initial deployment",
+    "round" : 0,
+    "strategy" : "initial",
+    "parentId" : null,
+    "children" : [ ],
+    "unitSnapshots" : [ {
+      "code" : "IJA-21B",
+      "name" : "第21旅团 (坂本支队)",
+      "source" : "japanese",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#c0392b",
+      "lat" : 35.12,
+      "lng" : 118.52,
+      "description" : "IJA 21st Infantry Brigade — Sakamoto Detachment. Approached Linyi from the east."
+    }, {
+      "code" : "NRA-030",
+      "name" : "30师 (张金照部)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 34.58,
+      "lng" : 117.72,
+      "description" : "30th Division — Zhang Jinzhao. North of Taierzhuang, blocking Japanese approach from Yixian."
+    }, {
+      "code" : "NRA-031",
+      "name" : "31师 (池峰城部)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 34.56,
+      "lng" : 117.74,
+      "description" : "31st Division — Chi Fengcheng. Core defender of Taierzhuang town. Elite unit with strong will."
+    }, {
+      "code" : "IJA-10AR",
+      "name" : "第10炮兵联队",
+      "source" : "japanese",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#e74c3c",
+      "lat" : 34.92,
+      "lng" : 117.44,
+      "description" : "IJA 10th Artillery Regiment. Heavy artillery support for the Taierzhuang assault."
+    }, {
+      "code" : "IJA-33B",
+      "name" : "第33旅团 (濑谷支队)",
+      "source" : "japanese",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#c0392b",
+      "lat" : 34.88,
+      "lng" : 117.38,
+      "description" : "IJA 33rd Infantry Brigade — Part of 10th Division. Attacked toward Taierzhuang from Yixian."
+    }, {
+      "code" : "IJA-13D",
+      "name" : "第13师团 (荻洲立兵)",
+      "source" : "japanese",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#e74c3c",
+      "lat" : 33.5,
+      "lng" : 117.3,
+      "description" : "IJA 13th Division — Rippei Ogisu. Advanced from south via Bengbu toward Xuzhou. Southern pincer of the operation."
+    }, {
+      "code" : "IJA-NCA",
+      "name" : "华北方面军 (寺内寿一)",
+      "source" : "japanese",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#e74c3c",
+      "lat" : 36.7,
+      "lng" : 116.98,
+      "description" : "IJA North China Area Army — Hisaichi Terauchi. Overall command of Japanese forces in North China."
+    }, {
+      "code" : "NRA-115D",
+      "name" : "115师 (东北军)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 35.03,
+      "lng" : 118.34,
+      "description" : "115th Division — Northeast Army remnant. Assisted Linyi defense."
+    }, {
+      "code" : "IJA-5AR",
+      "name" : "第5炮兵联队",
+      "source" : "japanese",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#e74c3c",
+      "lat" : 35.07,
+      "lng" : 118.46,
+      "description" : "IJA 5th Artillery Regiment. Provided fire support for the Linyi attack."
+    }, {
+      "code" : "CPC-115T",
+      "name" : "八路军115师 (林彪部)",
+      "source" : "cpc",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#f1c40f",
+      "lat" : 35.15,
+      "lng" : 113.2,
+      "description" : "8RA 115th Division — Lin Biao. After Pingxingguan victory, positioned in southern Shanxi."
+    }, {
+      "code" : "NRA-5WA",
+      "name" : "第5战区 (李宗仁/白崇禧)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#e67e22",
+      "lat" : 34.26,
+      "lng" : 117.18,
+      "description" : "HQ 5th War Area — Li Zongren & Bai Chongxi. Overall command of Xuzhou campaign."
+    }, {
+      "code" : "IJA-9B",
+      "name" : "第9旅团 (国崎登)",
+      "source" : "japanese",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#c0392b",
+      "lat" : 35.08,
+      "lng" : 118.48,
+      "description" : "IJA 9th Infantry Brigade — Kunizaki Noboru. 5th Division's vanguard attacking Linyi."
+    }, {
+      "code" : "NRA-004",
+      "name" : "4师 (陈大庆部)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 34.74,
+      "lng" : 117.45,
+      "description" : "4th Division — Chen Daqing. Deployed for flanking maneuver against Japanese rear."
+    }, {
+      "code" : "NRA-048",
+      "name" : "48师 (桂军)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 34.26,
+      "lng" : 117.12,
+      "description" : "48th Division — Guangxi clique unit. Arrived as reinforcement."
+    }, {
+      "code" : "NRA-027",
+      "name" : "27师 (黄樵松部)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 34.52,
+      "lng" : 117.7,
+      "description" : "27th Division — Huang Qiaosong. Deployed west of Taierzhuang, guarding flank."
+    }, {
+      "code" : "NRA-007",
+      "name" : "7师 (桂军)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 34.28,
+      "lng" : 117.08,
+      "description" : "7th Division — Guangxi clique unit. Veteran of Northern Expedition."
+    }, {
+      "code" : "NRA-089",
+      "name" : "89师 (张雪中部)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 34.76,
+      "lng" : 117.55,
+      "description" : "89th Division — Zhang Xuezhong. Attacked Japanese forces at Yixian on Mar 26, inflicting heavy casualties."
+    }, {
+      "code" : "NRA-122",
+      "name" : "122师 (王铭章部)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 35.08,
+      "lng" : 117.15,
+      "description" : "122nd Division — Wang Mingzhang. Heroic last stand at Tengxian. Wang killed in action Mar 17."
+    }, {
+      "code" : "NRA-002",
+      "name" : "2师 (郑洞国部)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 34.72,
+      "lng" : 117.48,
+      "description" : "2nd Division — Zheng Dongguo. Elite central army unit. Part of Tang Enbo's counterattack force."
+    }, {
+      "code" : "IJA-5D",
+      "name" : "第5师团 (板垣征四郎)",
+      "source" : "japanese",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#e74c3c",
+      "lat" : 35.1,
+      "lng" : 118.5,
+      "description" : "IJA 5th Division — Seishiro Itagaki. Attacked from northeast via Linyi. Attempted to flank Taierzhuang."
+    }, {
+      "code" : "NRA-025",
+      "name" : "25师 (关麟征部)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 34.68,
+      "lng" : 117.52,
+      "description" : "25th Division — Guan Linzheng. Key unit for the encirclement of Japanese 10th Division."
+    }, {
+      "code" : "NRA-124",
+      "name" : "124师 (孙震兼)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 35.09,
+      "lng" : 117.1,
+      "description" : "124th Division — Sichuan troops. Fought at Tengxian alongside 122nd Division."
+    }, {
+      "code" : "NRA-22AG",
+      "name" : "第22集团军 (孙震部)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#9b59b6",
+      "lat" : 35.1,
+      "lng" : 117.12,
+      "description" : "HQ 22nd Group Army — Sun Zhen. Sichuan troops. Defended Tengxian, suffered heavy losses."
+    }, {
+      "code" : "NRA-21AG",
+      "name" : "第21集团军 (廖磊部)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#9b59b6",
+      "lat" : 34.3,
+      "lng" : 117.1,
+      "description" : "HQ 21st Group Army — Liao Lei. Guangxi troops. Reinforced from south."
+    }, {
+      "code" : "NRA-20AG",
+      "name" : "第20军团 (汤恩伯部)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#9b59b6",
+      "lat" : 34.7,
+      "lng" : 117.5,
+      "description" : "HQ 20th Army Group — Tang Enbo. Main flanking/counterattack force. Equipped with artillery."
+    }, {
+      "code" : "CPC-129",
+      "name" : "八路军129师 (刘伯承部)",
+      "source" : "cpc",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#f1c40f",
+      "lat" : 36.0,
+      "lng" : 114.0,
+      "description" : "8RA 129th Division — Liu Bocheng. Active in Shanxi-Hebei border region. Harassed Japanese supply lines."
+    }, {
+      "code" : "IJA-10D",
+      "name" : "第10师团 (矶谷廉介)",
+      "source" : "japanese",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#e74c3c",
+      "lat" : 34.95,
+      "lng" : 117.4,
+      "description" : "IJA 10th Division — Rensuke Isogai. Main attacking force. Advanced south along Jinpu railway from Shandong."
+    }, {
+      "code" : "NRA-59A",
+      "name" : "第59军 (张自忠部)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 35.02,
+      "lng" : 118.3,
+      "description" : "59th Army — Zhang Zizhong. Rushed to reinforce Linyi. Launched night counterattacks on Japanese 5th Division."
+    }, {
+      "code" : "NRA-2AG",
+      "name" : "第2集团军 (孙连仲部)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#3498db",
+      "lat" : 34.5,
+      "lng" : 117.65,
+      "description" : "HQ 2nd Army Group — Sun Lianzhong. Main defense at Taierzhuang."
+    }, {
+      "code" : "NRA-044B",
+      "name" : "第44独立旅",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 34.55,
+      "lng" : 117.76,
+      "description" : "44th Independent Brigade. Reserve force stationed east of the town."
+    }, {
+      "code" : "NRA-3AG",
+      "name" : "第3集团军 (庞炳勋部)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#9b59b6",
+      "lat" : 35.05,
+      "lng" : 118.38,
+      "description" : "HQ 3rd Army Group — Pang Bingxun. Defended Linyi against Japanese 5th Division."
+    }, {
+      "code" : "IJA-8B",
+      "name" : "第8旅团 (濑谷启)",
+      "source" : "japanese",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#c0392b",
+      "lat" : 34.9,
+      "lng" : 117.42,
+      "description" : "IJA 8th Infantry Brigade — Seya Kei. Spearheaded the attack on Taierzhuang. ~4000 men with tank support."
+    }, {
+      "code" : "NRA-059",
+      "name" : "59军38师",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 35.01,
+      "lng" : 118.32,
+      "description" : "38th Division — Part of Zhang Zizhong's 59th Army."
+    }, {
+      "code" : "NRA-039",
+      "name" : "39师 (庞炳勋兼)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 35.06,
+      "lng" : 118.36,
+      "description" : "39th Division — Defended Linyi north gate. Blocked Itagaki's 5th Division advance."
+    } ],
+    "moves" : [ ],
+    "unitChanges" : [ ],
+    "outcome" : "Starting positions",
+    "createdAt" : 1780940245045
+  }
+} ]
