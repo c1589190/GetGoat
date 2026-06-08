@@ -1,0 +1,109 @@
+{
+  "_comment" : "HSV terrain classification for Natural Earth 10m cross-blended hypsometric tints.",
+  "rules" : [ {
+    "terrain" : "ICE",
+    "hue_min" : 0,
+    "hue_max" : 360,
+    "sat_max" : 0.1,
+    "val_min" : 0.92
+  }, {
+    "terrain" : "OCEAN",
+    "hue_min" : 185,
+    "hue_max" : 270,
+    "sat_min" : 0.08,
+    "val_max" : 0.45
+  }, {
+    "terrain" : "COASTAL_WATER",
+    "hue_min" : 185,
+    "hue_max" : 270,
+    "sat_min" : 0.08
+  }, {
+    "terrain" : "DESERT",
+    "hue_min" : 22,
+    "hue_max" : 58,
+    "sat_max" : 0.45,
+    "val_min" : 0.58
+  }, {
+    "terrain" : "HIGH_MOUNTAIN",
+    "hue_min" : 0,
+    "hue_max" : 360,
+    "sat_max" : 0.1,
+    "val_min" : 0.8
+  }, {
+    "terrain" : "FOREST",
+    "hue_min" : 70,
+    "hue_max" : 170,
+    "green_dominant" : true,
+    "val_max" : 0.42
+  }, {
+    "terrain" : "FOREST",
+    "hue_min" : 70,
+    "hue_max" : 170,
+    "green_dominant" : true
+  }, {
+    "terrain" : "PLAINS",
+    "hue_min" : 130,
+    "hue_max" : 210,
+    "sat_max" : 0.35,
+    "val_min" : 0.5,
+    "val_max" : 0.78
+  }, {
+    "terrain" : "PLAINS",
+    "hue_min" : 55,
+    "hue_max" : 130,
+    "sat_min" : 0.06,
+    "val_min" : 0.5,
+    "val_max" : 0.78
+  }, {
+    "terrain" : "HILLS",
+    "green_dominant" : false,
+    "hue_min" : 10,
+    "hue_max" : 160,
+    "sat_min" : 0.01,
+    "val_min" : 0.23,
+    "val_max" : 0.7
+  }, {
+    "terrain" : "MOUNTAIN",
+    "green_dominant" : false,
+    "hue_min" : 10,
+    "hue_max" : 45,
+    "sat_min" : 0.12,
+    "val_min" : 0.35,
+    "val_max" : 0.8
+  }, {
+    "terrain" : "TUNDRA",
+    "hue_min" : 50,
+    "hue_max" : 360,
+    "sat_max" : 0.22,
+    "val_min" : 0.45,
+    "val_max" : 0.82
+  }, {
+    "terrain" : "PLATEAU",
+    "hue_min" : 0,
+    "hue_max" : 360,
+    "sat_min" : 0.05,
+    "sat_max" : 0.35,
+    "val_min" : 0.68
+  }, {
+    "terrain" : "WETLAND",
+    "hue_min" : 130,
+    "hue_max" : 210,
+    "val_max" : 0.38
+  } ],
+  "fallback" : [ {
+    "terrain" : "OCEAN",
+    "val_max" : 0.35
+  }, {
+    "terrain" : "FOREST",
+    "val_max" : 0.5
+  }, {
+    "terrain" : "HILLS",
+    "val_max" : 0.63
+  }, {
+    "terrain" : "MOUNTAIN",
+    "val_max" : 0.78
+  }, {
+    "terrain" : "HIGH_MOUNTAIN",
+    "val_max" : 1.0
+  } ]
+}

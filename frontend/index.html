@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GetGoat — World Map</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="css/map.css" />
+    <link rel="stylesheet" href="css/branch-panel.css" />
+</head>
+<body>
+<div id="map"></div>
+<div id="sidebar">
+    <div id="sidebar-header"><h2>GetGoat Map</h2><button id="sidebar-toggle">◀</button></div>
+    <div id="sidebar-content">
+        <div id="unit-detail" style="display:none;margin:0 0 6px 0;padding:6px;background:rgba(255,255,255,0.05);border-radius:4px;font-size:10px">
+            <div><b id="ud-name"></b> <span id="ud-code" style="color:#888"></span></div>
+            <div id="ud-desc"></div>
+            <div id="ud-source" style="color:#aaa"></div>
+            <div id="ud-type" style="color:#FF5722"></div>
+            <div id="ud-lat"></div>
+            <button onclick="deleteSelectedUnit()" style="margin-top:3px;padding:2px 6px;background:#e74c3c;color:#fff;border:none;border-radius:3px;cursor:pointer;font-size:10px">Delete</button>
+        </div>
+        <div id="info-panel" class="hidden"><h3 id="info-title">Click on map</h3><div id="info-body"></div></div>
+        <div id="distance-tool">
+            <h3>Distance Tool</h3><p style="font-size:10px;color:#888;margin:2px 0">Shift+click to set points</p>
+            <div class="point-input"><label>From: <span id="from-coord">—</span></label></div>
+            <div class="point-input"><label>To: <span id="to-coord">—</span></label></div>
+            <div style="margin:6px 0;font-size:10px">
+                <label style="margin-right:8px"><input type="checkbox" id="pt-land" checked> Land</label>
+                <label><input type="checkbox" id="pt-water"> Water</label>
+                <button id="pt-refresh" style="margin-left:6px;font-size:9px;padding:1px 6px">Go</button>
+            </div>
+            <div id="distance-result" class="hidden"><strong id="distance-value"></strong><span id="bearing-value"></span></div>
+            <button id="clear-distance">Clear</button>
+        </div>
+        <div style="margin:8px 0;padding:4px 0;border-top:1px solid #444;border-bottom:1px solid #444;font-size:10px">
+            <label style="color:#ccc;cursor:pointer;display:flex;align-items:center;gap:4px">
+                <input type="checkbox" id="show-moves" checked onchange="if(window.refreshMoveHighlights)refreshMoveHighlights()">
+                Show movement paths
+            </label>
+        </div>
+        <div id="units-panel">
+            <div id="branch-context" style="display:none;font-size:10px;color:#FF5722;padding:2px 0;margin-bottom:4px;border-bottom:1px dashed #444"></div>
+            <h3>Units <span id="unit-count"></span></h3>
+            <div style="display:flex;gap:4px;margin:4px 0">
+                <select id="unit-source-filter" style="flex:1;font-size:10px;background:#333;color:#ccc;border:1px solid #555;border-radius:3px"><option value="">All sources</option></select>
+                <button id="unit-create-btn" style="font-size:10px;padding:2px 6px;background:#2196F3;color:#fff;border:none;border-radius:3px;cursor:pointer">+</button>
+            </div>
+            <div id="unit-create-form" style="display:none;margin:4px 0;padding:6px;background:rgba(255,255,255,0.05);border-radius:4px;font-size:10px">
+                <input id="uc-code" placeholder="Code" style="width:100%;margin:2px 0;background:#333;color:#fff;border:1px solid #555;border-radius:2px;padding:2px 4px;font-size:10px">
+                <input id="uc-name" placeholder="Name" style="width:100%;margin:2px 0;background:#333;color:#fff;border:1px solid #555;border-radius:2px;padding:2px 4px;font-size:10px">
+                <input id="uc-source" placeholder="Source" value="custom" style="width:100%;margin:2px 0;background:#333;color:#fff;border:1px solid #555;border-radius:2px;padding:2px 4px;font-size:10px">
+                <select id="uc-type" style="width:100%;margin:2px 0;background:#333;color:#fff;border:1px solid #555;border-radius:2px;padding:2px 4px;font-size:10px">
+                    <option value="infantry">Infantry</option><option value="naval">Naval</option><option value="air">Air</option><option value="civilian">Civilian</option><option value="supply">Supply</option><option value="generic">Generic</option>
+                </select>
+                <button id="uc-submit" style="margin-top:3px;padding:2px 8px;background:#4CAF50;color:#fff;border:none;border-radius:3px;cursor:pointer;font-size:10px">Create at click position</button>
+            </div>
+            <div id="unit-list" style="max-height:200px;overflow-y:auto;font-size:10px"></div>
+        </div>
+        <div id="stats-panel"><h3>Map Stats</h3><div id="stats-body">Loading...</div></div>
+    </div>
+</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/map-core.js"></script>
+    <script src="js/branch-tree.js"></script>
+<!-- Relief config panel — bottom-left -->
+<div id="relief-panel">
+  <div id="relief-header"><span>Relief</span><button id="relief-toggle">−</button><button id="relief-apply">Apply</button></div>
+  <div id="relief-body">
+    <div class="relief-row"><span>Elev ≥</span><input id="relief-elev" type="number" value="500" min="0" max="5000" step="50">m</div>
+    <div class="relief-row"><span>Rough ≥</span><input id="relief-rough" type="number" value="60" min="0" max="1000" step="10">m</div>
+    <div id="relief-legend">
+      <div><span style="color:#7dce82">■</span> Plains</div><div><span style="color:#a2b573">■</span> Hills</div>
+      <div><span style="color:#c9a96e">■</span> Plateau</div><div><span style="color:#8b7355">■</span> Mountains</div>
+    </div>
+  </div>
+  <div id="relief-status"></div>
+</div>
+<script>
+(function(){
+  fetch('/api/map/relief-config').then(function(r){return r.json();}).then(function(d){
+    document.getElementById('relief-elev').value=d.elevThreshold||500;
+    document.getElementById('relief-rough').value=d.roughThreshold||60;
+  });
+  document.getElementById('relief-toggle').onclick=function(){
+    var b=document.getElementById('relief-body'),t=this;
+    if(b.style.display==='none'){b.style.display='block';t.textContent='−';}
+    else{b.style.display='none';t.textContent='+';}
+  };
+  document.getElementById('relief-apply').onclick=function(){
+    var elev=parseInt(document.getElementById('relief-elev').value)||500;
+    var rough=parseInt(document.getElementById('relief-rough').value)||60;
+    var btn=this;btn.textContent='...';btn.disabled=true;
+    fetch('/api/map/relief-config',{method:'POST',body:JSON.stringify({elevThreshold:elev,roughThreshold:rough})})
+      .then(function(r){return r.json();}).then(function(d){
+        if(window.loadData&&window.selectMarker){
+          window.loadData(window.selectMarker.getLatLng().lat,window.selectMarker.getLatLng().lng,window.currentRadius);
+        }
+        document.getElementById('relief-status').textContent='Elev≥'+d.elevThreshold+'m Rough≥'+d.roughThreshold+'m';
+        btn.textContent='Apply';btn.disabled=false;
+      });
+  };
+})();
+</script>
+<!-- HSV Tuning panel — bottom-right, collapsible -->
+<div id="hsv-panel">
+  <div id="hsv-header">
+    <span>HSV Tuning</span>
+    <button id="hsv-toggle">−</button>
+    <button id="happly">Apply</button>
+  </div>
+  <div id="hsv-body"></div>
+  <div id="hsv-status"></div>
+</div>
+<script>
+(function(){
+var rules=[{name:'HILLS',color:'#a2b573',vals:['30','160','0.04','0.32','0.70']},
+           {name:'MOUNTAIN',color:'#8b7355',vals:['10','45','0.12','0.35','0.80']}];
+var lb=['hue_min','hue_max','sat_min','val_min','val_max'];
+var hb=document.getElementById('hsv-body');
+rules.forEach(function(r){
+    var hdr=document.createElement('div');hdr.className='hsv-rule-name';hdr.style.color=r.color;hdr.textContent=r.name;hb.appendChild(hdr);
+    lb.forEach(function(l,j){
+        var row=document.createElement('div');row.className='hsv-row';
+        var label=document.createElement('span');label.className='hsv-label';label.textContent=l.replace('_',' ');
+        var inp=document.createElement('input');inp.type='number';inp.className='hsv-input';inp.dataset.key=r.name+'_'+l;
+        inp.value=r.vals[j];inp.step=l.includes('sat')||l.includes('val')?'0.01':'1';
+        inp.min=0;inp.max=l.includes('hue')?360:1;
+        row.appendChild(label);row.appendChild(inp);hb.appendChild(row);
+    });
+});
+document.getElementById('hsv-toggle').onclick=function(){
+    var body=document.getElementById('hsv-body');
+    var panel=document.getElementById('hsv-panel');
+    if(body.style.display==='none'){body.style.display='block';this.textContent='−';panel.classList.remove('hsv-collapsed');}
+    else{body.style.display='none';document.getElementById('hsv-status').style.display='none';this.textContent='+';panel.classList.add('hsv-collapsed');}
+};
+document.getElementById('happly').onclick=function(){
+    var nr=[{terrain:'HILLS',green_dominant:false},{terrain:'MOUNTAIN',green_dominant:false}];
+    document.querySelectorAll('#hsv-body .hsv-input').forEach(function(inp){
+        var full=inp.dataset.key;
+        var terrain=full.startsWith('HILLS')?'HILLS':'MOUNTAIN';
+        var field=full.substring(terrain.length+1);
+        var v=parseFloat(inp.value);
+        if(terrain==='HILLS')nr[0][field]=v;else nr[1][field]=v;
+    });
+    fetch('/api/map/hsv-rules',{method:'POST',body:JSON.stringify(nr)}).then(function(){
+        var btn=document.getElementById('happly');btn.textContent='...';btn.disabled=true;
+        fetch('/api/map/apply-upgrades').then(function(r){return r.json();}).then(function(d){
+            var st=document.getElementById('hsv-status');
+            st.style.display='block';st.textContent='Hills:'+d.hills+' Mountain:'+d.mountain;
+            btn.textContent='Apply';btn.disabled=false;
+            if(window.loadData&&window.selectMarker)window.loadData(window.selectMarker.getLatLng().lat,window.selectMarker.getLatLng().lng,window.currentRadius);
+        });
+    });
+};
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+/* Branch Timeline Panel — top-left, collapsible */
+#branch-panel {
+    position: absolute;
+    top: 10px;
+    left: 50px;
+    z-index: 1000;
+    background: rgba(20, 22, 28, 0.94);
+    color: #ccc;
+    border: 1px solid #444;
+    border-radius: 6px;
+    font-size: 11px;
+    font-family: monospace;
+    max-width: 320px;
+    min-width: 200px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.6);
+    user-select: none;
+}
+
+#branch-header {
+    display: flex;
+    align-items: center;
+    padding: 6px 8px;
+    background: rgba(255,255,255,0.05);
+    border-bottom: 1px solid #333;
+    border-radius: 6px 6px 0 0;
+    cursor: pointer;
+}
+
+#branch-header span {
+    flex: 1;
+    font-weight: bold;
+    color: #ddd;
+    font-size: 12px;
+}
+
+#branch-desc {
+    font-family: sans-serif;
+    border-top: 1px solid #333;
+    margin-top: 4px;
+    padding-top: 3px;
+}
+
+#branch-header button {
+    background: none;
+    border: 1px solid #555;
+    color: #aaa;
+    border-radius: 3px;
+    padding: 1px 6px;
+    cursor: pointer;
+    font-size: 10px;
+    margin-left: 3px;
+}
+
+#branch-header button:hover { background: #444; color: #fff; }
+#branch-header button.primary { color: #4CAF50; border-color: #4CAF50; }
+#branch-header button.primary:hover { background: #4CAF50; color: #000; }
+
+#branch-body {
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 4px 0;
+}
+
+#branch-body ul {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 14px;
+}
+
+#branch-body li {
+    position: relative;
+    padding: 2px 0;
+}
+
+/* Tree connection lines */
+#branch-body .tree-node {
+    display: block;
+    padding: 3px 6px;
+    margin: 1px 0;
+    border-left: 3px solid transparent;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.15s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#branch-body .tree-node:hover {
+    background: rgba(255,255,255,0.08);
+}
+
+#branch-body .tree-node.active {
+    background: rgba(52, 152, 219, 0.2);
+    border-left-color: #3498db;
+    color: #fff;
+}
+
+/* Strategy badges */
+#branch-body .tree-node .badge {
+    display: inline-block;
+    font-size: 9px;
+    padding: 0 4px;
+    border-radius: 2px;
+    margin-left: 4px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.badge-historical { background: #2980b9; color: #fff; }
+.badge-alt { background: #e67e22; color: #fff; }
+.badge-planb { background: #e74c3c; color: #fff; }
+
+/* Round number indicator */
+.tree-node .round-num {
+    display: inline-block;
+    font-size: 9px;
+    color: #888;
+    margin-right: 4px;
+    min-width: 20px;
+}
+
+/* Movement info line */
+.tree-node .move-info {
+    display: block;
+    font-size: 9px;
+    color: #777;
+    padding-left: 20px;
+}
+
+/* Collapsed state */
+#branch-panel.collapsed #branch-body { display: none; }
+#branch-panel.collapsed { max-width: none; min-width: auto; }
+
+/* Action buttons at bottom */
+#branch-actions {
+    padding: 4px 8px;
+    border-top: 1px solid #333;
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+#branch-actions button {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid #444;
+    color: #aaa;
+    border-radius: 3px;
+    padding: 2px 8px;
+    cursor: pointer;
+    font-size: 9px;
+    white-space: nowrap;
+}
+
+#branch-actions button:hover { background: rgba(255,255,255,0.15); color: #fff; }
+#branch-actions button.save-btn { color: #4CAF50; border-color: #4CAF50; font-weight: bold; }
+#branch-actions button.new-branch-btn { color: #f39c12; border-color: #f39c12; }
+
+/* Scrollbar styling */
+#branch-body::-webkit-scrollbar { width: 4px; }
+#branch-body::-webkit-scrollbar-thumb { background: #555; border-radius: 2px; }

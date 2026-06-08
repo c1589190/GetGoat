@@ -1,0 +1,32 @@
+# Build output
+target/
+*.class
+*.jar
+
+# Terrain cache (large binary, ~1GB)
+terrain_cache.bin
+
+# Large geodata binaries (>100MB)
+*.tif
+*.tiff
+*.zip
+HYP_HR_SR_OB_DR/
+geodata/elevation/*.tif
+src/main/resources/geodata/elevation/*.tif
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Runtime
+*.log
+nohup.out
+/tmp/
+
+# Maven
+dependency-reduced-pom.xml
