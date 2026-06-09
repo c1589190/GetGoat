@@ -4,13 +4,20 @@ import com.getgoat.map.geometry.SphericalEngine;
 import com.getgoat.map.manager.MapManager;
 import com.getgoat.map.manager.UnitsManager;
 import com.getgoat.map.branch.BranchManager;
-import com.getgoat.map.commander.CommanderManager;
+import com.getgoat.agent.AgentManager;
+import com.getgoat.map.branch.CommanderAction;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.getgoat.map.model.*;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 import java.net.InetSocketAddress;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -58,8 +65,8 @@ public class MapDemo {
         new com.getgoat.map.manager.UnitsManager();
     private static final BranchManager branchManager =
         new BranchManager(unitsManager);
-    private static final CommanderManager commanderManager =
-        new CommanderManager(unitsManager, branchManager);
+    private static final AgentManager agentManager =
+        new AgentManager(branchManager, unitsManager, mapManager);
     private static final com.getgoat.tools.ToolRegistry toolRegistry =
         new com.getgoat.tools.ToolRegistry();
 
@@ -94,7 +101,7 @@ public class MapDemo {
             Path wsPath = Paths.get(wsDir);
             if (!wsPath.isAbsolute()) wsPath = Paths.get(System.getProperty("user.dir")).resolve(wsDir);
             branchManager.setWorkspace(wsDir);
-            commanderManager.setWorkspace(wsPath);
+            agentManager.setWorkspace(wsPath);
             LOG.info("Workspace loaded from " + wsDir);
             loadUnitsFromWorkspace(wsDir);
         }
@@ -266,6 +273,7 @@ public class MapDemo {
     private static void startServer() throws IOException {
         HttpServer server = HttpServer.create(new InetSocketAddress(PORT), 0);
         server.createContext("/", MapDemo::handleRoot);
+        server.createContext("/api/map/terrain-image", MapDemo::handleTerrainImage);
         server.createContext("/api/", MapDemo::handleApi);
         server.createContext("/api/tools", MapDemo::handleTools);
         server.setExecutor(null); // default executor
@@ -317,6 +325,9 @@ public class MapDemo {
                         unitsManager.move(code, lat, lng);
                         response = unitsManager.exportOneJson(code);
                     }
+                } else if ("PATCH".equals(method)) {
+                    String body = new String(exchange.getRequestBody().readAllBytes());
+                    response = handleUnitPatch(code, body);
                 } else {
                     response = unitsManager.exportOneJson(code);
                 }
@@ -333,40 +344,88 @@ public class MapDemo {
                         if ("PUT".equals(exchange.getRequestMethod())) {
                             String body = new String(exchange.getRequestBody().readAllBytes());
                             try {
-                                commanderManager.setSystemPrompt(side, body);
+                                agentManager.setSystemPrompt(side, body);
                                 response = "{\"ok\":true}";
                             } catch (Exception e) {
                                 response = "{\"error\":\"" + e.getMessage() + "\"}";
                             }
                         } else {
-                            response = commanderManager.getSystemPrompt(side);
+                            response = agentManager.getSystemPrompt(side);
                         }
                     } else if (parts.length == 2 && "context".equals(parts[1])) {
                         String q = exchange.getRequestURI().getQuery();
                         String treeId = getQueryStringParam(q, "tree", null);
                         String nodeId = getQueryStringParam(q, "node", null);
+                        String guidance = getQueryStringParam(q, "guidance", null);
                         if (treeId == null || nodeId == null)
                             response = "{\"error\":\"tree and node params required\"}";
                         else
-                            response = commanderManager.buildContext(side, treeId, nodeId);
-                    } else if (parts.length == 3 && "cache".equals(parts[1])) {
-                        int round = Integer.parseInt(parts[2]);
-                        if ("PUT".equals(exchange.getRequestMethod())) {
-                            String body = new String(exchange.getRequestBody().readAllBytes());
+                            response = agentManager.buildContext(side, treeId, nodeId, guidance);
+                    } else if (parts.length == 2 && "deploy".equals(parts[1]) && "POST".equals(exchange.getRequestMethod())) {
+                        String q = exchange.getRequestURI().getQuery();
+                        String treeId = getQueryStringParam(q, "tree", null);
+                        String nodeId = getQueryStringParam(q, "node", null);
+                        // guidance from POST body (avoids URL encoding issues with Chinese)
+                        String rawBody = new String(exchange.getRequestBody().readAllBytes());
+                        String guidance = null;
+                        try {
+                            var bodyNode = new com.fasterxml.jackson.databind.ObjectMapper().readTree(rawBody);
+                            guidance = bodyNode.has("guidance") ? bodyNode.get("guidance").asText() : null;
+                        } catch (Exception e) {
+                            guidance = rawBody;
+                        }
+                        if (treeId == null || nodeId == null)
+                            response = "{\"error\":\"tree and node params required\"}";
+                        else {
                             try {
-                                var n = new com.fasterxml.jackson.databind.ObjectMapper().readTree(body);
-                                String treeId = n.has("treeId") ? n.get("treeId").asText() : "";
-                                String nodeId = n.has("nodeId") ? n.get("nodeId").asText() : "";
-                                String transcript = n.has("transcript") ?
-                                    n.get("transcript").toString() : body;
-                                commanderManager.saveCache(side, round, treeId, nodeId, transcript);
-                                response = "{\"ok\":true,\"round\":" + round + "}";
+                                CommanderAction action = agentManager.executeFullRound(
+                                    side, treeId, nodeId, guidance, 5);
+                                var resp = new com.fasterxml.jackson.databind.ObjectMapper().createObjectNode();
+                                resp.put("ok", true);
+                                resp.put("source", action.source);
+                                resp.put("rationale", action.rationale != null ? action.rationale : "");
+                                resp.put("guidanceAssessment", action.guidanceAssessment != null ? action.guidanceAssessment : "");
+                                resp.put("risks", action.risks != null ? action.risks : "");
+                                resp.set("finalPlan", action.finalPlan != null ? action.finalPlan
+                                    : new com.fasterxml.jackson.databind.ObjectMapper().createArrayNode());
+                                resp.put("subRounds", action.subRounds.size());
+                                response = resp.toString();
                             } catch (Exception e) {
-                                response = "{\"error\":\"" + e.getMessage() + "\"}";
+                                response = "{\"error\":\"" + e.getMessage().replace("\"","'") + "\"}";
                             }
+                        }
+                    } else if (parts.length == 2 && "feedback".equals(parts[1]) && "POST".equals(exchange.getRequestMethod())) {
+                        String q = exchange.getRequestURI().getQuery();
+                        String treeId = getQueryStringParam(q, "tree", null);
+                        String nodeId = getQueryStringParam(q, "node", null);
+                        String body = new String(exchange.getRequestBody().readAllBytes());
+                        if (treeId == null || nodeId == null)
+                            response = "{\"error\":\"tree and node params required\"}";
+                        else {
+                            agentManager.submitFeedback(side, treeId, nodeId, body);
+                            response = "{\"ok\":true}";
+                        }
+                    } else if (parts.length == 2 && "guidance".equals(parts[1])) {
+                        String q = exchange.getRequestURI().getQuery();
+                        String treeId = getQueryStringParam(q, "tree", null);
+                        String nodeId = getQueryStringParam(q, "node", null);
+                        if (treeId == null || nodeId == null)
+                            response = "{\"error\":\"tree and node params required\"}";
+                        else if ("POST".equals(exchange.getRequestMethod())) {
+                            String body = new String(exchange.getRequestBody().readAllBytes());
+                            agentManager.setGuidance(side, treeId, nodeId, body);
+                            response = "{\"ok\":true}";
                         } else {
-                            String cached = commanderManager.loadCache(side, round);
-                            response = cached != null ? cached : "null";
+                            var tree = branchManager.getTree(treeId);
+                            if (tree == null) response = "null";
+                            else {
+                                var node = tree.findNode(nodeId);
+                                if (node == null) response = "null";
+                                else {
+                                    var action = node.getCommanderAction(side);
+                                    response = action != null ? "\"" + esc(action.guidance) + "\"" : "null";
+                                }
+                            }
                         }
                     } else {
                         response = "{\"error\":\"Unknown commander endpoint\"}";
@@ -400,6 +459,32 @@ public class MapDemo {
                         boolean ok = branchManager.applyNode(treeId, nodeId);
                         response = ok ? "{\"ok\":true,\"applied\":\"" + esc(nodeId) + "\"}"
                                       : "{\"error\":\"node not found\"}";
+                    } else if ("nodes".equals(parts[1]) && parts.length >= 4 && "action".equals(parts[3])) {
+                        // /api/branches/{treeId}/nodes/{nodeId}/action/{side}
+                        String actionNodeId = parts[2];
+                        String actionSide = parts[4];
+                        if ("POST".equals(exchange.getRequestMethod())) {
+                            String body = new String(exchange.getRequestBody().readAllBytes());
+                            try {
+                                var n = new com.fasterxml.jackson.databind.ObjectMapper().readTree(body);
+                                var action = new com.getgoat.map.branch.CommanderAction();
+                                action.side = actionSide;
+                                action.source = n.has("source") ? n.get("source").asText() : "manual";
+                                action.guidance = n.has("guidance") ? n.get("guidance").asText() : "";
+                                action.rationale = n.has("rationale") ? n.get("rationale").asText() : "";
+                                action.feedback = n.has("feedback") ? n.get("feedback").asText() : "";
+                                action.deployment = n.has("deployment") ? n.get("deployment").toString() : "";
+                                action.finalPlan = n.has("finalPlan") ? n.get("finalPlan") : null;
+                                action.timestamp = System.currentTimeMillis();
+                                branchManager.saveCommanderAction(treeId, actionNodeId, action);
+                                response = "{\"ok\":true}";
+                            } catch (Exception e) {
+                                response = "{\"error\":\"" + e.getMessage() + "\"}";
+                            }
+                        } else {
+                            var action = branchManager.getCommanderAction(treeId, actionNodeId, actionSide);
+                            response = action != null ? "{\"found\":true}" : "null";
+                        }
                     } else if ("nodes".equals(parts[1]) && parts.length == 2 && "POST".equals(exchange.getRequestMethod())) {
                         String body = new String(exchange.getRequestBody().readAllBytes());
                         response = handleBranchAddRound(treeId, body);
@@ -415,6 +500,9 @@ public class MapDemo {
                             response = "{\"updated\":" + branchManager.updateNode(treeId, nodeId, newName, newStrategy, newOutcome) + "}";
                         } else
                             response = branchManager.exportNodeJson(treeId, nodeId);
+                    } else if (parts.length == 2 && "reload".equals(parts[1])
+                            && "POST".equals(exchange.getRequestMethod())) {
+                        response = branchManager.reloadWorkspace();
                     } else {
                         response = "{\"error\":\"Unknown branch endpoint: " + path + "\"}";
                     }
@@ -978,6 +1066,29 @@ public class MapDemo {
         }
     }
 
+    private static String handleUnitPatch(String code, String body) {
+        try {
+            var unit = unitsManager.get(code);
+            if (unit == null) return "{\"error\":\"unit not found: " + esc(code) + "\"}";
+            var n = new com.fasterxml.jackson.databind.ObjectMapper().readTree(body);
+            if (n.has("name")) unit.setName(n.get("name").asText());
+            if (n.has("type")) unit.setType(n.get("type").asText());
+            if (n.has("status")) unit.setStatus(n.get("status").asText());
+            if (n.has("source")) unit.setSource(n.get("source").asText());
+            if (n.has("color")) unit.setColor(n.get("color").asText());
+            if (n.has("icon")) unit.setIcon(n.get("icon").asText());
+            if (n.has("description")) unit.setDescription(n.get("description").asText());
+            if (n.has("visibleTo") && n.get("visibleTo").isArray()) {
+                var v = new java.util.LinkedHashSet<String>();
+                for (var item : n.get("visibleTo")) v.add(item.asText());
+                unit.setVisibleTo(v);
+            }
+            return unitsManager.exportOneJson(code);
+        } catch (Exception e) {
+            return "{\"error\":\"" + e.getMessage() + "\"}";
+        }
+    }
+
     private static String handleUnitCreate(String body) {
         try {
             var n = new com.fasterxml.jackson.databind.ObjectMapper().readTree(body);
@@ -1067,7 +1178,24 @@ public class MapDemo {
 
     private static String esc(String s) {
         if (s == null) return "";
-        return s.replace("\\","\\\\").replace("\"","\\\"");
+        StringBuilder sb = new StringBuilder(s.length());
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            switch (c) {
+                case '"'  -> sb.append("\\\"");
+                case '\\' -> sb.append("\\\\");
+                case '\n' -> sb.append("\\n");
+                case '\r' -> sb.append("\\r");
+                case '\t' -> sb.append("\\t");
+                case '\b' -> sb.append("\\b");
+                case '\f' -> sb.append("\\f");
+                default -> {
+                    if (c < 0x20) sb.append(String.format("\\u%04x", (int) c));
+                    else sb.append(c);
+                }
+            }
+        }
+        return sb.toString();
     }
 
     private static String handleDistanceQuery(String query) {
@@ -1102,6 +1230,107 @@ public class MapDemo {
                 .reduce((a, b) -> a + "," + b)
                 .orElse("")
         );
+    }
+
+    private static void handleTerrainImage(HttpExchange exchange) throws IOException {
+        String q = exchange.getRequestURI().getQuery();
+        double lat = getQueryParam(q, "lat", Double.NaN);
+        double lng = getQueryParam(q, "lng", Double.NaN);
+        double r = getQueryParam(q, "r", 100);
+        int imgSize = (int) getQueryParam(q, "size", 512);
+        if (Double.isNaN(lat) || Double.isNaN(lng)) {
+            String err = "{\"error\":\"lat and lng required\"}";
+            exchange.getResponseHeaders().set("Content-Type", "application/json");
+            exchange.sendResponseHeaders(400, err.length());
+            try (OutputStream os = exchange.getResponseBody()) { os.write(err.getBytes()); }
+            return;
+        }
+
+        double degRadius = r / 111.32;
+        double south = lat - degRadius;
+        double north = lat + degRadius;
+        double west = lng - degRadius;
+        double east = lng + degRadius;
+
+        BufferedImage img = new BufferedImage(imgSize, imgSize, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = img.createGraphics();
+
+        // Background: transparent
+        g.setColor(new Color(0, 0, 0, 0));
+        g.fillRect(0, 0, imgSize, imgSize);
+
+        com.getgoat.map.model.TerrainGrid grid = mapManager.getTerrainGrid();
+        if (grid != null) {
+            double cellSize = grid.getCellSizeDegrees();
+            int startRow = grid.latToRow(north);   // north = smaller row
+            int endRow = grid.latToRow(south);     // south = larger row
+            int startCol = grid.lngToCol(west);
+            int endCol = grid.lngToCol(east);
+
+            // Handle dateline wrap
+            if (endCol < startCol) { int tmp = startCol; startCol = endCol; endCol = tmp; }
+
+            double latSpan = north - south;
+            double lngSpan = east - west;
+
+            for (int row = startRow; row <= endRow; row++) {
+                double cellCenterLat = grid.rowToLat(row);
+                double cellSouth = cellCenterLat - cellSize / 2.0;
+                double cellNorth = cellCenterLat + cellSize / 2.0;
+
+                for (int col = startCol; col <= endCol; col++) {
+                    double cellCenterLng = grid.colToLng(col);
+                    double cellWest = cellCenterLng - cellSize / 2.0;
+                    double cellEast = cellCenterLng + cellSize / 2.0;
+
+                    // Check if cell center is within radius
+                    double dist = com.getgoat.map.geometry.SphericalEngine
+                        .haversineDistance(lat, lng, cellCenterLat, cellCenterLng);
+                    if (dist > r) continue;
+
+                    // Map cell coords to image pixel coords
+                    int px = (int) ((cellWest - west) / lngSpan * imgSize);
+                    int py = (int) ((north - cellNorth) / latSpan * imgSize);
+                    int pw = (int) Math.max(1, (cellEast - cellWest) / lngSpan * imgSize);
+                    int ph = (int) Math.max(1, (cellNorth - cellSouth) / latSpan * imgSize);
+
+                    // Get color
+                    com.getgoat.map.model.TerrainCell cell = grid.getCell(row, col);
+                    String hex = cell != null ? cell.getColorHex() : "#1a5276";
+                    g.setColor(Color.decode(hex));
+                    g.fillRect(Math.max(0, px), Math.max(0, py),
+                        Math.min(imgSize - px, pw), Math.min(imgSize - py, ph));
+                }
+            }
+        }
+
+        // Circular mask: make pixels outside the radius circle transparent
+        int cx = imgSize / 2, cy = imgSize / 2;
+        double pixelsPerDeg = imgSize / (2.0 * degRadius);
+        int radiusPx = (int) (r / 111.32 * pixelsPerDeg);
+        for (int x = 0; x < imgSize; x++) {
+            for (int y = 0; y < imgSize; y++) {
+                int dx = x - cx, dy = y - cy;
+                if (dx * dx + dy * dy > radiusPx * radiusPx) {
+                    int alpha = img.getRGB(x, y) & 0xFF000000;
+                    img.setRGB(x, y, alpha); // keep alpha, clear RGB
+                }
+            }
+        }
+
+        g.dispose();
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ImageIO.write(img, "PNG", bos);
+        byte[] bytes = bos.toByteArray();
+
+        exchange.getResponseHeaders().set("Content-Type", "image/png");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+        exchange.getResponseHeaders().set("Cache-Control", "public, max-age=30");
+        exchange.sendResponseHeaders(200, bytes.length);
+        try (OutputStream os = exchange.getResponseBody()) {
+            os.write(bytes);
+        }
     }
 
     private static void handleTools(HttpExchange exchange) throws IOException {

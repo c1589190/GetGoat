@@ -383,9 +383,9 @@ html, body {
 .hsv-collapsed { opacity: 0.75; }
 .hsv-collapsed:hover { opacity: 1; }
 
-/* ---- Relief Config Panel (bottom-left) ---- */
+/* ---- Display Mode Panel (bottom-left) ---- */
 
-#relief-panel {
+#mode-panel {
     position: absolute;
     bottom: 10px;
     left: 10px;
@@ -395,51 +395,62 @@ html, body {
     z-index: 999;
     font-size: 11px;
     font-family: monospace;
-    min-width: 170px;
+    min-width: 150px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.6);
 }
 
-#relief-header {
-    display: flex; align-items: center; gap: 6px;
+#mode-header {
+    display: flex; align-items: center;
     padding: 5px 8px;
     border-bottom: 1px solid rgba(255,255,255,0.15);
     font-weight: bold; font-size: 11px;
 }
-#relief-header span { flex: 1; }
-#relief-toggle {
-    background: none; border: 1px solid rgba(255,255,255,0.2);
-    color: #ccc; cursor: pointer; font-size: 14px;
-    width: 22px; height: 22px; text-align: center; line-height: 18px;
-    border-radius: 3px; padding: 0;
-}
-#relief-apply {
-    background: #FF5722; color: #fff; border: none;
-    padding: 2px 8px; border-radius: 3px; cursor: pointer;
-    font-size: 10px; font-weight: bold;
-}
-#relief-apply:disabled { opacity: 0.5; cursor: default; }
 
-#relief-body { padding: 4px 8px; }
-.relief-row {
+#mode-body { padding: 6px 8px; }
+
+.mode-row {
     display: flex; align-items: center; gap: 4px; margin: 3px 0;
     font-size: 10px; color: #aaa;
 }
-.relief-row input {
-    width: 55px; font-size: 10px; background: #333; color: #fff;
-    border: 1px solid #555; border-radius: 3px; padding: 2px 4px; text-align: right;
-}
-.relief-row input:focus { border-color: #FF5722; outline: none; }
 
-#relief-legend {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 1px 4px;
-    margin-top: 6px; padding-top: 5px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    font-size: 9px; color: #aaa;
+.mode-btn {
+    flex: 1;
+    background: #333;
+    color: #aaa;
+    border: 1px solid #555;
+    border-radius: 3px;
+    padding: 3px 8px;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: bold;
+    transition: background 0.2s, color 0.2s;
 }
-#relief-legend div span { font-size: 12px; margin-right: 2px; }
-#relief-status {
-    padding: 3px 8px; font-size: 9px; color: #0f0;
-    border-top: 1px solid rgba(255,255,255,0.1);
+
+.mode-btn.active {
+    background: #FF5722;
+    color: #fff;
+    border-color: #FF5722;
+}
+
+.mode-btn:hover:not(.active) {
+    background: #444;
+    color: #ccc;
+}
+
+#mode-radius-row { margin-top: 6px; }
+#mode-radius-row span:first-child { min-width: 28px; }
+#mode-radius-row input[type=range] {
+    flex: 1; height: 4px;
+    -webkit-appearance: none; appearance: none;
+    background: #444; border-radius: 2px; outline: none;
+}
+#mode-radius-row input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #FF5722; cursor: pointer;
+}
+#mode-radius-val {
+    min-width: 32px; text-align: right; color: #FF5722; font-weight: bold;
 }
 
 /* ---- Units Panel ---- */
@@ -465,3 +476,67 @@ html, body {
 }
 #unit-create-form input:focus,
 #unit-create-form select:focus { border-color: #2196F3; outline: none; }
+
+/* ---- Unit Detail Edit Panel ---- */
+
+.ud-field {
+    display: flex; align-items: center; gap: 6px;
+    margin: 4px 0; font-size: 10px;
+}
+.ud-field label {
+    min-width: 32px; color: #999; font-size: 9px; text-align: right;
+}
+.ud-field select {
+    flex: 1; background: #333; color: #ccc; border: 1px solid #555;
+    border-radius: 3px; padding: 2px 4px; font-size: 9px;
+}
+.ud-field select:focus { border-color: #FF5722; outline: none; }
+
+/* ---- Unit List Cards ---- */
+
+.unit-card {
+    cursor: pointer; padding: 3px 4px; margin: 1px 0;
+    display: flex; align-items: center; gap: 4px;
+    font-size: 10px; border-radius: 2px;
+    transition: background 0.15s;
+}
+.unit-card:hover { background: rgba(255,255,255,0.08); }
+.unit-card .uc-icon { font-size: 12px; width: 16px; text-align: center; flex-shrink: 0; }
+.unit-card .uc-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.unit-card .uc-badges { display: flex; gap: 2px; flex-shrink: 0; font-size: 7px; }
+.unit-card .uc-badge {
+    padding: 0 3px; border-radius: 2px; color: #fff; font-weight: bold;
+    white-space: nowrap;
+}
+.unit-card .uc-badge.src { background: #555; }
+.unit-card .uc-badge.status-active { background: #27ae60; }
+.unit-card .uc-badge.status-idle { background: #7f8c8d; }
+.unit-card .uc-badge.status-moving { background: #f39c12; }
+.unit-card .uc-badge.status-engaged { background: #e74c3c; }
+
+/* ---- Map Unit Marker (divIcon) ---- */
+
+.unit-marker {
+    background: transparent !important;
+    border: none !important;
+}
+.unit-marker span {
+    pointer-events: none;  /* clicks pass through to Leaflet marker */
+}
+.unit-marker:hover span { transform: scale(1.3); }
+.unit-marker span { transition: transform 0.15s; }
+
+/* ---- Visibility Tags ---- */
+
+.vis-tag {
+    display: inline-block; padding: 1px 5px; border-radius: 3px;
+    background: rgba(255,255,255,0.12); color: #ccc;
+    font-size: 8px; cursor: pointer; transition: background 0.15s;
+    border: 1px solid rgba(255,255,255,0.15);
+}
+.vis-tag:hover { background: rgba(231,76,60,0.4); color: #fff; }
+.vis-tag.vis-add {
+    background: transparent; border: 1px dashed #555;
+    color: #888; font-weight: bold; font-size: 10px; padding: 0 4px;
+}
+.vis-tag.vis-add:hover { border-color: #4CAF50; color: #4CAF50; background: transparent; }

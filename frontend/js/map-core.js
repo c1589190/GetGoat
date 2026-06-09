@@ -23,15 +23,7 @@ rs.addEventListener('input',function(){currentRadius=parseInt(this.value);rl.tex
     selectCircle=drawCircle(ll.lat,ll.lng,currentRadius*1000);loadData(ll.lat,ll.lng,currentRadius);}});
 rdv.appendChild(rl);rdv.appendChild(rs);dt.parentNode.insertBefore(rdv,dt);
 
-map.on('click',function(e){if(e.originalEvent.shiftKey)return;
-    // Clear all overlays on map click
-    if(combatRadiusCircle){combatRadiusLayer.removeLayer(combatRadiusCircle);combatRadiusCircle=null;}
-    terrainCellLayer.clearLayers();
-    clearLayers();
-    selectedUnit=null;
-    document.getElementById('unit-detail').style.display='none';
-    if(typeof clearMovePaths==='function') clearMovePaths();
-});
+// Old map click handler removed — unified handler at bottom
 
 async function loadData(lat,lng,r){
     var p=document.getElementById('info-panel');p.classList.remove('hidden');
@@ -94,6 +86,27 @@ var combatRadiusCircle=null;
 var unitMarkers={}, selectedUnit=null, lastClickLat=0, lastClickLng=0;
 var currentMovesData=[];  // cached movement data for current branch node
 
+// ---- Unit icon system ----
+var UNIT_ICONS = {
+    infantry: '⚔', naval: '⚓', air: '✈', civilian: '🏘', supply: '📦', generic: '●'
+};
+var UNIT_LABELS = {
+    infantry: '步兵', naval: '海军', air: '空军', civilian: '民事', supply: '后勤', generic: '通用'
+};
+function unitIcon(type) { return UNIT_ICONS[type] || UNIT_ICONS.generic; }
+function unitLabel(type) { return UNIT_LABELS[type] || type; }
+
+function makeUnitMarker(u) {
+    var icon = u.icon || unitIcon(u.type);
+    var bg = u.color || '#888';
+    return L.divIcon({
+        className: 'unit-marker',
+        html: '<span style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;background:'+bg+';border-radius:5px;border:1.5px solid rgba(255,255,255,0.9);font-size:13px;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.5);box-shadow:0 1px 4px rgba(0,0,0,0.5)">'+icon+'</span>',
+        iconSize: [28, 28],
+        iconAnchor: [14, 14]
+    });
+}
+
 function loadUnits(filterSource){
     var url='/api/map/units'+(filterSource?'?source='+encodeURIComponent(filterSource):'');
     fetch(url).then(function(r){return r.json();}).then(function(units){
@@ -104,13 +117,19 @@ function loadUnits(filterSource){
         if(cnt) cnt.textContent='('+units.length+')';
         if(units.length===0){list.innerHTML='<span style="color:#888">No units</span>';return;}
         for(var i=0;i<units.length;i++){(function(u){
-            var mk=L.circleMarker([u.lat,u.lng],{radius:5,fillColor:u.color,color:'#fff',weight:1,fillOpacity:0.85})
+            var mk=L.marker([u.lat,u.lng],{icon:makeUnitMarker(u)})
                 .bindTooltip(u.name,{direction:'top'}).addTo(unitLayer);
             mk.on('click',function(e){L.DomEvent.stopPropagation(e);selectUnit(u);});
             unitMarkers[u.code]=mk;
+            // List card
             var item=document.createElement('div');
-            item.style.cssText='cursor:pointer;padding:2px 4px;margin:1px 0;border-left:3px solid '+u.color+';font-size:10px';
-            item.textContent=u.name;
+            item.className='unit-card';
+            item.style.borderLeft='3px solid '+(u.color||'#888');
+            item.innerHTML='<span class="uc-icon">'+unitIcon(u.type)+'</span>' +
+                '<span class="uc-name">'+u.name+'</span>' +
+                '<span class="uc-badges">' +
+                '<span class="uc-badge src">'+u.source+'</span>' +
+                '<span class="uc-badge status-'+u.status+'">'+u.status+'</span></span>';
             item.onclick=function(e){selectUnit(u);map.setView([u.lat,u.lng],6);};
             list.appendChild(item);
         })(units[i]);}
@@ -128,21 +147,82 @@ function loadSources(){
 function selectUnit(u){
     selectedUnit=u;
 
-    // Build unit detail with branch context
+    // Fill editable detail panel
     var detailEl = document.getElementById('unit-detail');
     detailEl.style.display='block';
-    document.getElementById('ud-name').textContent=u.name||'?';
-    document.getElementById('ud-code').textContent=u.code||'?';
-    document.getElementById('ud-desc').textContent=u.description||'';
-    document.getElementById('ud-source').textContent='Source: '+(u.source||'?')+' | Type: '+(u.type||'?')+' | Status: '+(u.status||'active');
-    document.getElementById('ud-lat').textContent='Lat: '+(u.lat||0).toFixed(4)+' Lng: '+(u.lng||0).toFixed(4);
-    // Show branch context if available
-    var bc = document.getElementById('branch-context');
-    if (bc && bc.style.display !== 'none') {
-        document.getElementById('ud-type').textContent = '📍 Current branch: ' + bc.textContent.replace('📍 ','');
-    } else {
-        document.getElementById('ud-type').textContent = '';
-    }
+    var iconEl = document.getElementById('ud-icon');
+    iconEl.textContent = u.icon || unitIcon(u.type);
+    iconEl.style.background = (u.color||'#888')+'33';
+    // Icon picker
+    var pickerEl = document.getElementById('ud-icon-picker');
+    pickerEl.innerHTML = '';
+    pickerEl.style.display = 'none';
+    iconEl.onclick = function(){
+        if(pickerEl.style.display==='flex'){pickerEl.style.display='none';return;}
+        pickerEl.style.display='flex';
+        var allIcons = ['⚔','⚓','✈','🏘','📦','●','⬟','▲','★','♦','⚑','♜','🛡','🎯','💣','🔰','⚡','🔥','💀','👁'];
+        allIcons.forEach(function(ic){
+            var opt = document.createElement('span');
+            opt.textContent = ic;
+            opt.style.cssText = 'font-size:16px;width:24px;height:24px;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:3px;background:rgba(255,255,255,0.08)';
+            opt.onmouseenter=function(){opt.style.background='rgba(255,255,255,0.2)';};
+            opt.onmouseleave=function(){opt.style.background='rgba(255,255,255,0.08)';};
+            opt.onclick=function(e){e.stopPropagation();
+                u.icon = ic; iconEl.textContent = ic;
+                pickerEl.style.display = 'none';
+            };
+            pickerEl.appendChild(opt);
+        });
+    };
+    document.getElementById('ud-name-inp').value = u.name||'';
+    document.getElementById('ud-code').textContent = '代号: '+(u.code||'?');
+    document.getElementById('ud-type-sel').value = u.type||'generic';
+    document.getElementById('ud-status-sel').value = u.status||'active';
+    document.getElementById('ud-color-inp').value = u.color||'#888';
+    document.getElementById('ud-color-hex').textContent = u.color||'#888';
+    document.getElementById('ud-desc-inp').value = u.description||'';
+    document.getElementById('ud-coords').textContent = 'Lat: '+(u.lat||0).toFixed(4)+'  Lng: '+(u.lng||0).toFixed(4);
+
+    // Visibility tags
+    var visEl = document.getElementById('ud-visibility');
+    visEl.innerHTML = '';
+    var visSet = u.visibleTo || [u.source||'custom'];
+    visSet.forEach(function(src){
+        var tag = document.createElement('span');
+        tag.className = 'vis-tag';
+        tag.textContent = src;
+        tag.title = '点击移除此阵营的视野';
+        tag.onclick = function(){
+            var newVis = (u.visibleTo||[u.source]).filter(function(s){return s!==src;});
+            if(newVis.length===0) newVis=[u.source]; // must keep at least own source
+            u.visibleTo = newVis;
+            selectUnit(u); // re-render
+        };
+        visEl.appendChild(tag);
+    });
+    // Add button
+    var addBtn = document.createElement('span');
+    addBtn.className = 'vis-tag vis-add';
+    addBtn.textContent = '+';
+    addBtn.title = '添加阵营视野';
+    addBtn.onclick = function(){
+        var newSrc = prompt('输入阵营名称 (如 japanese, nationalist):');
+        if(!newSrc) return;
+        var vis = u.visibleTo || [u.source||'custom'];
+        if(vis.indexOf(newSrc)<0){ vis.push(newSrc); u.visibleTo = vis; }
+        selectUnit(u);
+    };
+    visEl.appendChild(addBtn);
+
+    // Populate source dropdown
+    var srcSel = document.getElementById('ud-source-sel');
+    fetch('/api/map/units/sources').then(function(r){return r.json();}).then(function(d){
+        srcSel.innerHTML = '';
+        (d.sources||[]).forEach(function(s){
+            srcSel.innerHTML += '<option value="'+s+'">'+s+'</option>';
+        });
+        srcSel.value = u.source||'custom';
+    }).catch(function(){});
 
     // Big combat radius + terrain cells
     combatRadiusLayer.clearLayers(); combatRadiusCircle = null;
@@ -167,6 +247,45 @@ function selectUnit(u){
     refreshMoveHighlights();
     showUnitPath();
 }
+
+// ---- Save unit edits ----
+function saveUnitEdits() {
+    if (!selectedUnit) return;
+    var code = selectedUnit.code;
+    var body = JSON.stringify({
+        name: document.getElementById('ud-name-inp').value.trim() || selectedUnit.name,
+        type: document.getElementById('ud-type-sel').value,
+        status: document.getElementById('ud-status-sel').value,
+        source: document.getElementById('ud-source-sel').value,
+        icon: selectedUnit.icon || null,
+        color: document.getElementById('ud-color-inp').value,
+        description: document.getElementById('ud-desc-inp').value,
+        visibleTo: selectedUnit.visibleTo || [selectedUnit.source]
+    });
+    var btn = document.getElementById('unit-save-btn');
+    btn.textContent = '...'; btn.disabled = true;
+    fetch('/api/map/units/'+encodeURIComponent(code), {method:'PATCH', body: body})
+        .then(function(r){return r.json();}).then(function(d){
+            if(d.error){alert(d.error);btn.textContent='保存修改';btn.disabled=false;return;}
+            // Reload to reflect changes
+            loadUnits(document.getElementById('unit-source-filter').value);
+            // Re-select the unit after reload
+            setTimeout(function(){
+                selectedUnit = null;
+                document.getElementById('unit-detail').style.display = 'none';
+                btn.textContent = '保存修改'; btn.disabled = false;
+            }, 200);
+        }).catch(function(e){
+            alert('Save error: '+e);
+            btn.textContent = '保存修改'; btn.disabled = false;
+        });
+}
+window.saveUnitEdits = saveUnitEdits;
+
+document.getElementById('unit-save-btn').addEventListener('click', saveUnitEdits);
+document.getElementById('ud-color-inp').addEventListener('input', function(){
+    document.getElementById('ud-color-hex').textContent = this.value;
+});
 
 function deleteSelectedUnit(){
     if(!selectedUnit) return;
@@ -365,35 +484,126 @@ document.getElementById('uc-submit').onclick=function(){
         });
 };
 document.getElementById('unit-source-filter').onchange=function(){loadUnits(this.value);};
-map.on('click',function(e){lastClickLat=e.latlng.lat;lastClickLng=e.latlng.lng;});
 
-// Auto-create demo units on first load
-function ensureDemoUnits(){
-    var needed=[{code:'BJ-GARRISON',name:'Beijing Garrison',source:'base',type:'infantry',lat:39.9,lng:116.4},
-                {code:'SH-FLEET',name:'Shanghai Fleet',source:'base',type:'naval',lat:31.2,lng:121.5}];
-    fetch('/api/map/units').then(function(r){return r.json();}).then(function(existing){
-        var codes=(existing||[]).map(function(u){return u.code;});
-        var missing=needed.filter(function(n){return codes.indexOf(n.code)<0;});
-        function createNext(){
-            if(missing.length===0){loadUnits();loadSources();setTimeout(showUnitPath,1000);return;}
-            var m=missing.shift();
-            fetch('/api/map/units',{method:'POST',body:JSON.stringify(m)})
-                .then(function(r){return r.json();}).then(function(){createNext();});
-        }
-        createNext();
-    }).catch(function(){loadUnits();loadSources();});
-}
-document.getElementById('pt-refresh').onclick=showUnitPath;
-setTimeout(ensureDemoUnits,4000);
+// Demo units removed — units load from workspace or are created manually
 
-// Export for branch-tree.js
+// Export for branch-tree.js and global access
 window.loadUnits = loadUnits;
 window.loadSources = loadSources;
 window.showUnitPath = showUnitPath;
 window.renderMovePaths = renderMovePaths;
 window.clearMovePaths = clearMovePaths;
 window.refreshMoveHighlights = refreshMoveHighlights;
+window.deleteSelectedUnit = deleteSelectedUnit;
 window.currentTreeId = null;
 window.combatRadiusLayer = combatRadiusLayer;
 window.combatRadiusCircle = combatRadiusCircle;
+
+// ---- Display Mode ----
+var currentMode = 'units'; // 'units' | 'terrain'
+var terrainProbeCircle = null;
+var terrainImageOverlay = null;
+
+function setMode(mode) {
+    currentMode = mode;
+    document.getElementById('mode-units').classList.toggle('active', mode === 'units');
+    document.getElementById('mode-terrain').classList.toggle('active', mode === 'terrain');
+    document.getElementById('mode-radius-row').style.display = mode === 'terrain' ? 'flex' : 'none';
+
+    // Toggle unit marker interactivity
+    for (var k in unitMarkers) {
+        var mk = unitMarkers[k];
+        if (mode === 'terrain') {
+            mk.setOpacity(0.4);
+            mk.unbindTooltip();
+            mk.off('click');
+        } else {
+            mk.setOpacity(1);
+        }
+    }
+
+    // Clear terrain probe when switching to unit mode
+    if (mode === 'units') {
+        if (terrainProbeCircle) { map.removeLayer(terrainProbeCircle); terrainProbeCircle = null; }
+        if (terrainImageOverlay) { map.removeLayer(terrainImageOverlay); terrainImageOverlay = null; }
+        terrainCellLayer.clearLayers();
+        riverLayer.clearLayers();
+        roadLayer.clearLayers();
+        cityMarkerLayer.clearLayers();
+    } else {
+        // Deselect unit when switching to terrain mode
+        selectedUnit = null;
+        document.getElementById('unit-detail').style.display = 'none';
+        if (combatRadiusCircle) { combatRadiusLayer.removeLayer(combatRadiusCircle); combatRadiusCircle = null; }
+    }
+}
+
+document.getElementById('mode-units').onclick = function() { setMode('units'); };
+document.getElementById('mode-terrain').onclick = function() { setMode('terrain'); };
+
+document.getElementById('unit-delete-btn').addEventListener('click', function() {
+    deleteSelectedUnit();
+});
+
+// Mode-aware terrain probe: server-rendered PNG image overlay
+function probeTerrain(lat, lng) {
+    var r = parseInt(document.getElementById('mode-radius').value) || 100;
+    // Draw border circle
+    if (terrainProbeCircle) map.removeLayer(terrainProbeCircle);
+    terrainProbeCircle = drawCircle(lat, lng, r * 1000);
+
+    // Load text info (profile, cities, roads, rivers) via existing API
+    loadData(lat, lng, r);
+
+    // Replace GeoJSON terrain cells with server-rendered image
+    // Clear old GeoJSON layer, add image overlay
+    terrainCellLayer.clearLayers();
+    if (terrainImageOverlay) map.removeLayer(terrainImageOverlay);
+    var deg = r / 111.32;
+    var bounds = [[lat - deg, lng - deg], [lat + deg, lng + deg]];
+    terrainImageOverlay = L.imageOverlay(
+        '/api/map/terrain-image?lat=' + lat.toFixed(4) + '&lng=' + lng.toFixed(4) + '&r=' + r + '&size=512',
+        bounds, {opacity: 0.65, className: 'terrain-probe-img'}
+    ).addTo(map);
+}
+
+// ---- Unified map click handler ----
+map.on('click', function(e) {
+    lastClickLat = e.latlng.lat;
+    lastClickLng = e.latlng.lng;
+
+    if (e.originalEvent.shiftKey) return; // distance tool handles shift-clicks separately
+
+    if (currentMode === 'terrain') {
+        // Terrain mode: probe terrain at click point
+        selectedUnit = null;
+        document.getElementById('unit-detail').style.display = 'none';
+        if (combatRadiusCircle) { combatRadiusLayer.removeLayer(combatRadiusCircle); combatRadiusCircle = null; }
+        probeTerrain(e.latlng.lat, e.latlng.lng);
+    } else {
+        // Unit mode: deselect unit, clear combat radius
+        if (combatRadiusCircle) { combatRadiusLayer.removeLayer(combatRadiusCircle); combatRadiusCircle = null; }
+        terrainCellLayer.clearLayers();
+        clearLayers();
+        selectedUnit = null;
+        document.getElementById('unit-detail').style.display = 'none';
+        if (typeof clearMovePaths === 'function') clearMovePaths();
+    }
+});
+
+// Terrain mode radius slider
+document.getElementById('mode-radius').addEventListener('input', function() {
+    var r = parseInt(this.value) || 100;
+    document.getElementById('mode-radius-val').textContent = r + 'km';
+    // Re-probe at last click position if we have a probe circle
+    if (currentMode === 'terrain' && terrainProbeCircle) {
+        probeTerrain(lastClickLat || 0, lastClickLng || 0);
+    }
+});
+
+// Load units and sources on start (no demo units)
+setTimeout(function() {
+    loadUnits();
+    loadSources();
+}, 1000);
 })();

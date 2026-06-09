@@ -455,8 +455,61 @@ public class BranchManager {
         }
     }
 
+    // ---- Commander Actions ----
+
+    /** Save a commander action to a specific node. */
+    public synchronized void saveCommanderAction(String treeId, String nodeId, CommanderAction action) {
+        BranchTree tree = trees.get(treeId);
+        if (tree == null) throw new IllegalArgumentException("Tree not found: " + treeId);
+        BranchNode node = tree.findNode(nodeId);
+        if (node == null) throw new IllegalArgumentException("Node not found: " + nodeId);
+        node.putCommanderAction(action.side, action);
+        saveToDisk();
+        LOG.info("Saved commander action for " + action.side + " → node " + nodeId);
+    }
+
+    /** Get commander action for a side at a node. */
+    public CommanderAction getCommanderAction(String treeId, String nodeId, String side) {
+        BranchTree tree = trees.get(treeId);
+        if (tree == null) return null;
+        BranchNode node = tree.findNode(nodeId);
+        return node != null ? node.getCommanderAction(side) : null;
+    }
+
+    /** Get all commander actions for a node. */
+    public Map<String, List<CommanderAction>> getCommanderActions(String treeId, String nodeId) {
+        BranchTree tree = trees.get(treeId);
+        if (tree == null) return Collections.emptyMap();
+        BranchNode node = tree.findNode(nodeId);
+        return node != null ? node.getCommanderActions() : Collections.emptyMap();
+    }
+
+    /** Create a new round node AND save commander action in one call. */
+    public synchronized BranchNode addRoundWithAction(String treeId, String parentNodeId,
+                                                       String name, int round, String strategy,
+                                                       String outcome, CommanderAction action) {
+        BranchNode node = addRound(treeId, parentNodeId, name, round, strategy, outcome);
+        if (node != null && action != null) {
+            node.putCommanderAction(action.side, action);
+            saveToDisk();
+        }
+        return node;
+    }
+
     private static String esc(String s) {
         if (s == null) return "";
-        return s.replace("\\","\\\\").replace("\"","\\\"");
+        StringBuilder sb = new StringBuilder(s.length());
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            switch (c) {
+                case '"' -> sb.append("\\\"");
+                case '\\' -> sb.append("\\\\");
+                case '\n' -> sb.append("\\n");
+                case '\r' -> sb.append("\\r");
+                case '\t' -> sb.append("\\t");
+                default -> { if (c < 0x20) sb.append(String.format("\\u%04x", (int) c)); else sb.append(c); }
+            }
+        }
+        return sb.toString();
     }
 }

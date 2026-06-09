@@ -1,0 +1,2325 @@
+[ {
+  "id" : "0dbdc119",
+  "name" : "淞沪会战推演",
+  "createdAt" : 1780930401930,
+  "root" : {
+    "id" : "9661690d",
+    "name" : "淞沪会战推演 — 初始部署",
+    "description" : "Initial deployment",
+    "round" : 0,
+    "strategy" : "initial",
+    "parentId" : null,
+    "children" : [ {
+      "id" : "caccf4d7",
+      "name" : "R1: 国军围攻虹口 (8/13–22)",
+      "description" : "",
+      "round" : 1,
+      "strategy" : "historical",
+      "parentId" : "9661690d",
+      "children" : [ {
+        "id" : "8abe4eca",
+        "name" : "R2: 日军登陆+罗店阻击战 (8/23–9/11)",
+        "description" : "",
+        "round" : 2,
+        "strategy" : "historical",
+        "parentId" : "caccf4d7",
+        "children" : [ {
+          "id" : "b78bdd4e",
+          "name" : "R3: 大场失守+苏州河防线 (10/1–31)",
+          "description" : "",
+          "round" : 3,
+          "strategy" : "historical",
+          "parentId" : "8abe4eca",
+          "children" : [ ],
+          "unitSnapshots" : [ {
+            "code" : "NRA-051",
+            "name" : "51师 (王耀武部)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.2,
+            "lng" : 121.38,
+            "description" : "74th Corps. Jiading."
+          }, {
+            "code" : "NRA-098",
+            "name" : "98师 (夏楚中部)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.4,
+            "lng" : 121.51,
+            "description" : "Baoshan fortress."
+          }, {
+            "code" : "NRA-15AG",
+            "name" : "第十五集团军 (陈诚)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#9b59b6",
+            "lat" : 31.35,
+            "lng" : 121.08,
+            "description" : "HQ 15th Army Group"
+          }, {
+            "code" : "IJA-SNLF",
+            "name" : "SNLF",
+            "source" : "japanese",
+            "type" : "naval",
+            "status" : "active",
+            "color" : "#c0392b",
+            "lat" : 31.25,
+            "lng" : 121.49,
+            "description" : ""
+          }, {
+            "code" : "CPC-N4A",
+            "name" : "新四军第一支队 (陈毅)",
+            "source" : "cpc",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#f1c40f",
+            "lat" : 31.67,
+            "lng" : 118.5,
+            "description" : "New Fourth Army 1st Det."
+          }, {
+            "code" : "IJA-114",
+            "name" : "第114师团 (末松茂治)",
+            "source" : "japanese",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#e74c3c",
+            "lat" : 30.69,
+            "lng" : 121.34,
+            "description" : "Landed Jinshanwei."
+          }, {
+            "code" : "CPC-UG",
+            "name" : "上海地下党交通站",
+            "source" : "cpc",
+            "type" : "civilian",
+            "status" : "active",
+            "color" : "#f1c40f",
+            "lat" : 31.23,
+            "lng" : 121.47,
+            "description" : "CPC Shanghai Underground."
+          }, {
+            "code" : "IJA-013",
+            "name" : "第13师团 (荻洲立兵)",
+            "source" : "japanese",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#e74c3c",
+            "lat" : 31.5,
+            "lng" : 121.23,
+            "description" : "Landed Oct Liuhe."
+          }, {
+            "code" : "NRA-008",
+            "name" : "8师 (陶峙岳部)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.38,
+            "lng" : 121.25,
+            "description" : "Jiading-Nanxiang axis."
+          }, {
+            "code" : "IJA-011",
+            "name" : "第11师团 (山室宗武)",
+            "source" : "japanese",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#e74c3c",
+            "lat" : 31.47,
+            "lng" : 121.3,
+            "description" : "Landed Chuanshakou Aug 23."
+          }, {
+            "code" : "CPC-8RA",
+            "name" : "八路军总部 (朱德/彭德怀)",
+            "source" : "cpc",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#f1c40f",
+            "lat" : 36.56,
+            "lng" : 109.49,
+            "description" : "8th Route Army HQ Yan'an."
+          }, {
+            "code" : "NRA-088",
+            "name" : "88师",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.24,
+            "lng" : 121.47,
+            "description" : ""
+          }, {
+            "code" : "IJA-018",
+            "name" : "第18师团 (牛岛贞雄)",
+            "source" : "japanese",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#e74c3c",
+            "lat" : 30.72,
+            "lng" : 121.33,
+            "description" : "Landed Nov 5 Jinshanwei."
+          }, {
+            "code" : "NRA-001",
+            "name" : "1师 (李铁军部)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.25,
+            "lng" : 121.39,
+            "description" : "Dachang meat grinder."
+          }, {
+            "code" : "NRA-067",
+            "name" : "67师 (黄维部)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.37,
+            "lng" : 121.37,
+            "description" : "18th Army. Luodian."
+          }, {
+            "code" : "NRA-087",
+            "name" : "87师",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.29,
+            "lng" : 121.49,
+            "description" : ""
+          }, {
+            "code" : "NRA-061",
+            "name" : "61师 (钟松部)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.22,
+            "lng" : 121.41,
+            "description" : "Suzhou Creek west bank."
+          }, {
+            "code" : "IJA-3FLT",
+            "name" : "第三舰队 (长谷川清)",
+            "source" : "japanese",
+            "type" : "naval",
+            "status" : "active",
+            "color" : "#c0392b",
+            "lat" : 31.38,
+            "lng" : 121.52,
+            "description" : "IJN 3rd Fleet."
+          }, {
+            "code" : "IJA-003",
+            "name" : "第3师团",
+            "source" : "japanese",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#e74c3c",
+            "lat" : 31.33,
+            "lng" : 121.48,
+            "description" : ""
+          }, {
+            "code" : "NRA-020B",
+            "name" : "第20独立旅",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.19,
+            "lng" : 121.43,
+            "description" : "Hongqiao. Oyama Incident."
+          }, {
+            "code" : "NRA-9AG",
+            "name" : "第九集团军 (张治中)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#3498db",
+            "lat" : 31.3,
+            "lng" : 121.28,
+            "description" : "HQ 9th Army Group"
+          }, {
+            "code" : "IJA-101",
+            "name" : "第101师团 (伊东政喜)",
+            "source" : "japanese",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#e74c3c",
+            "lat" : 31.37,
+            "lng" : 121.51,
+            "description" : "Landed Sept Wusong."
+          }, {
+            "code" : "CPC-115",
+            "name" : "八路军115师 (林彪部)",
+            "source" : "cpc",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#f1c40f",
+            "lat" : 35.15,
+            "lng" : 113.2,
+            "description" : "8RA 115th Div. Lin Biao."
+          }, {
+            "code" : "IJA-SEA",
+            "name" : "上海派遣军 (松井石根)",
+            "source" : "japanese",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#e74c3c",
+            "lat" : 31.4,
+            "lng" : 121.5,
+            "description" : "HQ Shanghai Expeditionary Army."
+          }, {
+            "code" : "IJA-009",
+            "name" : "第9师团 (吉住良辅)",
+            "source" : "japanese",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#e74c3c",
+            "lat" : 31.24,
+            "lng" : 121.44,
+            "description" : "Landed Oct 31 Suzhou Creek."
+          }, {
+            "code" : "SH-FLEET",
+            "name" : "Shanghai Fleet",
+            "source" : "base",
+            "type" : "naval",
+            "status" : "active",
+            "color" : "#3498db",
+            "lat" : 31.2,
+            "lng" : 121.5,
+            "description" : ""
+          }, {
+            "code" : "BJ-GARRISON",
+            "name" : "Beijing Garrison",
+            "source" : "base",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#e74c3c",
+            "lat" : 39.9,
+            "lng" : 116.4,
+            "description" : ""
+          }, {
+            "code" : "NRA-011",
+            "name" : "11师 (彭善部)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.38,
+            "lng" : 121.36,
+            "description" : "18th Army. Luodian."
+          }, {
+            "code" : "NRA-055",
+            "name" : "55师 (李觉部)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.22,
+            "lng" : 121.54,
+            "description" : "Pudong east flank."
+          }, {
+            "code" : "NRA-078",
+            "name" : "78师 (李文部)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.28,
+            "lng" : 121.28,
+            "description" : "Nanxiang defensive line."
+          }, {
+            "code" : "NRA-057",
+            "name" : "57师 (阮肇昌部)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.22,
+            "lng" : 121.43,
+            "description" : "Suzhou Creek west."
+          }, {
+            "code" : "NRA-036",
+            "name" : "36师 (宋希濂部)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.24,
+            "lng" : 121.46,
+            "description" : "German-trained. Huishan."
+          }, {
+            "code" : "NRA-014",
+            "name" : "14师 (陈时部)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.39,
+            "lng" : 121.35,
+            "description" : "18th Army. Luodian."
+          }, {
+            "code" : "NRA-058",
+            "name" : "58师 (俞济时部)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.03,
+            "lng" : 121.22,
+            "description" : "74th Corps. Songjiang."
+          }, {
+            "code" : "IJA-006",
+            "name" : "第6师团 (谷寿夫)",
+            "source" : "japanese",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#e74c3c",
+            "lat" : 30.7,
+            "lng" : 121.35,
+            "description" : "Landed Nov 5 Jinshanwei."
+          } ],
+          "moves" : [ {
+            "code" : "NRA-001",
+            "fromLat" : 31.29,
+            "fromLng" : 121.41,
+            "toLat" : 31.25,
+            "toLng" : 121.39,
+            "action" : "move"
+          }, {
+            "code" : "NRA-061",
+            "fromLat" : 31.23,
+            "fromLng" : 121.42,
+            "toLat" : 31.22,
+            "toLng" : 121.41,
+            "action" : "move"
+          }, {
+            "code" : "IJA-003",
+            "fromLat" : 31.4,
+            "fromLng" : 121.49,
+            "toLat" : 31.33,
+            "toLng" : 121.48,
+            "action" : "move"
+          }, {
+            "code" : "IJA-009",
+            "fromLat" : 31.23,
+            "fromLng" : 121.42,
+            "toLat" : 31.24,
+            "toLng" : 121.44,
+            "action" : "move"
+          }, {
+            "code" : "NRA-078",
+            "fromLat" : 31.3,
+            "fromLng" : 121.3,
+            "toLat" : 31.28,
+            "toLng" : 121.28,
+            "action" : "move"
+          } ],
+          "outcome" : "日军突破大场防线，国军退守苏州河南岸。88师524团谢晋元率800壮士死守四行仓库掩护主力撤退。10月26日大场陷落。",
+          "createdAt" : 1780930401956
+        } ],
+        "unitSnapshots" : [ {
+          "code" : "NRA-051",
+          "name" : "51师 (王耀武部)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.2,
+          "lng" : 121.38,
+          "description" : "74th Corps. Jiading."
+        }, {
+          "code" : "NRA-098",
+          "name" : "98师 (夏楚中部)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.4,
+          "lng" : 121.51,
+          "description" : "Baoshan fortress."
+        }, {
+          "code" : "NRA-15AG",
+          "name" : "第十五集团军 (陈诚)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#9b59b6",
+          "lat" : 31.35,
+          "lng" : 121.08,
+          "description" : "HQ 15th Army Group"
+        }, {
+          "code" : "IJA-SNLF",
+          "name" : "SNLF",
+          "source" : "japanese",
+          "type" : "naval",
+          "status" : "active",
+          "color" : "#c0392b",
+          "lat" : 31.25,
+          "lng" : 121.49,
+          "description" : ""
+        }, {
+          "code" : "CPC-N4A",
+          "name" : "新四军第一支队 (陈毅)",
+          "source" : "cpc",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#f1c40f",
+          "lat" : 31.67,
+          "lng" : 118.5,
+          "description" : "New Fourth Army 1st Det."
+        }, {
+          "code" : "IJA-114",
+          "name" : "第114师团 (末松茂治)",
+          "source" : "japanese",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#e74c3c",
+          "lat" : 30.69,
+          "lng" : 121.34,
+          "description" : "Landed Jinshanwei."
+        }, {
+          "code" : "CPC-UG",
+          "name" : "上海地下党交通站",
+          "source" : "cpc",
+          "type" : "civilian",
+          "status" : "active",
+          "color" : "#f1c40f",
+          "lat" : 31.23,
+          "lng" : 121.47,
+          "description" : "CPC Shanghai Underground."
+        }, {
+          "code" : "IJA-013",
+          "name" : "第13师团 (荻洲立兵)",
+          "source" : "japanese",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#e74c3c",
+          "lat" : 31.5,
+          "lng" : 121.23,
+          "description" : "Landed Oct Liuhe."
+        }, {
+          "code" : "NRA-008",
+          "name" : "8师 (陶峙岳部)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.38,
+          "lng" : 121.25,
+          "description" : "Jiading-Nanxiang axis."
+        }, {
+          "code" : "IJA-011",
+          "name" : "第11师团 (山室宗武)",
+          "source" : "japanese",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#e74c3c",
+          "lat" : 31.47,
+          "lng" : 121.3,
+          "description" : "Landed Chuanshakou Aug 23."
+        }, {
+          "code" : "CPC-8RA",
+          "name" : "八路军总部 (朱德/彭德怀)",
+          "source" : "cpc",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#f1c40f",
+          "lat" : 36.56,
+          "lng" : 109.49,
+          "description" : "8th Route Army HQ Yan'an."
+        }, {
+          "code" : "NRA-088",
+          "name" : "88师",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.24,
+          "lng" : 121.47,
+          "description" : ""
+        }, {
+          "code" : "IJA-018",
+          "name" : "第18师团 (牛岛贞雄)",
+          "source" : "japanese",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#e74c3c",
+          "lat" : 30.72,
+          "lng" : 121.33,
+          "description" : "Landed Nov 5 Jinshanwei."
+        }, {
+          "code" : "NRA-001",
+          "name" : "1师 (李铁军部)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.29,
+          "lng" : 121.41,
+          "description" : "Dachang meat grinder."
+        }, {
+          "code" : "NRA-067",
+          "name" : "67师 (黄维部)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.37,
+          "lng" : 121.37,
+          "description" : "18th Army. Luodian."
+        }, {
+          "code" : "NRA-087",
+          "name" : "87师",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.29,
+          "lng" : 121.49,
+          "description" : ""
+        }, {
+          "code" : "NRA-061",
+          "name" : "61师 (钟松部)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.23,
+          "lng" : 121.42,
+          "description" : "Suzhou Creek west bank."
+        }, {
+          "code" : "IJA-3FLT",
+          "name" : "第三舰队 (长谷川清)",
+          "source" : "japanese",
+          "type" : "naval",
+          "status" : "active",
+          "color" : "#c0392b",
+          "lat" : 31.38,
+          "lng" : 121.52,
+          "description" : "IJN 3rd Fleet."
+        }, {
+          "code" : "IJA-003",
+          "name" : "第3师团",
+          "source" : "japanese",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#e74c3c",
+          "lat" : 31.4,
+          "lng" : 121.49,
+          "description" : ""
+        }, {
+          "code" : "NRA-020B",
+          "name" : "第20独立旅",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.19,
+          "lng" : 121.43,
+          "description" : "Hongqiao. Oyama Incident."
+        }, {
+          "code" : "NRA-9AG",
+          "name" : "第九集团军 (张治中)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#3498db",
+          "lat" : 31.3,
+          "lng" : 121.28,
+          "description" : "HQ 9th Army Group"
+        }, {
+          "code" : "IJA-101",
+          "name" : "第101师团 (伊东政喜)",
+          "source" : "japanese",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#e74c3c",
+          "lat" : 31.37,
+          "lng" : 121.51,
+          "description" : "Landed Sept Wusong."
+        }, {
+          "code" : "CPC-115",
+          "name" : "八路军115师 (林彪部)",
+          "source" : "cpc",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#f1c40f",
+          "lat" : 35.15,
+          "lng" : 113.2,
+          "description" : "8RA 115th Div. Lin Biao."
+        }, {
+          "code" : "IJA-SEA",
+          "name" : "上海派遣军 (松井石根)",
+          "source" : "japanese",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#e74c3c",
+          "lat" : 31.4,
+          "lng" : 121.5,
+          "description" : "HQ Shanghai Expeditionary Army."
+        }, {
+          "code" : "IJA-009",
+          "name" : "第9师团 (吉住良辅)",
+          "source" : "japanese",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#e74c3c",
+          "lat" : 31.23,
+          "lng" : 121.42,
+          "description" : "Landed Oct 31 Suzhou Creek."
+        }, {
+          "code" : "SH-FLEET",
+          "name" : "Shanghai Fleet",
+          "source" : "base",
+          "type" : "naval",
+          "status" : "active",
+          "color" : "#3498db",
+          "lat" : 31.2,
+          "lng" : 121.5,
+          "description" : ""
+        }, {
+          "code" : "BJ-GARRISON",
+          "name" : "Beijing Garrison",
+          "source" : "base",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#e74c3c",
+          "lat" : 39.9,
+          "lng" : 116.4,
+          "description" : ""
+        }, {
+          "code" : "NRA-011",
+          "name" : "11师 (彭善部)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.38,
+          "lng" : 121.36,
+          "description" : "18th Army. Luodian."
+        }, {
+          "code" : "NRA-055",
+          "name" : "55师 (李觉部)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.22,
+          "lng" : 121.54,
+          "description" : "Pudong east flank."
+        }, {
+          "code" : "NRA-078",
+          "name" : "78师 (李文部)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.3,
+          "lng" : 121.3,
+          "description" : "Nanxiang defensive line."
+        }, {
+          "code" : "NRA-057",
+          "name" : "57师 (阮肇昌部)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.22,
+          "lng" : 121.43,
+          "description" : "Suzhou Creek west."
+        }, {
+          "code" : "NRA-036",
+          "name" : "36师 (宋希濂部)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.24,
+          "lng" : 121.46,
+          "description" : "German-trained. Huishan."
+        }, {
+          "code" : "NRA-014",
+          "name" : "14师 (陈时部)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.39,
+          "lng" : 121.35,
+          "description" : "18th Army. Luodian."
+        }, {
+          "code" : "NRA-058",
+          "name" : "58师 (俞济时部)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.03,
+          "lng" : 121.22,
+          "description" : "74th Corps. Songjiang."
+        }, {
+          "code" : "IJA-006",
+          "name" : "第6师团 (谷寿夫)",
+          "source" : "japanese",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#e74c3c",
+          "lat" : 30.7,
+          "lng" : 121.35,
+          "description" : "Landed Nov 5 Jinshanwei."
+        } ],
+        "moves" : [ {
+          "code" : "NRA-098",
+          "fromLat" : 31.42,
+          "fromLng" : 121.5,
+          "toLat" : 31.4,
+          "toLng" : 121.51,
+          "action" : "move"
+        }, {
+          "code" : "IJA-011",
+          "fromLat" : 31.51,
+          "fromLng" : 121.28,
+          "toLat" : 31.47,
+          "toLng" : 121.3,
+          "action" : "move"
+        }, {
+          "code" : "NRA-067",
+          "fromLat" : 31.39,
+          "fromLng" : 121.36,
+          "toLat" : 31.37,
+          "toLng" : 121.37,
+          "action" : "move"
+        }, {
+          "code" : "IJA-003",
+          "fromLat" : 31.38,
+          "fromLng" : 121.51,
+          "toLat" : 31.4,
+          "toLng" : 121.49,
+          "action" : "move"
+        }, {
+          "code" : "IJA-101",
+          "fromLat" : 31.39,
+          "fromLng" : 121.5,
+          "toLat" : 31.37,
+          "toLng" : 121.51,
+          "action" : "move"
+        }, {
+          "code" : "NRA-011",
+          "fromLat" : 31.4,
+          "fromLng" : 121.35,
+          "toLat" : 31.38,
+          "toLng" : 121.36,
+          "action" : "move"
+        }, {
+          "code" : "NRA-014",
+          "fromLat" : 31.41,
+          "fromLng" : 121.34,
+          "toLat" : 31.39,
+          "toLng" : 121.35,
+          "action" : "move"
+        } ],
+        "outcome" : "日军第3/11/101师团在吴淞、浏河登陆。陈诚第15集团军(11/14/67师)死守罗店，'血肉磨坊'鏖战18天。98师583团宝山全员殉国。",
+        "createdAt" : 1780930401942
+      }, {
+        "id" : "bed585ee",
+        "name" : "R2(Alt): 主动撤出市区防线",
+        "description" : "",
+        "round" : 2,
+        "strategy" : "alt1",
+        "parentId" : "caccf4d7",
+        "children" : [ {
+          "id" : "22db5fab",
+          "name" : "Alt Strategy",
+          "description" : "",
+          "round" : 3,
+          "strategy" : "alt1",
+          "parentId" : "bed585ee",
+          "children" : [ ],
+          "unitSnapshots" : [ {
+            "code" : "NRA-051",
+            "name" : "51师 (王耀武部)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.2,
+            "lng" : 121.38,
+            "description" : "74th Corps. Jiading."
+          }, {
+            "code" : "NRA-098",
+            "name" : "98师 (夏楚中部)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.42,
+            "lng" : 121.5,
+            "description" : "Baoshan fortress."
+          }, {
+            "code" : "NRA-15AG",
+            "name" : "第十五集团军 (陈诚)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#9b59b6",
+            "lat" : 31.35,
+            "lng" : 121.08,
+            "description" : "HQ 15th Army Group"
+          }, {
+            "code" : "IJA-SNLF",
+            "name" : "SNLF",
+            "source" : "japanese",
+            "type" : "naval",
+            "status" : "active",
+            "color" : "#c0392b",
+            "lat" : 31.25,
+            "lng" : 121.49,
+            "description" : ""
+          }, {
+            "code" : "CPC-N4A",
+            "name" : "新四军第一支队 (陈毅)",
+            "source" : "cpc",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#f1c40f",
+            "lat" : 31.67,
+            "lng" : 118.5,
+            "description" : "New Fourth Army 1st Det."
+          }, {
+            "code" : "IJA-114",
+            "name" : "第114师团 (末松茂治)",
+            "source" : "japanese",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#e74c3c",
+            "lat" : 30.69,
+            "lng" : 121.34,
+            "description" : "Landed Jinshanwei."
+          }, {
+            "code" : "CPC-UG",
+            "name" : "上海地下党交通站",
+            "source" : "cpc",
+            "type" : "civilian",
+            "status" : "active",
+            "color" : "#f1c40f",
+            "lat" : 31.23,
+            "lng" : 121.47,
+            "description" : "CPC Shanghai Underground."
+          }, {
+            "code" : "IJA-013",
+            "name" : "第13师团 (荻洲立兵)",
+            "source" : "japanese",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#e74c3c",
+            "lat" : 31.5,
+            "lng" : 121.23,
+            "description" : "Landed Oct Liuhe."
+          }, {
+            "code" : "NRA-008",
+            "name" : "8师 (陶峙岳部)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.38,
+            "lng" : 121.25,
+            "description" : "Jiading-Nanxiang axis."
+          }, {
+            "code" : "IJA-011",
+            "name" : "第11师团 (山室宗武)",
+            "source" : "japanese",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#e74c3c",
+            "lat" : 31.51,
+            "lng" : 121.28,
+            "description" : "Landed Chuanshakou Aug 23."
+          }, {
+            "code" : "CPC-8RA",
+            "name" : "八路军总部 (朱德/彭德怀)",
+            "source" : "cpc",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#f1c40f",
+            "lat" : 36.56,
+            "lng" : 109.49,
+            "description" : "8th Route Army HQ Yan'an."
+          }, {
+            "code" : "NRA-088",
+            "name" : "88师",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.32,
+            "lng" : 121.34,
+            "description" : ""
+          }, {
+            "code" : "IJA-018",
+            "name" : "第18师团 (牛岛贞雄)",
+            "source" : "japanese",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#e74c3c",
+            "lat" : 30.72,
+            "lng" : 121.33,
+            "description" : "Landed Nov 5 Jinshanwei."
+          }, {
+            "code" : "NRA-001",
+            "name" : "1师 (李铁军部)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.29,
+            "lng" : 121.41,
+            "description" : "Dachang meat grinder."
+          }, {
+            "code" : "NRA-067",
+            "name" : "67师 (黄维部)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.39,
+            "lng" : 121.36,
+            "description" : "18th Army. Luodian."
+          }, {
+            "code" : "NRA-087",
+            "name" : "87师",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.35,
+            "lng" : 121.35,
+            "description" : ""
+          }, {
+            "code" : "NRA-061",
+            "name" : "61师 (钟松部)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.23,
+            "lng" : 121.42,
+            "description" : "Suzhou Creek west bank."
+          }, {
+            "code" : "IJA-3FLT",
+            "name" : "第三舰队 (长谷川清)",
+            "source" : "japanese",
+            "type" : "naval",
+            "status" : "active",
+            "color" : "#c0392b",
+            "lat" : 31.38,
+            "lng" : 121.52,
+            "description" : "IJN 3rd Fleet."
+          }, {
+            "code" : "IJA-003",
+            "name" : "第3师团",
+            "source" : "japanese",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#e74c3c",
+            "lat" : 31.38,
+            "lng" : 121.51,
+            "description" : ""
+          }, {
+            "code" : "NRA-020B",
+            "name" : "第20独立旅",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.19,
+            "lng" : 121.43,
+            "description" : "Hongqiao. Oyama Incident."
+          }, {
+            "code" : "NRA-9AG",
+            "name" : "第九集团军 (张治中)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#3498db",
+            "lat" : 31.3,
+            "lng" : 121.28,
+            "description" : "HQ 9th Army Group"
+          }, {
+            "code" : "IJA-101",
+            "name" : "第101师团 (伊东政喜)",
+            "source" : "japanese",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#e74c3c",
+            "lat" : 31.39,
+            "lng" : 121.5,
+            "description" : "Landed Sept Wusong."
+          }, {
+            "code" : "CPC-115",
+            "name" : "八路军115师 (林彪部)",
+            "source" : "cpc",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#f1c40f",
+            "lat" : 35.15,
+            "lng" : 113.2,
+            "description" : "8RA 115th Div. Lin Biao."
+          }, {
+            "code" : "IJA-SEA",
+            "name" : "上海派遣军 (松井石根)",
+            "source" : "japanese",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#e74c3c",
+            "lat" : 31.4,
+            "lng" : 121.5,
+            "description" : "HQ Shanghai Expeditionary Army."
+          }, {
+            "code" : "IJA-009",
+            "name" : "第9师团 (吉住良辅)",
+            "source" : "japanese",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#e74c3c",
+            "lat" : 31.23,
+            "lng" : 121.42,
+            "description" : "Landed Oct 31 Suzhou Creek."
+          }, {
+            "code" : "SH-FLEET",
+            "name" : "Shanghai Fleet",
+            "source" : "base",
+            "type" : "naval",
+            "status" : "active",
+            "color" : "#3498db",
+            "lat" : 31.2,
+            "lng" : 121.5,
+            "description" : ""
+          }, {
+            "code" : "BJ-GARRISON",
+            "name" : "Beijing Garrison",
+            "source" : "base",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#e74c3c",
+            "lat" : 39.9,
+            "lng" : 116.4,
+            "description" : ""
+          }, {
+            "code" : "NRA-011",
+            "name" : "11师 (彭善部)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.42,
+            "lng" : 121.32,
+            "description" : "18th Army. Luodian."
+          }, {
+            "code" : "NRA-055",
+            "name" : "55师 (李觉部)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.22,
+            "lng" : 121.54,
+            "description" : "Pudong east flank."
+          }, {
+            "code" : "NRA-078",
+            "name" : "78师 (李文部)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.3,
+            "lng" : 121.3,
+            "description" : "Nanxiang defensive line."
+          }, {
+            "code" : "NRA-057",
+            "name" : "57师 (阮肇昌部)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.22,
+            "lng" : 121.43,
+            "description" : "Suzhou Creek west."
+          }, {
+            "code" : "NRA-036",
+            "name" : "36师 (宋希濂部)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.33,
+            "lng" : 121.33,
+            "description" : "German-trained. Huishan."
+          }, {
+            "code" : "NRA-014",
+            "name" : "14师 (陈时部)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.43,
+            "lng" : 121.31,
+            "description" : "18th Army. Luodian."
+          }, {
+            "code" : "NRA-058",
+            "name" : "58师 (俞济时部)",
+            "source" : "nationalist",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#2980b9",
+            "lat" : 31.03,
+            "lng" : 121.22,
+            "description" : "74th Corps. Songjiang."
+          }, {
+            "code" : "IJA-006",
+            "name" : "第6师团 (谷寿夫)",
+            "source" : "japanese",
+            "type" : "infantry",
+            "status" : "active",
+            "color" : "#e74c3c",
+            "lat" : 30.7,
+            "lng" : 121.35,
+            "description" : "Landed Nov 5 Jinshanwei."
+          } ],
+          "moves" : [ ],
+          "outcome" : "3",
+          "createdAt" : 1780930807182
+        } ],
+        "unitSnapshots" : [ {
+          "code" : "NRA-051",
+          "name" : "51师 (王耀武部)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.2,
+          "lng" : 121.38,
+          "description" : "74th Corps. Jiading."
+        }, {
+          "code" : "NRA-098",
+          "name" : "98师 (夏楚中部)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.42,
+          "lng" : 121.5,
+          "description" : "Baoshan fortress."
+        }, {
+          "code" : "NRA-15AG",
+          "name" : "第十五集团军 (陈诚)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#9b59b6",
+          "lat" : 31.35,
+          "lng" : 121.08,
+          "description" : "HQ 15th Army Group"
+        }, {
+          "code" : "IJA-SNLF",
+          "name" : "SNLF",
+          "source" : "japanese",
+          "type" : "naval",
+          "status" : "active",
+          "color" : "#c0392b",
+          "lat" : 31.25,
+          "lng" : 121.49,
+          "description" : ""
+        }, {
+          "code" : "CPC-N4A",
+          "name" : "新四军第一支队 (陈毅)",
+          "source" : "cpc",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#f1c40f",
+          "lat" : 31.67,
+          "lng" : 118.5,
+          "description" : "New Fourth Army 1st Det."
+        }, {
+          "code" : "IJA-114",
+          "name" : "第114师团 (末松茂治)",
+          "source" : "japanese",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#e74c3c",
+          "lat" : 30.69,
+          "lng" : 121.34,
+          "description" : "Landed Jinshanwei."
+        }, {
+          "code" : "CPC-UG",
+          "name" : "上海地下党交通站",
+          "source" : "cpc",
+          "type" : "civilian",
+          "status" : "active",
+          "color" : "#f1c40f",
+          "lat" : 31.23,
+          "lng" : 121.47,
+          "description" : "CPC Shanghai Underground."
+        }, {
+          "code" : "IJA-013",
+          "name" : "第13师团 (荻洲立兵)",
+          "source" : "japanese",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#e74c3c",
+          "lat" : 31.5,
+          "lng" : 121.23,
+          "description" : "Landed Oct Liuhe."
+        }, {
+          "code" : "NRA-008",
+          "name" : "8师 (陶峙岳部)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.38,
+          "lng" : 121.25,
+          "description" : "Jiading-Nanxiang axis."
+        }, {
+          "code" : "IJA-011",
+          "name" : "第11师团 (山室宗武)",
+          "source" : "japanese",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#e74c3c",
+          "lat" : 31.51,
+          "lng" : 121.28,
+          "description" : "Landed Chuanshakou Aug 23."
+        }, {
+          "code" : "CPC-8RA",
+          "name" : "八路军总部 (朱德/彭德怀)",
+          "source" : "cpc",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#f1c40f",
+          "lat" : 36.56,
+          "lng" : 109.49,
+          "description" : "8th Route Army HQ Yan'an."
+        }, {
+          "code" : "NRA-088",
+          "name" : "88师",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.32,
+          "lng" : 121.34,
+          "description" : ""
+        }, {
+          "code" : "IJA-018",
+          "name" : "第18师团 (牛岛贞雄)",
+          "source" : "japanese",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#e74c3c",
+          "lat" : 30.72,
+          "lng" : 121.33,
+          "description" : "Landed Nov 5 Jinshanwei."
+        }, {
+          "code" : "NRA-001",
+          "name" : "1师 (李铁军部)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.29,
+          "lng" : 121.41,
+          "description" : "Dachang meat grinder."
+        }, {
+          "code" : "NRA-067",
+          "name" : "67师 (黄维部)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.39,
+          "lng" : 121.36,
+          "description" : "18th Army. Luodian."
+        }, {
+          "code" : "NRA-087",
+          "name" : "87师",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.35,
+          "lng" : 121.35,
+          "description" : ""
+        }, {
+          "code" : "NRA-061",
+          "name" : "61师 (钟松部)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.23,
+          "lng" : 121.42,
+          "description" : "Suzhou Creek west bank."
+        }, {
+          "code" : "IJA-3FLT",
+          "name" : "第三舰队 (长谷川清)",
+          "source" : "japanese",
+          "type" : "naval",
+          "status" : "active",
+          "color" : "#c0392b",
+          "lat" : 31.38,
+          "lng" : 121.52,
+          "description" : "IJN 3rd Fleet."
+        }, {
+          "code" : "IJA-003",
+          "name" : "第3师团",
+          "source" : "japanese",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#e74c3c",
+          "lat" : 31.38,
+          "lng" : 121.51,
+          "description" : ""
+        }, {
+          "code" : "NRA-020B",
+          "name" : "第20独立旅",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.19,
+          "lng" : 121.43,
+          "description" : "Hongqiao. Oyama Incident."
+        }, {
+          "code" : "NRA-9AG",
+          "name" : "第九集团军 (张治中)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#3498db",
+          "lat" : 31.3,
+          "lng" : 121.28,
+          "description" : "HQ 9th Army Group"
+        }, {
+          "code" : "IJA-101",
+          "name" : "第101师团 (伊东政喜)",
+          "source" : "japanese",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#e74c3c",
+          "lat" : 31.39,
+          "lng" : 121.5,
+          "description" : "Landed Sept Wusong."
+        }, {
+          "code" : "CPC-115",
+          "name" : "八路军115师 (林彪部)",
+          "source" : "cpc",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#f1c40f",
+          "lat" : 35.15,
+          "lng" : 113.2,
+          "description" : "8RA 115th Div. Lin Biao."
+        }, {
+          "code" : "IJA-SEA",
+          "name" : "上海派遣军 (松井石根)",
+          "source" : "japanese",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#e74c3c",
+          "lat" : 31.4,
+          "lng" : 121.5,
+          "description" : "HQ Shanghai Expeditionary Army."
+        }, {
+          "code" : "IJA-009",
+          "name" : "第9师团 (吉住良辅)",
+          "source" : "japanese",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#e74c3c",
+          "lat" : 31.23,
+          "lng" : 121.42,
+          "description" : "Landed Oct 31 Suzhou Creek."
+        }, {
+          "code" : "SH-FLEET",
+          "name" : "Shanghai Fleet",
+          "source" : "base",
+          "type" : "naval",
+          "status" : "active",
+          "color" : "#3498db",
+          "lat" : 31.2,
+          "lng" : 121.5,
+          "description" : ""
+        }, {
+          "code" : "BJ-GARRISON",
+          "name" : "Beijing Garrison",
+          "source" : "base",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#e74c3c",
+          "lat" : 39.9,
+          "lng" : 116.4,
+          "description" : ""
+        }, {
+          "code" : "NRA-011",
+          "name" : "11师 (彭善部)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.42,
+          "lng" : 121.32,
+          "description" : "18th Army. Luodian."
+        }, {
+          "code" : "NRA-055",
+          "name" : "55师 (李觉部)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.22,
+          "lng" : 121.54,
+          "description" : "Pudong east flank."
+        }, {
+          "code" : "NRA-078",
+          "name" : "78师 (李文部)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.3,
+          "lng" : 121.3,
+          "description" : "Nanxiang defensive line."
+        }, {
+          "code" : "NRA-057",
+          "name" : "57师 (阮肇昌部)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.22,
+          "lng" : 121.43,
+          "description" : "Suzhou Creek west."
+        }, {
+          "code" : "NRA-036",
+          "name" : "36师 (宋希濂部)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.33,
+          "lng" : 121.33,
+          "description" : "German-trained. Huishan."
+        }, {
+          "code" : "NRA-014",
+          "name" : "14师 (陈时部)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.43,
+          "lng" : 121.31,
+          "description" : "18th Army. Luodian."
+        }, {
+          "code" : "NRA-058",
+          "name" : "58师 (俞济时部)",
+          "source" : "nationalist",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#2980b9",
+          "lat" : 31.03,
+          "lng" : 121.22,
+          "description" : "74th Corps. Songjiang."
+        }, {
+          "code" : "IJA-006",
+          "name" : "第6师团 (谷寿夫)",
+          "source" : "japanese",
+          "type" : "infantry",
+          "status" : "active",
+          "color" : "#e74c3c",
+          "lat" : 30.7,
+          "lng" : 121.35,
+          "description" : "Landed Nov 5 Jinshanwei."
+        } ],
+        "moves" : [ {
+          "code" : "NRA-088",
+          "fromLat" : 31.24,
+          "fromLng" : 121.47,
+          "toLat" : 31.32,
+          "toLng" : 121.34,
+          "action" : "advance"
+        }, {
+          "code" : "NRA-087",
+          "fromLat" : 31.29,
+          "fromLng" : 121.49,
+          "toLat" : 31.35,
+          "toLng" : 121.35,
+          "action" : "advance"
+        }, {
+          "code" : "NRA-011",
+          "fromLat" : 31.4,
+          "fromLng" : 121.35,
+          "toLat" : 31.42,
+          "toLng" : 121.32,
+          "action" : "move"
+        }, {
+          "code" : "NRA-036",
+          "fromLat" : 31.24,
+          "fromLng" : 121.46,
+          "toLat" : 31.33,
+          "toLng" : 121.33,
+          "action" : "advance"
+        }, {
+          "code" : "NRA-014",
+          "fromLat" : 31.41,
+          "fromLng" : 121.34,
+          "toLat" : 31.43,
+          "toLng" : 121.31,
+          "action" : "move"
+        } ],
+        "outcome" : "放弃上海市区，主力西撤至嘉定-太仓-昆山永备防线。以空间换时间，避免巷战消耗。日军进入上海但遭遇城外坚固阵地。",
+        "createdAt" : 1780930401949
+      } ],
+      "unitSnapshots" : [ {
+        "code" : "NRA-051",
+        "name" : "51师 (王耀武部)",
+        "source" : "nationalist",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#2980b9",
+        "lat" : 31.2,
+        "lng" : 121.38,
+        "description" : "74th Corps. Jiading."
+      }, {
+        "code" : "NRA-098",
+        "name" : "98师 (夏楚中部)",
+        "source" : "nationalist",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#2980b9",
+        "lat" : 31.42,
+        "lng" : 121.5,
+        "description" : "Baoshan fortress."
+      }, {
+        "code" : "NRA-15AG",
+        "name" : "第十五集团军 (陈诚)",
+        "source" : "nationalist",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#9b59b6",
+        "lat" : 31.35,
+        "lng" : 121.08,
+        "description" : "HQ 15th Army Group"
+      }, {
+        "code" : "IJA-SNLF",
+        "name" : "SNLF",
+        "source" : "japanese",
+        "type" : "naval",
+        "status" : "active",
+        "color" : "#c0392b",
+        "lat" : 31.25,
+        "lng" : 121.49,
+        "description" : ""
+      }, {
+        "code" : "CPC-N4A",
+        "name" : "新四军第一支队 (陈毅)",
+        "source" : "cpc",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#f1c40f",
+        "lat" : 31.67,
+        "lng" : 118.5,
+        "description" : "New Fourth Army 1st Det."
+      }, {
+        "code" : "IJA-114",
+        "name" : "第114师团 (末松茂治)",
+        "source" : "japanese",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#e74c3c",
+        "lat" : 30.69,
+        "lng" : 121.34,
+        "description" : "Landed Jinshanwei."
+      }, {
+        "code" : "CPC-UG",
+        "name" : "上海地下党交通站",
+        "source" : "cpc",
+        "type" : "civilian",
+        "status" : "active",
+        "color" : "#f1c40f",
+        "lat" : 31.23,
+        "lng" : 121.47,
+        "description" : "CPC Shanghai Underground."
+      }, {
+        "code" : "IJA-013",
+        "name" : "第13师团 (荻洲立兵)",
+        "source" : "japanese",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#e74c3c",
+        "lat" : 31.5,
+        "lng" : 121.23,
+        "description" : "Landed Oct Liuhe."
+      }, {
+        "code" : "NRA-008",
+        "name" : "8师 (陶峙岳部)",
+        "source" : "nationalist",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#2980b9",
+        "lat" : 31.38,
+        "lng" : 121.25,
+        "description" : "Jiading-Nanxiang axis."
+      }, {
+        "code" : "IJA-011",
+        "name" : "第11师团 (山室宗武)",
+        "source" : "japanese",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#e74c3c",
+        "lat" : 31.51,
+        "lng" : 121.28,
+        "description" : "Landed Chuanshakou Aug 23."
+      }, {
+        "code" : "CPC-8RA",
+        "name" : "八路军总部 (朱德/彭德怀)",
+        "source" : "cpc",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#f1c40f",
+        "lat" : 36.56,
+        "lng" : 109.49,
+        "description" : "8th Route Army HQ Yan'an."
+      }, {
+        "code" : "NRA-088",
+        "name" : "88师",
+        "source" : "nationalist",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#2980b9",
+        "lat" : 31.24,
+        "lng" : 121.47,
+        "description" : ""
+      }, {
+        "code" : "IJA-018",
+        "name" : "第18师团 (牛岛贞雄)",
+        "source" : "japanese",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#e74c3c",
+        "lat" : 30.72,
+        "lng" : 121.33,
+        "description" : "Landed Nov 5 Jinshanwei."
+      }, {
+        "code" : "NRA-001",
+        "name" : "1师 (李铁军部)",
+        "source" : "nationalist",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#2980b9",
+        "lat" : 31.29,
+        "lng" : 121.41,
+        "description" : "Dachang meat grinder."
+      }, {
+        "code" : "NRA-067",
+        "name" : "67师 (黄维部)",
+        "source" : "nationalist",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#2980b9",
+        "lat" : 31.39,
+        "lng" : 121.36,
+        "description" : "18th Army. Luodian."
+      }, {
+        "code" : "NRA-087",
+        "name" : "87师",
+        "source" : "nationalist",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#2980b9",
+        "lat" : 31.29,
+        "lng" : 121.49,
+        "description" : ""
+      }, {
+        "code" : "NRA-061",
+        "name" : "61师 (钟松部)",
+        "source" : "nationalist",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#2980b9",
+        "lat" : 31.23,
+        "lng" : 121.42,
+        "description" : "Suzhou Creek west bank."
+      }, {
+        "code" : "IJA-3FLT",
+        "name" : "第三舰队 (长谷川清)",
+        "source" : "japanese",
+        "type" : "naval",
+        "status" : "active",
+        "color" : "#c0392b",
+        "lat" : 31.38,
+        "lng" : 121.52,
+        "description" : "IJN 3rd Fleet."
+      }, {
+        "code" : "IJA-003",
+        "name" : "第3师团",
+        "source" : "japanese",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#e74c3c",
+        "lat" : 31.38,
+        "lng" : 121.51,
+        "description" : ""
+      }, {
+        "code" : "NRA-020B",
+        "name" : "第20独立旅",
+        "source" : "nationalist",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#2980b9",
+        "lat" : 31.19,
+        "lng" : 121.43,
+        "description" : "Hongqiao. Oyama Incident."
+      }, {
+        "code" : "NRA-9AG",
+        "name" : "第九集团军 (张治中)",
+        "source" : "nationalist",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#3498db",
+        "lat" : 31.3,
+        "lng" : 121.28,
+        "description" : "HQ 9th Army Group"
+      }, {
+        "code" : "IJA-101",
+        "name" : "第101师团 (伊东政喜)",
+        "source" : "japanese",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#e74c3c",
+        "lat" : 31.39,
+        "lng" : 121.5,
+        "description" : "Landed Sept Wusong."
+      }, {
+        "code" : "CPC-115",
+        "name" : "八路军115师 (林彪部)",
+        "source" : "cpc",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#f1c40f",
+        "lat" : 35.15,
+        "lng" : 113.2,
+        "description" : "8RA 115th Div. Lin Biao."
+      }, {
+        "code" : "IJA-SEA",
+        "name" : "上海派遣军 (松井石根)",
+        "source" : "japanese",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#e74c3c",
+        "lat" : 31.4,
+        "lng" : 121.5,
+        "description" : "HQ Shanghai Expeditionary Army."
+      }, {
+        "code" : "IJA-009",
+        "name" : "第9师团 (吉住良辅)",
+        "source" : "japanese",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#e74c3c",
+        "lat" : 31.23,
+        "lng" : 121.42,
+        "description" : "Landed Oct 31 Suzhou Creek."
+      }, {
+        "code" : "SH-FLEET",
+        "name" : "Shanghai Fleet",
+        "source" : "base",
+        "type" : "naval",
+        "status" : "active",
+        "color" : "#3498db",
+        "lat" : 31.2,
+        "lng" : 121.5,
+        "description" : ""
+      }, {
+        "code" : "BJ-GARRISON",
+        "name" : "Beijing Garrison",
+        "source" : "base",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#e74c3c",
+        "lat" : 39.9,
+        "lng" : 116.4,
+        "description" : ""
+      }, {
+        "code" : "NRA-011",
+        "name" : "11师 (彭善部)",
+        "source" : "nationalist",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#2980b9",
+        "lat" : 31.4,
+        "lng" : 121.35,
+        "description" : "18th Army. Luodian."
+      }, {
+        "code" : "NRA-055",
+        "name" : "55师 (李觉部)",
+        "source" : "nationalist",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#2980b9",
+        "lat" : 31.22,
+        "lng" : 121.54,
+        "description" : "Pudong east flank."
+      }, {
+        "code" : "NRA-078",
+        "name" : "78师 (李文部)",
+        "source" : "nationalist",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#2980b9",
+        "lat" : 31.3,
+        "lng" : 121.3,
+        "description" : "Nanxiang defensive line."
+      }, {
+        "code" : "NRA-057",
+        "name" : "57师 (阮肇昌部)",
+        "source" : "nationalist",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#2980b9",
+        "lat" : 31.22,
+        "lng" : 121.43,
+        "description" : "Suzhou Creek west."
+      }, {
+        "code" : "NRA-036",
+        "name" : "36师 (宋希濂部)",
+        "source" : "nationalist",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#2980b9",
+        "lat" : 31.24,
+        "lng" : 121.46,
+        "description" : "German-trained. Huishan."
+      }, {
+        "code" : "NRA-014",
+        "name" : "14师 (陈时部)",
+        "source" : "nationalist",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#2980b9",
+        "lat" : 31.41,
+        "lng" : 121.34,
+        "description" : "18th Army. Luodian."
+      }, {
+        "code" : "NRA-058",
+        "name" : "58师 (俞济时部)",
+        "source" : "nationalist",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#2980b9",
+        "lat" : 31.03,
+        "lng" : 121.22,
+        "description" : "74th Corps. Songjiang."
+      }, {
+        "code" : "IJA-006",
+        "name" : "第6师团 (谷寿夫)",
+        "source" : "japanese",
+        "type" : "infantry",
+        "status" : "active",
+        "color" : "#e74c3c",
+        "lat" : 30.7,
+        "lng" : 121.35,
+        "description" : "Landed Nov 5 Jinshanwei."
+      } ],
+      "moves" : [ {
+        "code" : "IJA-SNLF",
+        "fromLat" : 31.26,
+        "fromLng" : 121.49,
+        "toLat" : 31.25,
+        "toLng" : 121.49,
+        "action" : "move"
+      }, {
+        "code" : "NRA-088",
+        "fromLat" : 31.26,
+        "fromLng" : 121.46,
+        "toLat" : 31.24,
+        "toLng" : 121.47,
+        "action" : "move"
+      }, {
+        "code" : "NRA-087",
+        "fromLat" : 31.28,
+        "fromLng" : 121.49,
+        "toLat" : 31.29,
+        "toLng" : 121.49,
+        "action" : "move"
+      }, {
+        "code" : "NRA-036",
+        "fromLat" : 31.25,
+        "fromLng" : 121.45,
+        "toLat" : 31.24,
+        "toLng" : 121.46,
+        "action" : "move"
+      } ],
+      "outcome" : "87师/88师/36师三面围攻日军虹口阵地。日军SNLF退守核心区，海军舰炮支援。国军伤亡惨重但未能完全清除日军据点。",
+      "createdAt" : 1780930401934
+    } ],
+    "unitSnapshots" : [ {
+      "code" : "NRA-051",
+      "name" : "51师 (王耀武部)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 31.2,
+      "lng" : 121.38,
+      "description" : "74th Corps. Jiading."
+    }, {
+      "code" : "NRA-098",
+      "name" : "98师 (夏楚中部)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 31.42,
+      "lng" : 121.5,
+      "description" : "Baoshan fortress."
+    }, {
+      "code" : "NRA-15AG",
+      "name" : "第十五集团军 (陈诚)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#9b59b6",
+      "lat" : 31.35,
+      "lng" : 121.08,
+      "description" : "HQ 15th Army Group"
+    }, {
+      "code" : "IJA-SNLF",
+      "name" : "SNLF",
+      "source" : "japanese",
+      "type" : "naval",
+      "status" : "active",
+      "color" : "#c0392b",
+      "lat" : 31.26,
+      "lng" : 121.49,
+      "description" : ""
+    }, {
+      "code" : "CPC-N4A",
+      "name" : "新四军第一支队 (陈毅)",
+      "source" : "cpc",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#f1c40f",
+      "lat" : 31.67,
+      "lng" : 118.5,
+      "description" : "New Fourth Army 1st Det."
+    }, {
+      "code" : "IJA-114",
+      "name" : "第114师团 (末松茂治)",
+      "source" : "japanese",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#e74c3c",
+      "lat" : 30.69,
+      "lng" : 121.34,
+      "description" : "Landed Jinshanwei."
+    }, {
+      "code" : "CPC-UG",
+      "name" : "上海地下党交通站",
+      "source" : "cpc",
+      "type" : "civilian",
+      "status" : "active",
+      "color" : "#f1c40f",
+      "lat" : 31.23,
+      "lng" : 121.47,
+      "description" : "CPC Shanghai Underground."
+    }, {
+      "code" : "IJA-013",
+      "name" : "第13师团 (荻洲立兵)",
+      "source" : "japanese",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#e74c3c",
+      "lat" : 31.5,
+      "lng" : 121.23,
+      "description" : "Landed Oct Liuhe."
+    }, {
+      "code" : "NRA-008",
+      "name" : "8师 (陶峙岳部)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 31.38,
+      "lng" : 121.25,
+      "description" : "Jiading-Nanxiang axis."
+    }, {
+      "code" : "IJA-011",
+      "name" : "第11师团 (山室宗武)",
+      "source" : "japanese",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#e74c3c",
+      "lat" : 31.51,
+      "lng" : 121.28,
+      "description" : "Landed Chuanshakou Aug 23."
+    }, {
+      "code" : "CPC-8RA",
+      "name" : "八路军总部 (朱德/彭德怀)",
+      "source" : "cpc",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#f1c40f",
+      "lat" : 36.56,
+      "lng" : 109.49,
+      "description" : "8th Route Army HQ Yan'an."
+    }, {
+      "code" : "NRA-088",
+      "name" : "88师",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 31.26,
+      "lng" : 121.46,
+      "description" : ""
+    }, {
+      "code" : "IJA-018",
+      "name" : "第18师团 (牛岛贞雄)",
+      "source" : "japanese",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#e74c3c",
+      "lat" : 30.72,
+      "lng" : 121.33,
+      "description" : "Landed Nov 5 Jinshanwei."
+    }, {
+      "code" : "NRA-001",
+      "name" : "1师 (李铁军部)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 31.29,
+      "lng" : 121.41,
+      "description" : "Dachang meat grinder."
+    }, {
+      "code" : "NRA-067",
+      "name" : "67师 (黄维部)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 31.39,
+      "lng" : 121.36,
+      "description" : "18th Army. Luodian."
+    }, {
+      "code" : "NRA-087",
+      "name" : "87师",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 31.28,
+      "lng" : 121.49,
+      "description" : ""
+    }, {
+      "code" : "NRA-061",
+      "name" : "61师 (钟松部)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 31.23,
+      "lng" : 121.42,
+      "description" : "Suzhou Creek west bank."
+    }, {
+      "code" : "IJA-3FLT",
+      "name" : "第三舰队 (长谷川清)",
+      "source" : "japanese",
+      "type" : "naval",
+      "status" : "active",
+      "color" : "#c0392b",
+      "lat" : 31.38,
+      "lng" : 121.52,
+      "description" : "IJN 3rd Fleet."
+    }, {
+      "code" : "IJA-003",
+      "name" : "第3师团",
+      "source" : "japanese",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#e74c3c",
+      "lat" : 31.38,
+      "lng" : 121.51,
+      "description" : ""
+    }, {
+      "code" : "NRA-020B",
+      "name" : "第20独立旅",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 31.19,
+      "lng" : 121.43,
+      "description" : "Hongqiao. Oyama Incident."
+    }, {
+      "code" : "NRA-9AG",
+      "name" : "第九集团军 (张治中)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#3498db",
+      "lat" : 31.3,
+      "lng" : 121.28,
+      "description" : "HQ 9th Army Group"
+    }, {
+      "code" : "IJA-101",
+      "name" : "第101师团 (伊东政喜)",
+      "source" : "japanese",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#e74c3c",
+      "lat" : 31.39,
+      "lng" : 121.5,
+      "description" : "Landed Sept Wusong."
+    }, {
+      "code" : "CPC-115",
+      "name" : "八路军115师 (林彪部)",
+      "source" : "cpc",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#f1c40f",
+      "lat" : 35.15,
+      "lng" : 113.2,
+      "description" : "8RA 115th Div. Lin Biao."
+    }, {
+      "code" : "IJA-SEA",
+      "name" : "上海派遣军 (松井石根)",
+      "source" : "japanese",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#e74c3c",
+      "lat" : 31.4,
+      "lng" : 121.5,
+      "description" : "HQ Shanghai Expeditionary Army."
+    }, {
+      "code" : "IJA-009",
+      "name" : "第9师团 (吉住良辅)",
+      "source" : "japanese",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#e74c3c",
+      "lat" : 31.23,
+      "lng" : 121.42,
+      "description" : "Landed Oct 31 Suzhou Creek."
+    }, {
+      "code" : "SH-FLEET",
+      "name" : "Shanghai Fleet",
+      "source" : "base",
+      "type" : "naval",
+      "status" : "active",
+      "color" : "#3498db",
+      "lat" : 31.2,
+      "lng" : 121.5,
+      "description" : ""
+    }, {
+      "code" : "BJ-GARRISON",
+      "name" : "Beijing Garrison",
+      "source" : "base",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#e74c3c",
+      "lat" : 39.9,
+      "lng" : 116.4,
+      "description" : ""
+    }, {
+      "code" : "NRA-011",
+      "name" : "11师 (彭善部)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 31.4,
+      "lng" : 121.35,
+      "description" : "18th Army. Luodian."
+    }, {
+      "code" : "NRA-055",
+      "name" : "55师 (李觉部)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 31.22,
+      "lng" : 121.54,
+      "description" : "Pudong east flank."
+    }, {
+      "code" : "NRA-078",
+      "name" : "78师 (李文部)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 31.3,
+      "lng" : 121.3,
+      "description" : "Nanxiang defensive line."
+    }, {
+      "code" : "NRA-057",
+      "name" : "57师 (阮肇昌部)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 31.22,
+      "lng" : 121.43,
+      "description" : "Suzhou Creek west."
+    }, {
+      "code" : "NRA-036",
+      "name" : "36师 (宋希濂部)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 31.25,
+      "lng" : 121.45,
+      "description" : "German-trained. Huishan."
+    }, {
+      "code" : "NRA-014",
+      "name" : "14师 (陈时部)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 31.41,
+      "lng" : 121.34,
+      "description" : "18th Army. Luodian."
+    }, {
+      "code" : "NRA-058",
+      "name" : "58师 (俞济时部)",
+      "source" : "nationalist",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#2980b9",
+      "lat" : 31.03,
+      "lng" : 121.22,
+      "description" : "74th Corps. Songjiang."
+    }, {
+      "code" : "IJA-006",
+      "name" : "第6师团 (谷寿夫)",
+      "source" : "japanese",
+      "type" : "infantry",
+      "status" : "active",
+      "color" : "#e74c3c",
+      "lat" : 30.7,
+      "lng" : 121.35,
+      "description" : "Landed Nov 5 Jinshanwei."
+    } ],
+    "moves" : [ ],
+    "outcome" : "Starting positions",
+    "createdAt" : 1780930401930
+  }
+} ]

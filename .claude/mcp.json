@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "getgoat": {
+      "command": "/home/cna/getgoat/mcp-server.sh",
+      "description": "GetGoat Map — terrain query, units management, pathfinding, distance calculation"
+    }
+  }
+}

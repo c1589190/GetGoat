@@ -16,13 +16,14 @@ panel.id = 'branch-panel';
 panel.innerHTML =
     '<div id="branch-header">' +
         '<span id="branch-tree-name">&#9776; Branches</span>' +
-        '<div id="branch-desc" style="display:none;font-size:9px;color:#888;margin-top:3px;line-height:1.3;max-height:80px;overflow-y:auto"></div>' +
+        '<select id="branch-tree-select" style="display:none;width:100%;margin-top:4px;background:#333;color:#ccc;border:1px solid #555;border-radius:3px;font-size:10px;padding:2px 4px"><option value="">-- 选择分支 --</option></select>' +
+        '<div id="branch-desc" style="display:none;font-size:9px;color:#888;margin-top:3px;line-height:1.3;max-height:60px;overflow-y:auto"></div>' +
         '<button id="branch-save-btn" class="primary" title="Save current state as new round">+R</button>' +
         '<button id="branch-new-btn" title="New branch from current node">&#10558;</button>' +
         '<button id="branch-newtree-btn" title="New tree from current units">&#9733;</button>' +
         '<button id="branch-toggle-btn">&minus;</button>' +
     '</div>' +
-    '<div id="branch-body"><div style="color:#666;padding:8px;font-size:10px">No branch loaded. Click &#9733; to create one from current unit positions.</div></div>' +
+    '<div id="branch-body"><div style="color:#666;padding:8px;font-size:10px">加载中...</div></div>' +
     '<div id="branch-actions">' +
         '<button class="save-btn" id="branch-save-round">Save Round</button>' +
         '<button class="new-branch-btn" id="branch-fork">New Branch</button>' +
@@ -115,9 +116,7 @@ document.getElementById('branch-newtree-btn').onclick = function() {
         body: JSON.stringify({name: name})
     }).then(function(r){return r.json();}).then(function(d){
         if (d.error) { alert(d.error); return; }
-        currentTreeId = d.treeId;
-        currentNodeId = null;
-        loadTree();
+        initTreeSelector(); // refresh dropdown, then load new tree
     }).catch(function(e){ alert('Error: '+e); });
 };
 
@@ -339,11 +338,11 @@ function updateBranchContext(nodeId) {
             node.strategy === 'alt2' ? '[备选A2]' : '[' + node.strategy + ']';
         if (el) { el.textContent = '📍 Round ' + node.round + ' ' + badge + ' ' + node.name; el.style.display = 'block'; }
 
-        // Branch panel global intro
+        // Branch panel header: show tree name + current node summary only (tree view already shows full chain)
         if (nameEl && currentTreeName) nameEl.textContent = '📋 ' + currentTreeName;
         if (descEl) {
-            var info = buildBranchIntro(node);
-            descEl.innerHTML = info;
+            var prefix = node.round === 0 ? '📍' : 'R' + node.round;
+            descEl.innerHTML = '<span style="color:#FF5722">' + prefix + '</span> <b>' + badge + '</b>: ' + node.name;
             descEl.style.display = 'block';
         }
     } else {
@@ -351,28 +350,6 @@ function updateBranchContext(nodeId) {
         if (descEl) descEl.style.display = 'none';
         if (nameEl) nameEl.textContent = '☰ Branches';
     }
-}
-
-/** Build a one-line intro describing the branch tree. */
-function buildBranchIntro(node) {
-    var lines = [];
-    // Walk from current node up to root
-    var chain = [];
-    var cur = node;
-    while (cur) { chain.unshift(cur); cur = flatNodes[cur.parentId]; }
-
-    var strategyNames = {historical: '历史线', alt1: '备选A1', alt2: '备选A2', initial: '初始'};
-    for (var i = 0; i < chain.length; i++) {
-        var n = chain[i];
-        var tag = strategyNames[n.strategy] || n.strategy;
-        var prefix = n.round === 0 ? '📍' : 'R' + n.round;
-        lines.push('<span style="color:#FF5722">' + prefix + '</span> <b>' + tag + '</b>: ' + n.name);
-    }
-    // Add summary from current node's outcome
-    if (node.outcome) {
-        lines.push('<span style="color:#888;font-size:8px">→ ' + truncate(node.outcome, 100) + '</span>');
-    }
-    return lines.join('<br>');
 }
 
 function flashNotify(msg) {
@@ -386,18 +363,55 @@ function flashNotify(msg) {
     setTimeout(function(){ el.remove(); }, 2500);
 }
 
-// ---- Auto-load on init ----
-setTimeout(function(){
+// ---- Tree selector ----
+
+/** Load tree list into dropdown, then load the specified (or last) tree. */
+function initTreeSelector() {
     fetch('/api/branches')
         .then(function(r){return r.json();})
         .then(function(trees){
-            if (trees.length > 0) {
-                // Load latest tree
-                currentTreeId = trees[trees.length - 1].id;
-                loadTree();
+            var sel = document.getElementById('branch-tree-select');
+            if (!sel) return;
+            sel.innerHTML = '<option value="">-- 选择分支 --</option>';
+            if (!trees || trees.length === 0) {
+                sel.style.display = 'none';
+                var body = document.getElementById('branch-body');
+                if (body) body.innerHTML = '<div style="color:#666;padding:8px;font-size:10px">暂无分支。点击 ★ 从当前单位创建。</div>';
+                return;
             }
+            sel.style.display = 'block';
+            for (var i = 0; i < trees.length; i++) {
+                sel.innerHTML += '<option value="' + trees[i].id + '">' + trees[i].name + '</option>';
+            }
+            // Select last tree by default
+            var lastId = trees[trees.length - 1].id;
+            sel.value = lastId;
+            selectTree(lastId);
         })
         .catch(function(){});
-}, 5000);
+}
+
+/** Switch to the selected tree. */
+function selectTree(treeId) {
+    if (!treeId) return;
+    currentTreeId = treeId;
+    currentNodeId = null;
+    flatNodes = {};
+    if (window.combatRadiusLayer && window.combatRadiusCircle) {
+        window.combatRadiusLayer.removeLayer(window.combatRadiusCircle);
+        window.combatRadiusCircle = null;
+    }
+    if (typeof clearMovePaths === 'function') clearMovePaths();
+    document.getElementById('branch-desc').style.display = 'none';
+    document.getElementById('branch-tree-name').textContent = '📋 加载中...';
+    loadTree();
+}
+
+document.getElementById('branch-tree-select').onchange = function() {
+    selectTree(this.value);
+};
+
+// ---- Auto-load on init ----
+setTimeout(initTreeSelector, 5000);
 
 })();

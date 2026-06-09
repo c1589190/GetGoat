@@ -146,17 +146,43 @@ public class UnitsManager {
     }
 
     private static String unitJson(Unit u) {
+        StringBuilder vis = new StringBuilder("[");
+        boolean first = true;
+        for (String v : u.getVisibleTo()) {
+            if (!first) vis.append(",");
+            first = false;
+            vis.append("\"").append(esc(v)).append("\"");
+        }
+        vis.append("]");
         return String.format(java.util.Locale.US,
             "{\"code\":\"%s\",\"name\":\"%s\",\"description\":\"%s\"," +
-            "\"source\":\"%s\",\"status\":\"%s\",\"type\":\"%s\",\"color\":\"%s\"," +
-            "\"lat\":%.6f,\"lng\":%.6f,\"created\":%d}",
+            "\"source\":\"%s\",\"status\":\"%s\",\"type\":\"%s\",\"color\":\"%s\",\"icon\":%s," +
+            "\"lat\":%.6f,\"lng\":%.6f,\"created\":%d,\"visibleTo\":%s}",
             esc(u.getCode()), esc(u.getName()), esc(u.getDescription()),
             esc(u.getSource()), esc(u.getStatus()), esc(u.getType()), esc(u.getColor()),
-            u.getLat(), u.getLng(), u.getCreatedAt());
+            u.getIcon() != null ? "\"" + esc(u.getIcon()) + "\"" : "null",
+            u.getLat(), u.getLng(), u.getCreatedAt(), vis.toString());
     }
 
     private static String esc(String s) {
         if (s == null) return "";
-        return s.replace("\\","\\\\").replace("\"","\\\"");
+        StringBuilder sb = new StringBuilder(s.length());
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            switch (c) {
+                case '"'  -> sb.append("\\\"");
+                case '\\' -> sb.append("\\\\");
+                case '\n' -> sb.append("\\n");
+                case '\r' -> sb.append("\\r");
+                case '\t' -> sb.append("\\t");
+                case '\b' -> sb.append("\\b");
+                case '\f' -> sb.append("\\f");
+                default -> {
+                    if (c < 0x20) sb.append(String.format("\\u%04x", (int) c));
+                    else sb.append(c);
+                }
+            }
+        }
+        return sb.toString();
     }
 }

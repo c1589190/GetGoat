@@ -53,9 +53,10 @@ try:
         "params": {
             "name": "create_unit",
             "arguments": {
+                "code": "beijing-station",
                 "name": "北京站",
                 "lat": 39.9042,
-                "lon": 116.4074,
+                "lng": 116.4074,
                 "source": "beijing",
                 "status": "active"
             }
@@ -73,9 +74,10 @@ try:
         "params": {
             "name": "create_unit",
             "arguments": {
+                "code": "shanghai-station",
                 "name": "上海站",
                 "lat": 31.2304,
-                "lon": 121.4737,
+                "lng": 121.4737,
                 "source": "shanghai",
                 "status": "active"
             }
@@ -84,10 +86,15 @@ try:
     shanghai_result = json.loads(resp["result"]["content"][0]["text"])
     print(f"上海: {json.dumps(shanghai_result, indent=2, ensure_ascii=False)}")
 
-    # Extract unit IDs
-    beijing_id = beijing_result.get("id")
-    shanghai_id = shanghai_result.get("id")
-    print(f"\n北京 ID: {beijing_id}, 上海 ID: {shanghai_id}")
+    # Extract unit codes and coordinates
+    beijing_code = beijing_result.get("code")
+    shanghai_code = shanghai_result.get("code")
+    beijing_lat = beijing_result.get("lat")
+    beijing_lng = beijing_result.get("lng")
+    shanghai_lat = shanghai_result.get("lat")
+    shanghai_lng = shanghai_result.get("lng")
+    print(f"\n北京: {beijing_code} ({beijing_lat}, {beijing_lng})")
+    print(f"上海: {shanghai_code} ({shanghai_lat}, {shanghai_lng})")
 
     # Step 4: Get distance between the two units
     print("\n=== Get Distance: 北京 → 上海 ===")
@@ -98,8 +105,10 @@ try:
         "params": {
             "name": "get_distance",
             "arguments": {
-                "unit_a": str(beijing_id),
-                "unit_b": str(shanghai_id)
+                "lat1": beijing_lat,
+                "lng1": beijing_lng,
+                "lat2": shanghai_lat,
+                "lng2": shanghai_lng
             }
         }
     })

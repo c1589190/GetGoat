@@ -21,6 +21,7 @@ public class BranchNode {
     private List<UnitSnapshot> unitSnapshots;
     private List<Movement> moves;
     private List<UnitChange> unitChanges;
+    private Map<String, List<CommanderAction>> commanderActions; // side → actions for this round
     private String outcome;
     private long createdAt;
 
@@ -36,6 +37,7 @@ public class BranchNode {
             @JsonProperty("unitSnapshots") List<UnitSnapshot> unitSnapshots,
             @JsonProperty("moves") List<Movement> moves,
             @JsonProperty("unitChanges") List<UnitChange> unitChanges,
+            @JsonProperty("commanderActions") Map<String, List<CommanderAction>> commanderActions,
             @JsonProperty("outcome") String outcome,
             @JsonProperty("createdAt") long createdAt) {
         this.id = id;
@@ -48,6 +50,7 @@ public class BranchNode {
         this.unitSnapshots = unitSnapshots != null ? new ArrayList<>(unitSnapshots) : new ArrayList<>();
         this.moves = moves != null ? new ArrayList<>(moves) : new ArrayList<>();
         this.unitChanges = unitChanges != null ? new ArrayList<>(unitChanges) : new ArrayList<>();
+        this.commanderActions = commanderActions != null ? new LinkedHashMap<>(commanderActions) : new LinkedHashMap<>();
         this.outcome = outcome != null ? outcome : "";
         this.createdAt = createdAt > 0 ? createdAt : System.currentTimeMillis();
     }
@@ -57,7 +60,8 @@ public class BranchNode {
         String id = UUID.randomUUID().toString().substring(0, 8);
         return new BranchNode(id, name, "Initial deployment", 0, "initial",
             null, new ArrayList<>(), snapshots, new ArrayList<>(),
-            new ArrayList<>(), "Starting positions", System.currentTimeMillis());
+            new ArrayList<>(), new LinkedHashMap<>(), "Starting positions",
+            System.currentTimeMillis());
     }
 
     /** Factory: create a child node for a new round. */
@@ -67,8 +71,8 @@ public class BranchNode {
                                           String outcome) {
         String id = UUID.randomUUID().toString().substring(0, 8);
         return new BranchNode(id, name, "", round, strategy,
-            parentId, new ArrayList<>(), snapshots, moves, unitChanges, outcome,
-            System.currentTimeMillis());
+            parentId, new ArrayList<>(), snapshots, moves, unitChanges,
+            new LinkedHashMap<>(), outcome, System.currentTimeMillis());
     }
 
     // ---- Getters / Setters ----
@@ -87,9 +91,21 @@ public class BranchNode {
     public List<UnitSnapshot> getUnitSnapshots() { return unitSnapshots; }
     public List<Movement> getMoves() { return moves; }
     public List<UnitChange> getUnitChanges() { return unitChanges; }
+    public Map<String, List<CommanderAction>> getCommanderActions() { return commanderActions; }
     public String getOutcome() { return outcome; }
     public void setOutcome(String o) { if (o != null) this.outcome = o; }
     public long getCreatedAt() { return createdAt; }
+
+    /** Get the latest commander action for a side at this node. */
+    public CommanderAction getCommanderAction(String side) {
+        List<CommanderAction> actions = commanderActions.get(side);
+        return actions != null && !actions.isEmpty() ? actions.get(actions.size() - 1) : null;
+    }
+
+    /** Add or update a commander action for a side. */
+    public void putCommanderAction(String side, CommanderAction action) {
+        commanderActions.computeIfAbsent(side, k -> new ArrayList<>()).add(action);
+    }
 
     /** Add a child node. */
     public void addChild(BranchNode child) { children.add(child); }

@@ -1,6 +1,6 @@
 package com.getgoat.map.model;
 
-import java.util.Objects;
+import java.util.*;
 
 /**
  * A named entity on the map with a position, source, and metadata.
@@ -15,6 +15,8 @@ public class Unit {
     private String color;            // hex color for map marker
     private double lat, lng;
     private long createdAt;
+    private String icon;             // custom emoji/icon override (null = use type default)
+    private Set<String> visibleTo = new LinkedHashSet<>(); // sources that can see this unit
 
     public Unit(String code, String name, String source, String type,
                 double lat, double lng) {
@@ -28,6 +30,7 @@ public class Unit {
         this.description = "";
         this.color = defaultColor(type);
         this.createdAt = System.currentTimeMillis();
+        this.visibleTo.add(this.source); // default: own source can see
     }
 
     private static String defaultColor(String type) {
@@ -53,6 +56,13 @@ public class Unit {
     public double getLng() { return lng; }
     public long getCreatedAt() { return createdAt; }
     public GeoPoint getPosition() { return new GeoPoint(lat, lng); }
+    public Set<String> getVisibleTo() { return visibleTo; }
+    public boolean isVisibleTo(String source) { return visibleTo.contains(source); }
+    public void addVisibleTo(String src) { if (src != null && !src.isEmpty()) visibleTo.add(src); }
+    public void removeVisibleTo(String src) { visibleTo.remove(src); }
+    public void setVisibleTo(Set<String> srcs) { this.visibleTo = new LinkedHashSet<>(srcs); }
+    public String getIcon() { return icon; }
+    public void setIcon(String icon) { this.icon = icon; }
 
     // ---- Setters ----
     public void setName(String name) { if (name != null) this.name = name; }
