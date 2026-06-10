@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class UnitSnapshot {
     private final String code, name, source, type, status, color, description;
     private final double lat, lng;
+    private final int strength, maxStrength;
 
     public UnitSnapshot(Unit u) {
         this.code = u.getCode();
@@ -21,6 +22,8 @@ public class UnitSnapshot {
         this.lat = u.getLat();
         this.lng = u.getLng();
         this.description = u.getDescription();
+        this.strength = u.getStrength();
+        this.maxStrength = u.getMaxStrength();
     }
 
     @JsonCreator
@@ -33,11 +36,15 @@ public class UnitSnapshot {
             @JsonProperty("color") String color,
             @JsonProperty("lat") double lat,
             @JsonProperty("lng") double lng,
-            @JsonProperty("description") String description) {
+            @JsonProperty("description") String description,
+            @JsonProperty("strength") int strength,
+            @JsonProperty("maxStrength") int maxStrength) {
         this.code = code; this.name = name; this.source = source;
         this.type = type; this.status = status != null ? status : "active";
         this.color = color; this.lat = lat; this.lng = lng;
         this.description = description != null ? description : "";
+        this.strength = strength > 0 ? strength : 10000;
+        this.maxStrength = maxStrength > 0 ? maxStrength : 10000;
     }
 
     // Getters
@@ -50,4 +57,6 @@ public class UnitSnapshot {
     public double getLat() { return lat; }
     public double getLng() { return lng; }
     public String getDescription() { return description; }
+    public int getStrength() { return strength; }
+    public int getMaxStrength() { return maxStrength; }
 }

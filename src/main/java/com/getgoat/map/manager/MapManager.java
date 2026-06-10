@@ -6,6 +6,7 @@ import com.getgoat.map.data.DataPathConfig;
 import com.getgoat.map.data.GeoJsonWriter;
 import com.getgoat.map.geometry.SphericalEngine;
 import com.getgoat.map.model.*;
+import com.getgoat.map.terrain.TerrainCache;
 import com.getgoat.map.terrain.TerrainGenerator;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.Point;
@@ -120,6 +121,19 @@ public class MapManager {
 
     public TerrainGrid getTerrainGrid() {
         return terrainGrid;
+    }
+
+    /** Lightweight terrain name cache — avoids TerrainCell allocations for repeated lookups. */
+    private final java.util.concurrent.ConcurrentHashMap<String, String> terrainQuickCache = new java.util.concurrent.ConcurrentHashMap<>();
+
+    /** Quick terrain+elevation lookup without TerrainCell allocation. Returns "name|elev". */
+    public String getTerrainQuick(double lat, double lng) {
+        String key = String.format("%.3f,%.3f", lat, lng);
+        return terrainQuickCache.computeIfAbsent(key, k -> {
+            TerrainCell cell = getTerrainAt(lat, lng);
+            if (cell == null) return "?|0";
+            return cell.getTerrain().getDisplayName() + "|" + (int)cell.getElevationMeters();
+        });
     }
 
     public TerrainCell getTerrainAt(double lat, double lng) {
@@ -1780,15 +1794,25 @@ public class MapManager {
 
     public MapStats getStats() {
         checkInitialized();
+        TerrainCache cache = terrainGrid.getCache();
         int land = 0, water = 0;
+        Map<TerrainType, Integer> dist = new LinkedHashMap<>();
+
+        // Single pass: count land/water and terrain distribution directly from cache
         for (int r = 0; r < terrainGrid.getRows(); r++) {
             for (int c = 0; c < terrainGrid.getCols(); c++) {
-                TerrainCell cell = terrainGrid.getCell(r, c);
-                if (cell.isWater()) water++; else land++;
+                TerrainType t = cache.getTerrain(r, c);
+                if (t != null) {
+                    dist.merge(t, 1, Integer::sum);
+                    if (t.isWater()) water++; else land++;
+                } else {
+                    water++; // unclassified → default water
+                }
             }
         }
-        Map<String, Integer> dist = new LinkedHashMap<>();
-        terrainGrid.countByType().forEach((k, v) -> dist.put(k.getDisplayName(), v));
+
+        Map<String, Integer> displayDist = new LinkedHashMap<>();
+        dist.forEach((k, v) -> displayDist.put(k.getDisplayName(), v));
 
         return new MapStats(
             terrainGrid.totalCells(),
@@ -1796,7 +1820,7 @@ public class MapManager {
             regions.size(),
             labels.size(),
             annotations.size(),
-            dist
+            displayDist
         );
     }
 

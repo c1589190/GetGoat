@@ -235,15 +235,19 @@ public class SimulateMode implements AgentMode {
             for (JsonNode p : pairs) {
                 String atk = p.has("attacker") ? p.get("attacker").asText() : "?";
                 String def = p.has("defender") ? p.get("defender").asText() : "?";
-                double atkPow = p.has("attackerPower") ? p.get("attackerPower").asDouble() : 1.0;
-                double defPow = p.has("defenderPower") ? p.get("defenderPower").asDouble() : 1.0;
+                int atkStr = p.has("attackerStrength") ? p.get("attackerStrength").asInt()
+                    : (int)(p.has("attackerPower") ? p.get("attackerPower").asDouble() : 10000);
+                int defStr = p.has("defenderStrength") ? p.get("defenderStrength").asInt()
+                    : (int)(p.has("defenderPower") ? p.get("defenderPower").asDouble() : 10000);
+                String atkType = p.has("attackerType") ? p.get("attackerType").asText() : "infantry";
+                String defType = p.has("defenderType") ? p.get("defenderType").asText() : "infantry";
 
                 // Get terrain at midpoint
                 var terrainCell = agent.getMapManager().getTerrainAt(
                     p.has("midLat") ? p.get("midLat").asDouble() : 35,
                     p.has("midLng") ? p.get("midLng").asDouble() : 117);
 
-                var outcome = combatResolver.resolve(atk, atkPow, def, defPow, terrainCell);
+                var outcome = combatResolver.resolve(atk, atkStr, atkType, def, defStr, defType, terrainCell);
                 results.add(outcomeToJson(outcome.attacker));
                 results.add(outcomeToJson(outcome.defender));
             }
@@ -424,34 +428,34 @@ public class SimulateMode implements AgentMode {
 
         // 3. Resolve combat for each engagement
         for (var eng : result.engagements) {
-            String atkType = unitTypes.getOrDefault(eng.attackerCode, "infantry");
-            String defType = unitTypes.getOrDefault(eng.defenderCode, "infantry");
-            double atkPow = CombatResolver.typePowerMultiplier(atkType);
-            double defPow = CombatResolver.typePowerMultiplier(defType);
-
             Unit atkUnit = agent.getUnitsManager().get(eng.attackerCode);
             Unit defUnit = agent.getUnitsManager().get(eng.defenderCode);
             if (atkUnit == null || defUnit == null) continue;
+
+            int atkStr = atkUnit.getStrength();
+            int defStr = defUnit.getStrength();
+            String atkType = unitTypes.getOrDefault(eng.attackerCode, "infantry");
+            String defType = unitTypes.getOrDefault(eng.defenderCode, "infantry");
 
             var tc = agent.getMapManager().getTerrainAt(
                 (atkUnit.getLat() + defUnit.getLat()) / 2,
                 (atkUnit.getLng() + defUnit.getLng()) / 2);
 
-            var pair = combatResolver.resolve(eng.attackerCode, atkPow, eng.defenderCode, defPow, tc);
+            var pair = combatResolver.resolve(eng.attackerCode, atkStr, atkType,
+                eng.defenderCode, defStr, defType, tc);
             result.combatResults.add(pair.attacker);
             result.combatResults.add(pair.defender);
 
-            // Apply combat results to live units
-            if (atkUnit != null) {
-                atkUnit.setStatus(pair.attacker.newStatus);
-                if ("destroyed".equals(pair.attacker.newStatus))
-                    agent.getUnitsManager().delete(eng.attackerCode);
-            }
-            if (defUnit != null) {
-                defUnit.setStatus(pair.defender.newStatus);
-                if ("destroyed".equals(pair.defender.newStatus))
-                    agent.getUnitsManager().delete(eng.defenderCode);
-            }
+            // Apply casualties and status to live units
+            atkUnit.setStrength((int)pair.attacker.finalStrength);
+            atkUnit.setStatus(pair.attacker.newStatus);
+            if ("destroyed".equals(pair.attacker.newStatus))
+                agent.getUnitsManager().delete(eng.attackerCode);
+
+            defUnit.setStrength((int)pair.defender.finalStrength);
+            defUnit.setStatus(pair.defender.newStatus);
+            if ("destroyed".equals(pair.defender.newStatus))
+                agent.getUnitsManager().delete(eng.defenderCode);
         }
 
         // 4. Auto-generate per-side intel maps (no LLM = auto intel only)

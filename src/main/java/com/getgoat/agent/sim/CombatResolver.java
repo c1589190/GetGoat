@@ -17,8 +17,9 @@ import java.util.*;
  */
 public class CombatResolver {
 
-    public static final double BASE_LOSS_RATE = 0.30;   // 30% base loss per round
+    public static final double BASE_LOSS_RATE = 0.15;   // 15% base loss per round
     public static final double MAX_LOSS_RATE = 0.80;    // cap loss at 80%
+    public static final int MIN_CASUALTIES = 0;         // always record, even if 0
 
     private final MapManager mapManager;
 
@@ -28,20 +29,22 @@ public class CombatResolver {
 
     /**
      * Resolve a single engagement between attacker and defender.
+     * Uses actual troop strengths, terrain bonuses, and always produces a record.
      *
-     * @param attackerCode    attacking unit code
-     * @param attackerPower   attacker's combat power (strength × type multiplier)
-     * @param defenderCode    defending unit code
-     * @param defenderPower   defender's combat power
-     * @param terrainAt       terrain where combat occurs
-     * @return pair of CombatOutcomes (attacker, defender)
+     * @param attackerStrength  attacker's troop count (men)
+     * @param defenderStrength  defender's troop count (men)
+     * @param attackerType      attacker unit type (for power multiplier)
+     * @param defenderType      defender unit type (for power multiplier)
      */
-    public CombatOutcomePair resolve(String attackerCode, double attackerPower,
-                                      String defenderCode, double defenderPower,
+    public CombatOutcomePair resolve(String attackerCode, int attackerStrength, String attackerType,
+                                      String defenderCode, int defenderStrength, String defenderType,
                                       TerrainCell terrainAt) {
 
         double attackerTerrainBonus = terrainBonus(attackerCode, terrainAt, true);
         double defenderTerrainBonus = terrainBonus(defenderCode, terrainAt, false);
+
+        double attackerPower = attackerStrength * typePowerMultiplier(attackerType);
+        double defenderPower = defenderStrength * typePowerMultiplier(defenderType);
 
         double adjAttackerPower = attackerPower * attackerTerrainBonus;
         double adjDefenderPower = defenderPower * defenderTerrainBonus;
@@ -51,26 +54,34 @@ public class CombatResolver {
         double defenderLoss = Math.min(MAX_LOSS_RATE,
             adjAttackerPower / Math.max(adjDefenderPower, 1.0) * BASE_LOSS_RATE);
 
-        double attackerSurvivors = attackerPower * (1 - attackerLoss);
-        double defenderSurvivors = defenderPower * (1 - defenderLoss);
+        // Always at least minimal attrition (even stalemates cause some casualties)
+        attackerLoss = Math.max(attackerLoss, 0.005);
+        defenderLoss = Math.max(defenderLoss, 0.005);
+
+        int attackerRemaining = (int) Math.round(attackerStrength * (1 - attackerLoss));
+        int defenderRemaining = (int) Math.round(defenderStrength * (1 - defenderLoss));
 
         String terrainName = terrainAt != null ? terrainAt.getTerrain().getDisplayName() : "plains";
 
+        // Status: LLM judges retreat/rout; deterministic baseline uses loss rate
+        String atkStatus = statusFromLoss(attackerLoss, defenderRemaining <= 0);
+        String defStatus = statusFromLoss(defenderLoss, attackerRemaining <= 0);
+
         CombatOutcomePair pair = new CombatOutcomePair();
         pair.attacker = new SimulationResult.CombatOutcome(
-            attackerCode, attackerPower, attackerSurvivors, attackerLoss,
-            statusFromLoss(attackerLoss, defenderSurvivors <= 0),
-            String.format("vs %s at %s (atkPower=%.0f, defPower=%.0f, atkLoss=%.0f%%, defLoss=%.0f%%)",
+            attackerCode, attackerStrength, attackerRemaining, attackerLoss,
+            atkStatus,
+            String.format("vs %s at %s (atk=%dmen, def=%dmen, atkLoss=%.0f%%, defLoss=%.0f%%)",
                 defenderCode, terrainName,
-                adjAttackerPower, adjDefenderPower,
+                attackerStrength, defenderStrength,
                 attackerLoss * 100, defenderLoss * 100));
 
         pair.defender = new SimulationResult.CombatOutcome(
-            defenderCode, defenderPower, defenderSurvivors, defenderLoss,
-            statusFromLoss(defenderLoss, attackerSurvivors <= 0),
-            String.format("vs %s at %s (atkPower=%.0f, defPower=%.0f, atkLoss=%.0f%%, defLoss=%.0f%%)",
+            defenderCode, defenderStrength, defenderRemaining, defenderLoss,
+            defStatus,
+            String.format("vs %s at %s (atk=%dmen, def=%dmen, atkLoss=%.0f%%, defLoss=%.0f%%)",
                 attackerCode, terrainName,
-                adjAttackerPower, adjDefenderPower,
+                attackerStrength, defenderStrength,
                 attackerLoss * 100, defenderLoss * 100));
 
         return pair;

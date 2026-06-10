@@ -58,6 +58,7 @@ public class ConfigManager {
         return key;
     }
     public static int getLlmMaxTokens()      { return Integer.parseInt(props.getProperty("llm.maxTokens", "4096")); }
+    public static double getSimRoundHours()   { return Double.parseDouble(props.getProperty("sim.roundHours", "24")); }
 
 
     public static String getProperty(String key, String defaultValue) {

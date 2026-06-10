@@ -83,7 +83,7 @@ public class Main {
         server.createContext("/", Main::handleRoot);
         server.createContext("/api/", Main::handleApi);
         server.createContext("/api/tools", Main::handleTools);
-        server.setExecutor(null);
+        server.setExecutor(java.util.concurrent.Executors.newFixedThreadPool(4));
         server.start();
         LOG.info("Server started at http://localhost:" + PORT);
         LOG.info("Open http://localhost:" + PORT + " in your browser.");
@@ -293,6 +293,8 @@ public class Main {
             if (n.has("color")) unit.setColor(n.get("color").asText());
             if (n.has("icon")) unit.setIcon(n.get("icon").asText());
             if (n.has("description")) unit.setDescription(n.get("description").asText());
+            if (n.has("strength")) unit.setStrength(n.get("strength").asInt());
+            if (n.has("maxStrength")) unit.setMaxStrength(n.get("maxStrength").asInt());
             if (n.has("visibleTo") && n.get("visibleTo").isArray()) {
                 var v = new java.util.LinkedHashSet<String>();
                 for (var item : n.get("visibleTo")) v.add(item.asText());
@@ -339,7 +341,7 @@ public class Main {
             } catch (Exception e) { guidance = rawBody; }
             if (treeId == null || nodeId == null) return "{\"error\":\"tree,node required\"}";
             try {
-                CommanderAction action = ctx.agentManager.executeFullRound(side, treeId, nodeId, guidance, 5);
+                CommanderAction action = ctx.agentManager.executeFullRound(side, treeId, nodeId, guidance, 32);
                 var resp = MAPPER.createObjectNode();
                 resp.put("ok", true);
                 resp.put("source", action.source);
@@ -622,6 +624,8 @@ public class Main {
                 if (n.has("color")) u.setColor(n.get("color").asText());
                 if (n.has("description")) u.setDescription(n.get("description").asText());
                 if (n.has("status")) u.setStatus(n.get("status").asText());
+                if (n.has("strength")) u.setStrength(n.get("strength").asInt());
+                if (n.has("maxStrength")) u.setMaxStrength(n.get("maxStrength").asInt());
                 return ctx.unitsManager.exportOneJson(u.getCode());
             } catch (IllegalArgumentException e) {
                 return "{\"error\":\"" + e.getMessage() + "\"}";
@@ -646,6 +650,8 @@ public class Main {
                 if (n.has("color")) u.setColor(n.get("color").asText());
                 if (n.has("status")) u.setStatus(n.get("status").asText());
                 if (n.has("description")) u.setDescription(n.get("description").asText());
+                if (n.has("strength")) u.setStrength(n.get("strength").asInt());
+                if (n.has("maxStrength")) u.setMaxStrength(n.get("maxStrength").asInt());
                 created++;
             } catch (IllegalArgumentException ignored) {}
         }

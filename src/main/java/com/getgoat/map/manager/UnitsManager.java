@@ -157,11 +157,12 @@ public class UnitsManager {
         return String.format(java.util.Locale.US,
             "{\"code\":\"%s\",\"name\":\"%s\",\"description\":\"%s\"," +
             "\"source\":\"%s\",\"status\":\"%s\",\"type\":\"%s\",\"color\":\"%s\",\"icon\":%s," +
-            "\"lat\":%.6f,\"lng\":%.6f,\"created\":%d,\"visibleTo\":%s}",
+            "\"lat\":%.6f,\"lng\":%.6f,\"created\":%d,\"visibleTo\":%s,\"strength\":%d,\"maxStrength\":%d}",
             esc(u.getCode()), esc(u.getName()), esc(u.getDescription()),
             esc(u.getSource()), esc(u.getStatus()), esc(u.getType()), esc(u.getColor()),
             u.getIcon() != null ? "\"" + esc(u.getIcon()) + "\"" : "null",
-            u.getLat(), u.getLng(), u.getCreatedAt(), vis.toString());
+            u.getLat(), u.getLng(), u.getCreatedAt(), vis.toString(),
+            u.getStrength(), u.getMaxStrength());
     }
 
     private static String esc(String s) {

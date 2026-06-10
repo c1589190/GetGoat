@@ -18,8 +18,8 @@ import java.util.*;
  */
 public class MovementResolver {
 
-    // Base speed (km per round — one round = ~6 hours of combat time)
-    public static final double ROUND_HOURS = 6.0;
+    // Base speed (km per round — configured via config.properties sim.roundHours, default 24h)
+    public static double getRoundHours() { return com.getgoat.map.ConfigManager.getSimRoundHours(); }
 
     private final MapManager mapManager;
 
@@ -62,7 +62,7 @@ public class MovementResolver {
         // Use the worst terrain modifier along the path
         effectiveSpeed *= Math.min(terrainMod, destMod);
 
-        double maxDistKm = effectiveSpeed * ROUND_HOURS;
+        double maxDistKm = effectiveSpeed * getRoundHours();
 
         if (maxDistKm >= totalDistKm) {
             // Reached destination

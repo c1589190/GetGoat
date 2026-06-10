@@ -156,6 +156,7 @@ function loadUnits(filterSource){
             var mk=L.marker([u.lat,u.lng],{icon:icon,opacity:cert==='decoy'?0.7:1})
                 .bindTooltip(u.name+(cert!=='confirmed'?' ['+cert+']':''),{direction:'top'}).addTo(unitLayer);
             mk.on('click',function(e){L.DomEvent.stopPropagation(e);selectUnit(u);});
+            mk._unitData = u; // store unit data for combat detection
             unitMarkers[u.code]=mk;
             // Uncertainty circle for estimated/outdated
             if(u.uncertaintyRadiusKm && u.uncertaintyRadiusKm>0){
@@ -176,30 +177,47 @@ function loadUnits(filterSource){
             item.onclick=function(e){selectUnit(u);map.setView([u.lat,u.lng],6);};
             list.appendChild(item);
         })(units[i]);}
-        // Combat zone detection: find overlapping opposing units
-        if (typeof combatZoneLayer === 'undefined') {
+        // Combat zones: opposing units at same location get battle box
+        if (typeof window.combatZoneLayer === 'undefined') {
             window.combatZoneLayer = L.layerGroup().addTo(map);
         }
         if (window.combatZoneLayer) window.combatZoneLayer.clearLayers();
+        var combatPairs = [];
         for (var i=0;i<units.length;i++) {
             for (var j=i+1;j<units.length;j++) {
                 var a=units[i], b=units[j];
                 if (a.source===b.source) continue;
                 var d=haversine(a.lat,a.lng,b.lat,b.lng);
-                if (d<0.01) { // within ~1km = same position = combat
-                    var midLat=(a.lat+b.lat)/2, midLng=(a.lng+b.lng)/2;
-                    L.circle([midLat,midLng], {radius:3000, color:'#e74c3c', weight:2,
-                        dashArray:'4,4', fillColor:'#e74c3c', fillOpacity:0.1,
-                        interactive:false}).addTo(window.combatZoneLayer);
-                    L.circleMarker([midLat,midLng], {radius:8, color:'#e74c3c', weight:2,
-                        fillColor:'#fff', fillOpacity:0.9}).bindTooltip('⚔ COMBAT: '+a.code+' vs '+b.code,
-                        {direction:'top',permanent:false}).addTo(window.combatZoneLayer);
+                if (d<0.005) { // within ~500m = same position = combat
+                    combatPairs.push([a,b]);
                 } else if (d<10) { // within 10km = near engagement
                     var mid2Lat=(a.lat+b.lat)/2, mid2Lng=(a.lng+b.lng)/2;
                     L.circle([mid2Lat,mid2Lng], {radius:2000, color:'#f39c12', weight:1,
                         dashArray:'3,6', fillOpacity:0, interactive:false}).addTo(window.combatZoneLayer);
                 }
             }
+        }
+        // Render combat boxes for overlapping pairs
+        for (var p=0;p<combatPairs.length;p++) {
+            var ua=combatPairs[p][0], ub=combatPairs[p][1];
+            var midLat=(ua.lat+ub.lat)/2, midLng=(ua.lng+ub.lng)/2;
+            var spread=0.012; // ~1.3km offset each side
+            // Offset the two unit markers apart
+            var mkA=unitMarkers[ua.code], mkB=unitMarkers[ub.code];
+            if (mkA) mkA.setLatLng([ua.lat-spread, ua.lng]);
+            if (mkB) mkB.setLatLng([ub.lat+spread, ub.lng]);
+            // Draw combat boundary box
+            var bounds=[[ua.lat-spread-0.004, ua.lng-0.005],[ua.lat+spread+0.004, ua.lng+0.005]];
+            L.rectangle(bounds, {color:'#e74c3c', weight:2, dashArray:'6,3',
+                fillColor:'#e74c3c', fillOpacity:0.08, interactive:false}).addTo(window.combatZoneLayer);
+            // Red line between the two markers
+            L.polyline([[ua.lat-spread, ua.lng],[ub.lat+spread, ub.lng]],
+                {color:'#e74c3c', weight:2, dashArray:'4,2'}).addTo(window.combatZoneLayer);
+            // Combat emoji in the middle — force top z-index
+            var emoji = L.marker([midLat,midLng], {icon: L.divIcon({
+                className:'combat-emoji', html:'<div style="font-size:28px;text-shadow:0 0 10px #e74c3c,0 0 20px #c0392b;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.5))">⚔️</div>',
+                iconSize:[32,32], iconAnchor:[16,16]
+            }), interactive:false, zIndexOffset: 10000, pane: 'markerPane'}).addTo(window.combatZoneLayer);
         }
     }).catch(function(e){console.warn(e);});
 }

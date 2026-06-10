@@ -8,7 +8,7 @@ import java.util.*;
 public class Unit {
     private final String code;       // unique identifier
     private String name;
-    private String description;      // organization / composition
+    private String description;      // organization / composition (text for LLM)
     private String source;           // origin: "base", "dlc1", "custom", etc.
     private String status;           // current state: "active", "idle", "moving", "engaged", etc.
     private String type;             // "infantry", "naval", "air", "civilian", etc.
@@ -17,6 +17,8 @@ public class Unit {
     private long createdAt;
     private String icon;             // custom emoji/icon override (null = use type default)
     private Set<String> visibleTo = new LinkedHashSet<>(); // sources that can see this unit
+    private int strength = 10000;    // current troop count (men)
+    private int maxStrength = 10000; // full-strength troop count
 
     public Unit(String code, String name, String source, String type,
                 double lat, double lng) {
@@ -63,6 +65,10 @@ public class Unit {
     public void setVisibleTo(Set<String> srcs) { this.visibleTo = new LinkedHashSet<>(srcs); }
     public String getIcon() { return icon; }
     public void setIcon(String icon) { this.icon = icon; }
+    public int getStrength() { return strength; }
+    public void setStrength(int v) { this.strength = Math.max(0, v); }
+    public int getMaxStrength() { return maxStrength; }
+    public void setMaxStrength(int v) { this.maxStrength = v; }
 
     // ---- Setters ----
     public void setName(String name) { if (name != null) this.name = name; }

@@ -26,7 +26,7 @@ public abstract class BaseAgent {
 
     protected static final Logger LOG = Logger.getLogger(BaseAgent.class.getName());
     protected static final ObjectMapper MAPPER = new ObjectMapper();
-    protected static final int MAX_SUBROUNDS = 5;
+    protected static final int MAX_SUBROUNDS = 32;
 
     protected CommanderConfig config;
     protected BranchManager branchManager;
@@ -309,7 +309,7 @@ public abstract class BaseAgent {
     /** Format all live units as a markdown table for the LLM prompt. */
     public String formatFullUnitTable() {
         StringBuilder sb = new StringBuilder();
-        sb.append("### 全部单位清单 (含位置、类型、状态)\n\n");
+        sb.append("### 全部单位清单 (含位置、地形、兵力、状态)\n\n");
 
         Map<String, List<Unit>> bySource = new LinkedHashMap<>();
         for (Unit u : unitsManager.listAll()) {
@@ -323,15 +323,29 @@ public abstract class BaseAgent {
             sb.append("**").append(src).append("** (").append(units.size()).append(" units)");
             if (isFriendly) sb.append(" ← 我方");
             sb.append("\n\n");
-            sb.append("| code | name | lat | lng | type | status |\n");
-            sb.append("|------|------|-----|-----|------|--------|\n");
+            sb.append("| code | name | lat | lng | terrain | elev | men | type | status | description |\n");
+            sb.append("|------|------|-----|-----|---------|------|-----|------|--------|-------------|\n");
             for (Unit u : units) {
+                String terrain = "?"; int elev = 0;
+                try {
+                    String quick = mapManager.getTerrainQuick(u.getLat(), u.getLng());
+                    String[] parts = quick.split("\\|");
+                    terrain = parts[0]; elev = Integer.parseInt(parts[1]);
+                } catch (Exception ignored) {}
+                int men = u.getStrength();
+                String desc = u.getDescription() != null && !u.getDescription().isEmpty()
+                    ? u.getDescription().length() > 50 ? u.getDescription().substring(0, 47) + "..." : u.getDescription()
+                    : "-";
                 sb.append("| ").append(u.getCode())
                   .append(" | ").append(u.getName())
                   .append(" | ").append(String.format("%.2f", u.getLat()))
                   .append(" | ").append(String.format("%.2f", u.getLng()))
+                  .append(" | ").append(terrain)
+                  .append(" | ").append(elev).append("m")
+                  .append(" | ").append(men)
                   .append(" | ").append(u.getType())
                   .append(" | ").append(u.getStatus())
+                  .append(" | ").append(desc)
                   .append(" |\n");
             }
             sb.append("\n");

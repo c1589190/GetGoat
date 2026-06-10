@@ -9,1215 +9,7 @@
     "round" : 0,
     "strategy" : "initial",
     "parentId" : null,
-    "children" : [ {
-      "id" : "95807cc2",
-      "name" : "Round 1 Result",
-      "description" : "",
-      "round" : 1,
-      "strategy" : "historical",
-      "parentId" : "3a8bd45f",
-      "children" : [ ],
-      "unitSnapshots" : [ {
-        "code" : "IJA-21B",
-        "name" : "第21旅团 (坂本支队)",
-        "source" : "japanese",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#c0392b",
-        "lat" : 35.12,
-        "lng" : 118.52,
-        "description" : "IJA 21st Infantry Brigade — Sakamoto Detachment. Approached Linyi from the east."
-      }, {
-        "code" : "NRA-030",
-        "name" : "30师 (张金照部)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 34.62,
-        "lng" : 117.68,
-        "description" : "30th Division — Zhang Jinzhao. North of Taierzhuang, blocking Japanese approach from Yixian."
-      }, {
-        "code" : "IJA-10AR",
-        "name" : "第10炮兵联队",
-        "source" : "japanese",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#e74c3c",
-        "lat" : 34.82,
-        "lng" : 117.48,
-        "description" : "IJA 10th Artillery Regiment. Heavy artillery support for the Taierzhuang assault."
-      }, {
-        "code" : "NRA-031",
-        "name" : "31师 (池峰城部)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 34.56,
-        "lng" : 117.74,
-        "description" : "31st Division — Chi Fengcheng. Core defender of Taierzhuang town. Elite unit with strong will."
-      }, {
-        "code" : "IJA-13D",
-        "name" : "第13师团 (荻洲立兵)",
-        "source" : "japanese",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#e74c3c",
-        "lat" : 33.5,
-        "lng" : 117.3,
-        "description" : "IJA 13th Division — Rippei Ogisu. Advanced from south via Bengbu toward Xuzhou. Southern pincer of the operation."
-      }, {
-        "code" : "IJA-33B",
-        "name" : "第33旅团 (濑谷支队)",
-        "source" : "japanese",
-        "type" : "infantry",
-        "status" : "engaged",
-        "color" : "#c0392b",
-        "lat" : 34.76,
-        "lng" : 117.5,
-        "description" : "IJA 33rd Infantry Brigade — Part of 10th Division. Attacked toward Taierzhuang from Yixian."
-      }, {
-        "code" : "IJA-NCA",
-        "name" : "华北方面军 (寺内寿一)",
-        "source" : "japanese",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#e74c3c",
-        "lat" : 36.7,
-        "lng" : 116.98,
-        "description" : "IJA North China Area Army — Hisaichi Terauchi. Overall command of Japanese forces in North China."
-      }, {
-        "code" : "NRA-115D",
-        "name" : "115师 (东北军)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 35.03,
-        "lng" : 118.34,
-        "description" : "115th Division — Northeast Army remnant. Assisted Linyi defense."
-      }, {
-        "code" : "IJA-5AR",
-        "name" : "第5炮兵联队",
-        "source" : "japanese",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#e74c3c",
-        "lat" : 35.07,
-        "lng" : 118.46,
-        "description" : "IJA 5th Artillery Regiment. Provided fire support for the Linyi attack."
-      }, {
-        "code" : "CPC-115T",
-        "name" : "八路军115师 (林彪部)",
-        "source" : "cpc",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#f1c40f",
-        "lat" : 35.15,
-        "lng" : 113.2,
-        "description" : "8RA 115th Division — Lin Biao. After Pingxingguan victory, positioned in southern Shanxi."
-      }, {
-        "code" : "NRA-5WA",
-        "name" : "第5战区 (李宗仁/白崇禧)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#e67e22",
-        "lat" : 34.26,
-        "lng" : 117.18,
-        "description" : "HQ 5th War Area — Li Zongren & Bai Chongxi. Overall command of Xuzhou campaign."
-      }, {
-        "code" : "IJA-9B",
-        "name" : "第9旅团 (国崎登)",
-        "source" : "japanese",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#c0392b",
-        "lat" : 35.08,
-        "lng" : 118.48,
-        "description" : "IJA 9th Infantry Brigade — Kunizaki Noboru. 5th Division's vanguard attacking Linyi."
-      }, {
-        "code" : "NRA-004",
-        "name" : "4师 (陈大庆部)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 34.74,
-        "lng" : 117.45,
-        "description" : "4th Division — Chen Daqing. Deployed for flanking maneuver against Japanese rear."
-      }, {
-        "code" : "NRA-048",
-        "name" : "48师 (桂军)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 34.26,
-        "lng" : 117.12,
-        "description" : "48th Division — Guangxi clique unit. Arrived as reinforcement."
-      }, {
-        "code" : "NRA-027",
-        "name" : "27师 (黄樵松部)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 34.53,
-        "lng" : 117.66,
-        "description" : "27th Division — Huang Qiaosong. Deployed west of Taierzhuang, guarding flank."
-      }, {
-        "code" : "NRA-007",
-        "name" : "7师 (桂军)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 34.28,
-        "lng" : 117.08,
-        "description" : "7th Division — Guangxi clique unit. Veteran of Northern Expedition."
-      }, {
-        "code" : "NRA-089",
-        "name" : "89师 (张雪中部)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "engaged",
-        "color" : "#2980b9",
-        "lat" : 34.78,
-        "lng" : 117.52,
-        "description" : "89th Division — Zhang Xuezhong. Attacked Japanese forces at Yixian on Mar 26, inflicting heavy casualties."
-      }, {
-        "code" : "NRA-122",
-        "name" : "122师 (王铭章部)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 35.08,
-        "lng" : 117.15,
-        "description" : "122nd Division — Wang Mingzhang. Heroic last stand at Tengxian. Wang killed in action Mar 17."
-      }, {
-        "code" : "NRA-002",
-        "name" : "2师 (郑洞国部)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "engaged",
-        "color" : "#2980b9",
-        "lat" : 34.72,
-        "lng" : 117.48,
-        "description" : "2nd Division — Zheng Dongguo. Elite central army unit. Part of Tang Enbo's counterattack force."
-      }, {
-        "code" : "IJA-5D",
-        "name" : "第5师团 (板垣征四郎)",
-        "source" : "japanese",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#e74c3c",
-        "lat" : 35.1,
-        "lng" : 118.5,
-        "description" : "IJA 5th Division — Seishiro Itagaki. Attacked from northeast via Linyi. Attempted to flank Taierzhuang."
-      }, {
-        "code" : "NRA-025",
-        "name" : "25师 (关麟征部)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 34.68,
-        "lng" : 117.52,
-        "description" : "25th Division — Guan Linzheng. Key unit for the encirclement of Japanese 10th Division."
-      }, {
-        "code" : "NRA-124",
-        "name" : "124师 (孙震兼)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 35.09,
-        "lng" : 117.1,
-        "description" : "124th Division — Sichuan troops. Fought at Tengxian alongside 122nd Division."
-      }, {
-        "code" : "NRA-22AG",
-        "name" : "第22集团军 (孙震部)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#9b59b6",
-        "lat" : 35.1,
-        "lng" : 117.12,
-        "description" : "HQ 22nd Group Army — Sun Zhen. Sichuan troops. Defended Tengxian, suffered heavy losses."
-      }, {
-        "code" : "NRA-21AG",
-        "name" : "第21集团军 (廖磊部)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#9b59b6",
-        "lat" : 34.3,
-        "lng" : 117.1,
-        "description" : "HQ 21st Group Army — Liao Lei. Guangxi troops. Reinforced from south."
-      }, {
-        "code" : "NRA-20AG",
-        "name" : "第20军团 (汤恩伯部)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#9b59b6",
-        "lat" : 34.7,
-        "lng" : 117.5,
-        "description" : "HQ 20th Army Group — Tang Enbo. Main flanking/counterattack force. Equipped with artillery."
-      }, {
-        "code" : "CPC-129",
-        "name" : "八路军129师 (刘伯承部)",
-        "source" : "cpc",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#f1c40f",
-        "lat" : 36.0,
-        "lng" : 114.0,
-        "description" : "8RA 129th Division — Liu Bocheng. Active in Shanxi-Hebei border region. Harassed Japanese supply lines."
-      }, {
-        "code" : "IJA-10D",
-        "name" : "第10师团 (矶谷廉介)",
-        "source" : "japanese",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#e74c3c",
-        "lat" : 34.95,
-        "lng" : 117.4,
-        "description" : "IJA 10th Division — Rensuke Isogai. Main attacking force. Advanced south along Jinpu railway from Shandong."
-      }, {
-        "code" : "NRA-59A",
-        "name" : "第59军 (张自忠部)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 35.02,
-        "lng" : 118.3,
-        "description" : "59th Army — Zhang Zizhong. Rushed to reinforce Linyi. Launched night counterattacks on Japanese 5th Division."
-      }, {
-        "code" : "NRA-2AG",
-        "name" : "第2集团军 (孙连仲部)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#3498db",
-        "lat" : 34.5,
-        "lng" : 117.65,
-        "description" : "HQ 2nd Army Group — Sun Lianzhong. Main defense at Taierzhuang."
-      }, {
-        "code" : "NRA-044B",
-        "name" : "第44独立旅",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 34.57,
-        "lng" : 117.78,
-        "description" : "44th Independent Brigade. Reserve force stationed east of the town."
-      }, {
-        "code" : "NRA-3AG",
-        "name" : "第3集团军 (庞炳勋部)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#9b59b6",
-        "lat" : 35.05,
-        "lng" : 118.38,
-        "description" : "HQ 3rd Army Group — Pang Bingxun. Defended Linyi against Japanese 5th Division."
-      }, {
-        "code" : "IJA-8B",
-        "name" : "第8旅团 (濑谷启)",
-        "source" : "japanese",
-        "type" : "infantry",
-        "status" : "engaged",
-        "color" : "#c0392b",
-        "lat" : 34.78,
-        "lng" : 117.52,
-        "description" : "IJA 8th Infantry Brigade — Seya Kei. Spearheaded the attack on Taierzhuang. ~4000 men with tank support."
-      }, {
-        "code" : "NRA-059",
-        "name" : "59军38师",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 35.01,
-        "lng" : 118.32,
-        "description" : "38th Division — Part of Zhang Zizhong's 59th Army."
-      }, {
-        "code" : "NRA-039",
-        "name" : "39师 (庞炳勋兼)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 35.06,
-        "lng" : 118.36,
-        "description" : "39th Division — Defended Linyi north gate. Blocked Itagaki's 5th Division advance."
-      } ],
-      "moves" : [ {
-        "code" : "NRA-030",
-        "fromLat" : 34.58,
-        "fromLng" : 117.72,
-        "toLat" : 34.62,
-        "toLng" : 117.68,
-        "action" : "move"
-      }, {
-        "code" : "IJA-10AR",
-        "fromLat" : 34.92,
-        "fromLng" : 117.44,
-        "toLat" : 34.82,
-        "toLng" : 117.48,
-        "action" : "advance"
-      }, {
-        "code" : "IJA-33B",
-        "fromLat" : 34.88,
-        "fromLng" : 117.38,
-        "toLat" : 34.76,
-        "toLng" : 117.5,
-        "action" : "advance"
-      }, {
-        "code" : "NRA-027",
-        "fromLat" : 34.52,
-        "fromLng" : 117.7,
-        "toLat" : 34.53,
-        "toLng" : 117.66,
-        "action" : "move"
-      }, {
-        "code" : "NRA-089",
-        "fromLat" : 34.76,
-        "fromLng" : 117.55,
-        "toLat" : 34.78,
-        "toLng" : 117.52,
-        "action" : "move"
-      }, {
-        "code" : "NRA-044B",
-        "fromLat" : 34.55,
-        "fromLng" : 117.76,
-        "toLat" : 34.57,
-        "toLng" : 117.78,
-        "action" : "move"
-      }, {
-        "code" : "IJA-8B",
-        "fromLat" : 34.9,
-        "fromLng" : 117.42,
-        "toLat" : 34.78,
-        "toLng" : 117.52,
-        "action" : "advance"
-      } ],
-      "unitChanges" : [ {
-        "code" : "IJA-21B",
-        "changeType" : "hold",
-        "fromLat" : 35.12,
-        "fromLng" : 118.52,
-        "toLat" : 35.12,
-        "toLng" : 118.52,
-        "action" : "hold",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : "Stationary this round"
-      }, {
-        "code" : "NRA-030",
-        "changeType" : "move",
-        "fromLat" : 34.58,
-        "fromLng" : 117.72,
-        "toLat" : 34.62,
-        "toLng" : 117.68,
-        "action" : "retreat",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : ""
-      }, {
-        "code" : "IJA-10AR",
-        "changeType" : "move",
-        "fromLat" : 34.92,
-        "fromLng" : 117.44,
-        "toLat" : 34.82,
-        "toLng" : 117.48,
-        "action" : "advance",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : ""
-      }, {
-        "code" : "NRA-031",
-        "changeType" : "hold",
-        "fromLat" : 34.56,
-        "fromLng" : 117.74,
-        "toLat" : 34.56,
-        "toLng" : 117.74,
-        "action" : "hold",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : "Stationary this round"
-      }, {
-        "code" : "IJA-13D",
-        "changeType" : "hold",
-        "fromLat" : 33.5,
-        "fromLng" : 117.3,
-        "toLat" : 33.5,
-        "toLng" : 117.3,
-        "action" : "hold",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : "Stationary this round"
-      }, {
-        "code" : "IJA-33B",
-        "changeType" : "move",
-        "fromLat" : 34.88,
-        "fromLng" : 117.38,
-        "toLat" : 34.76,
-        "toLng" : 117.5,
-        "action" : "advance",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : ""
-      }, {
-        "code" : "IJA-NCA",
-        "changeType" : "hold",
-        "fromLat" : 36.7,
-        "fromLng" : 116.98,
-        "toLat" : 36.7,
-        "toLng" : 116.98,
-        "action" : "hold",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : "Stationary this round"
-      }, {
-        "code" : "NRA-115D",
-        "changeType" : "hold",
-        "fromLat" : 35.03,
-        "fromLng" : 118.34,
-        "toLat" : 35.03,
-        "toLng" : 118.34,
-        "action" : "hold",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : "Stationary this round"
-      }, {
-        "code" : "IJA-5AR",
-        "changeType" : "hold",
-        "fromLat" : 35.07,
-        "fromLng" : 118.46,
-        "toLat" : 35.07,
-        "toLng" : 118.46,
-        "action" : "hold",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : "Stationary this round"
-      }, {
-        "code" : "CPC-115T",
-        "changeType" : "hold",
-        "fromLat" : 35.15,
-        "fromLng" : 113.2,
-        "toLat" : 35.15,
-        "toLng" : 113.2,
-        "action" : "hold",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : "Stationary this round"
-      }, {
-        "code" : "NRA-5WA",
-        "changeType" : "hold",
-        "fromLat" : 34.26,
-        "fromLng" : 117.18,
-        "toLat" : 34.26,
-        "toLng" : 117.18,
-        "action" : "hold",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : "Stationary this round"
-      }, {
-        "code" : "IJA-9B",
-        "changeType" : "hold",
-        "fromLat" : 35.08,
-        "fromLng" : 118.48,
-        "toLat" : 35.08,
-        "toLng" : 118.48,
-        "action" : "hold",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : "Stationary this round"
-      }, {
-        "code" : "NRA-004",
-        "changeType" : "hold",
-        "fromLat" : 34.74,
-        "fromLng" : 117.45,
-        "toLat" : 34.74,
-        "toLng" : 117.45,
-        "action" : "hold",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : "Stationary this round"
-      }, {
-        "code" : "NRA-048",
-        "changeType" : "hold",
-        "fromLat" : 34.26,
-        "fromLng" : 117.12,
-        "toLat" : 34.26,
-        "toLng" : 117.12,
-        "action" : "hold",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : "Stationary this round"
-      }, {
-        "code" : "NRA-027",
-        "changeType" : "move",
-        "fromLat" : 34.52,
-        "fromLng" : 117.7,
-        "toLat" : 34.53,
-        "toLng" : 117.66,
-        "action" : "retreat",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : ""
-      }, {
-        "code" : "NRA-007",
-        "changeType" : "hold",
-        "fromLat" : 34.28,
-        "fromLng" : 117.08,
-        "toLat" : 34.28,
-        "toLng" : 117.08,
-        "action" : "hold",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : "Stationary this round"
-      }, {
-        "code" : "NRA-089",
-        "changeType" : "move",
-        "fromLat" : 34.76,
-        "fromLng" : 117.55,
-        "toLat" : 34.78,
-        "toLng" : 117.52,
-        "action" : "retreat",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : ""
-      }, {
-        "code" : "NRA-122",
-        "changeType" : "hold",
-        "fromLat" : 35.08,
-        "fromLng" : 117.15,
-        "toLat" : 35.08,
-        "toLng" : 117.15,
-        "action" : "hold",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : "Stationary this round"
-      }, {
-        "code" : "NRA-002",
-        "changeType" : "status_change",
-        "fromLat" : 34.72,
-        "fromLng" : 117.48,
-        "toLat" : 34.72,
-        "toLng" : 117.48,
-        "action" : "status",
-        "oldStatus" : "active",
-        "newStatus" : "engaged",
-        "description" : "active → engaged"
-      }, {
-        "code" : "IJA-5D",
-        "changeType" : "hold",
-        "fromLat" : 35.1,
-        "fromLng" : 118.5,
-        "toLat" : 35.1,
-        "toLng" : 118.5,
-        "action" : "hold",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : "Stationary this round"
-      }, {
-        "code" : "NRA-025",
-        "changeType" : "hold",
-        "fromLat" : 34.68,
-        "fromLng" : 117.52,
-        "toLat" : 34.68,
-        "toLng" : 117.52,
-        "action" : "hold",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : "Stationary this round"
-      }, {
-        "code" : "NRA-124",
-        "changeType" : "hold",
-        "fromLat" : 35.09,
-        "fromLng" : 117.1,
-        "toLat" : 35.09,
-        "toLng" : 117.1,
-        "action" : "hold",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : "Stationary this round"
-      }, {
-        "code" : "NRA-22AG",
-        "changeType" : "hold",
-        "fromLat" : 35.1,
-        "fromLng" : 117.12,
-        "toLat" : 35.1,
-        "toLng" : 117.12,
-        "action" : "hold",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : "Stationary this round"
-      }, {
-        "code" : "NRA-21AG",
-        "changeType" : "hold",
-        "fromLat" : 34.3,
-        "fromLng" : 117.1,
-        "toLat" : 34.3,
-        "toLng" : 117.1,
-        "action" : "hold",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : "Stationary this round"
-      }, {
-        "code" : "NRA-20AG",
-        "changeType" : "hold",
-        "fromLat" : 34.7,
-        "fromLng" : 117.5,
-        "toLat" : 34.7,
-        "toLng" : 117.5,
-        "action" : "hold",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : "Stationary this round"
-      }, {
-        "code" : "CPC-129",
-        "changeType" : "hold",
-        "fromLat" : 36.0,
-        "fromLng" : 114.0,
-        "toLat" : 36.0,
-        "toLng" : 114.0,
-        "action" : "hold",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : "Stationary this round"
-      }, {
-        "code" : "IJA-10D",
-        "changeType" : "hold",
-        "fromLat" : 34.95,
-        "fromLng" : 117.4,
-        "toLat" : 34.95,
-        "toLng" : 117.4,
-        "action" : "hold",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : "Stationary this round"
-      }, {
-        "code" : "NRA-59A",
-        "changeType" : "hold",
-        "fromLat" : 35.02,
-        "fromLng" : 118.3,
-        "toLat" : 35.02,
-        "toLng" : 118.3,
-        "action" : "hold",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : "Stationary this round"
-      }, {
-        "code" : "NRA-2AG",
-        "changeType" : "hold",
-        "fromLat" : 34.5,
-        "fromLng" : 117.65,
-        "toLat" : 34.5,
-        "toLng" : 117.65,
-        "action" : "hold",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : "Stationary this round"
-      }, {
-        "code" : "NRA-044B",
-        "changeType" : "move",
-        "fromLat" : 34.55,
-        "fromLng" : 117.76,
-        "toLat" : 34.57,
-        "toLng" : 117.78,
-        "action" : "retreat",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : ""
-      }, {
-        "code" : "NRA-3AG",
-        "changeType" : "hold",
-        "fromLat" : 35.05,
-        "fromLng" : 118.38,
-        "toLat" : 35.05,
-        "toLng" : 118.38,
-        "action" : "hold",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : "Stationary this round"
-      }, {
-        "code" : "IJA-8B",
-        "changeType" : "move",
-        "fromLat" : 34.9,
-        "fromLng" : 117.42,
-        "toLat" : 34.78,
-        "toLng" : 117.52,
-        "action" : "advance",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : ""
-      }, {
-        "code" : "NRA-059",
-        "changeType" : "hold",
-        "fromLat" : 35.01,
-        "fromLng" : 118.32,
-        "toLat" : 35.01,
-        "toLng" : 118.32,
-        "action" : "hold",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : "Stationary this round"
-      }, {
-        "code" : "NRA-039",
-        "changeType" : "hold",
-        "fromLat" : 35.06,
-        "fromLng" : 118.36,
-        "toLat" : 35.06,
-        "toLng" : 118.36,
-        "action" : "hold",
-        "oldStatus" : "",
-        "newStatus" : "",
-        "description" : "Stationary this round"
-      } ],
-      "commanderActions" : { },
-      "sideIntelMaps" : {
-        "japanese" : {
-          "side" : "japanese",
-          "roundNumber" : 1,
-          "entries" : [ {
-            "unitCode" : "IJA-21B",
-            "phantomId" : null,
-            "name" : "第21旅团 (坂本支队)",
-            "apparentSource" : "japanese",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 35.12,
-            "lng" : 118.52,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "IJA-10AR",
-            "phantomId" : null,
-            "name" : "第10炮兵联队",
-            "apparentSource" : "japanese",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 34.82,
-            "lng" : 117.48,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "IJA-13D",
-            "phantomId" : null,
-            "name" : "第13师团 (荻洲立兵)",
-            "apparentSource" : "japanese",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 33.5,
-            "lng" : 117.3,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "IJA-33B",
-            "phantomId" : null,
-            "name" : "第33旅团 (濑谷支队)",
-            "apparentSource" : "japanese",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 34.76,
-            "lng" : 117.5,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "IJA-NCA",
-            "phantomId" : null,
-            "name" : "华北方面军 (寺内寿一)",
-            "apparentSource" : "japanese",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 36.7,
-            "lng" : 116.98,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "IJA-5AR",
-            "phantomId" : null,
-            "name" : "第5炮兵联队",
-            "apparentSource" : "japanese",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 35.07,
-            "lng" : 118.46,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "IJA-9B",
-            "phantomId" : null,
-            "name" : "第9旅团 (国崎登)",
-            "apparentSource" : "japanese",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 35.08,
-            "lng" : 118.48,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "IJA-5D",
-            "phantomId" : null,
-            "name" : "第5师团 (板垣征四郎)",
-            "apparentSource" : "japanese",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 35.1,
-            "lng" : 118.5,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "IJA-10D",
-            "phantomId" : null,
-            "name" : "第10师团 (矶谷廉介)",
-            "apparentSource" : "japanese",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 34.95,
-            "lng" : 117.4,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "IJA-8B",
-            "phantomId" : null,
-            "name" : "第8旅团 (濑谷启)",
-            "apparentSource" : "japanese",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 34.78,
-            "lng" : 117.52,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          } ],
-          "exploredBounds" : [ ],
-          "summary" : ""
-        },
-        "nationalist" : {
-          "side" : "nationalist",
-          "roundNumber" : 1,
-          "entries" : [ {
-            "unitCode" : "NRA-030",
-            "phantomId" : null,
-            "name" : "30师 (张金照部)",
-            "apparentSource" : "nationalist",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 34.62,
-            "lng" : 117.68,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "NRA-031",
-            "phantomId" : null,
-            "name" : "31师 (池峰城部)",
-            "apparentSource" : "nationalist",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 34.56,
-            "lng" : 117.74,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "NRA-115D",
-            "phantomId" : null,
-            "name" : "115师 (东北军)",
-            "apparentSource" : "nationalist",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 35.03,
-            "lng" : 118.34,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "NRA-5WA",
-            "phantomId" : null,
-            "name" : "第5战区 (李宗仁/白崇禧)",
-            "apparentSource" : "nationalist",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 34.26,
-            "lng" : 117.18,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "NRA-004",
-            "phantomId" : null,
-            "name" : "4师 (陈大庆部)",
-            "apparentSource" : "nationalist",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 34.74,
-            "lng" : 117.45,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "NRA-048",
-            "phantomId" : null,
-            "name" : "48师 (桂军)",
-            "apparentSource" : "nationalist",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 34.26,
-            "lng" : 117.12,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "NRA-027",
-            "phantomId" : null,
-            "name" : "27师 (黄樵松部)",
-            "apparentSource" : "nationalist",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 34.53,
-            "lng" : 117.66,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "NRA-007",
-            "phantomId" : null,
-            "name" : "7师 (桂军)",
-            "apparentSource" : "nationalist",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 34.28,
-            "lng" : 117.08,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "NRA-089",
-            "phantomId" : null,
-            "name" : "89师 (张雪中部)",
-            "apparentSource" : "nationalist",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 34.78,
-            "lng" : 117.52,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "NRA-122",
-            "phantomId" : null,
-            "name" : "122师 (王铭章部)",
-            "apparentSource" : "nationalist",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 35.08,
-            "lng" : 117.15,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "NRA-002",
-            "phantomId" : null,
-            "name" : "2师 (郑洞国部)",
-            "apparentSource" : "nationalist",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 34.72,
-            "lng" : 117.48,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "NRA-025",
-            "phantomId" : null,
-            "name" : "25师 (关麟征部)",
-            "apparentSource" : "nationalist",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 34.68,
-            "lng" : 117.52,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "NRA-124",
-            "phantomId" : null,
-            "name" : "124师 (孙震兼)",
-            "apparentSource" : "nationalist",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 35.09,
-            "lng" : 117.1,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "NRA-22AG",
-            "phantomId" : null,
-            "name" : "第22集团军 (孙震部)",
-            "apparentSource" : "nationalist",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 35.1,
-            "lng" : 117.12,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "NRA-21AG",
-            "phantomId" : null,
-            "name" : "第21集团军 (廖磊部)",
-            "apparentSource" : "nationalist",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 34.3,
-            "lng" : 117.1,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "NRA-20AG",
-            "phantomId" : null,
-            "name" : "第20军团 (汤恩伯部)",
-            "apparentSource" : "nationalist",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 34.7,
-            "lng" : 117.5,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "NRA-59A",
-            "phantomId" : null,
-            "name" : "第59军 (张自忠部)",
-            "apparentSource" : "nationalist",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 35.02,
-            "lng" : 118.3,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "NRA-2AG",
-            "phantomId" : null,
-            "name" : "第2集团军 (孙连仲部)",
-            "apparentSource" : "nationalist",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 34.5,
-            "lng" : 117.65,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "NRA-044B",
-            "phantomId" : null,
-            "name" : "第44独立旅",
-            "apparentSource" : "nationalist",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 34.57,
-            "lng" : 117.78,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "NRA-3AG",
-            "phantomId" : null,
-            "name" : "第3集团军 (庞炳勋部)",
-            "apparentSource" : "nationalist",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 35.05,
-            "lng" : 118.38,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "NRA-059",
-            "phantomId" : null,
-            "name" : "59军38师",
-            "apparentSource" : "nationalist",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 35.01,
-            "lng" : 118.32,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "NRA-039",
-            "phantomId" : null,
-            "name" : "39师 (庞炳勋兼)",
-            "apparentSource" : "nationalist",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 35.06,
-            "lng" : 118.36,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          } ],
-          "exploredBounds" : [ ],
-          "summary" : ""
-        },
-        "cpc" : {
-          "side" : "cpc",
-          "roundNumber" : 1,
-          "entries" : [ {
-            "unitCode" : "CPC-115T",
-            "phantomId" : null,
-            "name" : "八路军115师 (林彪部)",
-            "apparentSource" : "cpc",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 35.15,
-            "lng" : 113.2,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          }, {
-            "unitCode" : "CPC-129",
-            "phantomId" : null,
-            "name" : "八路军129师 (刘伯承部)",
-            "apparentSource" : "cpc",
-            "reportedType" : "infantry",
-            "certainty" : "confirmed",
-            "lat" : 36.0,
-            "lng" : 114.0,
-            "uncertaintyRadiusKm" : 0.0,
-            "lastObservedRound" : 1,
-            "phantom" : false
-          } ],
-          "exploredBounds" : [ ],
-          "summary" : ""
-        }
-      },
-      "outcome" : "Round 1: 7/7 units reached destination, 12 engagements (0 destroyed, 0 retreating)",
-      "createdAt" : 1781105402287
-    } ],
+    "children" : [ ],
     "unitSnapshots" : [ {
       "code" : "IJA-21B",
       "name" : "第21旅团 (坂本支队)",
@@ -1227,7 +19,9 @@
       "color" : "#c0392b",
       "lat" : 35.12,
       "lng" : 118.52,
-      "description" : "IJA 21st Infantry Brigade — Sakamoto Detachment. Approached Linyi from the east."
+      "description" : "IJA 21st Infantry Brigade — Sakamoto Detachment. Approached Linyi from the east.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-030",
       "name" : "30师 (张金照部)",
@@ -1237,7 +31,9 @@
       "color" : "#2980b9",
       "lat" : 34.58,
       "lng" : 117.72,
-      "description" : "30th Division — Zhang Jinzhao. North of Taierzhuang, blocking Japanese approach from Yixian."
+      "description" : "30th Division — Zhang Jinzhao. North of Taierzhuang, blocking Japanese approach from Yixian.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-031",
       "name" : "31师 (池峰城部)",
@@ -1247,7 +43,9 @@
       "color" : "#2980b9",
       "lat" : 34.56,
       "lng" : 117.74,
-      "description" : "31st Division — Chi Fengcheng. Core defender of Taierzhuang town. Elite unit with strong will."
+      "description" : "31st Division — Chi Fengcheng. Core defender of Taierzhuang town. Elite unit with strong will.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "IJA-10AR",
       "name" : "第10炮兵联队",
@@ -1257,7 +55,9 @@
       "color" : "#e74c3c",
       "lat" : 34.92,
       "lng" : 117.44,
-      "description" : "IJA 10th Artillery Regiment. Heavy artillery support for the Taierzhuang assault."
+      "description" : "IJA 10th Artillery Regiment. Heavy artillery support for the Taierzhuang assault.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "IJA-33B",
       "name" : "第33旅团 (濑谷支队)",
@@ -1267,7 +67,9 @@
       "color" : "#c0392b",
       "lat" : 34.88,
       "lng" : 117.38,
-      "description" : "IJA 33rd Infantry Brigade — Part of 10th Division. Attacked toward Taierzhuang from Yixian."
+      "description" : "IJA 33rd Infantry Brigade — Part of 10th Division. Attacked toward Taierzhuang from Yixian.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "IJA-13D",
       "name" : "第13师团 (荻洲立兵)",
@@ -1277,7 +79,9 @@
       "color" : "#e74c3c",
       "lat" : 33.5,
       "lng" : 117.3,
-      "description" : "IJA 13th Division — Rippei Ogisu. Advanced from south via Bengbu toward Xuzhou. Southern pincer of the operation."
+      "description" : "IJA 13th Division — Rippei Ogisu. Advanced from south via Bengbu toward Xuzhou. Southern pincer of the operation.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "IJA-NCA",
       "name" : "华北方面军 (寺内寿一)",
@@ -1287,7 +91,9 @@
       "color" : "#e74c3c",
       "lat" : 36.7,
       "lng" : 116.98,
-      "description" : "IJA North China Area Army — Hisaichi Terauchi. Overall command of Japanese forces in North China."
+      "description" : "IJA North China Area Army — Hisaichi Terauchi. Overall command of Japanese forces in North China.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-115D",
       "name" : "115师 (东北军)",
@@ -1297,7 +103,9 @@
       "color" : "#2980b9",
       "lat" : 35.03,
       "lng" : 118.34,
-      "description" : "115th Division — Northeast Army remnant. Assisted Linyi defense."
+      "description" : "115th Division — Northeast Army remnant. Assisted Linyi defense.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "IJA-5AR",
       "name" : "第5炮兵联队",
@@ -1307,7 +115,9 @@
       "color" : "#e74c3c",
       "lat" : 35.07,
       "lng" : 118.46,
-      "description" : "IJA 5th Artillery Regiment. Provided fire support for the Linyi attack."
+      "description" : "IJA 5th Artillery Regiment. Provided fire support for the Linyi attack.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "CPC-115T",
       "name" : "八路军115师 (林彪部)",
@@ -1317,7 +127,9 @@
       "color" : "#f1c40f",
       "lat" : 35.15,
       "lng" : 113.2,
-      "description" : "8RA 115th Division — Lin Biao. After Pingxingguan victory, positioned in southern Shanxi."
+      "description" : "8RA 115th Division — Lin Biao. After Pingxingguan victory, positioned in southern Shanxi.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-5WA",
       "name" : "第5战区 (李宗仁/白崇禧)",
@@ -1327,7 +139,9 @@
       "color" : "#e67e22",
       "lat" : 34.26,
       "lng" : 117.18,
-      "description" : "HQ 5th War Area — Li Zongren & Bai Chongxi. Overall command of Xuzhou campaign."
+      "description" : "HQ 5th War Area — Li Zongren & Bai Chongxi. Overall command of Xuzhou campaign.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "IJA-9B",
       "name" : "第9旅团 (国崎登)",
@@ -1337,7 +151,9 @@
       "color" : "#c0392b",
       "lat" : 35.08,
       "lng" : 118.48,
-      "description" : "IJA 9th Infantry Brigade — Kunizaki Noboru. 5th Division's vanguard attacking Linyi."
+      "description" : "IJA 9th Infantry Brigade — Kunizaki Noboru. 5th Division's vanguard attacking Linyi.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-004",
       "name" : "4师 (陈大庆部)",
@@ -1347,7 +163,9 @@
       "color" : "#2980b9",
       "lat" : 34.74,
       "lng" : 117.45,
-      "description" : "4th Division — Chen Daqing. Deployed for flanking maneuver against Japanese rear."
+      "description" : "4th Division — Chen Daqing. Deployed for flanking maneuver against Japanese rear.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-048",
       "name" : "48师 (桂军)",
@@ -1357,7 +175,9 @@
       "color" : "#2980b9",
       "lat" : 34.26,
       "lng" : 117.12,
-      "description" : "48th Division — Guangxi clique unit. Arrived as reinforcement."
+      "description" : "48th Division — Guangxi clique unit. Arrived as reinforcement.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-027",
       "name" : "27师 (黄樵松部)",
@@ -1367,7 +187,9 @@
       "color" : "#2980b9",
       "lat" : 34.52,
       "lng" : 117.7,
-      "description" : "27th Division — Huang Qiaosong. Deployed west of Taierzhuang, guarding flank."
+      "description" : "27th Division — Huang Qiaosong. Deployed west of Taierzhuang, guarding flank.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-007",
       "name" : "7师 (桂军)",
@@ -1377,7 +199,9 @@
       "color" : "#2980b9",
       "lat" : 34.28,
       "lng" : 117.08,
-      "description" : "7th Division — Guangxi clique unit. Veteran of Northern Expedition."
+      "description" : "7th Division — Guangxi clique unit. Veteran of Northern Expedition.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-089",
       "name" : "89师 (张雪中部)",
@@ -1387,7 +211,9 @@
       "color" : "#2980b9",
       "lat" : 34.76,
       "lng" : 117.55,
-      "description" : "89th Division — Zhang Xuezhong. Attacked Japanese forces at Yixian on Mar 26, inflicting heavy casualties."
+      "description" : "89th Division — Zhang Xuezhong. Attacked Japanese forces at Yixian on Mar 26, inflicting heavy casualties.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-122",
       "name" : "122师 (王铭章部)",
@@ -1397,7 +223,9 @@
       "color" : "#2980b9",
       "lat" : 35.08,
       "lng" : 117.15,
-      "description" : "122nd Division — Wang Mingzhang. Heroic last stand at Tengxian. Wang killed in action Mar 17."
+      "description" : "122nd Division — Wang Mingzhang. Heroic last stand at Tengxian. Wang killed in action Mar 17.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-002",
       "name" : "2师 (郑洞国部)",
@@ -1407,7 +235,9 @@
       "color" : "#2980b9",
       "lat" : 34.72,
       "lng" : 117.48,
-      "description" : "2nd Division — Zheng Dongguo. Elite central army unit. Part of Tang Enbo's counterattack force."
+      "description" : "2nd Division — Zheng Dongguo. Elite central army unit. Part of Tang Enbo's counterattack force.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "IJA-5D",
       "name" : "第5师团 (板垣征四郎)",
@@ -1417,7 +247,9 @@
       "color" : "#e74c3c",
       "lat" : 35.1,
       "lng" : 118.5,
-      "description" : "IJA 5th Division — Seishiro Itagaki. Attacked from northeast via Linyi. Attempted to flank Taierzhuang."
+      "description" : "IJA 5th Division — Seishiro Itagaki. Attacked from northeast via Linyi. Attempted to flank Taierzhuang.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-025",
       "name" : "25师 (关麟征部)",
@@ -1427,7 +259,9 @@
       "color" : "#2980b9",
       "lat" : 34.68,
       "lng" : 117.52,
-      "description" : "25th Division — Guan Linzheng. Key unit for the encirclement of Japanese 10th Division."
+      "description" : "25th Division — Guan Linzheng. Key unit for the encirclement of Japanese 10th Division.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-124",
       "name" : "124师 (孙震兼)",
@@ -1437,7 +271,9 @@
       "color" : "#2980b9",
       "lat" : 35.09,
       "lng" : 117.1,
-      "description" : "124th Division — Sichuan troops. Fought at Tengxian alongside 122nd Division."
+      "description" : "124th Division — Sichuan troops. Fought at Tengxian alongside 122nd Division.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-22AG",
       "name" : "第22集团军 (孙震部)",
@@ -1447,7 +283,9 @@
       "color" : "#9b59b6",
       "lat" : 35.1,
       "lng" : 117.12,
-      "description" : "HQ 22nd Group Army — Sun Zhen. Sichuan troops. Defended Tengxian, suffered heavy losses."
+      "description" : "HQ 22nd Group Army — Sun Zhen. Sichuan troops. Defended Tengxian, suffered heavy losses.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-21AG",
       "name" : "第21集团军 (廖磊部)",
@@ -1457,7 +295,9 @@
       "color" : "#9b59b6",
       "lat" : 34.3,
       "lng" : 117.1,
-      "description" : "HQ 21st Group Army — Liao Lei. Guangxi troops. Reinforced from south."
+      "description" : "HQ 21st Group Army — Liao Lei. Guangxi troops. Reinforced from south.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-20AG",
       "name" : "第20军团 (汤恩伯部)",
@@ -1467,7 +307,9 @@
       "color" : "#9b59b6",
       "lat" : 34.7,
       "lng" : 117.5,
-      "description" : "HQ 20th Army Group — Tang Enbo. Main flanking/counterattack force. Equipped with artillery."
+      "description" : "HQ 20th Army Group — Tang Enbo. Main flanking/counterattack force. Equipped with artillery.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "CPC-129",
       "name" : "八路军129师 (刘伯承部)",
@@ -1477,7 +319,9 @@
       "color" : "#f1c40f",
       "lat" : 36.0,
       "lng" : 114.0,
-      "description" : "8RA 129th Division — Liu Bocheng. Active in Shanxi-Hebei border region. Harassed Japanese supply lines."
+      "description" : "8RA 129th Division — Liu Bocheng. Active in Shanxi-Hebei border region. Harassed Japanese supply lines.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "IJA-10D",
       "name" : "第10师团 (矶谷廉介)",
@@ -1487,7 +331,9 @@
       "color" : "#e74c3c",
       "lat" : 34.95,
       "lng" : 117.4,
-      "description" : "IJA 10th Division — Rensuke Isogai. Main attacking force. Advanced south along Jinpu railway from Shandong."
+      "description" : "IJA 10th Division — Rensuke Isogai. Main attacking force. Advanced south along Jinpu railway from Shandong.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-59A",
       "name" : "第59军 (张自忠部)",
@@ -1497,7 +343,9 @@
       "color" : "#2980b9",
       "lat" : 35.02,
       "lng" : 118.3,
-      "description" : "59th Army — Zhang Zizhong. Rushed to reinforce Linyi. Launched night counterattacks on Japanese 5th Division."
+      "description" : "59th Army — Zhang Zizhong. Rushed to reinforce Linyi. Launched night counterattacks on Japanese 5th Division.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-2AG",
       "name" : "第2集团军 (孙连仲部)",
@@ -1507,7 +355,9 @@
       "color" : "#3498db",
       "lat" : 34.5,
       "lng" : 117.65,
-      "description" : "HQ 2nd Army Group — Sun Lianzhong. Main defense at Taierzhuang."
+      "description" : "HQ 2nd Army Group — Sun Lianzhong. Main defense at Taierzhuang.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-044B",
       "name" : "第44独立旅",
@@ -1517,7 +367,9 @@
       "color" : "#2980b9",
       "lat" : 34.55,
       "lng" : 117.76,
-      "description" : "44th Independent Brigade. Reserve force stationed east of the town."
+      "description" : "44th Independent Brigade. Reserve force stationed east of the town.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-3AG",
       "name" : "第3集团军 (庞炳勋部)",
@@ -1527,7 +379,9 @@
       "color" : "#9b59b6",
       "lat" : 35.05,
       "lng" : 118.38,
-      "description" : "HQ 3rd Army Group — Pang Bingxun. Defended Linyi against Japanese 5th Division."
+      "description" : "HQ 3rd Army Group — Pang Bingxun. Defended Linyi against Japanese 5th Division.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "IJA-8B",
       "name" : "第8旅团 (濑谷启)",
@@ -1537,7 +391,9 @@
       "color" : "#c0392b",
       "lat" : 34.9,
       "lng" : 117.42,
-      "description" : "IJA 8th Infantry Brigade — Seya Kei. Spearheaded the attack on Taierzhuang. ~4000 men with tank support."
+      "description" : "IJA 8th Infantry Brigade — Seya Kei. Spearheaded the attack on Taierzhuang. ~4000 men with tank support.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-059",
       "name" : "59军38师",
@@ -1547,7 +403,9 @@
       "color" : "#2980b9",
       "lat" : 35.01,
       "lng" : 118.32,
-      "description" : "38th Division — Part of Zhang Zizhong's 59th Army."
+      "description" : "38th Division — Part of Zhang Zizhong's 59th Army.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-039",
       "name" : "39师 (庞炳勋兼)",
@@ -1557,7 +415,9 @@
       "color" : "#2980b9",
       "lat" : 35.06,
       "lng" : 118.36,
-      "description" : "39th Division — Defended Linyi north gate. Blocked Itagaki's 5th Division advance."
+      "description" : "39th Division — Defended Linyi north gate. Blocked Itagaki's 5th Division advance.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     } ],
     "moves" : [ ],
     "unitChanges" : [ ],
@@ -2999,6 +1859,190 @@
         "risks" : "",
         "recommendations" : "",
         "timestamp" : 1781105154648
+      }, {
+        "side" : "nationalist",
+        "source" : "llm",
+        "guidance" : "Round 1。基于当前态势制定作战计划。侦察关键位置地形，移动至少3个单位执行战术机动。",
+        "deployment" : null,
+        "subRounds" : [ {
+          "iteration" : 1,
+          "request" : null,
+          "response" : {
+            "id" : "b6468e25-fb53-4439-89eb-aa365b04a6b6",
+            "object" : "chat.completion",
+            "created" : 1781106598,
+            "model" : "deepseek-v4-pro",
+            "choices" : [ {
+              "index" : 0,
+              "message" : {
+                "role" : "assistant",
+                "content" : "",
+                "reasoning_content" : "Let me review the current situation. I've completed terrain reconnaissance and moved 4 units. The user asked me to move at least 3 units to strengthen defense. I've done that. Now I should summarize the plan.\n\nBut wait, let me also think about whether I should move a couple more units. The 22nd Army Group (Sun Zhen) at ~35.09, 117.10 is northwest of the Japanese 10th Division. Let me think about whether they should stay there or move.\n\nActually, looking at the deployment:\n\n- The Japanese 10D (矶谷) is at (34.95, 117.40) and 33B (濑谷支队) at (34.88, 117.38)\n- They're likely to advance southeast along the Jinpu Railway toward Zaozhuang (34.88, 117.57) and then Tai'erzhuang (34.56, 117.74)\n- The 22AG is at ~35.09, 117.10-15 - northwest of the Japanese\n- As the Japanese move southeast, 22AG will be behind them (northwest), which is not ideal for blocking\n\nActually wait - if the Japanese move from their current position south-southeast toward Zaozhuang and Tai'erzhuang, the 22AG at (35.10, 117.12) would be to their west-northwest. As the Japanese move south, 22AG could harass their left/rear flank. That's actually quite useful.\n\nBut perhaps I should move one of the 22AG units to block the railway approach more directly. Let me move NRA-122 (王铭章部) slightly east to (35.05, 117.20) to be closer to the railway approach.\n\nActually, let me also think about moving NRA-2AG (孙连仲) closer to the front for better command. Currently at (34.50, 117.65).\n\nAnd perhaps NRA-5WA (李宗仁) should stay at Xuzhou for theater command.\n\nI think I should move a couple more units to optimize:\n1. NRA-2AG (孙连仲) → (34.54, 117.70) - closer to front\n2. NRA-122 (122师 王铭章) → (35.04, 117.22) - closer to railway\n\nLet me do these moves and then finalize.\n\nActually, I've already moved 4 units which meets the minimum requirement. Let me just finalize and present the strategic summary. But also, moving 2 more would make the plan even better. Let me do it.\n\nLet me also consider: should I move NRA-20AG (汤恩伯) to a more concealed position? Currently at (34.70, 117.50). The Yicheng area (34.76, 117.58) has rugged terrain. But I already moved NRA-089 there. The 20AG headquarters at (34.70, 117.50) might be fine.\n\nOK let me move the 2 units I mentioned and then finalize.\n\nActually, let me think once more about the 22AG. They're at lat 35.09-35.10 which is north of the Japanese 10D at 34.95. The Japanese route to Tai'erzhuang goes southeast. The 22AG is north and west. If the Japanese move south, 22AG could:\n- Harass from the rear\n- Block the railway behind them\n- Cut supply lines\n\nThis is good. But moving one unit closer to the railway line would be even better.\n\nLet me execute the two moves.",
+                "tool_calls" : [ {
+                  "index" : 0,
+                  "id" : "call_00_xPN3E7LyJl4oeVYQ09vv6168",
+                  "type" : "function",
+                  "function" : {
+                    "name" : "move_unit",
+                    "arguments" : "{\"code\": \"NRA-2AG\", \"lat\": 34.54, \"lng\": 117.70}"
+                  }
+                }, {
+                  "index" : 1,
+                  "id" : "call_01_FEG4als8ThOaZk9gR0Sj2712",
+                  "type" : "function",
+                  "function" : {
+                    "name" : "move_unit",
+                    "arguments" : "{\"code\": \"NRA-122\", \"lat\": 35.04, \"lng\": 117.22}"
+                  }
+                } ]
+              },
+              "logprobs" : null,
+              "finish_reason" : "tool_calls"
+            } ],
+            "usage" : {
+              "prompt_tokens" : 7959,
+              "completion_tokens" : 931,
+              "total_tokens" : 8890,
+              "prompt_tokens_details" : {
+                "cached_tokens" : 2176
+              },
+              "completion_tokens_details" : {
+                "reasoning_tokens" : 776
+              },
+              "prompt_cache_hit_tokens" : 2176,
+              "prompt_cache_miss_tokens" : 5783
+            },
+            "system_fingerprint" : "fp_9954b31ca7_prod0820_fp8_kvcache_20260402"
+          },
+          "results" : [ {
+            "tool_call_id" : "call_00_xPN3E7LyJl4oeVYQ09vv6168",
+            "name" : "move_unit",
+            "content" : {
+              "moved" : "NRA-2AG",
+              "lat" : 34.54,
+              "lng" : 117.7
+            }
+          }, {
+            "tool_call_id" : "call_01_FEG4als8ThOaZk9gR0Sj2712",
+            "name" : "move_unit",
+            "content" : {
+              "moved" : "NRA-122",
+              "lat" : 35.04,
+              "lng" : 117.22
+            }
+          } ],
+          "timestamp" : 1781106615406
+        }, {
+          "iteration" : 2,
+          "request" : null,
+          "response" : {
+            "id" : "fb1893d5-e15d-4eba-bc67-ef1038bc9eff",
+            "object" : "chat.completion",
+            "created" : 1781106615,
+            "model" : "deepseek-v4-pro",
+            "choices" : [ {
+              "index" : 0,
+              "message" : {
+                "role" : "assistant",
+                "content" : "---\n\n## \uD83D\uDCCB 第五战区台儿庄防御部署 — 完成报告\n\n### ✅ 已执行调动 (6个单位)\n\n| 单位 | 原位置 | 新位置 | 战术目的 |\n|------|--------|--------|----------|\n| **30师** (张金照) | (34.58, 117.72) | (34.62, 117.68) | 台儿庄正面以北前出警戒阵地，迟滞日军南下 |\n| **27师** (黄樵松) | (34.52, 117.70) | (34.53, 117.66) | 台儿庄西侧运河西岸，掩护左翼 |\n| **44独立旅** | (34.55, 117.76) | (34.57, 117.78) | 台儿庄东侧运河东岸，拱卫右翼 |\n| **89师** (张雪中) | (34.76, 117.55) | (34.78, 117.52) | 向峄城方向靠拢，加强侧翼隐蔽 |\n| **第2集团军** (孙连仲) | (34.50, 117.65) | (34.54, 117.70) | 前移指挥所，靠前指挥 |\n| **122师** (王铭章) | (35.08, 117.15) | (35.04, 117.22) | 向津浦铁路靠拢，骚扰日军后方补给线 |\n\n---\n\n### \uD83D\uDDFA️ 总体部署 — 四层口袋阵\n\n```\n                    ┌─ 22AG (孙震)\n                    │  35.04~35.10, 117.10~117.22\n                    │  [骚扰第10师团后方/切断补给]\n                    │\n    ┌─── 20AG (汤恩伯) ──────────────┐\n    │   34.68~34.78, 117.45~117.52   │\n    │   [隐蔽待机 — 侧翼包抄主力]      │\n    │                                │\n    │    日军第10师团南下路线           │\n    │    ╔══════════════╗            │\n    │    ║  矶谷廉介     ║            │\n    │    ╚══════╤═══════╝            │\n    │           ↓                    │\n    │    ┌──────┴──────┐              │\n    │    │  台儿庄正面   │              │\n    │    │  2AG (孙连仲) │              │\n    │    │  30师+31师    │              │\n    │    │  +27师+44旅   │              │\n    │    └──────────────┘              │\n    │                                │\n    └── 20AG 从西侧出击 ──────────────┘\n    \n    东线阻击:\n    ┌─ 3AG (庞炳勋) + 59A (张自忠) ──┐\n    │  35.01~35.06, 118.30~118.38   │\n    │  [阻击第5师团坂本支队东援]       │\n    └────────────────────────────────┘\n    \n    预备队:\n    ┌─ 21AG (廖磊桂军) ──────────────┐\n    │  34.26~34.30, 117.08~117.12   │\n    │  [徐州以南待命 — 总预备队]       │\n    └────────────────────────────────┘\n```\n\n---\n\n### \uD83C\uDFAF 战役想定 — 四阶段\n\n| 阶段 | 行动 | 关键部队 |\n|------|------|----------|\n| **一、迟滞** | 22AG从西北骚扰第10师团后方，122师切断津浦路补给线 | 孙震部 |\n| **二、诱敌** | 30师前出阵地逐次抵抗后撤入台儿庄，诱使濑谷支队孤军攻城 | 张金照→池峰城 |\n| **三、顶住** | 31师+27师+44旅依托运河与城墙死守，将日军拖入巷战 | 孙连仲部 |\n| **四、合围** | 20军团从峄城方向侧击日军背后，与正面守军形成夹击 | 汤恩伯部 |\n\n---\n\n### ⚠️ 关键前提\n\n- **张自忠59军必须死守临沂**，阻止第5师团坂本支队与第10师团会师\n- **汤恩伯必须准时出击**——若出击过早则日军尚未陷入攻城战，过晚则台儿庄可能失守\n- **22AG需积极袭扰**日军后方，延缓其炮兵与辎重跟进\n\n> *\"让矶谷师团钻进这个口袋，然后汤恩伯从侧后捅他一刀。\"*\n>\n> —— 第五战区司令长官 李宗仁\n\n部署完毕，待日军行动。",
+                "reasoning_content" : "Let me now summarize the complete plan. I've moved 6 units total:\n\n1. NRA-030 (30师 张金照部): (34.58, 117.72) → (34.62, 117.68) — Forward screening position north of Tai'erzhuang\n2. NRA-027 (27师 黄樵松部): (34.52, 117.70) → (34.53, 117.66) — West flank guard\n3. NRA-044B (第44独立旅): (34.55, 117.76) → (34.57, 117.78) — East flank guard\n4. NRA-089 (89师 张雪中部): (34.76, 117.55) → (34.78, 117.52) — Closer to Yicheng for flanking concealment\n5. NRA-2AG (孙连仲司令部): (34.50, 117.65) → (34.54, 117.70) — Closer to front for better command\n6. NRA-122 (122师 王铭章部): (35.08, 117.15) → (35.04, 117.22) — Closer to Jinpu Railway for harassment\n\nThis is a solid deployment. Now let me present the comprehensive strategic summary.\n\nThe plan follows Li Zongren's historical \"pocket\" strategy:\n- 诱敌深入 (lure enemy deep)\n- 正面阻击 (frontal resistance at Tai'erzhuang)\n- 侧翼包抄 (flank attack from the west)\n- 阻援打点 (block reinforcements, destroy the main force)\n\nLet me write the summary now without tool calls."
+              },
+              "logprobs" : null,
+              "finish_reason" : "stop"
+            } ],
+            "usage" : {
+              "prompt_tokens" : 8975,
+              "completion_tokens" : 1494,
+              "total_tokens" : 10469,
+              "prompt_tokens_details" : {
+                "cached_tokens" : 7936
+              },
+              "completion_tokens_details" : {
+                "reasoning_tokens" : 375
+              },
+              "prompt_cache_hit_tokens" : 7936,
+              "prompt_cache_miss_tokens" : 1039
+            },
+            "system_fingerprint" : "fp_9954b31ca7_prod0820_fp8_kvcache_20260402"
+          },
+          "results" : {
+            "done" : true
+          },
+          "timestamp" : 1781106642131
+        } ],
+        "finalPlan" : [ {
+          "index" : 0,
+          "id" : "call_00_xPN3E7LyJl4oeVYQ09vv6168",
+          "type" : "function",
+          "function" : {
+            "name" : "move_unit",
+            "arguments" : "{\"code\": \"NRA-2AG\", \"lat\": 34.54, \"lng\": 117.70}"
+          }
+        }, {
+          "index" : 1,
+          "id" : "call_01_FEG4als8ThOaZk9gR0Sj2712",
+          "type" : "function",
+          "function" : {
+            "name" : "move_unit",
+            "arguments" : "{\"code\": \"NRA-122\", \"lat\": 35.04, \"lng\": 117.22}"
+          }
+        } ],
+        "rationale" : "Let me now summarize the complete plan. I've moved 6 units total:\n\n1. NRA-030 (30师 张金照部): (34.58, 117.72) → (34.62, 117.68) — Forward screening position north of Tai'erzhuang\n2. NRA-027 (27师 黄樵松部): (34.52, 117.70) → (34.53, 117.66) — West flank guard\n3. NRA-044B (第44独立旅): (34.55, 117.76) → (34.57, 117.78) — East flank guard\n4. NRA-089 (89师 张雪中部): (34.76, 117.55) → (34.78, 117.52) — Closer to Yicheng for flanking concealment\n5. NRA-2AG (孙连仲司令部): (34.50, 117.65) → (34.54, 117.70) — Closer to front for better command\n6. NRA-122 (122师 王铭章部): (35.08, 117.15) → (35.04, 117.22) — Closer to Jinpu Railway for harassment\n\nThis is a solid deployment. Now let me present the comprehensive strategic summary.\n\nThe plan follows Li Zongren's historical \"pocket\" strategy:\n- 诱敌深入 (lure enemy deep)\n- 正面阻击 (frontal resistance at Tai'erzhuang)\n- 侧翼包抄 (flank attack from the west)\n- 阻援打点 (block reinforcements, destroy the main force)\n\nLet me write the summary now without tool calls.",
+        "guidanceAssessment" : "",
+        "feedback" : null,
+        "risks" : "",
+        "recommendations" : "",
+        "timestamp" : 1781106598012
+      }, {
+        "side" : "nationalist",
+        "source" : "llm",
+        "guidance" : "Round 1。基于当前态势和地形信息制定作战计划。至少移动3个单位执行战术机动。",
+        "deployment" : null,
+        "subRounds" : [ {
+          "iteration" : 1,
+          "request" : null,
+          "response" : {
+            "id" : "39d81f96-ac6b-4400-b80a-a41e845d0057",
+            "object" : "chat.completion",
+            "created" : 1781109613,
+            "model" : "deepseek-v4-pro",
+            "choices" : [ {
+              "index" : 0,
+              "message" : {
+                "role" : "assistant",
+                "content" : "---\n\n## 台儿庄战役 — 第五战区作战计划\n\n### \uD83C\uDFF4 战前态势\n\n日军第10师团（矶谷廉介）正沿津浦铁路南下，前锋濑谷支队已推进至峄县附近，目指台儿庄；第5师团（板垣征四郎）从临沂方向东进，企图与第10师团会攻徐州。两路日军呈钳形态势，但中间有沂蒙山区阻隔，协同困难——**这正是各个击破的战机**。\n\n---\n\n### \uD83D\uDCD0 核心战略：口袋阵\n\n```\n                    日军第10师团\n                    (矶谷廉介)\n                        │\n                        ▼\n          ╔══════════════════════════╗\n          ║    川军22集团军（后方袭扰）║  ← 断敌退路\n          ╚══════════════════════════╝\n                        │\n        ╔═══════════════╪═══════════════╗\n        ║  汤恩伯20军团  │               ║  ← 西侧翼隐蔽\n        ║  (侧击主力)    │               ║\n        ╚═══════════════╪═══════════════╝\n                        │\n              ┌─────────┴─────────┐\n              │   台儿庄正面防御    │\n              │  (孙连仲第2集团军)  │  ← 死守吸住敌军\n              └───────────────────┘\n                        │\n                        ▼\n                  ┌──────────┐\n                  │  徐  州   │\n                  │ (李宗仁)  │  ← 桂军21集团军预备\n                  └──────────┘\n```\n\n---\n\n### \uD83D\uDDFA️ 四层兵力部署\n\n#### 第一层 · 正面诱敌 —— 孙连仲 第2集团军\n\n| 单位 | 位置 | 任务 |\n|------|------|------|\n| **31师 池峰城** | 台儿庄城内 (34.56, 117.74) | \uD83C\uDFAF 主力死守台儿庄，寸土不让。诱敌入城后展开巷战，逐屋争夺，以血肉筑城墙 |\n| **30师 张金照** | 台儿庄以北 (34.62, 117.68) | 前沿警戒，且战且退，将日军引向台儿庄 |\n| **27师 黄樵松** | 台儿庄西侧 (34.53, 117.66) | 扼守运河西岸，掩护台儿庄左翼 |\n| **44独立旅** | 台儿庄东侧 (34.57, 117.78) | 扼守东翼，防止日军迂回 |\n| **孙连仲司令部** | (34.54, 117.70) | 靠前指挥，距前线仅2km |\n\n> **战术要点**：正面不硬顶，而是「虚虚实实」——白天收缩城防、夜间组织逆袭，让矶谷误以为国军不堪一击，诱其全力投入攻城。\n\n#### 第二层 · 侧翼突击 —— 汤恩伯 第20军团\n\n| 单位 | 位置 | 任务 |\n|------|------|------|\n| **89师 张雪中** | 峄县西南 (34.78, 117.52) | \uD83C\uDFAF **关键突击**：待濑谷支队深入台儿庄后，向东猛插，**切断峄县→台儿庄公路** |\n| **4师 陈大庆** | (34.74, 117.45) | 配合89师侧击，从西向东压缩 |\n| **2师 郑洞国** | (34.72, 117.48) | 中央突破，直插濑谷支队侧后 |\n| **25师 关麟征** | (34.68, 117.52) | 机械化主力，快速穿插，分割日军 |\n| **汤恩伯司令部** | (34.70, 117.50) | 峄县以西山地隐蔽待机 |\n\n> **战术要点**：**「不动如山，动如雷霆」**。汤恩伯部藏于峄县以西丘陵，等濑谷支队主力全部陷入台儿庄攻城战后，从侧后一刀劈下。此乃桂系兵法精髓——**「你打你的，我打我的」**。\n\n#### 第三层 · 敌后牵制 —— 孙震 第22集团军（川军）\n\n| 单位 | 位置 | 任务 |\n|------|------|------|\n| **122师 王铭章** | 津浦线西侧 (35.04, 117.22) | 沿铁路线袭扰日军后方运输 |\n| **124师 孙震兼** | (35.09, 117.10) | 配合122师，威胁日军北撤路线 |\n| **22集团军司令部** | (35.10, 117.12) | 指挥敌后游击 |\n\n> **战术要点**：川军虽装备简陋，但擅长山地游击。待日军主力南下后，从西侧贴身尾随，破坏铁路、截击辎重，**让矶谷的后勤线始终处于威胁之下**。\n\n#### 第四层 · 阻援打援 —— 临沂方向\n\n| 单位 | 位置 | 任务 |\n|------|------|------|\n| **第3集团军 庞炳勋** | 临沂外围 (35.05, 118.38) | 正面阻击第5师团 |\n| **第59军 张自忠** | 临沂以南 (35.02, 118.30) | 侧翼驰援庞炳勋，两军夹击 |\n\n> **战术要点**：庞张两军互为犄角，**绝不能让板垣第5师团突破临沂与矶谷会合**。临沂守住了，台儿庄的口袋阵才不会破。\n\n#### 预备队 —— 廖磊 第21集团军（桂军）\n\n| 单位 | 位置 | 任务 |\n|------|------|------|\n| **21集团军** | 徐州以南 (34.30, 117.10) | 总预备队，随时北调增援或补漏 |\n| **7师、48师** | 同上 | 桂军精锐，养精蓄锐 |\n\n---\n\n### ⏱️ 四阶段作战时序\n\n```\n阶段一【诱敌】          阶段二【吸敌】        阶段三【合围】        阶段四【歼灭】\n   日军南下                台儿庄巷战          汤恩伯侧击           四面围攻\n      │                   ┌─────┐           ╔═══════╗           ★  ★  ★\n  ←30师节节抵抗→          │ 台儿庄 │          ║ 汤恩伯 ║         包围歼灭\n      │                   │ 31师   │          ║ 南下突击║\n  ←矶谷骄狂深入→          │ 死守   │          ╚══╤════╝\n      │                   └──┬──┘              │\n      ▼                      ▼                 ▼\n  濑谷支队              矶谷全力攻城        日军后路被断\n  兵临城下              无法脱身            两面夹击\n```\n\n---\n\n### ⚠️ 风险判断\n\n| 风险 | 等级 | 对策 |\n|------|------|------|\n| 汤恩伯行动迟缓，未及时侧击 | \uD83D\uDD34 高 | 白崇禧亲赴汤部督战；多次电报催促 |\n| 临沂方向庞炳勋顶不住第5师团 | \uD83D\uDFE1 中 | 张自忠59军已就位驰援 |\n| 31师伤亡过重提前崩溃 | \uD83D\uDFE1 中 | 孙连仲已备27师可随时补入 |\n| 日军华北方面军增援 | \uD83D\uDFE2 低 | 八路军115师、129师在晋东南/冀西游击牵制 |\n\n---\n\n### \uD83D\uDCE1 指挥信号\n\n**李宗仁 ➜ 各部**：  \n*「矶谷骄兵必败。台儿庄即其坟墓。各部依计行事——孙连仲死守、汤恩伯待机、庞张阻援、川军扰后。待濑谷支队全部陷入台儿庄城垣之日，便是汤军团全线出击之时。此战，务必全歼！」*\n\n---\n\n**计划已下达，六单位完成战术机动。等待日军第10师团南下钻进「口袋」。** \uD83C\uDFAF",
+                "reasoning_content" : "Let me now analyze the full strategic picture and present the comprehensive battle plan for Li Zongren's 5th War Area.\n\nCurrent status after my moves:\n\n**Tai'erzhuang Front (正面防御):**\n- NRA-031 (31师 池峰城部) at (34.56, 117.74) — the core defender of Tai'erzhuang\n- NRA-027 (27师 黄樵松部) at (34.53, 117.66) — west flank along canal\n- NRA-030 (30师 张金照部) at (34.62, 117.68) — north of Tai'erzhuang, forward screening\n- NRA-044B (第44独立旅) at (34.57, 117.78) — east flank\n- NRA-2AG (孙连仲部) at (34.54, 117.70) — command post\n\n**Japanese 10th Division attacking Tai'erzhuang:**\n- IJA-10D (矶谷) at (34.95, 117.40)\n- IJA-33B (濑谷支队) at (34.88, 117.38)\n- These are advancing from Yixian direction\n\n**Flanking Force (侧翼 — 汤恩伯第20军团):**\n- NRA-20AG at (34.70, 117.50)\n- NRA-089 (89师) at (34.78, 117.52) — cutting position at Yicheng\n- NRA-004 (4师) at (34.74, 117.45)\n- NRA-002 (2师) at (34.72, 117.48)\n- NRA-025 (25师) at (34.68, 117.52)\n\n**Harassment from Rear (后方袭扰 — 川军22集团军):**\n- NRA-22AG at (35.10, 117.12)\n- NRA-124 at (35.09, 117.10)\n- NRA-122 at (35.04, 117.22) — newly moved closer to railway\n\n**Linyi Front (临沂方向 — 阻击第5师团):**\n- NRA-3AG (庞炳勋) at (35.05, 118.38)\n- NRA-039 at (35.06, 118.36)\n- NRA-59A (张自忠) at (35.02, 118.30)\n- NRA-059 at (35.01, 118.32)\n- NRA-115D at (35.03, 118.34)\n- vs IJA-5D (板垣), IJA-9B, IJA-21B, IJA-5AR\n\n**Reserves (预备队 — 桂军21集团军):**\n- NRA-21AG at (34.30, 117.10)\n- NRA-048 at (34.26, 117.12)\n- NRA-007 at (34.28, 117.08)\n\n**Command:**\n- NRA-5WA (李宗仁) at (34.26, 117.18) — Xuzhou\n\nNow the Japanese 10th Division is at (34.95, 117.40) — this is quite far north of Tai'erzhuang (34.56, 117.74). The distance is about 50km. They need to advance south.\n\nThe key distances:\n- Japanese 10D to Tai'erzhuang: ~50km south-southeast\n- Japanese 10D to 汤恩伯 flanking position: ~25km\n- 汤恩伯 to Tai'erzhuang: ~30km\n\nThe terrain along the route: The Japanese will come down through Yixian (34.88, 117.57) toward Zaozhuang and then Tai'erzhuang. The 20AG at (34.70, 117.50) is positioned well to the west, ready to pivot east when the Japanese pass by.\n\nThe plan is sound. Let me now write the final summary.\n\nLet me re-check terrain along key locations with a few more queries to ensure the plan is solid. Actually, rather than more queries, I should just present the plan now since I've done the required moves and terrain checks.\n\nLet me present the complete \"台儿庄口袋阵\" plan."
+              },
+              "logprobs" : null,
+              "finish_reason" : "stop"
+            } ],
+            "usage" : {
+              "prompt_tokens" : 4796,
+              "completion_tokens" : 2850,
+              "total_tokens" : 7646,
+              "prompt_tokens_details" : {
+                "cached_tokens" : 1024
+              },
+              "completion_tokens_details" : {
+                "reasoning_tokens" : 955
+              },
+              "prompt_cache_hit_tokens" : 1024,
+              "prompt_cache_miss_tokens" : 3772
+            },
+            "system_fingerprint" : "fp_9954b31ca7_prod0820_fp8_kvcache_20260402"
+          },
+          "results" : {
+            "done" : true
+          },
+          "timestamp" : 1781109664578
+        } ],
+        "finalPlan" : [ ],
+        "rationale" : "Let me now analyze the full strategic picture and present the comprehensive battle plan for Li Zongren's 5th War Area.\n\nCurrent status after my moves:\n\n**Tai'erzhuang Front (正面防御):**\n- NRA-031 (31师 池峰城部) at (34.56, 117.74) — the core defender of Tai'erzhuang\n- NRA-027 (27师 黄樵松部) at (34.53, 117.66) — west flank along canal\n- NRA-030 (30师 张金照部) at (34.62, 117.68) — north of Tai'erzhuang, forward screening\n- NRA-044B (第44独立旅) at (34.57, 117.78) — east flank\n- NRA-2AG (孙连仲部) at (34.54, 117.70) — command post\n\n**Japanese 10th Division attacking Tai'erzhuang:**\n- IJA-10D (矶谷) at (34.95, 117.40)\n- IJA-33B (濑谷支队) at (34.88, 117.38)\n- These are advancing from Yixian direction\n\n**Flanking Force (侧翼 — 汤恩伯第20军团):**\n- NRA-20AG at (34.70, 117.50)\n- NRA-089 (89师) at (34.78, 117.52) — cutting position at Yicheng\n- NRA-004 (4师) at (34.74, 117.45)\n- NRA-002 (2师) at (34.72, 117.48)\n- NRA-025 (25师) at (34.68, 117.52)\n\n**Harassment from Rear (后方袭扰 — 川军22集团军):**\n- NRA-22AG at (35.10, 117.12)\n- NRA-124 at (35.09, 117.10)\n- NRA-122 at (35.04, 117.22) — newly moved closer to railway\n\n**Linyi Front (临沂方向 — 阻击第5师团):**\n- NRA-3AG (庞炳勋) at (35.05, 118.38)\n- NRA-039 at (35.06, 118.36)\n- NRA-59A (张自忠) at (35.02, 118.30)\n- NRA-059 at (35.01, 118.32)\n- NRA-115D at (35.03, 118.34)\n- vs IJA-5D (板垣), IJA-9B, IJA-21B, IJA-5AR\n\n**Reserves (预备队 — 桂军21集团军):**\n- NRA-21AG at (34.30, 117.10)\n- NRA-048 at (34.26, 117.12)\n- NRA-007 at (34.28, 117.08)\n\n**Command:**\n- NRA-5WA (李宗仁) at (34.26, 117.18) — Xuzhou\n\nNow the Japanese 10th Division is at (34.95, 117.40) — this is quite far north of Tai'erzhuang (34.56, 117.74). The distance is about 50km. They need to advance south.\n\nThe key distances:\n- Japanese 10D to Tai'erzhuang: ~50km south-southeast\n- Japanese 10D to 汤恩伯 flanking position: ~25km\n- 汤恩伯 to Tai'erzhuang: ~30km\n\nThe terrain along the route: The Japanese will come down through Yixian (34.88, 117.57) toward Zaozhuang and then Tai'erzhuang. The 20AG at (34.70, 117.50) is positioned well to the west, ready to pivot east when the Japanese pass by.\n\nThe plan is sound. Let me now write the final summary.\n\nLet me re-check terrain along key locations with a few more queries to ensure the plan is solid. Actually, rather than more queries, I should just present the plan now since I've done the required moves and terrain checks.\n\nLet me present the complete \"台儿庄口袋阵\" plan.",
+        "guidanceAssessment" : "",
+        "feedback" : null,
+        "risks" : "",
+        "recommendations" : "",
+        "timestamp" : 1781109612797
       } ],
       "japanese" : [ {
         "side" : "japanese",
@@ -3392,6 +2436,739 @@
         "risks" : "",
         "recommendations" : "",
         "timestamp" : 1781105303902
+      }, {
+        "side" : "japanese",
+        "source" : "llm",
+        "guidance" : "Round 1。基于当前态势制定作战计划。侦察关键位置地形，移动至少3个单位执行战术机动。",
+        "deployment" : null,
+        "subRounds" : [ {
+          "iteration" : 1,
+          "request" : null,
+          "response" : {
+            "id" : "4476c0be-3271-4e97-ae26-9b3393ddb005",
+            "object" : "chat.completion",
+            "created" : 1781106642,
+            "model" : "deepseek-v4-pro",
+            "choices" : [ {
+              "index" : 0,
+              "message" : {
+                "role" : "assistant",
+                "content" : "",
+                "reasoning_content" : "Let me review the situation after the moves and provide a comprehensive plan summary as 矶谷廉介.\n\nCurrent state after my moves:\n- IJA-33B (濑谷支队) at (34.76, 117.50) — vanguard, 5.1km from NRA-004 (4师)\n- IJA-8B (濑谷启) at (34.78, 117.52) — co-located with NRA-089 (89师)\n- IJA-10AR (第10炮兵联队) at (34.82, 117.48) — artillery support\n- IJA-10D (矶谷廉介) at (34.95, 117.40) — still at HQ\n\nI could move IJA-10D forward as well to be closer to the front. But the user said \"至少3个\" and I've already moved 3.\n\nNow the question is: should I move more units? The user said \"移动至少3个日军单位向台儿庄方向推进\" — I've moved 3. But should I also move IJA-10D (my own HQ)?\n\nAs 矶谷廉介, moving my HQ forward shows aggressive leadership and confidence. Let me also move IJA-10D forward.\n\nActually, let me think about whether the plan is \"complete.\" The user asked me to:\n1. Reconnaissance around Tengxian and Taierzhuang — DONE\n2. Move at least 3 units toward Taierzhuang — DONE (moved IJA-33B, IJA-8B, IJA-10AR)\n\nI should also consider moving IJA-10D (my own HQ) to be closer to the front, as 矶谷廉介 is aggressive and would want to be near the action.\n\nLet me move IJA-10D forward as well, and then provide a final summary.",
+                "tool_calls" : [ {
+                  "index" : 0,
+                  "id" : "call_00_oAyVsWqPBTHg4NQTKKhQ0533",
+                  "type" : "function",
+                  "function" : {
+                    "name" : "move_unit",
+                    "arguments" : "{\"code\": \"IJA-10D\", \"lat\": 34.84, \"lng\": 117.44}"
+                  }
+                } ]
+              },
+              "logprobs" : null,
+              "finish_reason" : "tool_calls"
+            } ],
+            "usage" : {
+              "prompt_tokens" : 6119,
+              "completion_tokens" : 487,
+              "total_tokens" : 6606,
+              "prompt_tokens_details" : {
+                "cached_tokens" : 640
+              },
+              "completion_tokens_details" : {
+                "reasoning_tokens" : 404
+              },
+              "prompt_cache_hit_tokens" : 640,
+              "prompt_cache_miss_tokens" : 5479
+            },
+            "system_fingerprint" : "fp_9954b31ca7_prod0820_fp8_kvcache_20260402"
+          },
+          "results" : [ {
+            "tool_call_id" : "call_00_oAyVsWqPBTHg4NQTKKhQ0533",
+            "name" : "move_unit",
+            "content" : {
+              "moved" : "IJA-10D",
+              "lat" : 34.84,
+              "lng" : 117.44
+            }
+          } ],
+          "timestamp" : 1781106651329
+        }, {
+          "iteration" : 2,
+          "request" : null,
+          "response" : {
+            "id" : "cddcdbdb-00ca-4188-a25b-e55a43ac067b",
+            "object" : "chat.completion",
+            "created" : 1781106651,
+            "model" : "deepseek-v4-pro",
+            "choices" : [ {
+              "index" : 0,
+              "message" : {
+                "role" : "assistant",
+                "content" : "## 矶谷廉介 战情总结 — 第10师团向台儿庄推进\n\n---\n\n### 已完成侦察\n\n| 项目 | 结果 |\n|------|------|\n| 滕县地形 | **林地**，海拔250m，森林覆盖率97.3% |\n| 80km半径内 | 枣庄（东南）、徐州（南）、平邑（北）三城；道路密集（79条路段） |\n| 滕县→台儿庄 | **53.3km**，方位角 **144°（南偏东）** |\n\n### 已推进单位（4个）\n\n| 单位 | 原位置 | 新位置 | 推进距离 | 当前态势 |\n|------|--------|--------|----------|----------|\n| **IJA-8B** 第8旅团（濑谷启） | (34.90, 117.42) | (34.78, 117.52) | ~15km | \uD83D\uDEA8 **与中国89师（张雪中部）接触！** |\n| **IJA-33B** 濑谷支队 | (34.88, 117.38) | (34.76, 117.50) | ~16km | \uD83D\uDEA8 **距中国4师（陈大庆部）仅5.1km！** |\n| **IJA-10AR** 第10炮兵联队 | (34.92, 117.44) | (34.82, 117.48) | ~12km | 炮火支援位置就绪 |\n| **IJA-10D** 第10师团司令部 | (34.95, 117.40) | (34.84, 117.44) | ~13km | 师团本部前移督战 |\n\n---\n\n### 当前战线态势\n\n```\n      北\n      │\n  滕县(已过) ─── IJA-10D 司令部\n      │           IJA-10AR 炮兵\n      │     ┌──── IJA-8B(濑谷启) ← 接触 → NRA-089(89师)\n      │     └──── IJA-33B(濑谷支队) ← 5km → NRA-004(4师)\n      │              ↓\n      │         枣庄 (Zaozhuang)\n      │              ↓\n      │        ~31.7km 到台儿庄\n      │              ↓\n      │    NRA-002(2师), NRA-025(25师)\n      │         NRA-20AG(汤恩伯)\n      │              ↓\n      │         台儿庄 ─── NRA-031(31师池峰城)\n      │                    NRA-027(27师)\n      │                    NRA-2AG(孙连仲)\n```\n\n---\n\n### 矶谷的判断\n\n> **「支那军不过是一群乌合之众。濑谷支队已咬住陈大庆的4师，第8旅团正面遭遇张雪中的89师——正好，一口气碾过去就是了。板垣那个家伙在临沂磨磨蹭蹭，被张自忠和庞炳勋缠住了手脚。台儿庄这个头功，我第10师团拿定了。」**\n\n**关键考量：**\n- ✅ 中央突破轴线清晰，沿津浦铁路南下，前方仅31.7km到台儿庄\n- ⚠️ 第5师团（板垣）在临沂方向进展缓慢——中国第59军（张自忠）和第3集团军（庞炳勋）正在顽强抵抗\n- ⚠️ 汤恩伯第20军团在侧翼待机——但按支那军的惯例，汤恩伯不会轻易投入决战\n- ⚠️ 地形为密林，不利于坦克展开，但步兵+炮兵协同足以击穿中国防线\n\n**下一步意图：** 以濑谷支队（IJA-8B + IJA-33B）为矛尖，第10炮兵联队火力掩护，正面击溃陈大庆4师与张雪中89师，直扑台儿庄。不给中国守军喘息之机。",
+                "reasoning_content" : "The moves are done. Let me now provide a comprehensive summary in character as 矶谷廉介.\n\nLet me review what was accomplished:\n\n**Reconnaissance results:**\n- Tengxian area: Forest terrain, 250m elevation, 97.3% forest cover\n- Good road network with 79 road segments in 80km radius\n- Key cities: Zaozhuang (34.88, 117.57), Xuzhou (34.28, 117.18)\n- Distance from Tengxian to Taierzhuang: 53.3km, bearing 144.3° (SSE)\n\n**Units moved (4 total):**\n1. IJA-33B (濑谷支队): (34.88, 117.38) → (34.76, 117.50) — advanced ~16km, now 5.1km from Chinese 4th Division\n2. IJA-8B (濑谷启): (34.90, 117.42) → (34.78, 117.52) — advanced ~15km, now co-located with Chinese 89th Division\n3. IJA-10AR (第10炮兵联队): (34.92, 117.44) → (34.82, 117.48) — advanced ~12km, artillery support position\n4. IJA-10D (矶谷廉介 HQ): (34.95, 117.40) → (34.84, 117.44) — HQ advanced ~13km\n\n**Tactical situation:**\n- Vanguard (IJA-8B, IJA-33B) has closed with the Chinese defensive line\n- Chinese forces ahead: 4师 (陈大庆), 89师 (张雪中), 2师 (郑洞国), 25师 (关麟征), 20军团 (汤恩伯)\n- Distance from vanguard to Taierzhuang: ~31.7km\n- 第5师团 (板垣) is on the right flank attacking toward Linyi\n- The plan is a central breakthrough along the railway axis\n\nNow I should provide a summary as 矶谷廉介 — aggressive, confident, dismissive of Chinese forces, eager to reach Taierzhuang before 板垣 gets the glory."
+              },
+              "logprobs" : null,
+              "finish_reason" : "stop"
+            } ],
+            "usage" : {
+              "prompt_tokens" : 6664,
+              "completion_tokens" : 1389,
+              "total_tokens" : 8053,
+              "prompt_tokens_details" : {
+                "cached_tokens" : 6016
+              },
+              "completion_tokens_details" : {
+                "reasoning_tokens" : 493
+              },
+              "prompt_cache_hit_tokens" : 6016,
+              "prompt_cache_miss_tokens" : 648
+            },
+            "system_fingerprint" : "fp_9954b31ca7_prod0820_fp8_kvcache_20260402"
+          },
+          "results" : {
+            "done" : true
+          },
+          "timestamp" : 1781106676767
+        } ],
+        "finalPlan" : [ {
+          "index" : 0,
+          "id" : "call_00_oAyVsWqPBTHg4NQTKKhQ0533",
+          "type" : "function",
+          "function" : {
+            "name" : "move_unit",
+            "arguments" : "{\"code\": \"IJA-10D\", \"lat\": 34.84, \"lng\": 117.44}"
+          }
+        } ],
+        "rationale" : "The moves are done. Let me now provide a comprehensive summary in character as 矶谷廉介.\n\nLet me review what was accomplished:\n\n**Reconnaissance results:**\n- Tengxian area: Forest terrain, 250m elevation, 97.3% forest cover\n- Good road network with 79 road segments in 80km radius\n- Key cities: Zaozhuang (34.88, 117.57), Xuzhou (34.28, 117.18)\n- Distance from Tengxian to Taierzhuang: 53.3km, bearing 144.3° (SSE)\n\n**Units moved (4 total):**\n1. IJA-33B (濑谷支队): (34.88, 117.38) → (34.76, 117.50) — advanced ~16km, now 5.1km from Chinese 4th Division\n2. IJA-8B (濑谷启): (34.90, 117.42) → (34.78, 117.52) — advanced ~15km, now co-located with Chinese 89th Division\n3. IJA-10AR (第10炮兵联队): (34.92, 117.44) → (34.82, 117.48) — advanced ~12km, artillery support position\n4. IJA-10D (矶谷廉介 HQ): (34.95, 117.40) → (34.84, 117.44) — HQ advanced ~13km\n\n**Tactical situation:**\n- Vanguard (IJA-8B, IJA-33B) has closed with the Chinese defensive line\n- Chinese forces ahead: 4师 (陈大庆), 89师 (张雪中), 2师 (郑洞国), 25师 (关麟征), 20军团 (汤恩伯)\n- Distance from vanguard to Taierzhuang: ~31.7km\n- 第5师团 (板垣) is on the right flank attacking toward Linyi\n- The plan is a central breakthrough along the railway axis\n\nNow I should provide a summary as 矶谷廉介 — aggressive, confident, dismissive of Chinese forces, eager to reach Taierzhuang before 板垣 gets the glory.",
+        "guidanceAssessment" : "",
+        "feedback" : null,
+        "risks" : "",
+        "recommendations" : "",
+        "timestamp" : 1781106642136
+      }, {
+        "side" : "japanese",
+        "source" : "llm",
+        "guidance" : "Round 1。基于当前态势和地形信息制定作战计划。至少移动3个单位执行战术机动。",
+        "deployment" : null,
+        "subRounds" : [ {
+          "iteration" : 1,
+          "request" : null,
+          "response" : {
+            "id" : "88297ec1-bb11-4832-b211-695b1ba52adb",
+            "object" : "chat.completion",
+            "created" : 1781109613,
+            "model" : "deepseek-v4-pro",
+            "choices" : [ {
+              "index" : 0,
+              "message" : {
+                "role" : "assistant",
+                "content" : "---\n\n## \uD83C\uDF8C 第10师团作战计划 — 矶谷廉介中将\n\n### 第一阶段：部署完成\n\n我师团主力已完成向台儿庄方向的战术推进。四个单位前出至攻击发起线：\n\n| 单位 | 位置 | 任务 |\n|------|------|------|\n| **IJA-8B 濑谷启第8旅团** | (34.78, 117.52) | 右翼主攻，已与支那89师接敌 |\n| **IJA-33B 瀬谷支队** | (34.76, 117.50) | 左翼突击，距4师仅5km |\n| **IJA-10AR 炮兵联队** | (34.82, 117.48) | 150mm重炮支援阵地 |\n| **IJA-10D 师团司令部** | (34.84, 117.44) | 前进指挥所，距前线仅16km |\n\n---\n\n### 第二阶段：中央突破战术（\"铁拳\"方案）\n\n**核心判断**：支那军在台儿庄以北布置了两道防线——第一道是汤恩伯第20军团（4师、89师、2师、25师），第二道是孙连仲第2集团军（27师、30师、31师）据守台儿庄城垣。这些不过是\"纸糊的防线\"。\n\n**战术要旨**：\n\n1. **炮兵先行**（IJA-10AR）：以150mm榴弹炮对89师和4师阵地实施30分钟集中轰击。支那军缺乏掩体工事经验，一轮炮击即可粉碎其抵抗意志。\n\n2. **步炮协同中央突破**：第8旅团和第33旅团沿津浦铁路轴线并肩突击——濑谷启的部队已与89师接触，一旦突破即可直插台儿庄。汤恩伯部虽有\"机械化\"之名，实则火力远逊于我师团。\n\n3. **不待第5师团**：板垣在临沂被庞炳勋、张自忠拖住，进展缓慢。这正是我矶谷师团独占头功之机。台儿庄距此地仅**31.7公里**，强行军一日可至。\n\n4. **侧翼警戒最低限度**：支那军惯于正面死守、不善侧翼运动。汤恩伯纵有迂回之心，也无迂回之胆——他的4个师面对我一个旅团尚且不敢主动出击。\n\n5. **夜袭戒备**：支那军喜夜战，入夜后收缩防线，各联队设置环形警戒，以机枪交叉火力封锁接敌面。\n\n---\n\n### 第三阶段：目标台儿庄\n\n突破汤恩伯防线后，不做停顿，直扑台儿庄城垣。预期：\n\n- **2日内**粉碎第20军团抵抗\n- **4日内**兵临台儿庄城下\n- **7日内**夺取台儿庄，打开徐州北大门\n\n届时让板垣在临沂的泥潭里继续挣扎吧。我矶谷廉介将以第10师团一己之力拿下台儿庄——向寺内大将、向东京证明，谁才是华北方面军真正的利刃。\n\n---\n\n### 当前敌我态势判断\n\n> 支那军虽有22个师番号，但装备低劣、指挥混乱。桂军远在徐州以南，川军已被我击溃于滕县，能战者不过孙连仲、汤恩伯两部而已。汤恩伯畏战如虎，孙连仲的西北军更是乌合之众。此战必胜。\n\n**矶谷廉介 决意：不等第5师团，不等第13师团——第10师团单独完成攻占台儿庄之任务！**\n\n---",
+                "reasoning_content" : "The user is asking me to continue with the plan. Let me assess the situation after my previous moves and provide a comprehensive plan summary as 矶谷廉介.\n\nLet me review the current state:\n\n**My forces (第10师团 - 矶谷廉介):**\n- IJA-10D (磯谷 HQ): (34.84, 117.44) — moved forward\n- IJA-8B (濑谷启/第8旅团): (34.78, 117.52) — co-located with Chinese NRA-089 (89师)\n- IJA-33B (濑谷支队/第33旅团): (34.76, 117.50) — 5.1km from NRA-004 (4师)\n- IJA-10AR (第10炮兵联队): (34.82, 117.48) — artillery position\n\n**Other Japanese forces:**\n- IJA-5D (板垣/第5师团): (35.05, 118.43) — attacking Linyi direction\n- IJA-9B (国崎登/第9旅团): (35.04, 118.42) — near Linyi\n- IJA-21B (坂本支队): (35.12, 118.52) — east of Linyi\n- IJA-5AR (第5炮兵联队): (35.07, 118.46) — supporting Linyi attack\n- IJA-13D (荻洲/第13师团): (33.50, 117.30) — far south, Bengbu\n- IJA-NCA (寺内寿一 HQ): (36.70, 116.98) — far north, Beiping\n\n**Chinese forces near my front:**\n- NRA-004 (4师/陈大庆): (34.74, 117.45) — directly ahead\n- NRA-089 (89师/张雪中): (34.78, 117.52) — co-located with IJA-8B!\n- NRA-002 (2师/郑洞国): (34.72, 117.48) — ahead\n- NRA-025 (25师/关麟征): (34.68, 117.52) — ahead\n- NRA-20AG (20军团/汤恩伯): (34.70, 117.50) — ahead, central position\n- NRA-030 (30师/张金照): (34.62, 117.68) — east, near Taierzhuang\n- NRA-031 (31师/池峰城): (34.56, 117.74) — Taierzhuang\n- NRA-027 (27师/黄樵松): (34.53, 117.66) — west of Taierzhuang\n- NRA-044B (44独立旅): (34.57, 117.78) — east of Taierzhuang\n- NRA-2AG (2集团军/孙连仲): (34.54, 117.70) — near Taierzhuang\n\nThe Chinese have a layered defense. The 20th Army Group (汤恩伯) is positioned in front of Taierzhuang, and the 2nd Army Group (孙连仲) is at Taierzhuang itself.\n\nMy vanguard units (IJA-8B and IJA-33B) are now in direct contact with Chinese forces (NRA-089 and close to NRA-004). This is the critical moment.\n\nAs 矶谷廉介, I need to:\n1. Smash through the 20th Army Group with artillery and infantry\n2. Push directly to Taierzhuang\n3. Not wait for 板垣\n\nThe plan should be decisive. I've already moved 4 units. The situation now calls for a plan summary rather than more moves. Let me provide the comprehensive plan.\n\nActually, maybe I should provide a detailed plan summary in character as 矶谷廉介, explaining the tactical situation, my planned approach, and my strategic reasoning. The user said \"如计划完成请回复不含 tool_calls 的总结\" — if the plan is complete, reply with a summary without tool_calls.\n\nI think the plan is complete. Let me provide the final summary.\n\nLet me check: the instruction said \"移动至少3个单位执行战术机动\" — I've moved 4 units. The recon is done. Now I should summarize.\n\nLet me provide a comprehensive summary as 矶谷廉介."
+              },
+              "logprobs" : null,
+              "finish_reason" : "stop"
+            } ],
+            "usage" : {
+              "prompt_tokens" : 4458,
+              "completion_tokens" : 1803,
+              "total_tokens" : 6261,
+              "prompt_tokens_details" : {
+                "cached_tokens" : 1024
+              },
+              "completion_tokens_details" : {
+                "reasoning_tokens" : 984
+              },
+              "prompt_cache_hit_tokens" : 1024,
+              "prompt_cache_miss_tokens" : 3434
+            },
+            "system_fingerprint" : "fp_9954b31ca7_prod0820_fp8_kvcache_20260402"
+          },
+          "results" : {
+            "done" : true
+          },
+          "timestamp" : 1781109646282
+        } ],
+        "finalPlan" : [ ],
+        "rationale" : "The user is asking me to continue with the plan. Let me assess the situation after my previous moves and provide a comprehensive plan summary as 矶谷廉介.\n\nLet me review the current state:\n\n**My forces (第10师团 - 矶谷廉介):**\n- IJA-10D (磯谷 HQ): (34.84, 117.44) — moved forward\n- IJA-8B (濑谷启/第8旅团): (34.78, 117.52) — co-located with Chinese NRA-089 (89师)\n- IJA-33B (濑谷支队/第33旅团): (34.76, 117.50) — 5.1km from NRA-004 (4师)\n- IJA-10AR (第10炮兵联队): (34.82, 117.48) — artillery position\n\n**Other Japanese forces:**\n- IJA-5D (板垣/第5师团): (35.05, 118.43) — attacking Linyi direction\n- IJA-9B (国崎登/第9旅团): (35.04, 118.42) — near Linyi\n- IJA-21B (坂本支队): (35.12, 118.52) — east of Linyi\n- IJA-5AR (第5炮兵联队): (35.07, 118.46) — supporting Linyi attack\n- IJA-13D (荻洲/第13师团): (33.50, 117.30) — far south, Bengbu\n- IJA-NCA (寺内寿一 HQ): (36.70, 116.98) — far north, Beiping\n\n**Chinese forces near my front:**\n- NRA-004 (4师/陈大庆): (34.74, 117.45) — directly ahead\n- NRA-089 (89师/张雪中): (34.78, 117.52) — co-located with IJA-8B!\n- NRA-002 (2师/郑洞国): (34.72, 117.48) — ahead\n- NRA-025 (25师/关麟征): (34.68, 117.52) — ahead\n- NRA-20AG (20军团/汤恩伯): (34.70, 117.50) — ahead, central position\n- NRA-030 (30师/张金照): (34.62, 117.68) — east, near Taierzhuang\n- NRA-031 (31师/池峰城): (34.56, 117.74) — Taierzhuang\n- NRA-027 (27师/黄樵松): (34.53, 117.66) — west of Taierzhuang\n- NRA-044B (44独立旅): (34.57, 117.78) — east of Taierzhuang\n- NRA-2AG (2集团军/孙连仲): (34.54, 117.70) — near Taierzhuang\n\nThe Chinese have a layered defense. The 20th Army Group (汤恩伯) is positioned in front of Taierzhuang, and the 2nd Army Group (孙连仲) is at Taierzhuang itself.\n\nMy vanguard units (IJA-8B and IJA-33B) are now in direct contact with Chinese forces (NRA-089 and close to NRA-004). This is the critical moment.\n\nAs 矶谷廉介, I need to:\n1. Smash through the 20th Army Group with artillery and infantry\n2. Push directly to Taierzhuang\n3. Not wait for 板垣\n\nThe plan should be decisive. I've already moved 4 units. The situation now calls for a plan summary rather than more moves. Let me provide the comprehensive plan.\n\nActually, maybe I should provide a detailed plan summary in character as 矶谷廉介, explaining the tactical situation, my planned approach, and my strategic reasoning. The user said \"如计划完成请回复不含 tool_calls 的总结\" — if the plan is complete, reply with a summary without tool_calls.\n\nI think the plan is complete. Let me provide the final summary.\n\nLet me check: the instruction said \"移动至少3个单位执行战术机动\" — I've moved 4 units. The recon is done. Now I should summarize.\n\nLet me provide a comprehensive summary as 矶谷廉介.",
+        "guidanceAssessment" : "",
+        "feedback" : null,
+        "risks" : "",
+        "recommendations" : "",
+        "timestamp" : 1781109612798
+      }, {
+        "side" : "japanese",
+        "source" : "llm",
+        "guidance" : "Round 1。制定计划，至少移动3个单位。",
+        "deployment" : null,
+        "subRounds" : [ {
+          "iteration" : 1,
+          "request" : null,
+          "response" : {
+            "id" : "5dd6c19d-d34d-4219-8baf-ff3b70ecd37e",
+            "object" : "chat.completion",
+            "created" : 1781110207,
+            "model" : "deepseek-v4-pro",
+            "choices" : [ {
+              "index" : 0,
+              "message" : {
+                "role" : "assistant",
+                "content" : "---\n\n## \uD83C\uDF8C 第10师团作战计划 — 矶谷廉介中将\n\n---\n\n### 一、态势判断\n\n**已完成部署：** 第10师团主力已前推至临城-枣庄一线，前锋直指峄县、台儿庄。第8旅团（濑谷启）与第33旅团（濑谷支队）已完成战斗展开，第10炮兵联队进入支援阵地。\n\n**当面敌情：** 汤恩伯第20军团（2、4、25、89师）约4万人在峄县以北展开；其后方孙连仲第2集团军（27、30、31师）约3万人据守台儿庄及运河一线。两军团间距约15公里，形成纵深梯次防御。\n\n**友军状况：** 第5师团（板垣）在临沂遭遇张自忠、庞炳勋顽强阻击，进展迟缓；第13师团（荻洲）远在蚌埠，短期内无法北上。\n\n**关键判断：** 此战无需等待板垣或荻洲。第10师团凭借绝对火力优势，可单独突破汤恩伯防线，直取台儿庄。谁先进入徐州，谁就是此战首功。\n\n---\n\n### 二、作战方针\n\n**核心原则：中央突破，闪电进击，不给敌军喘息之机。**\n\n| 阶段 | 行动 | 目标 |\n|------|------|------|\n| **第一阶段** | 第10炮兵联队对汤恩伯阵地实施摧毁性炮击，第8旅团、第33旅团发起正面强攻 | 粉碎第20军团防线，歼灭第89师、第4师 |\n| **第二阶段** | 突破后不清理残敌，濑谷支队沿铁路线直接南下 | 抢占台儿庄北门，在孙连仲反应过来之前楔入城防 |\n| **第三阶段** | 师团司令部前移峄县，炮兵转移阵地支援攻城 | 48小时内夺取台儿庄全城 |\n\n---\n\n### 三、战术要诀\n\n1. **炮火至上：** 第10炮兵联队装备150mm榴弹炮，射程与威力远超中国军队任何火炮。开战头一小时倾泻500发炮弹，将敌军前沿工事夷为平地。\n\n2. **步炮坦协同：** 濑谷支队配属坦克中队，以坦克开路，步兵紧随。中国军队缺乏反坦克武器，见到坦克往往溃散。\n\n3. **不恋战：** 突破敌前沿后不得停留清理残敌。残敌交由后续部队处理。前锋唯一任务是——向前，向台儿庄。\n\n4. **轻视敌军：** 中国军队一个师的火力不及皇军一个大队。汤恩伯虽称\"精锐\"，不过是矮子里的高个。不必高估。\n\n---\n\n### 四、预期战果\n\n- **D+1日：** 击溃第20军团，第8旅团占领峄县\n- **D+2日：** 濑谷支队进抵台儿庄北郊，开始攻城\n- **D+3日：** 台儿庄陷落，运河防线崩溃\n- **D+5日：** 第10师团进入徐州，板垣和荻洲只能在报纸上看到我矶谷的捷报\n\n---\n\n### 五、风险提示（属下不必多虑，但姑且记之）\n\n- 临沂方向敌军（张自忠第59军、庞炳勋第3集团军）如摆脱第5师团牵制，可能东援台儿庄 → **对策：** 速战速决，在他们赶到之前结束战斗\n- 汤恩伯部若主动后撤诱我深入，与孙连仲形成合围 → **对策：** 保持攻势节奏，不给敌军从容调配的时间\n- 八路军在后方袭扰铁路补给线 → **对策：** 攻占台儿庄即可利用运河补给，铁路线暂可承受有限干扰\n\n---\n\n> **\"汤恩伯不足惧，孙连仲不足惧，李宗仁更不足惧。**\n> **台儿庄不过是一座小城，皇军三天可下。**\n> **诸君，奋勇向前！第10师团的军旗将第一个插上徐州城头！\"**\n>\n> — 矶谷廉介 昭和13年3月\n\n---",
+                "reasoning_content" : "用户要求我继续制定计划。在上一轮中，我已经移动了第10师团的4个单位（IJA-10D、IJA-8B、IJA-33B、IJA-10AR）向前推进，现在需要总结当前态势并制定完整的作战计划。\n\n让我以矶谷廉介的身份来思考：\n\n**当前态势分析：**\n\n1. **我（矶谷廉介）的第10师团**已经前推至临城-枣庄一线，前锋第8旅团和第33旅团已经与汤恩伯的第20军团接触。具体位置：\n   - IJA-10D（师团司令部）：34.84, 117.44\n   - IJA-8B（第8旅团/濑谷启）：34.78, 117.52 — 与NRA-089（89师）同位置！\n   - IJA-33B（第33旅团/濑谷支队）：34.76, 117.50 — 距NRA-004（4师）仅5.1km\n   - IJA-10AR（第10炮兵联队）：34.82, 117.48\n\n2. **第5师团（板垣）**在临沂方向遭到顽强抵抗，进展缓慢。\n\n3. **第13师团（荻洲）**远在蚌埠（33.50, 117.30），距离太远无法配合。\n\n4. **中国军队部署**：\n   - 汤恩伯第20军团（2、4、25、89师）在我正面约15km处\n   - 孙连仲第2集团军（27、30、31师）在台儿庄约15km后方\n   - 李宗仁第5战区司令部在徐州\n\n**矶谷的作战计划应该是：**\n\n1. **中央突破**：以第8旅团和第33旅团为矛头，在炮兵支援下直接突破汤恩伯第20军团的防线\n2. **不等待友军**：第5师团在临沂被牵制，第13师团太远，我第10师团完全可以单独突破\n3. **直取台儿庄**：突破汤恩伯防线后直接南下进攻台儿庄，抢在板垣之前拿下\n\n现在我需要做的是——这个回合已经移动了4个单位，我的计划已经基本完成。我应该给出一个不含tool_calls的总结，以矶谷廉介的口吻。\n\n但是用户说\"如计划完成请回复不含 tool_calls 的总结\"。我需要确认我的计划是否真的完成了。我已经移动了4个单位，侦察了地形，现在需要给出总结。\n\n让我以矶谷廉介中将的身份，写一份完整的作战计划总结。"
+              },
+              "logprobs" : null,
+              "finish_reason" : "stop"
+            } ],
+            "usage" : {
+              "prompt_tokens" : 4424,
+              "completion_tokens" : 1529,
+              "total_tokens" : 5953,
+              "prompt_tokens_details" : {
+                "cached_tokens" : 1024
+              },
+              "completion_tokens_details" : {
+                "reasoning_tokens" : 582
+              },
+              "prompt_cache_hit_tokens" : 1024,
+              "prompt_cache_miss_tokens" : 3400
+            },
+            "system_fingerprint" : "fp_9954b31ca7_prod0820_fp8_kvcache_20260402"
+          },
+          "results" : {
+            "done" : true
+          },
+          "timestamp" : 1781110235860
+        } ],
+        "finalPlan" : [ ],
+        "rationale" : "用户要求我继续制定计划。在上一轮中，我已经移动了第10师团的4个单位（IJA-10D、IJA-8B、IJA-33B、IJA-10AR）向前推进，现在需要总结当前态势并制定完整的作战计划。\n\n让我以矶谷廉介的身份来思考：\n\n**当前态势分析：**\n\n1. **我（矶谷廉介）的第10师团**已经前推至临城-枣庄一线，前锋第8旅团和第33旅团已经与汤恩伯的第20军团接触。具体位置：\n   - IJA-10D（师团司令部）：34.84, 117.44\n   - IJA-8B（第8旅团/濑谷启）：34.78, 117.52 — 与NRA-089（89师）同位置！\n   - IJA-33B（第33旅团/濑谷支队）：34.76, 117.50 — 距NRA-004（4师）仅5.1km\n   - IJA-10AR（第10炮兵联队）：34.82, 117.48\n\n2. **第5师团（板垣）**在临沂方向遭到顽强抵抗，进展缓慢。\n\n3. **第13师团（荻洲）**远在蚌埠（33.50, 117.30），距离太远无法配合。\n\n4. **中国军队部署**：\n   - 汤恩伯第20军团（2、4、25、89师）在我正面约15km处\n   - 孙连仲第2集团军（27、30、31师）在台儿庄约15km后方\n   - 李宗仁第5战区司令部在徐州\n\n**矶谷的作战计划应该是：**\n\n1. **中央突破**：以第8旅团和第33旅团为矛头，在炮兵支援下直接突破汤恩伯第20军团的防线\n2. **不等待友军**：第5师团在临沂被牵制，第13师团太远，我第10师团完全可以单独突破\n3. **直取台儿庄**：突破汤恩伯防线后直接南下进攻台儿庄，抢在板垣之前拿下\n\n现在我需要做的是——这个回合已经移动了4个单位，我的计划已经基本完成。我应该给出一个不含tool_calls的总结，以矶谷廉介的口吻。\n\n但是用户说\"如计划完成请回复不含 tool_calls 的总结\"。我需要确认我的计划是否真的完成了。我已经移动了4个单位，侦察了地形，现在需要给出总结。\n\n让我以矶谷廉介中将的身份，写一份完整的作战计划总结。",
+        "guidanceAssessment" : "",
+        "feedback" : null,
+        "risks" : "",
+        "recommendations" : "",
+        "timestamp" : 1781110207627
+      }, {
+        "side" : "japanese",
+        "source" : "llm",
+        "guidance" : "台儿庄战役第一轮：第10师团濑谷支队已推进至峄县，前方是中国军队第30师和第31师的防线。第5师团坂本支队在临沂方向。请制定Round 1的进攻计划。",
+        "deployment" : null,
+        "subRounds" : [ {
+          "iteration" : 1,
+          "request" : null,
+          "response" : {
+            "id" : "7ae607f7-1b50-4016-b994-26da09f5e346",
+            "object" : "chat.completion",
+            "created" : 1781111763,
+            "model" : "deepseek-v4-pro",
+            "choices" : [ {
+              "index" : 0,
+              "message" : {
+                "role" : "assistant",
+                "content" : "",
+                "reasoning_content" : "用户让我继续制定计划。回顾前一回合，我已经移动了第10师团的4个单位向前推进。现在让我以矶谷廉介的身份，评估当前局势并制定下一步计划。\n\n让我先检查当前所有单位的位置状态，特别是刚刚移动后的位置。\n\n从我已有的信息来看，上一轮我移动了：\n1. IJA-10D（师团司令部）→ 应该移到了某个位置\n2. IJA-8B（第8旅团）→ 移到了某处\n3. IJA-33B（第33旅团）→ 移到了某处\n4. IJA-10AR（第10炮兵联队）→ 移到了某处\n\n但我不太确定这些移动后的确切坐标。让我先用查询工具了解一下当前战场的态势。我需要查询关键位置。\n\n台儿庄的核心坐标大约在 (34.56, 117.74)，滕县在 (35.08, 117.15)，临沂在 (35.05, 118.35)，徐州在 (34.26, 117.18)。\n\n我需要查一下我第10师团各单位当前的确切位置。先查几个关键坐标。\n\n实际上，在之前的对话中我已经移动了这些单位到新的位置。让我用query_radius来查看关键区域。\n\n首先让我查询台儿庄附近（约34.56, 117.74）半径范围的情况，以及我第10师团前出位置的情况。\n\n然后我需要决定下一步行动：是继续推进，还是需要调用其他单位配合。\n\n根据历史，矶谷廉介的战略是：\n1. 第8旅团（濑谷启）沿临城-枣庄-台儿庄轴线南下\n2. 第33旅团从侧翼协同\n3. 第10炮兵联队提供火力支援\n\n我应该查明：\n1. 我的前锋部队当前位置\n2. 中国军队的部署\n3. 是否需要调整部队\n\n让我先查询几个关键坐标。",
+                "tool_calls" : [ {
+                  "index" : 0,
+                  "id" : "call_00_BYvfsf5O2Plui53tGf424863",
+                  "type" : "function",
+                  "function" : {
+                    "name" : "query_radius",
+                    "arguments" : "{\"lat\": 34.80, \"lng\": 117.50, \"r\": 30}"
+                  }
+                }, {
+                  "index" : 1,
+                  "id" : "call_01_0C4tNbfW77fEMNbAanHi0988",
+                  "type" : "function",
+                  "function" : {
+                    "name" : "query_radius",
+                    "arguments" : "{\"lat\": 34.56, \"lng\": 117.74, \"r\": 20}"
+                  }
+                }, {
+                  "index" : 2,
+                  "id" : "call_02_lSVyShIuvMBJhuxbdy3j7776",
+                  "type" : "function",
+                  "function" : {
+                    "name" : "query_radius",
+                    "arguments" : "{\"lat\": 35.08, \"lng\": 118.48, \"r\": 15}"
+                  }
+                } ]
+              },
+              "logprobs" : null,
+              "finish_reason" : "tool_calls"
+            } ],
+            "usage" : {
+              "prompt_tokens" : 4012,
+              "completion_tokens" : 631,
+              "total_tokens" : 4643,
+              "prompt_tokens_details" : {
+                "cached_tokens" : 1152
+              },
+              "completion_tokens_details" : {
+                "reasoning_tokens" : 413
+              },
+              "prompt_cache_hit_tokens" : 1152,
+              "prompt_cache_miss_tokens" : 2860
+            },
+            "system_fingerprint" : "fp_9954b31ca7_prod0820_fp8_kvcache_20260402"
+          },
+          "results" : [ {
+            "tool_call_id" : "call_00_BYvfsf5O2Plui53tGf424863",
+            "name" : "query_radius",
+            "content" : {
+              "terrain" : "Forest",
+              "elevation" : 250,
+              "cities" : [ {
+                "name" : "Zaozhuang",
+                "lat" : 34.881947,
+                "lng" : 117.568077
+              } ],
+              "roadNodes" : 8,
+              "roadSegments" : 12,
+              "terrainProfile" : {
+                "Forest" : 95.1,
+                "Coastal Water" : 4.5,
+                "Plains" : 0.4
+              }
+            }
+          }, {
+            "tool_call_id" : "call_01_0C4tNbfW77fEMNbAanHi0988",
+            "name" : "query_radius",
+            "content" : {
+              "terrain" : "Forest",
+              "elevation" : 250,
+              "cities" : [ ],
+              "roadNodes" : 3,
+              "roadSegments" : 5,
+              "terrainProfile" : {
+                "Forest" : 100.0
+              }
+            }
+          }, {
+            "tool_call_id" : "call_02_lSVyShIuvMBJhuxbdy3j7776",
+            "name" : "query_radius",
+            "content" : {
+              "terrain" : "Forest",
+              "elevation" : 250,
+              "cities" : [ ],
+              "roadNodes" : 7,
+              "roadSegments" : 15,
+              "terrainProfile" : {
+                "Forest" : 90.9,
+                "Coastal Water" : 7.6,
+                "Mountain" : 1.5
+              }
+            }
+          } ],
+          "timestamp" : 1781111772998
+        }, {
+          "iteration" : 2,
+          "request" : null,
+          "response" : {
+            "id" : "958023aa-f569-4380-866d-638d120f0b57",
+            "object" : "chat.completion",
+            "created" : 1781111774,
+            "model" : "deepseek-v4-pro",
+            "choices" : [ {
+              "index" : 0,
+              "message" : {
+                "role" : "assistant",
+                "content" : "让我查询关键距离，确认前锋部队与敌军的相对位置。",
+                "reasoning_content" : "Let me analyze the results from the terrain queries. Now I have the following picture:\n\n1. **Around (34.8, 117.5)** - This area has Zaozhuang (枣庄) at (34.88, 117.57), 8 road nodes, 12 road segments, 95.1% forest. This is where my 10th Division forward elements should be.\n\n2. **Around (34.56, 117.74)** - 台儿庄 area, 100% forest, 3 road nodes, 5 road segments. This is the objective.\n\n3. **Around (35.08, 118.48)** - 临沂 area, 90.9% forest, 7 road nodes, 15 road segments. This is where the 5th Division is fighting.\n\nNow let me check distances. My 10th Division units were moved in the previous round. Let me recall the exact coordinates I moved them to. Based on the previous conversation context, I mentioned moving:\n- IJA-10D (师团司令部) → 34.84, 117.44\n- IJA-8B (第8旅团) → 34.78, 117.52\n- IJA-33B (第33旅团) → 34.76, 117.50\n- IJA-10AR (第10炮兵联队) → 34.82, 117.48\n\nBut these moves may not have actually been executed - I need to verify by querying these positions. Let me query each of these coordinates to see what's there.\n\nActually wait - looking back at the conversation, I don't see the exact move commands being executed. The user said \"工具结果已返回。请继续制定计划\" which suggests my previous queries returned results but no moves were made yet. Let me now actually move the units.\n\nLet me think about my plan as 矶谷廉介:\n\n**Situation Assessment:**\n- My 10th Division is positioned around (34.95, 117.40) area, facing south toward 台儿庄\n- The Chinese 20th Army Corps (汤恩伯) with 2nd, 4th, 25th, 89th Divisions is in the (34.70-34.76, 117.45-117.55) area\n- 台儿庄 is at (34.56, 117.74), defended by the 2nd Army Group (孙连仲)\n- The 5th Division (板垣) is stuck fighting near 临沂 (35.08, 118.48)\n- The 13th Division is far south at 蚌埠 (33.50, 117.30)\n\n**My Plan (矶谷's aggressive mindset):**\n\n1. Move IJA-8B (第8旅团/濑谷启) south from (34.90, 117.42) toward 枣庄 direction, pushing toward 台儿庄. Target: (34.78, 117.52) - this puts them in contact with NRA-089 (89师).\n\n2. Move IJA-33B (第33旅团) parallel to 8B, from (34.88, 117.38) to (34.76, 117.50) - puts them near NRA-004 (4师).\n\n3. Move IJA-10D (师团司令部) forward from (34.95, 117.40) to (34.84, 117.44) to be closer to the front.\n\n4. Move IJA-10AR (第10炮兵联队) from (34.92, 117.44) to (34.82, 117.48) - artillery range to support the advance.\n\n5. Also should consider moving the 5th Division units or other support.\n\nLet me also check distances between key points to plan the moves better.\n\nActually, I should first check where my units currently are and what the distances are, then execute the moves. Let me query key distances and then make the moves.\n\nLet me first query positions of my key units and then execute moves.\n\nI'll query get_distance for some key routes and then move.\n\nLet me be more strategic. Let me first get distances from my units' current positions to key objectives, then move.\n\nFor the 10th Division advance:\n- Current IJA-8B at (34.90, 117.42) → target near 枣庄/台儿庄 direction\n- Current IJA-33B at (34.88, 117.38) → target parallel advance\n- Current IJA-10D at (34.95, 117.40) → forward HQ\n- Current IJA-10AR at (34.92, 117.44) → artillery position\n\nLet me calculate distances and then execute moves.",
+                "tool_calls" : [ {
+                  "index" : 0,
+                  "id" : "call_00_uMqz1IyPA1o3yUGzM0Ym8523",
+                  "type" : "function",
+                  "function" : {
+                    "name" : "get_distance",
+                    "arguments" : "{\"lat1\": 34.90, \"lng1\": 117.42, \"lat2\": 34.56, \"lng2\": 117.74}"
+                  }
+                }, {
+                  "index" : 1,
+                  "id" : "call_01_OWaotOkZu16hCI1nvyMn8125",
+                  "type" : "function",
+                  "function" : {
+                    "name" : "get_distance",
+                    "arguments" : "{\"lat1\": 34.95, \"lng1\": 117.40, \"lat2\": 34.74, \"lng2\": 117.45}"
+                  }
+                }, {
+                  "index" : 2,
+                  "id" : "call_02_3fehvjfhTd0tPgAlzHbe1131",
+                  "type" : "function",
+                  "function" : {
+                    "name" : "get_distance",
+                    "arguments" : "{\"lat1\": 34.90, \"lng1\": 117.42, \"lat2\": 34.76, \"lng2\": 117.55}"
+                  }
+                } ]
+              },
+              "logprobs" : null,
+              "finish_reason" : "tool_calls"
+            } ],
+            "usage" : {
+              "prompt_tokens" : 4856,
+              "completion_tokens" : 1330,
+              "total_tokens" : 6186,
+              "prompt_tokens_details" : {
+                "cached_tokens" : 3968
+              },
+              "completion_tokens_details" : {
+                "reasoning_tokens" : 1027
+              },
+              "prompt_cache_hit_tokens" : 3968,
+              "prompt_cache_miss_tokens" : 888
+            },
+            "system_fingerprint" : "fp_9954b31ca7_prod0820_fp8_kvcache_20260402"
+          },
+          "results" : [ {
+            "tool_call_id" : "call_00_uMqz1IyPA1o3yUGzM0Ym8523",
+            "name" : "get_distance",
+            "content" : {
+              "distance_km" : 47.8,
+              "bearing_deg" : 142.2
+            }
+          }, {
+            "tool_call_id" : "call_01_OWaotOkZu16hCI1nvyMn8125",
+            "name" : "get_distance",
+            "content" : {
+              "distance_km" : 23.8,
+              "bearing_deg" : 168.9
+            }
+          }, {
+            "tool_call_id" : "call_02_3fehvjfhTd0tPgAlzHbe1131",
+            "name" : "get_distance",
+            "content" : {
+              "distance_km" : 19.6,
+              "bearing_deg" : 142.6
+            }
+          } ],
+          "timestamp" : 1781111788594
+        }, {
+          "iteration" : 3,
+          "request" : null,
+          "response" : {
+            "id" : "e92beaa4-4002-4212-b4d5-f7cd9cccbfca",
+            "object" : "chat.completion",
+            "created" : 1781111788,
+            "model" : "deepseek-v4-pro",
+            "choices" : [ {
+              "index" : 0,
+              "message" : {
+                "role" : "assistant",
+                "content" : "距离分析清晰。第8旅团距台儿庄约48km，距汤恩伯部89师约20km。作为矶谷廉介，我不会等待板垣的第5师团——我将以第10师团单独突破。现在执行前锋推进：",
+                "reasoning_content" : "Let me analyze the distances:\n\n1. From IJA-8B (34.90, 117.42) to 台儿庄 (34.56, 117.74): 47.8km at bearing 142.2° (southeast)\n2. From IJA-10D (34.95, 117.40) to near NRA-004 (34.74, 117.45): 23.8km at bearing 168.9° (south-southeast)\n3. From IJA-8B (34.90, 117.42) to near NRA-089 (34.76, 117.55): 19.6km at bearing 142.6° (southeast)\n\nNow I have a clear picture. My 10th Division is about 20-48km north of the Chinese defensive lines. The 20th Army Corps (汤恩伯) is about 20-25km ahead, and 台儿庄 is about 48km away.\n\nNow, as 矶谷廉介, my plan should be:\n\n**Phase 1 - Advance and Contact:**\n1. Move IJA-8B (第8旅团) from (34.90, 117.42) south-southeast toward (34.78, 117.52) — advance toward 枣庄, making contact with 汤恩伯's right flank (89师)\n2. Move IJA-33B (第33旅团) from (34.88, 117.38) south toward (34.76, 117.44) — parallel advance on the left, approaching 4师\n3. Move IJA-10D (师团司令部) from (34.95, 117.40) to (34.84, 117.44) — HQ moves forward to 临城 area\n4. Move IJA-10AR (第10炮兵联队) from (34.92, 117.44) to (34.83, 117.46) — artillery moves into firing range\n\nBut wait, I should also consider:\n- The 5th Division situation at 临沂\n- Whether I need to coordinate with other Japanese forces\n- The terrain constraints\n\nLooking at the terrain data: all forest, 250m elevation — this is favorable for infantry movement but limits tank effectiveness somewhat. However, there are 8 road nodes and 12 road segments in the Zaozhuang area, so there are roads I can use.\n\nLet me now execute the moves. I need to move at least 3 units (as per instructions).\n\nActually, let me think about what specific coordinates to target:\n\nIJA-8B (第8旅团): current (34.90, 117.42) → move to (34.80, 117.50) — this moves them southeast toward 枣庄, about 12km\nIJA-33B (第33旅团): current (34.88, 117.38) → move to (34.78, 117.46) — parallel advance, about 13km\nIJA-10AR (第10炮兵联队): current (34.92, 117.44) → move to (34.84, 117.48) — artillery support position, about 9km\nIJA-10D (师团司令部): current (34.95, 117.40) → move to (34.85, 117.42) — HQ forward, about 11km\n\nLet me execute these moves now.\n\nWait, I should also consider whether to move units from the 5th Division (板垣) in 临沂. But as 矶谷, I'm independent and don't want to wait for 板垣. My attitude is to press forward alone and take 台儿庄 before him.\n\nHowever, I should also think about whether IJA-NCA (华北方面军) needs to do anything. It's far away in 北平.\n\nLet me just focus on moving my 10th Division units forward. That's 4 moves, which satisfies the \"at least 3\" requirement.\n\nLet me execute the moves:",
+                "tool_calls" : [ {
+                  "index" : 0,
+                  "id" : "call_00_PLAIf1cfiY26MlJSVBkb6738",
+                  "type" : "function",
+                  "function" : {
+                    "name" : "move_unit",
+                    "arguments" : "{\"code\": \"IJA-8B\", \"lat\": 34.80, \"lng\": 117.50}"
+                  }
+                }, {
+                  "index" : 1,
+                  "id" : "call_01_TbBChbzxU24MhfJCQhf65053",
+                  "type" : "function",
+                  "function" : {
+                    "name" : "move_unit",
+                    "arguments" : "{\"code\": \"IJA-33B\", \"lat\": 34.78, \"lng\": 117.46}"
+                  }
+                }, {
+                  "index" : 2,
+                  "id" : "call_02_QvV6P90SDGUTL6klWmlQ4374",
+                  "type" : "function",
+                  "function" : {
+                    "name" : "move_unit",
+                    "arguments" : "{\"code\": \"IJA-10AR\", \"lat\": 34.84, \"lng\": 117.48}"
+                  }
+                }, {
+                  "index" : 3,
+                  "id" : "call_03_fMecetbUoNJEbxcBcLMQ7378",
+                  "type" : "function",
+                  "function" : {
+                    "name" : "move_unit",
+                    "arguments" : "{\"code\": \"IJA-10D\", \"lat\": 34.85, \"lng\": 117.42}"
+                  }
+                } ]
+              },
+              "logprobs" : null,
+              "finish_reason" : "tool_calls"
+            } ],
+            "usage" : {
+              "prompt_tokens" : 6271,
+              "completion_tokens" : 1230,
+              "total_tokens" : 7501,
+              "prompt_tokens_details" : {
+                "cached_tokens" : 4736
+              },
+              "completion_tokens_details" : {
+                "reasoning_tokens" : 877
+              },
+              "prompt_cache_hit_tokens" : 4736,
+              "prompt_cache_miss_tokens" : 1535
+            },
+            "system_fingerprint" : "fp_9954b31ca7_prod0820_fp8_kvcache_20260402"
+          },
+          "results" : [ {
+            "tool_call_id" : "call_00_PLAIf1cfiY26MlJSVBkb6738",
+            "name" : "move_unit",
+            "content" : {
+              "moved" : "IJA-8B",
+              "lat" : 34.8,
+              "lng" : 117.5
+            }
+          }, {
+            "tool_call_id" : "call_01_TbBChbzxU24MhfJCQhf65053",
+            "name" : "move_unit",
+            "content" : {
+              "moved" : "IJA-33B",
+              "lat" : 34.78,
+              "lng" : 117.46
+            }
+          }, {
+            "tool_call_id" : "call_02_QvV6P90SDGUTL6klWmlQ4374",
+            "name" : "move_unit",
+            "content" : {
+              "moved" : "IJA-10AR",
+              "lat" : 34.84,
+              "lng" : 117.48
+            }
+          }, {
+            "tool_call_id" : "call_03_fMecetbUoNJEbxcBcLMQ7378",
+            "name" : "move_unit",
+            "content" : {
+              "moved" : "IJA-10D",
+              "lat" : 34.85,
+              "lng" : 117.42
+            }
+          } ],
+          "timestamp" : 1781111802810
+        }, {
+          "iteration" : 4,
+          "request" : null,
+          "response" : {
+            "id" : "ecce07f0-ac26-460a-ad59-ea55db7ffd11",
+            "object" : "chat.completion",
+            "created" : 1781111802,
+            "model" : "deepseek-v4-pro",
+            "choices" : [ {
+              "index" : 0,
+              "message" : {
+                "role" : "assistant",
+                "content" : "Let me verify my new positions and check proximity to Chinese forces.",
+                "reasoning_content" : "Let me now verify the new positions and check what they're near. Let me query to see what Chinese units are nearby after these moves.\n\nIJA-8B is now at (34.80, 117.50) — this should be close to NRA-089 (89师 at 34.76, 117.55)\nIJA-33B is now at (34.78, 117.46) — this should be near NRA-004 (4师 at 34.74, 117.45)  \nIJA-10AR is now at (34.84, 117.48) — artillery position\nIJA-10D is now at (34.85, 117.42) — HQ forward\n\nLet me check distances between my forward units and the Chinese positions to assess if we've made contact.\n\nThen I can wrap up with a summary from 矶谷's perspective.",
+                "tool_calls" : [ {
+                  "index" : 0,
+                  "id" : "call_00_FL7ZS43B5hhPKZ9N86jY2449",
+                  "type" : "function",
+                  "function" : {
+                    "name" : "get_distance",
+                    "arguments" : "{\"lat1\": 34.8, \"lng1\": 117.5, \"lat2\": 34.76, \"lng2\": 117.55}"
+                  }
+                }, {
+                  "index" : 1,
+                  "id" : "call_01_UVVhEGmNBcPPM3viZaE45363",
+                  "type" : "function",
+                  "function" : {
+                    "name" : "get_distance",
+                    "arguments" : "{\"lat1\": 34.78, \"lng1\": 117.46, \"lat2\": 34.74, \"lng2\": 117.45}"
+                  }
+                }, {
+                  "index" : 2,
+                  "id" : "call_02_GwstiB0uYEGbUAy3az5z0715",
+                  "type" : "function",
+                  "function" : {
+                    "name" : "get_distance",
+                    "arguments" : "{\"lat1\": 34.8, \"lng1\": 117.5, \"lat2\": 34.56, \"lng2\": 117.74}"
+                  }
+                } ]
+              },
+              "logprobs" : null,
+              "finish_reason" : "tool_calls"
+            } ],
+            "usage" : {
+              "prompt_tokens" : 7592,
+              "completion_tokens" : 493,
+              "total_tokens" : 8085,
+              "prompt_tokens_details" : {
+                "cached_tokens" : 6144
+              },
+              "completion_tokens_details" : {
+                "reasoning_tokens" : 191
+              },
+              "prompt_cache_hit_tokens" : 6144,
+              "prompt_cache_miss_tokens" : 1448
+            },
+            "system_fingerprint" : "fp_9954b31ca7_prod0820_fp8_kvcache_20260402"
+          },
+          "results" : [ {
+            "tool_call_id" : "call_00_FL7ZS43B5hhPKZ9N86jY2449",
+            "name" : "get_distance",
+            "content" : {
+              "distance_km" : 6.4,
+              "bearing_deg" : 134.2
+            }
+          }, {
+            "tool_call_id" : "call_01_UVVhEGmNBcPPM3viZaE45363",
+            "name" : "get_distance",
+            "content" : {
+              "distance_km" : 4.5,
+              "bearing_deg" : 191.6
+            }
+          }, {
+            "tool_call_id" : "call_02_GwstiB0uYEGbUAy3az5z0715",
+            "name" : "get_distance",
+            "content" : {
+              "distance_km" : 34.6,
+              "bearing_deg" : 140.5
+            }
+          } ],
+          "timestamp" : 1781111808464
+        }, {
+          "iteration" : 5,
+          "request" : null,
+          "response" : {
+            "id" : "35952ff6-d276-42c3-bca7-fa49f8d1b5d5",
+            "object" : "chat.completion",
+            "created" : 1781111808,
+            "model" : "deepseek-v4-pro",
+            "choices" : [ {
+              "index" : 0,
+              "message" : {
+                "role" : "assistant",
+                "content" : "## 矶谷廉介 作战计划总结 — Round 1\n\n---\n\n### \uD83D\uDCCB 第10师团前进出击令\n\n**発令：昭和13年3月 第10师团司令部（臨城）**\n\n---\n\n### 一、态势判断\n\n| 要素 | 判断 |\n|------|------|\n| **当面之敌** | 汤恩伯第20军团（2、4、25、89师），约4万人，据守枣庄—峄县一线 |\n| **敌后方** | 孙连仲第2集团军（27、30、31师）据台儿庄，约3万人 |\n| **临沂方向** | 板垣第5师团被张自忠、庞炳勋牵制，进展迟缓 |\n| **蚌埠方向** | 荻洲第13师团远在250km外，无需等待 |\n| **结论** | **此乃我第10师团独力建功之时机。汤恩伯部乃国军精锐，击破之则台儿庄门户洞开。** |\n\n---\n\n### 二、本回合部队移动（4个单位）\n\n| 单位 | 原位置 | 新位置 | 移动距离 | 目的 |\n|------|--------|--------|----------|------|\n| **IJA-8B** 第8旅团（濑谷启） | (34.90, 117.42) | **(34.80, 117.50)** | ~13km | 右翼主攻，直指枣庄 |\n| **IJA-33B** 第33旅团（濑谷支队） | (34.88, 117.38) | **(34.78, 117.46)** | ~13km | 左翼助攻，牵制4师 |\n| **IJA-10AR** 第10炮兵联队 | (34.92, 117.44) | **(34.84, 117.48)** | ~9km | 炮阵地前移，进入射程 |\n| **IJA-10D** 第10师团司令部 | (34.95, 117.40) | **(34.85, 117.42)** | ~11km | 前进指挥所（臨城） |\n\n---\n\n### 三、敌我对峙态势（移动后）\n\n```\n                    第5师团（临沂方向—苦战中）\n                   / 35.10, 118.50\n                  /    ~80km\n    第10师团 ←──┘\n    ┌─────────────────────────────────────┐\n    │  IJA-10D  師団司令部 (34.85, 117.42)   │\n    │  IJA-10AR 砲兵聯隊 (34.84, 117.48)     │\n    │                                         │\n    │  IJA-33B → (34.78, 117.46) ← 4.5km → NRA-004 (4师)\n    │  IJA-8B  → (34.80, 117.50) ← 6.4km → NRA-089 (89师)\n    │                                         │\n    │            ↓ 34.6km to 台儿庄           │\n    │         NRA-2AG 孙连仲 (34.50, 117.65)  │\n    │         NRA-031 池峰城31师              │\n    └─────────────────────────────────────┘\n```\n\n**前锋距敌仅4.5~6.4km — 接敌态势已达成！**\n\n---\n\n### 四、战术方针\n\n1. **炮火准备**：第10炮兵联队150mm榴弹炮对汤恩伯阵地实施覆盖射击\n2. **正面突破**：濑谷启第8旅团沿临城—枣庄—峄县—台儿庄轴线猛攻，不与侧翼纠缠\n3. **侧翼牵制**：第33旅团压制4师，防止其支援89师\n4. **不等待**：第5师团、第13师团各自为战，我第10师团须抢先进抵台儿庄城下\n5. **轻视敌军**：汤恩伯虽有中央军精锐之名，然在我战车与大炮面前不足为惧\n\n---\n\n### 五、下回合预案\n\n- 第8旅团发起冲击，击破89师防线，夺取枣庄\n- 第33旅团牵制4师，掩护主力右翼\n- 视战况决定是否调第5师团第21旅团（坂本支队）南下合围\n- **目标：七日之内踏破台儿庄！**",
+                "reasoning_content" : "Now I have a clear picture:\n\n1. IJA-8B (第8旅团) at (34.80, 117.50) is only 6.4km from NRA-089 (89师) at (34.76, 117.55) — **contact imminent!**\n2. IJA-33B (第33旅团) at (34.78, 117.46) is only 4.5km from NRA-004 (4师) at (34.74, 117.45) — **contact imminent!**\n3. Distance from IJA-8B to 台儿庄 (34.56, 117.74): 34.6km — still a ways to go\n4. IJA-10AR (第10炮兵联队) at (34.84, 117.48) is about 15-20km from the front — within 150mm howitzer range\n5. IJA-10D (师团司令部) at (34.85, 117.42) — good command position\n\nMy 10th Division has now advanced approximately 15km south, with forward elements now within 5-6km of 汤恩伯's 20th Army Corps. The next round should involve engaging these Chinese forces.\n\nNow I should also think about whether I need to do anything with the other Japanese forces. Let me think:\n\n- IJA-21B (第21旅团/坂本支队) at (35.12, 118.52) — part of 5th Division, in 临沂 area\n- IJA-5AR (第5炮兵联队) at (35.07, 118.46) — supporting 5th Division\n- IJA-9B (第9旅团/国崎登) at (35.08, 118.48) — 5th Division\n- IJA-5D (第5师团/板垣) at (35.10, 118.50) — 5th Division HQ\n- IJA-13D (第13师团/荻洲) at (33.50, 117.30) — far south\n- IJA-NCA (华北方面军) at (36.70, 116.98) — far north in 北平\n\nAs 矶谷, I don't command these other units directly. I can only move 第10师团 units. But I could theoretically \"suggest\" or coordinate. However, in this simulation, I think the system allows me to move any Japanese unit.\n\nBut as 矶谷廉介, my doctrine is to NOT wait for the 5th Division or 13th Division. I'm going to press forward with my own 10th Division.\n\nHowever, I should consider: should I move any other units to support my advance? Let me think...\n\nThe 5th Division (板垣) at 临沂 is stuck. I shouldn't waste time coordinating with him. The 13th Division is too far south. \n\nWhat about the CPC units? The 八路军115师 and 129师 are in 晋东南 area, threatening rear areas. But as 矶谷, I'm focused on the front and would dismiss partisan threats.\n\nI think my 4 moves are sufficient for this round. Let me summarize the plan.\n\nActually wait - I should also consider whether to move IJA-8B and IJA-33B even closer, maybe within 2-3km, to actually initiate combat. But at 4.5-6.4km, they're already within artillery range and very close. The next round would be the actual engagement.\n\nLet me now provide a summary from 矶谷廉介's perspective. The plan is complete for Round 1.\n\nLet me craft a detailed summary."
+              },
+              "logprobs" : null,
+              "finish_reason" : "stop"
+            } ],
+            "usage" : {
+              "prompt_tokens" : 8171,
+              "completion_tokens" : 1818,
+              "total_tokens" : 9989,
+              "prompt_tokens_details" : {
+                "cached_tokens" : 7552
+              },
+              "completion_tokens_details" : {
+                "reasoning_tokens" : 804
+              },
+              "prompt_cache_hit_tokens" : 7552,
+              "prompt_cache_miss_tokens" : 619
+            },
+            "system_fingerprint" : "fp_9954b31ca7_prod0820_fp8_kvcache_20260402"
+          },
+          "results" : {
+            "done" : true
+          },
+          "timestamp" : 1781111831507
+        } ],
+        "finalPlan" : [ {
+          "index" : 0,
+          "id" : "call_00_BYvfsf5O2Plui53tGf424863",
+          "type" : "function",
+          "function" : {
+            "name" : "query_radius",
+            "arguments" : "{\"lat\": 34.80, \"lng\": 117.50, \"r\": 30}"
+          }
+        }, {
+          "index" : 1,
+          "id" : "call_01_0C4tNbfW77fEMNbAanHi0988",
+          "type" : "function",
+          "function" : {
+            "name" : "query_radius",
+            "arguments" : "{\"lat\": 34.56, \"lng\": 117.74, \"r\": 20}"
+          }
+        }, {
+          "index" : 2,
+          "id" : "call_02_lSVyShIuvMBJhuxbdy3j7776",
+          "type" : "function",
+          "function" : {
+            "name" : "query_radius",
+            "arguments" : "{\"lat\": 35.08, \"lng\": 118.48, \"r\": 15}"
+          }
+        }, {
+          "index" : 0,
+          "id" : "call_00_uMqz1IyPA1o3yUGzM0Ym8523",
+          "type" : "function",
+          "function" : {
+            "name" : "get_distance",
+            "arguments" : "{\"lat1\": 34.90, \"lng1\": 117.42, \"lat2\": 34.56, \"lng2\": 117.74}"
+          }
+        }, {
+          "index" : 1,
+          "id" : "call_01_OWaotOkZu16hCI1nvyMn8125",
+          "type" : "function",
+          "function" : {
+            "name" : "get_distance",
+            "arguments" : "{\"lat1\": 34.95, \"lng1\": 117.40, \"lat2\": 34.74, \"lng2\": 117.45}"
+          }
+        }, {
+          "index" : 2,
+          "id" : "call_02_3fehvjfhTd0tPgAlzHbe1131",
+          "type" : "function",
+          "function" : {
+            "name" : "get_distance",
+            "arguments" : "{\"lat1\": 34.90, \"lng1\": 117.42, \"lat2\": 34.76, \"lng2\": 117.55}"
+          }
+        }, {
+          "index" : 0,
+          "id" : "call_00_PLAIf1cfiY26MlJSVBkb6738",
+          "type" : "function",
+          "function" : {
+            "name" : "move_unit",
+            "arguments" : "{\"code\": \"IJA-8B\", \"lat\": 34.80, \"lng\": 117.50}"
+          }
+        }, {
+          "index" : 1,
+          "id" : "call_01_TbBChbzxU24MhfJCQhf65053",
+          "type" : "function",
+          "function" : {
+            "name" : "move_unit",
+            "arguments" : "{\"code\": \"IJA-33B\", \"lat\": 34.78, \"lng\": 117.46}"
+          }
+        }, {
+          "index" : 2,
+          "id" : "call_02_QvV6P90SDGUTL6klWmlQ4374",
+          "type" : "function",
+          "function" : {
+            "name" : "move_unit",
+            "arguments" : "{\"code\": \"IJA-10AR\", \"lat\": 34.84, \"lng\": 117.48}"
+          }
+        }, {
+          "index" : 3,
+          "id" : "call_03_fMecetbUoNJEbxcBcLMQ7378",
+          "type" : "function",
+          "function" : {
+            "name" : "move_unit",
+            "arguments" : "{\"code\": \"IJA-10D\", \"lat\": 34.85, \"lng\": 117.42}"
+          }
+        }, {
+          "index" : 0,
+          "id" : "call_00_FL7ZS43B5hhPKZ9N86jY2449",
+          "type" : "function",
+          "function" : {
+            "name" : "get_distance",
+            "arguments" : "{\"lat1\": 34.8, \"lng1\": 117.5, \"lat2\": 34.76, \"lng2\": 117.55}"
+          }
+        }, {
+          "index" : 1,
+          "id" : "call_01_UVVhEGmNBcPPM3viZaE45363",
+          "type" : "function",
+          "function" : {
+            "name" : "get_distance",
+            "arguments" : "{\"lat1\": 34.78, \"lng1\": 117.46, \"lat2\": 34.74, \"lng2\": 117.45}"
+          }
+        }, {
+          "index" : 2,
+          "id" : "call_02_GwstiB0uYEGbUAy3az5z0715",
+          "type" : "function",
+          "function" : {
+            "name" : "get_distance",
+            "arguments" : "{\"lat1\": 34.8, \"lng1\": 117.5, \"lat2\": 34.56, \"lng2\": 117.74}"
+          }
+        } ],
+        "rationale" : "Now I have a clear picture:\n\n1. IJA-8B (第8旅团) at (34.80, 117.50) is only 6.4km from NRA-089 (89师) at (34.76, 117.55) — **contact imminent!**\n2. IJA-33B (第33旅团) at (34.78, 117.46) is only 4.5km from NRA-004 (4师) at (34.74, 117.45) — **contact imminent!**\n3. Distance from IJA-8B to 台儿庄 (34.56, 117.74): 34.6km — still a ways to go\n4. IJA-10AR (第10炮兵联队) at (34.84, 117.48) is about 15-20km from the front — within 150mm howitzer range\n5. IJA-10D (师团司令部) at (34.85, 117.42) — good command position\n\nMy 10th Division has now advanced approximately 15km south, with forward elements now within 5-6km of 汤恩伯's 20th Army Corps. The next round should involve engaging these Chinese forces.\n\nNow I should also think about whether I need to do anything with the other Japanese forces. Let me think:\n\n- IJA-21B (第21旅团/坂本支队) at (35.12, 118.52) — part of 5th Division, in 临沂 area\n- IJA-5AR (第5炮兵联队) at (35.07, 118.46) — supporting 5th Division\n- IJA-9B (第9旅团/国崎登) at (35.08, 118.48) — 5th Division\n- IJA-5D (第5师团/板垣) at (35.10, 118.50) — 5th Division HQ\n- IJA-13D (第13师团/荻洲) at (33.50, 117.30) — far south\n- IJA-NCA (华北方面军) at (36.70, 116.98) — far north in 北平\n\nAs 矶谷, I don't command these other units directly. I can only move 第10师团 units. But I could theoretically \"suggest\" or coordinate. However, in this simulation, I think the system allows me to move any Japanese unit.\n\nBut as 矶谷廉介, my doctrine is to NOT wait for the 5th Division or 13th Division. I'm going to press forward with my own 10th Division.\n\nHowever, I should consider: should I move any other units to support my advance? Let me think...\n\nThe 5th Division (板垣) at 临沂 is stuck. I shouldn't waste time coordinating with him. The 13th Division is too far south. \n\nWhat about the CPC units? The 八路军115师 and 129师 are in 晋东南 area, threatening rear areas. But as 矶谷, I'm focused on the front and would dismiss partisan threats.\n\nI think my 4 moves are sufficient for this round. Let me summarize the plan.\n\nActually wait - I should also consider whether to move IJA-8B and IJA-33B even closer, maybe within 2-3km, to actually initiate combat. But at 4.5-6.4km, they're already within artillery range and very close. The next round would be the actual engagement.\n\nLet me now provide a summary from 矶谷廉介's perspective. The plan is complete for Round 1.\n\nLet me craft a detailed summary.",
+        "guidanceAssessment" : "",
+        "feedback" : null,
+        "risks" : "",
+        "recommendations" : "",
+        "timestamp" : 1781111763762
       } ]
     },
     "sideIntelMaps" : { },
@@ -3419,7 +3196,9 @@
       "color" : "#c0392b",
       "lat" : 35.12,
       "lng" : 118.52,
-      "description" : "IJA 21st Infantry Brigade — Sakamoto Detachment. Approached Linyi from the east."
+      "description" : "IJA 21st Infantry Brigade — Sakamoto Detachment. Approached Linyi from the east.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-030",
       "name" : "30师 (张金照部)",
@@ -3429,7 +3208,9 @@
       "color" : "#2980b9",
       "lat" : 34.58,
       "lng" : 117.72,
-      "description" : "30th Division — Zhang Jinzhao. North of Taierzhuang, blocking Japanese approach from Yixian."
+      "description" : "30th Division — Zhang Jinzhao. North of Taierzhuang, blocking Japanese approach from Yixian.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "IJA-10AR",
       "name" : "第10炮兵联队",
@@ -3439,7 +3220,9 @@
       "color" : "#e74c3c",
       "lat" : 34.92,
       "lng" : 117.44,
-      "description" : "IJA 10th Artillery Regiment. Heavy artillery support for the Taierzhuang assault."
+      "description" : "IJA 10th Artillery Regiment. Heavy artillery support for the Taierzhuang assault.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-031",
       "name" : "31师 (池峰城部)",
@@ -3449,7 +3232,9 @@
       "color" : "#2980b9",
       "lat" : 34.56,
       "lng" : 117.74,
-      "description" : "31st Division — Chi Fengcheng. Core defender of Taierzhuang town. Elite unit with strong will."
+      "description" : "31st Division — Chi Fengcheng. Core defender of Taierzhuang town. Elite unit with strong will.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "IJA-13D",
       "name" : "第13师团 (荻洲立兵)",
@@ -3459,7 +3244,9 @@
       "color" : "#e74c3c",
       "lat" : 33.5,
       "lng" : 117.3,
-      "description" : "IJA 13th Division — Rippei Ogisu. Advanced from south via Bengbu toward Xuzhou. Southern pincer of the operation."
+      "description" : "IJA 13th Division — Rippei Ogisu. Advanced from south via Bengbu toward Xuzhou. Southern pincer of the operation.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "IJA-33B",
       "name" : "第33旅团 (濑谷支队)",
@@ -3469,7 +3256,9 @@
       "color" : "#c0392b",
       "lat" : 34.88,
       "lng" : 117.38,
-      "description" : "IJA 33rd Infantry Brigade — Part of 10th Division. Attacked toward Taierzhuang from Yixian."
+      "description" : "IJA 33rd Infantry Brigade — Part of 10th Division. Attacked toward Taierzhuang from Yixian.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "IJA-NCA",
       "name" : "华北方面军 (寺内寿一)",
@@ -3479,7 +3268,9 @@
       "color" : "#e74c3c",
       "lat" : 36.7,
       "lng" : 116.98,
-      "description" : "IJA North China Area Army — Hisaichi Terauchi. Overall command of Japanese forces in North China."
+      "description" : "IJA North China Area Army — Hisaichi Terauchi. Overall command of Japanese forces in North China.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-115D",
       "name" : "115师 (东北军)",
@@ -3489,7 +3280,9 @@
       "color" : "#2980b9",
       "lat" : 35.03,
       "lng" : 118.34,
-      "description" : "115th Division — Northeast Army remnant. Assisted Linyi defense."
+      "description" : "115th Division — Northeast Army remnant. Assisted Linyi defense.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "IJA-5AR",
       "name" : "第5炮兵联队",
@@ -3499,7 +3292,9 @@
       "color" : "#e74c3c",
       "lat" : 35.07,
       "lng" : 118.46,
-      "description" : "IJA 5th Artillery Regiment. Provided fire support for the Linyi attack."
+      "description" : "IJA 5th Artillery Regiment. Provided fire support for the Linyi attack.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "CPC-115T",
       "name" : "八路军115师 (林彪部)",
@@ -3509,7 +3304,9 @@
       "color" : "#f1c40f",
       "lat" : 35.15,
       "lng" : 113.2,
-      "description" : "8RA 115th Division — Lin Biao. After Pingxingguan victory, positioned in southern Shanxi."
+      "description" : "8RA 115th Division — Lin Biao. After Pingxingguan victory, positioned in southern Shanxi.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-5WA",
       "name" : "第5战区 (李宗仁/白崇禧)",
@@ -3519,7 +3316,9 @@
       "color" : "#e67e22",
       "lat" : 34.26,
       "lng" : 117.18,
-      "description" : "HQ 5th War Area — Li Zongren & Bai Chongxi. Overall command of Xuzhou campaign."
+      "description" : "HQ 5th War Area — Li Zongren & Bai Chongxi. Overall command of Xuzhou campaign.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "IJA-9B",
       "name" : "第9旅团 (国崎登)",
@@ -3529,7 +3328,9 @@
       "color" : "#c0392b",
       "lat" : 35.08,
       "lng" : 118.48,
-      "description" : "IJA 9th Infantry Brigade — Kunizaki Noboru. 5th Division's vanguard attacking Linyi."
+      "description" : "IJA 9th Infantry Brigade — Kunizaki Noboru. 5th Division's vanguard attacking Linyi.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-004",
       "name" : "4师 (陈大庆部)",
@@ -3539,7 +3340,9 @@
       "color" : "#2980b9",
       "lat" : 34.74,
       "lng" : 117.45,
-      "description" : "4th Division — Chen Daqing. Deployed for flanking maneuver against Japanese rear."
+      "description" : "4th Division — Chen Daqing. Deployed for flanking maneuver against Japanese rear.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-048",
       "name" : "48师 (桂军)",
@@ -3549,7 +3352,9 @@
       "color" : "#2980b9",
       "lat" : 34.26,
       "lng" : 117.12,
-      "description" : "48th Division — Guangxi clique unit. Arrived as reinforcement."
+      "description" : "48th Division — Guangxi clique unit. Arrived as reinforcement.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-027",
       "name" : "27师 (黄樵松部)",
@@ -3559,7 +3364,9 @@
       "color" : "#2980b9",
       "lat" : 34.52,
       "lng" : 117.7,
-      "description" : "27th Division — Huang Qiaosong. Deployed west of Taierzhuang, guarding flank."
+      "description" : "27th Division — Huang Qiaosong. Deployed west of Taierzhuang, guarding flank.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-007",
       "name" : "7师 (桂军)",
@@ -3569,7 +3376,9 @@
       "color" : "#2980b9",
       "lat" : 34.28,
       "lng" : 117.08,
-      "description" : "7th Division — Guangxi clique unit. Veteran of Northern Expedition."
+      "description" : "7th Division — Guangxi clique unit. Veteran of Northern Expedition.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-089",
       "name" : "89师 (张雪中部)",
@@ -3579,7 +3388,9 @@
       "color" : "#2980b9",
       "lat" : 34.76,
       "lng" : 117.55,
-      "description" : "89th Division — Zhang Xuezhong. Attacked Japanese forces at Yixian on Mar 26, inflicting heavy casualties."
+      "description" : "89th Division — Zhang Xuezhong. Attacked Japanese forces at Yixian on Mar 26, inflicting heavy casualties.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-122",
       "name" : "122师 (王铭章部)",
@@ -3589,7 +3400,9 @@
       "color" : "#2980b9",
       "lat" : 35.08,
       "lng" : 117.15,
-      "description" : "122nd Division — Wang Mingzhang. Heroic last stand at Tengxian. Wang killed in action Mar 17."
+      "description" : "122nd Division — Wang Mingzhang. Heroic last stand at Tengxian. Wang killed in action Mar 17.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-002",
       "name" : "2师 (郑洞国部)",
@@ -3599,7 +3412,9 @@
       "color" : "#2980b9",
       "lat" : 34.72,
       "lng" : 117.48,
-      "description" : "2nd Division — Zheng Dongguo. Elite central army unit. Part of Tang Enbo's counterattack force."
+      "description" : "2nd Division — Zheng Dongguo. Elite central army unit. Part of Tang Enbo's counterattack force.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "IJA-5D",
       "name" : "第5师团 (板垣征四郎)",
@@ -3609,7 +3424,9 @@
       "color" : "#e74c3c",
       "lat" : 35.1,
       "lng" : 118.5,
-      "description" : "IJA 5th Division — Seishiro Itagaki. Attacked from northeast via Linyi. Attempted to flank Taierzhuang."
+      "description" : "IJA 5th Division — Seishiro Itagaki. Attacked from northeast via Linyi. Attempted to flank Taierzhuang.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-025",
       "name" : "25师 (关麟征部)",
@@ -3619,7 +3436,9 @@
       "color" : "#2980b9",
       "lat" : 34.68,
       "lng" : 117.52,
-      "description" : "25th Division — Guan Linzheng. Key unit for the encirclement of Japanese 10th Division."
+      "description" : "25th Division — Guan Linzheng. Key unit for the encirclement of Japanese 10th Division.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-124",
       "name" : "124师 (孙震兼)",
@@ -3629,7 +3448,9 @@
       "color" : "#2980b9",
       "lat" : 35.09,
       "lng" : 117.1,
-      "description" : "124th Division — Sichuan troops. Fought at Tengxian alongside 122nd Division."
+      "description" : "124th Division — Sichuan troops. Fought at Tengxian alongside 122nd Division.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-22AG",
       "name" : "第22集团军 (孙震部)",
@@ -3639,7 +3460,9 @@
       "color" : "#9b59b6",
       "lat" : 35.1,
       "lng" : 117.12,
-      "description" : "HQ 22nd Group Army — Sun Zhen. Sichuan troops. Defended Tengxian, suffered heavy losses."
+      "description" : "HQ 22nd Group Army — Sun Zhen. Sichuan troops. Defended Tengxian, suffered heavy losses.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-21AG",
       "name" : "第21集团军 (廖磊部)",
@@ -3649,7 +3472,9 @@
       "color" : "#9b59b6",
       "lat" : 34.3,
       "lng" : 117.1,
-      "description" : "HQ 21st Group Army — Liao Lei. Guangxi troops. Reinforced from south."
+      "description" : "HQ 21st Group Army — Liao Lei. Guangxi troops. Reinforced from south.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-20AG",
       "name" : "第20军团 (汤恩伯部)",
@@ -3659,7 +3484,9 @@
       "color" : "#9b59b6",
       "lat" : 34.7,
       "lng" : 117.5,
-      "description" : "HQ 20th Army Group — Tang Enbo. Main flanking/counterattack force. Equipped with artillery."
+      "description" : "HQ 20th Army Group — Tang Enbo. Main flanking/counterattack force. Equipped with artillery.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "CPC-129",
       "name" : "八路军129师 (刘伯承部)",
@@ -3669,7 +3496,9 @@
       "color" : "#f1c40f",
       "lat" : 36.0,
       "lng" : 114.0,
-      "description" : "8RA 129th Division — Liu Bocheng. Active in Shanxi-Hebei border region. Harassed Japanese supply lines."
+      "description" : "8RA 129th Division — Liu Bocheng. Active in Shanxi-Hebei border region. Harassed Japanese supply lines.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "IJA-10D",
       "name" : "第10师团 (矶谷廉介)",
@@ -3679,7 +3508,9 @@
       "color" : "#e74c3c",
       "lat" : 34.95,
       "lng" : 117.4,
-      "description" : "IJA 10th Division — Rensuke Isogai. Main attacking force. Advanced south along Jinpu railway from Shandong."
+      "description" : "IJA 10th Division — Rensuke Isogai. Main attacking force. Advanced south along Jinpu railway from Shandong.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-59A",
       "name" : "第59军 (张自忠部)",
@@ -3689,7 +3520,9 @@
       "color" : "#2980b9",
       "lat" : 35.02,
       "lng" : 118.3,
-      "description" : "59th Army — Zhang Zizhong. Rushed to reinforce Linyi. Launched night counterattacks on Japanese 5th Division."
+      "description" : "59th Army — Zhang Zizhong. Rushed to reinforce Linyi. Launched night counterattacks on Japanese 5th Division.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-2AG",
       "name" : "第2集团军 (孙连仲部)",
@@ -3699,7 +3532,9 @@
       "color" : "#3498db",
       "lat" : 34.5,
       "lng" : 117.65,
-      "description" : "HQ 2nd Army Group — Sun Lianzhong. Main defense at Taierzhuang."
+      "description" : "HQ 2nd Army Group — Sun Lianzhong. Main defense at Taierzhuang.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-044B",
       "name" : "第44独立旅",
@@ -3709,7 +3544,9 @@
       "color" : "#2980b9",
       "lat" : 34.55,
       "lng" : 117.76,
-      "description" : "44th Independent Brigade. Reserve force stationed east of the town."
+      "description" : "44th Independent Brigade. Reserve force stationed east of the town.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-3AG",
       "name" : "第3集团军 (庞炳勋部)",
@@ -3719,7 +3556,9 @@
       "color" : "#9b59b6",
       "lat" : 35.05,
       "lng" : 118.38,
-      "description" : "HQ 3rd Army Group — Pang Bingxun. Defended Linyi against Japanese 5th Division."
+      "description" : "HQ 3rd Army Group — Pang Bingxun. Defended Linyi against Japanese 5th Division.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "IJA-8B",
       "name" : "第8旅团 (濑谷启)",
@@ -3729,7 +3568,9 @@
       "color" : "#c0392b",
       "lat" : 34.9,
       "lng" : 117.42,
-      "description" : "IJA 8th Infantry Brigade — Seya Kei. Spearheaded the attack on Taierzhuang. ~4000 men with tank support."
+      "description" : "IJA 8th Infantry Brigade — Seya Kei. Spearheaded the attack on Taierzhuang. ~4000 men with tank support.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-059",
       "name" : "59军38师",
@@ -3739,7 +3580,9 @@
       "color" : "#2980b9",
       "lat" : 35.01,
       "lng" : 118.32,
-      "description" : "38th Division — Part of Zhang Zizhong's 59th Army."
+      "description" : "38th Division — Part of Zhang Zizhong's 59th Army.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     }, {
       "code" : "NRA-039",
       "name" : "39师 (庞炳勋兼)",
@@ -3749,7 +3592,9 @@
       "color" : "#2980b9",
       "lat" : 35.06,
       "lng" : 118.36,
-      "description" : "39th Division — Defended Linyi north gate. Blocked Itagaki's 5th Division advance."
+      "description" : "39th Division — Defended Linyi north gate. Blocked Itagaki's 5th Division advance.",
+      "strength" : 10000,
+      "maxStrength" : 10000
     } ],
     "moves" : [ ],
     "unitChanges" : [ ],
