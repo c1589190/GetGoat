@@ -28,5 +28,8 @@ Thumbs.db
 nohup.out
 /tmp/
 
+# Local config (contains API keys)
+config.properties
+
 # Maven
 dependency-reduced-pom.xml

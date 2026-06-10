@@ -44,6 +44,22 @@ public class ConfigManager {
     public static int getReliefElevThreshold()       { return Integer.parseInt(props.getProperty("relief.elevThreshold", "500")); }
     public static int getReliefRoughThreshold()      { return Integer.parseInt(props.getProperty("relief.roughThreshold", "60")); }
 
+    // ---- LLM config (global defaults, overridable per-commander) ----
+
+    public static String getLlmProvider()    { return props.getProperty("llm.provider", "anthropic"); }
+    public static String getLlmModel()       { return props.getProperty("llm.model", "claude-sonnet-4-6"); }
+    public static String getLlmEndpoint()    { return props.getProperty("llm.endpoint", ""); }
+    public static String getLlmApiKey()      {
+        String key = props.getProperty("llm.apiKey", "");
+        if (key.startsWith("env:")) {
+            String v = System.getenv(key.substring(4));
+            return v != null ? v : "";
+        }
+        return key;
+    }
+    public static int getLlmMaxTokens()      { return Integer.parseInt(props.getProperty("llm.maxTokens", "4096")); }
+
+
     public static String getProperty(String key, String defaultValue) {
         return props.getProperty(key, defaultValue);
     }

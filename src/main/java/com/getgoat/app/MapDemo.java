@@ -149,6 +149,98 @@ public class MapDemo {
         }
     }
 
+    /** Export units filtered by a side's SideIntelMap. */
+    private static String exportIntelFilteredUnits(String treeId, String nodeId, String side) {
+        var tree = branchManager.getTree(treeId);
+        if (tree == null) return "[]";
+        var node = tree.findNode(nodeId);
+        if (node == null) return "[]";
+        var intelMap = node.getSideIntelMap(side);
+        // Always include the side's own units
+        var result = new com.fasterxml.jackson.databind.node.ArrayNode(
+            new com.fasterxml.jackson.databind.ObjectMapper().getNodeFactory());
+        for (var u : unitsManager.listAll()) {
+            if (side.equals(u.getSource())) {
+                var obj = result.addObject();
+                obj.put("code", u.getCode());
+                obj.put("name", u.getName());
+                obj.put("source", u.getSource());
+                obj.put("type", u.getType());
+                obj.put("status", u.getStatus());
+                obj.put("color", u.getColor());
+                obj.put("lat", u.getLat());
+                obj.put("lng", u.getLng());
+                obj.put("certainty", "confirmed");
+                obj.put("uncertaintyRadiusKm", 0);
+                if (u.getDescription() != null) obj.put("description", u.getDescription());
+            } else if (intelMap != null) {
+                var entry = intelMap.findByUnitCode(u.getCode());
+                if (entry != null) {
+                    var obj = result.addObject();
+                    obj.put("code", u.getCode());
+                    obj.put("name", entry.getName());
+                    obj.put("source", entry.getApparentSource());
+                    obj.put("type", entry.getReportedType());
+                    obj.put("status", "unknown"); // can't see enemy status accurately
+                    obj.put("color", entry.getCertainty().getColorHex());
+                    obj.put("lat", entry.getLat());
+                    obj.put("lng", entry.getLng());
+                    obj.put("certainty", entry.getCertainty().getDisplayName());
+                    obj.put("uncertaintyRadiusKm", entry.getUncertaintyRadiusKm());
+                }
+            }
+        }
+        // Add phantom entries
+        if (intelMap != null) {
+            for (var entry : intelMap.getEntries()) {
+                if (entry.isPhantom()) {
+                    var obj = result.addObject();
+                    obj.put("code", entry.getPhantomId());
+                    obj.put("name", entry.getName());
+                    obj.put("source", entry.getApparentSource());
+                    obj.put("type", entry.getReportedType());
+                    obj.put("status", "decoy");
+                    obj.put("color", entry.getCertainty().getColorHex());
+                    obj.put("lat", entry.getLat());
+                    obj.put("lng", entry.getLng());
+                    obj.put("certainty", entry.getCertainty().getDisplayName());
+                    obj.put("uncertaintyRadiusKm", entry.getUncertaintyRadiusKm());
+                    obj.put("isPhantom", true);
+                }
+            }
+        }
+        return result.toString();
+    }
+
+    private static String handleSimulate(String treeId, String nodeId) {
+        // Create a temporary no-LLM agent for deterministic simulation
+        var agent = new com.getgoat.agent.CommanderAgent() {
+            @Override public com.fasterxml.jackson.databind.JsonNode callLLM(
+                    com.fasterxml.jackson.databind.JsonNode m) { return null; }
+        };
+        agent.initialize(new com.getgoat.agent.CommanderConfig(), branchManager,
+            unitsManager, mapManager, java.nio.file.Path.of(System.getProperty("user.dir")));
+        var simMode = new com.getgoat.agent.modes.SimulateMode();
+        agent.setMode(simMode);
+
+        var result = simMode.simulateDeterministic(agent, treeId, nodeId);
+
+        return "{\"ok\":true,\"round\":" + result.roundNumber
+            + ",\"summary\":\"" + esc(result.summary) + "\""
+            + ",\"movementsResolved\":" + result.movements.size()
+            + ",\"engagementsDetected\":" + result.engagements.size()
+            + ",\"combatResults\":" + result.combatResults.size()
+            + ",\"destroyed\":" + result.combatResults.stream().filter(
+                c -> "destroyed".equals(c.newStatus)).count()
+            + ",\"retreated\":" + result.combatResults.stream().filter(
+                c -> "retreating".equals(c.newStatus)).count()
+            + ",\"engaged\":" + result.combatResults.stream().filter(
+                c -> "engaged".equals(c.newStatus) || "advancing".equals(c.newStatus)).count()
+            + ",\"unitsReachedDestination\":" + result.movements.stream().filter(
+                m -> m.reached).count()
+            + "}";
+    }
+
     private static String handleWorkspaceSave() {
         String wsDir = com.getgoat.map.ConfigManager.getProperty("workspace.dir", null);
         if (wsDir == null || wsDir.isEmpty()) return "{\"error\":\"workspace.dir not configured\"}";
@@ -433,6 +525,36 @@ public class MapDemo {
                 } else {
                     response = "{\"error\":\"Invalid commander path\"}";
                 }
+            // Handle /api/intel/{treeId}/{nodeId}/{side} sub-paths
+            } else if (path.startsWith("/api/intel/") && path.length() > 11
+                    && !path.equals("/api/intel/sides")) {
+                String sub = path.substring(11); // e.g. "tree123/node456/nationalist"
+                String[] parts = sub.split("/");
+                if (parts.length >= 3) {
+                    String treeId = parts[0];
+                    String nodeId = parts[1];
+                    String side = parts[2];
+                    var tree = branchManager.getTree(treeId);
+                    if (tree == null) response = "{\"error\":\"tree not found\"}";
+                    else {
+                        var node = tree.findNode(nodeId);
+                        if (node == null) response = "{\"error\":\"node not found\"}";
+                        else {
+                            var intelMap = node.getSideIntelMap(side);
+                            if (intelMap == null) response = "{\"entries\":[],\"exploredBounds\":[],\"side\":\"" + esc(side) + "\",\"roundNumber\":0}";
+                            else {
+                                try {
+                                    response = new com.fasterxml.jackson.databind.ObjectMapper()
+                                        .writeValueAsString(intelMap);
+                                } catch (Exception e) {
+                                    response = "{\"error\":\"serialize failed\"}";
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    response = "{\"error\":\"path must be /api/intel/{treeId}/{nodeId}/{side}\"}";
+                }
             // Handle /api/branches/{treeId}/... sub-paths
             } else if (path.startsWith("/api/branches/") && path.length() > 14) {
                 String sub = path.substring(14);
@@ -511,6 +633,12 @@ public class MapDemo {
                 }
             } else {
                 response = switch (path) {
+                case "/api/intel/sides" -> {
+                    var sides = new java.util.LinkedHashSet<String>();
+                    for (var u : unitsManager.listAll()) sides.add(u.getSource());
+                    yield "{\"sides\":" + new com.fasterxml.jackson.databind.ObjectMapper()
+                        .writeValueAsString(sides) + "}";
+                }
                 case "/api/map/stats" -> mapManager.exportStatsJson();
                 case "/api/map/terrain" -> {
                     String query = exchange.getRequestURI().getQuery();
@@ -615,9 +743,14 @@ public class MapDemo {
                         yield handleUnitCreate(body);
                     }
                     String q = exchange.getRequestURI().getQuery();
-                    // Branch node context: return snapshots from tree/node
+                    // Per-side intel view: filter units by SideIntelMap
+                    String viewedBy = getQueryStringParam(q, "viewedBy", null);
                     String treeId = getQueryStringParam(q, "tree", null);
                     String nodeId = getQueryStringParam(q, "node", null);
+                    if (viewedBy != null && treeId != null && nodeId != null) {
+                        yield exportIntelFilteredUnits(treeId, nodeId, viewedBy);
+                    }
+                    // Branch node context: return snapshots from tree/node
                     if (treeId != null && nodeId != null) {
                         yield branchManager.exportUnitSnapshotsJson(treeId, nodeId);
                     }
@@ -643,6 +776,17 @@ public class MapDemo {
                     if ("DELETE".equals(exchange.getRequestMethod()))
                         yield handleUnitBatchDelete();
                     yield "{\"error\":\"Use POST to batch create, DELETE to clear\"}";
+                }
+                case "/api/simulate" -> {
+                    if ("POST".equals(exchange.getRequestMethod())) {
+                        String q = exchange.getRequestURI().getQuery();
+                        String treeId = getQueryStringParam(q, "tree", null);
+                        String nodeId = getQueryStringParam(q, "node", null);
+                        if (treeId == null || nodeId == null)
+                            yield "{\"error\":\"tree and node params required\"}";
+                        yield handleSimulate(treeId, nodeId);
+                    }
+                    yield "{\"error\":\"Use POST to simulate\"}";
                 }
                 case "/api/branches" -> {
                     if ("POST".equals(exchange.getRequestMethod())) {

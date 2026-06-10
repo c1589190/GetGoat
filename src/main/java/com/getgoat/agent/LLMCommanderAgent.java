@@ -45,6 +45,8 @@ public class LLMCommanderAgent extends CommanderAgent {
         return HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(30)).build();
     }
 
+    private static final Duration REQUEST_TIMEOUT = Duration.ofSeconds(300);
+
     /**
      * Call the LLM with an OpenAI-format conversation array.
      *
@@ -97,8 +99,8 @@ public class LLMCommanderAgent extends CommanderAgent {
         }
         body.set("messages", anthropicMsgs);
 
-        // Tool definitions
-        body.set("tools", buildToolDefinitions());
+        // Tool definitions from the active mode
+        if (mode != null) body.set("tools", convertToAnthropicTools(mode.getToolDefinitions()));
 
         String json = MAPPER.writeValueAsString(body);
         String endpoint = llm.endpoint != null ? llm.endpoint : ANTHROPIC_ENDPOINT;
@@ -108,7 +110,7 @@ public class LLMCommanderAgent extends CommanderAgent {
             .header("Content-Type", "application/json")
             .header("x-api-key", llm.apiKey)
             .header("anthropic-version", "2023-06-01")
-            .timeout(Duration.ofSeconds(120))
+            .timeout(REQUEST_TIMEOUT)
             .POST(HttpRequest.BodyPublishers.ofString(json))
             .build();
 
@@ -176,30 +178,19 @@ public class LLMCommanderAgent extends CommanderAgent {
         return args;
     }
 
-    /** Build tool definitions for Anthropic API. */
-    private ArrayNode buildToolDefinitions() {
+    /** Build Anthropic-format tool definitions from the mode's OpenAI-format definitions. */
+    private ArrayNode convertToAnthropicTools(JsonNode openaiTools) {
         ArrayNode tools = MAPPER.createArrayNode();
-        String[][] defs = {
-            {"move_unit", "移动部队到新位置", "code:s,lat:n,lng:n"},
-            {"create_unit", "新增/增援部队", "code:s,name:s,source:s,type:s,lat:n,lng:n"},
-            {"delete_unit", "消灭/撤退部队", "code:s"},
-            {"query_terrain", "查询指定位置地形和海拔", "lat:n,lng:n"},
-            {"query_radius", "查询半径内地形、城市、道路", "lat:n,lng:n,r:n"},
-            {"get_distance", "计算两点间距离和方位", "lat1:n,lng1:n,lat2:n,lng2:n"},
-        };
-        for (String[] d : defs) {
+        for (JsonNode t : openaiTools) {
+            JsonNode fn = t.has("function") ? t.get("function") : t;
+            if (fn == null) continue;
             ObjectNode tool = tools.addObject();
-            tool.put("name", d[0]);
-            tool.put("description", d[1]);
-            ObjectNode schema = tool.putObject("input_schema");
-            schema.put("type", "object");
-            ObjectNode props = schema.putObject("properties");
-            ArrayNode required = schema.putArray("required");
-            for (String param : d[2].split(",")) {
-                String[] kv = param.split(":");
-                ObjectNode prop = props.putObject(kv[0]);
-                prop.put("type", "n".equals(kv[1]) ? "number" : "string");
-                required.add(kv[0]);
+            tool.put("name", fn.has("name") ? fn.get("name").asText() : "");
+            tool.put("description", fn.has("description") ? fn.get("description").asText() : "");
+            if (fn.has("parameters")) {
+                tool.set("input_schema", fn.get("parameters"));
+            } else {
+                tool.putObject("input_schema").put("type", "object");
             }
         }
         return tools;
@@ -247,8 +238,9 @@ public class LLMCommanderAgent extends CommanderAgent {
         body.put("max_tokens", llm.maxTokens);
         body.set("messages", messages);
 
-        // Tool definitions
-        body.set("tools", buildOpenAIToolDefs());
+        // Tool definitions from the active mode
+        if (mode != null) body.set("tools", mode.getToolDefinitions());
+        body.put("tool_choice", "auto");
 
         String json = MAPPER.writeValueAsString(body);
         String endpoint = llm.endpoint != null ? llm.endpoint : OPENAI_ENDPOINT;
@@ -257,7 +249,7 @@ public class LLMCommanderAgent extends CommanderAgent {
             .uri(URI.create(endpoint))
             .header("Content-Type", "application/json")
             .header("Authorization", "Bearer " + llm.apiKey)
-            .timeout(Duration.ofSeconds(120))
+            .timeout(REQUEST_TIMEOUT)
             .POST(HttpRequest.BodyPublishers.ofString(json))
             .build();
 
@@ -273,35 +265,6 @@ public class LLMCommanderAgent extends CommanderAgent {
         }
     }
 
-    private ArrayNode buildOpenAIToolDefs() {
-        ArrayNode tools = MAPPER.createArrayNode();
-        String[][] defs = {
-            {"move_unit", "移动部队到新位置", "code:s,lat:n,lng:n"},
-            {"create_unit", "新增/增援部队", "code:s,name:s,source:s,type:s,lat:n,lng:n"},
-            {"delete_unit", "消灭/撤退部队", "code:s"},
-            {"query_terrain", "查询指定位置地形和海拔", "lat:n,lng:n"},
-            {"query_radius", "查询半径内地形、城市、道路", "lat:n,lng:n,r:n"},
-            {"get_distance", "计算两点间距离和方位", "lat1:n,lng1:n,lat2:n,lng2:n"},
-        };
-        for (String[] d : defs) {
-            ObjectNode tool = tools.addObject();
-            tool.put("type", "function");
-            ObjectNode fn = tool.putObject("function");
-            fn.put("name", d[0]);
-            fn.put("description", d[1]);
-            ObjectNode params = fn.putObject("parameters");
-            params.put("type", "object");
-            ObjectNode props = params.putObject("properties");
-            ArrayNode required = params.putArray("required");
-            for (String param : d[2].split(",")) {
-                String[] kv = param.split(":");
-                ObjectNode prop = props.putObject(kv[0]);
-                prop.put("type", "n".equals(kv[1]) ? "number" : "string");
-                required.add(kv[0]);
-            }
-        }
-        return tools;
-    }
 
     // ---- Response parsing ----
 

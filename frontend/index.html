@@ -12,6 +12,12 @@
 <div id="map"></div>
 <div id="sidebar">
     <div id="sidebar-header"><h2>GetGoat Map</h2><button id="sidebar-toggle">◀</button></div>
+    <div id="side-selector" style="display:flex;gap:2px;margin:0 8px 6px 8px;flex-wrap:wrap">
+        <button class="side-tab active" data-side="god" style="flex:1;min-width:36px;padding:3px 6px;background:#444;color:#ccc;border:1px solid #555;border-radius:3px;cursor:pointer;font-size:10px;font-weight:bold">👁 God</button>
+        <button class="side-tab" data-side="nationalist" style="flex:1;min-width:36px;padding:3px 6px;background:#2c3e50;color:#3498db;border:1px solid #3498db;border-radius:3px;cursor:pointer;font-size:10px">国军</button>
+        <button class="side-tab" data-side="japanese" style="flex:1;min-width:36px;padding:3px 6px;background:#4a2020;color:#e74c3c;border:1px solid #c0392b;border-radius:3px;cursor:pointer;font-size:10px">日军</button>
+        <button class="side-tab" data-side="cpc" style="flex:1;min-width:36px;padding:3px 6px;background:#2c3a1c;color:#e74c3c;border:1px solid #c0392b;border-radius:3px;cursor:pointer;font-size:10px">八路</button>
+    </div>
     <div id="sidebar-content">
         <div id="unit-detail" style="display:none;margin:0 0 8px 0;padding:8px;background:rgba(255,255,255,0.05);border-radius:6px;font-size:10px">
             <!-- Header: icon + name + code -->

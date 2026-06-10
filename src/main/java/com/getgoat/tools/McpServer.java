@@ -61,6 +61,10 @@ public class McpServer {
         // Workspace tools
         registry.register(new WorkspaceSaveTool(branchManager, unitsManager));
         registry.register(new WorkspaceLoadTool(branchManager, unitsManager));
+        // Scenario generation
+        registry.register(new GenerateScenarioTool(mapManager, unitsManager, branchManager));
+        // Simulation
+        registry.register(new SimulateRoundTool(mapManager, unitsManager, branchManager));
     }
 
     public void init() {

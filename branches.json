@@ -1,2325 +1,2486 @@
-[ {
-  "id" : "0dbdc119",
-  "name" : "淞沪会战推演",
-  "createdAt" : 1780930401930,
-  "root" : {
-    "id" : "9661690d",
-    "name" : "淞沪会战推演 — 初始部署",
-    "description" : "Initial deployment",
-    "round" : 0,
-    "strategy" : "initial",
-    "parentId" : null,
-    "children" : [ {
-      "id" : "caccf4d7",
-      "name" : "R1: 国军围攻虹口 (8/13–22)",
-      "description" : "",
-      "round" : 1,
-      "strategy" : "historical",
-      "parentId" : "9661690d",
-      "children" : [ {
-        "id" : "8abe4eca",
-        "name" : "R2: 日军登陆+罗店阻击战 (8/23–9/11)",
-        "description" : "",
-        "round" : 2,
-        "strategy" : "historical",
-        "parentId" : "caccf4d7",
-        "children" : [ {
-          "id" : "b78bdd4e",
-          "name" : "R3: 大场失守+苏州河防线 (10/1–31)",
-          "description" : "",
-          "round" : 3,
-          "strategy" : "historical",
-          "parentId" : "8abe4eca",
-          "children" : [ ],
-          "unitSnapshots" : [ {
-            "code" : "NRA-051",
-            "name" : "51师 (王耀武部)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.2,
-            "lng" : 121.38,
-            "description" : "74th Corps. Jiading."
-          }, {
-            "code" : "NRA-098",
-            "name" : "98师 (夏楚中部)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.4,
-            "lng" : 121.51,
-            "description" : "Baoshan fortress."
-          }, {
-            "code" : "NRA-15AG",
-            "name" : "第十五集团军 (陈诚)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#9b59b6",
-            "lat" : 31.35,
-            "lng" : 121.08,
-            "description" : "HQ 15th Army Group"
-          }, {
-            "code" : "IJA-SNLF",
-            "name" : "SNLF",
-            "source" : "japanese",
-            "type" : "naval",
-            "status" : "active",
-            "color" : "#c0392b",
-            "lat" : 31.25,
-            "lng" : 121.49,
-            "description" : ""
-          }, {
-            "code" : "CPC-N4A",
-            "name" : "新四军第一支队 (陈毅)",
-            "source" : "cpc",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#f1c40f",
-            "lat" : 31.67,
-            "lng" : 118.5,
-            "description" : "New Fourth Army 1st Det."
-          }, {
-            "code" : "IJA-114",
-            "name" : "第114师团 (末松茂治)",
-            "source" : "japanese",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#e74c3c",
-            "lat" : 30.69,
-            "lng" : 121.34,
-            "description" : "Landed Jinshanwei."
-          }, {
-            "code" : "CPC-UG",
-            "name" : "上海地下党交通站",
-            "source" : "cpc",
-            "type" : "civilian",
-            "status" : "active",
-            "color" : "#f1c40f",
-            "lat" : 31.23,
-            "lng" : 121.47,
-            "description" : "CPC Shanghai Underground."
-          }, {
-            "code" : "IJA-013",
-            "name" : "第13师团 (荻洲立兵)",
-            "source" : "japanese",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#e74c3c",
-            "lat" : 31.5,
-            "lng" : 121.23,
-            "description" : "Landed Oct Liuhe."
-          }, {
-            "code" : "NRA-008",
-            "name" : "8师 (陶峙岳部)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.38,
-            "lng" : 121.25,
-            "description" : "Jiading-Nanxiang axis."
-          }, {
-            "code" : "IJA-011",
-            "name" : "第11师团 (山室宗武)",
-            "source" : "japanese",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#e74c3c",
-            "lat" : 31.47,
-            "lng" : 121.3,
-            "description" : "Landed Chuanshakou Aug 23."
-          }, {
-            "code" : "CPC-8RA",
-            "name" : "八路军总部 (朱德/彭德怀)",
-            "source" : "cpc",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#f1c40f",
-            "lat" : 36.56,
-            "lng" : 109.49,
-            "description" : "8th Route Army HQ Yan'an."
-          }, {
-            "code" : "NRA-088",
-            "name" : "88师",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.24,
-            "lng" : 121.47,
-            "description" : ""
-          }, {
-            "code" : "IJA-018",
-            "name" : "第18师团 (牛岛贞雄)",
-            "source" : "japanese",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#e74c3c",
-            "lat" : 30.72,
-            "lng" : 121.33,
-            "description" : "Landed Nov 5 Jinshanwei."
-          }, {
-            "code" : "NRA-001",
-            "name" : "1师 (李铁军部)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.25,
-            "lng" : 121.39,
-            "description" : "Dachang meat grinder."
-          }, {
-            "code" : "NRA-067",
-            "name" : "67师 (黄维部)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.37,
-            "lng" : 121.37,
-            "description" : "18th Army. Luodian."
-          }, {
-            "code" : "NRA-087",
-            "name" : "87师",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.29,
-            "lng" : 121.49,
-            "description" : ""
-          }, {
-            "code" : "NRA-061",
-            "name" : "61师 (钟松部)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.22,
-            "lng" : 121.41,
-            "description" : "Suzhou Creek west bank."
-          }, {
-            "code" : "IJA-3FLT",
-            "name" : "第三舰队 (长谷川清)",
-            "source" : "japanese",
-            "type" : "naval",
-            "status" : "active",
-            "color" : "#c0392b",
-            "lat" : 31.38,
-            "lng" : 121.52,
-            "description" : "IJN 3rd Fleet."
-          }, {
-            "code" : "IJA-003",
-            "name" : "第3师团",
-            "source" : "japanese",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#e74c3c",
-            "lat" : 31.33,
-            "lng" : 121.48,
-            "description" : ""
-          }, {
-            "code" : "NRA-020B",
-            "name" : "第20独立旅",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.19,
-            "lng" : 121.43,
-            "description" : "Hongqiao. Oyama Incident."
-          }, {
-            "code" : "NRA-9AG",
-            "name" : "第九集团军 (张治中)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#3498db",
-            "lat" : 31.3,
-            "lng" : 121.28,
-            "description" : "HQ 9th Army Group"
-          }, {
-            "code" : "IJA-101",
-            "name" : "第101师团 (伊东政喜)",
-            "source" : "japanese",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#e74c3c",
-            "lat" : 31.37,
-            "lng" : 121.51,
-            "description" : "Landed Sept Wusong."
-          }, {
-            "code" : "CPC-115",
-            "name" : "八路军115师 (林彪部)",
-            "source" : "cpc",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#f1c40f",
-            "lat" : 35.15,
-            "lng" : 113.2,
-            "description" : "8RA 115th Div. Lin Biao."
-          }, {
-            "code" : "IJA-SEA",
-            "name" : "上海派遣军 (松井石根)",
-            "source" : "japanese",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#e74c3c",
-            "lat" : 31.4,
-            "lng" : 121.5,
-            "description" : "HQ Shanghai Expeditionary Army."
-          }, {
-            "code" : "IJA-009",
-            "name" : "第9师团 (吉住良辅)",
-            "source" : "japanese",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#e74c3c",
-            "lat" : 31.24,
-            "lng" : 121.44,
-            "description" : "Landed Oct 31 Suzhou Creek."
-          }, {
-            "code" : "SH-FLEET",
-            "name" : "Shanghai Fleet",
-            "source" : "base",
-            "type" : "naval",
-            "status" : "active",
-            "color" : "#3498db",
-            "lat" : 31.2,
-            "lng" : 121.5,
-            "description" : ""
-          }, {
-            "code" : "BJ-GARRISON",
-            "name" : "Beijing Garrison",
-            "source" : "base",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#e74c3c",
-            "lat" : 39.9,
-            "lng" : 116.4,
-            "description" : ""
-          }, {
-            "code" : "NRA-011",
-            "name" : "11师 (彭善部)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.38,
-            "lng" : 121.36,
-            "description" : "18th Army. Luodian."
-          }, {
-            "code" : "NRA-055",
-            "name" : "55师 (李觉部)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.22,
-            "lng" : 121.54,
-            "description" : "Pudong east flank."
-          }, {
-            "code" : "NRA-078",
-            "name" : "78师 (李文部)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.28,
-            "lng" : 121.28,
-            "description" : "Nanxiang defensive line."
-          }, {
-            "code" : "NRA-057",
-            "name" : "57师 (阮肇昌部)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.22,
-            "lng" : 121.43,
-            "description" : "Suzhou Creek west."
-          }, {
-            "code" : "NRA-036",
-            "name" : "36师 (宋希濂部)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.24,
-            "lng" : 121.46,
-            "description" : "German-trained. Huishan."
-          }, {
-            "code" : "NRA-014",
-            "name" : "14师 (陈时部)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.39,
-            "lng" : 121.35,
-            "description" : "18th Army. Luodian."
-          }, {
-            "code" : "NRA-058",
-            "name" : "58师 (俞济时部)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.03,
-            "lng" : 121.22,
-            "description" : "74th Corps. Songjiang."
-          }, {
-            "code" : "IJA-006",
-            "name" : "第6师团 (谷寿夫)",
-            "source" : "japanese",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#e74c3c",
-            "lat" : 30.7,
-            "lng" : 121.35,
-            "description" : "Landed Nov 5 Jinshanwei."
-          } ],
-          "moves" : [ {
-            "code" : "NRA-001",
-            "fromLat" : 31.29,
-            "fromLng" : 121.41,
-            "toLat" : 31.25,
-            "toLng" : 121.39,
-            "action" : "move"
-          }, {
-            "code" : "NRA-061",
-            "fromLat" : 31.23,
-            "fromLng" : 121.42,
-            "toLat" : 31.22,
-            "toLng" : 121.41,
-            "action" : "move"
-          }, {
-            "code" : "IJA-003",
-            "fromLat" : 31.4,
-            "fromLng" : 121.49,
-            "toLat" : 31.33,
-            "toLng" : 121.48,
-            "action" : "move"
-          }, {
-            "code" : "IJA-009",
-            "fromLat" : 31.23,
-            "fromLng" : 121.42,
-            "toLat" : 31.24,
-            "toLng" : 121.44,
-            "action" : "move"
-          }, {
-            "code" : "NRA-078",
-            "fromLat" : 31.3,
-            "fromLng" : 121.3,
-            "toLat" : 31.28,
-            "toLng" : 121.28,
-            "action" : "move"
-          } ],
-          "outcome" : "日军突破大场防线，国军退守苏州河南岸。88师524团谢晋元率800壮士死守四行仓库掩护主力撤退。10月26日大场陷落。",
-          "createdAt" : 1780930401956
-        } ],
-        "unitSnapshots" : [ {
-          "code" : "NRA-051",
-          "name" : "51师 (王耀武部)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.2,
-          "lng" : 121.38,
-          "description" : "74th Corps. Jiading."
-        }, {
-          "code" : "NRA-098",
-          "name" : "98师 (夏楚中部)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.4,
-          "lng" : 121.51,
-          "description" : "Baoshan fortress."
-        }, {
-          "code" : "NRA-15AG",
-          "name" : "第十五集团军 (陈诚)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#9b59b6",
-          "lat" : 31.35,
-          "lng" : 121.08,
-          "description" : "HQ 15th Army Group"
-        }, {
-          "code" : "IJA-SNLF",
-          "name" : "SNLF",
-          "source" : "japanese",
-          "type" : "naval",
-          "status" : "active",
-          "color" : "#c0392b",
-          "lat" : 31.25,
-          "lng" : 121.49,
-          "description" : ""
-        }, {
-          "code" : "CPC-N4A",
-          "name" : "新四军第一支队 (陈毅)",
-          "source" : "cpc",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#f1c40f",
-          "lat" : 31.67,
-          "lng" : 118.5,
-          "description" : "New Fourth Army 1st Det."
-        }, {
-          "code" : "IJA-114",
-          "name" : "第114师团 (末松茂治)",
-          "source" : "japanese",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#e74c3c",
-          "lat" : 30.69,
-          "lng" : 121.34,
-          "description" : "Landed Jinshanwei."
-        }, {
-          "code" : "CPC-UG",
-          "name" : "上海地下党交通站",
-          "source" : "cpc",
-          "type" : "civilian",
-          "status" : "active",
-          "color" : "#f1c40f",
-          "lat" : 31.23,
-          "lng" : 121.47,
-          "description" : "CPC Shanghai Underground."
-        }, {
-          "code" : "IJA-013",
-          "name" : "第13师团 (荻洲立兵)",
-          "source" : "japanese",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#e74c3c",
-          "lat" : 31.5,
-          "lng" : 121.23,
-          "description" : "Landed Oct Liuhe."
-        }, {
-          "code" : "NRA-008",
-          "name" : "8师 (陶峙岳部)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.38,
-          "lng" : 121.25,
-          "description" : "Jiading-Nanxiang axis."
-        }, {
-          "code" : "IJA-011",
-          "name" : "第11师团 (山室宗武)",
-          "source" : "japanese",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#e74c3c",
-          "lat" : 31.47,
-          "lng" : 121.3,
-          "description" : "Landed Chuanshakou Aug 23."
-        }, {
-          "code" : "CPC-8RA",
-          "name" : "八路军总部 (朱德/彭德怀)",
-          "source" : "cpc",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#f1c40f",
-          "lat" : 36.56,
-          "lng" : 109.49,
-          "description" : "8th Route Army HQ Yan'an."
-        }, {
-          "code" : "NRA-088",
-          "name" : "88师",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.24,
-          "lng" : 121.47,
-          "description" : ""
-        }, {
-          "code" : "IJA-018",
-          "name" : "第18师团 (牛岛贞雄)",
-          "source" : "japanese",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#e74c3c",
-          "lat" : 30.72,
-          "lng" : 121.33,
-          "description" : "Landed Nov 5 Jinshanwei."
-        }, {
-          "code" : "NRA-001",
-          "name" : "1师 (李铁军部)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.29,
-          "lng" : 121.41,
-          "description" : "Dachang meat grinder."
-        }, {
-          "code" : "NRA-067",
-          "name" : "67师 (黄维部)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.37,
-          "lng" : 121.37,
-          "description" : "18th Army. Luodian."
-        }, {
-          "code" : "NRA-087",
-          "name" : "87师",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.29,
-          "lng" : 121.49,
-          "description" : ""
-        }, {
-          "code" : "NRA-061",
-          "name" : "61师 (钟松部)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.23,
-          "lng" : 121.42,
-          "description" : "Suzhou Creek west bank."
-        }, {
-          "code" : "IJA-3FLT",
-          "name" : "第三舰队 (长谷川清)",
-          "source" : "japanese",
-          "type" : "naval",
-          "status" : "active",
-          "color" : "#c0392b",
-          "lat" : 31.38,
-          "lng" : 121.52,
-          "description" : "IJN 3rd Fleet."
-        }, {
-          "code" : "IJA-003",
-          "name" : "第3师团",
-          "source" : "japanese",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#e74c3c",
-          "lat" : 31.4,
-          "lng" : 121.49,
-          "description" : ""
-        }, {
-          "code" : "NRA-020B",
-          "name" : "第20独立旅",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.19,
-          "lng" : 121.43,
-          "description" : "Hongqiao. Oyama Incident."
-        }, {
-          "code" : "NRA-9AG",
-          "name" : "第九集团军 (张治中)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#3498db",
-          "lat" : 31.3,
-          "lng" : 121.28,
-          "description" : "HQ 9th Army Group"
-        }, {
-          "code" : "IJA-101",
-          "name" : "第101师团 (伊东政喜)",
-          "source" : "japanese",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#e74c3c",
-          "lat" : 31.37,
-          "lng" : 121.51,
-          "description" : "Landed Sept Wusong."
-        }, {
-          "code" : "CPC-115",
-          "name" : "八路军115师 (林彪部)",
-          "source" : "cpc",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#f1c40f",
-          "lat" : 35.15,
-          "lng" : 113.2,
-          "description" : "8RA 115th Div. Lin Biao."
-        }, {
-          "code" : "IJA-SEA",
-          "name" : "上海派遣军 (松井石根)",
-          "source" : "japanese",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#e74c3c",
-          "lat" : 31.4,
-          "lng" : 121.5,
-          "description" : "HQ Shanghai Expeditionary Army."
-        }, {
-          "code" : "IJA-009",
-          "name" : "第9师团 (吉住良辅)",
-          "source" : "japanese",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#e74c3c",
-          "lat" : 31.23,
-          "lng" : 121.42,
-          "description" : "Landed Oct 31 Suzhou Creek."
-        }, {
-          "code" : "SH-FLEET",
-          "name" : "Shanghai Fleet",
-          "source" : "base",
-          "type" : "naval",
-          "status" : "active",
-          "color" : "#3498db",
-          "lat" : 31.2,
-          "lng" : 121.5,
-          "description" : ""
-        }, {
-          "code" : "BJ-GARRISON",
-          "name" : "Beijing Garrison",
-          "source" : "base",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#e74c3c",
-          "lat" : 39.9,
-          "lng" : 116.4,
-          "description" : ""
-        }, {
-          "code" : "NRA-011",
-          "name" : "11师 (彭善部)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.38,
-          "lng" : 121.36,
-          "description" : "18th Army. Luodian."
-        }, {
-          "code" : "NRA-055",
-          "name" : "55师 (李觉部)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.22,
-          "lng" : 121.54,
-          "description" : "Pudong east flank."
-        }, {
-          "code" : "NRA-078",
-          "name" : "78师 (李文部)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.3,
-          "lng" : 121.3,
-          "description" : "Nanxiang defensive line."
-        }, {
-          "code" : "NRA-057",
-          "name" : "57师 (阮肇昌部)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.22,
-          "lng" : 121.43,
-          "description" : "Suzhou Creek west."
-        }, {
-          "code" : "NRA-036",
-          "name" : "36师 (宋希濂部)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.24,
-          "lng" : 121.46,
-          "description" : "German-trained. Huishan."
-        }, {
-          "code" : "NRA-014",
-          "name" : "14师 (陈时部)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.39,
-          "lng" : 121.35,
-          "description" : "18th Army. Luodian."
-        }, {
-          "code" : "NRA-058",
-          "name" : "58师 (俞济时部)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.03,
-          "lng" : 121.22,
-          "description" : "74th Corps. Songjiang."
-        }, {
-          "code" : "IJA-006",
-          "name" : "第6师团 (谷寿夫)",
-          "source" : "japanese",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#e74c3c",
-          "lat" : 30.7,
-          "lng" : 121.35,
-          "description" : "Landed Nov 5 Jinshanwei."
-        } ],
-        "moves" : [ {
-          "code" : "NRA-098",
-          "fromLat" : 31.42,
-          "fromLng" : 121.5,
-          "toLat" : 31.4,
-          "toLng" : 121.51,
-          "action" : "move"
-        }, {
-          "code" : "IJA-011",
-          "fromLat" : 31.51,
-          "fromLng" : 121.28,
-          "toLat" : 31.47,
-          "toLng" : 121.3,
-          "action" : "move"
-        }, {
-          "code" : "NRA-067",
-          "fromLat" : 31.39,
-          "fromLng" : 121.36,
-          "toLat" : 31.37,
-          "toLng" : 121.37,
-          "action" : "move"
-        }, {
-          "code" : "IJA-003",
-          "fromLat" : 31.38,
-          "fromLng" : 121.51,
-          "toLat" : 31.4,
-          "toLng" : 121.49,
-          "action" : "move"
-        }, {
-          "code" : "IJA-101",
-          "fromLat" : 31.39,
-          "fromLng" : 121.5,
-          "toLat" : 31.37,
-          "toLng" : 121.51,
-          "action" : "move"
-        }, {
-          "code" : "NRA-011",
-          "fromLat" : 31.4,
-          "fromLng" : 121.35,
-          "toLat" : 31.38,
-          "toLng" : 121.36,
-          "action" : "move"
-        }, {
-          "code" : "NRA-014",
-          "fromLat" : 31.41,
-          "fromLng" : 121.34,
-          "toLat" : 31.39,
-          "toLng" : 121.35,
-          "action" : "move"
-        } ],
-        "outcome" : "日军第3/11/101师团在吴淞、浏河登陆。陈诚第15集团军(11/14/67师)死守罗店，'血肉磨坊'鏖战18天。98师583团宝山全员殉国。",
-        "createdAt" : 1780930401942
-      }, {
-        "id" : "bed585ee",
-        "name" : "R2(Alt): 主动撤出市区防线",
-        "description" : "",
-        "round" : 2,
-        "strategy" : "alt1",
-        "parentId" : "caccf4d7",
-        "children" : [ {
-          "id" : "22db5fab",
-          "name" : "Alt Strategy",
-          "description" : "",
-          "round" : 3,
-          "strategy" : "alt1",
-          "parentId" : "bed585ee",
-          "children" : [ ],
-          "unitSnapshots" : [ {
-            "code" : "NRA-051",
-            "name" : "51师 (王耀武部)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.2,
-            "lng" : 121.38,
-            "description" : "74th Corps. Jiading."
-          }, {
-            "code" : "NRA-098",
-            "name" : "98师 (夏楚中部)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.42,
-            "lng" : 121.5,
-            "description" : "Baoshan fortress."
-          }, {
-            "code" : "NRA-15AG",
-            "name" : "第十五集团军 (陈诚)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#9b59b6",
-            "lat" : 31.35,
-            "lng" : 121.08,
-            "description" : "HQ 15th Army Group"
-          }, {
-            "code" : "IJA-SNLF",
-            "name" : "SNLF",
-            "source" : "japanese",
-            "type" : "naval",
-            "status" : "active",
-            "color" : "#c0392b",
-            "lat" : 31.25,
-            "lng" : 121.49,
-            "description" : ""
-          }, {
-            "code" : "CPC-N4A",
-            "name" : "新四军第一支队 (陈毅)",
-            "source" : "cpc",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#f1c40f",
-            "lat" : 31.67,
-            "lng" : 118.5,
-            "description" : "New Fourth Army 1st Det."
-          }, {
-            "code" : "IJA-114",
-            "name" : "第114师团 (末松茂治)",
-            "source" : "japanese",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#e74c3c",
-            "lat" : 30.69,
-            "lng" : 121.34,
-            "description" : "Landed Jinshanwei."
-          }, {
-            "code" : "CPC-UG",
-            "name" : "上海地下党交通站",
-            "source" : "cpc",
-            "type" : "civilian",
-            "status" : "active",
-            "color" : "#f1c40f",
-            "lat" : 31.23,
-            "lng" : 121.47,
-            "description" : "CPC Shanghai Underground."
-          }, {
-            "code" : "IJA-013",
-            "name" : "第13师团 (荻洲立兵)",
-            "source" : "japanese",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#e74c3c",
-            "lat" : 31.5,
-            "lng" : 121.23,
-            "description" : "Landed Oct Liuhe."
-          }, {
-            "code" : "NRA-008",
-            "name" : "8师 (陶峙岳部)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.38,
-            "lng" : 121.25,
-            "description" : "Jiading-Nanxiang axis."
-          }, {
-            "code" : "IJA-011",
-            "name" : "第11师团 (山室宗武)",
-            "source" : "japanese",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#e74c3c",
-            "lat" : 31.51,
-            "lng" : 121.28,
-            "description" : "Landed Chuanshakou Aug 23."
-          }, {
-            "code" : "CPC-8RA",
-            "name" : "八路军总部 (朱德/彭德怀)",
-            "source" : "cpc",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#f1c40f",
-            "lat" : 36.56,
-            "lng" : 109.49,
-            "description" : "8th Route Army HQ Yan'an."
-          }, {
-            "code" : "NRA-088",
-            "name" : "88师",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.32,
-            "lng" : 121.34,
-            "description" : ""
-          }, {
-            "code" : "IJA-018",
-            "name" : "第18师团 (牛岛贞雄)",
-            "source" : "japanese",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#e74c3c",
-            "lat" : 30.72,
-            "lng" : 121.33,
-            "description" : "Landed Nov 5 Jinshanwei."
-          }, {
-            "code" : "NRA-001",
-            "name" : "1师 (李铁军部)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.29,
-            "lng" : 121.41,
-            "description" : "Dachang meat grinder."
-          }, {
-            "code" : "NRA-067",
-            "name" : "67师 (黄维部)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.39,
-            "lng" : 121.36,
-            "description" : "18th Army. Luodian."
-          }, {
-            "code" : "NRA-087",
-            "name" : "87师",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.35,
-            "lng" : 121.35,
-            "description" : ""
-          }, {
-            "code" : "NRA-061",
-            "name" : "61师 (钟松部)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.23,
-            "lng" : 121.42,
-            "description" : "Suzhou Creek west bank."
-          }, {
-            "code" : "IJA-3FLT",
-            "name" : "第三舰队 (长谷川清)",
-            "source" : "japanese",
-            "type" : "naval",
-            "status" : "active",
-            "color" : "#c0392b",
-            "lat" : 31.38,
-            "lng" : 121.52,
-            "description" : "IJN 3rd Fleet."
-          }, {
-            "code" : "IJA-003",
-            "name" : "第3师团",
-            "source" : "japanese",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#e74c3c",
-            "lat" : 31.38,
-            "lng" : 121.51,
-            "description" : ""
-          }, {
-            "code" : "NRA-020B",
-            "name" : "第20独立旅",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.19,
-            "lng" : 121.43,
-            "description" : "Hongqiao. Oyama Incident."
-          }, {
-            "code" : "NRA-9AG",
-            "name" : "第九集团军 (张治中)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#3498db",
-            "lat" : 31.3,
-            "lng" : 121.28,
-            "description" : "HQ 9th Army Group"
-          }, {
-            "code" : "IJA-101",
-            "name" : "第101师团 (伊东政喜)",
-            "source" : "japanese",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#e74c3c",
-            "lat" : 31.39,
-            "lng" : 121.5,
-            "description" : "Landed Sept Wusong."
-          }, {
-            "code" : "CPC-115",
-            "name" : "八路军115师 (林彪部)",
-            "source" : "cpc",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#f1c40f",
-            "lat" : 35.15,
-            "lng" : 113.2,
-            "description" : "8RA 115th Div. Lin Biao."
-          }, {
-            "code" : "IJA-SEA",
-            "name" : "上海派遣军 (松井石根)",
-            "source" : "japanese",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#e74c3c",
-            "lat" : 31.4,
-            "lng" : 121.5,
-            "description" : "HQ Shanghai Expeditionary Army."
-          }, {
-            "code" : "IJA-009",
-            "name" : "第9师团 (吉住良辅)",
-            "source" : "japanese",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#e74c3c",
-            "lat" : 31.23,
-            "lng" : 121.42,
-            "description" : "Landed Oct 31 Suzhou Creek."
-          }, {
-            "code" : "SH-FLEET",
-            "name" : "Shanghai Fleet",
-            "source" : "base",
-            "type" : "naval",
-            "status" : "active",
-            "color" : "#3498db",
-            "lat" : 31.2,
-            "lng" : 121.5,
-            "description" : ""
-          }, {
-            "code" : "BJ-GARRISON",
-            "name" : "Beijing Garrison",
-            "source" : "base",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#e74c3c",
-            "lat" : 39.9,
-            "lng" : 116.4,
-            "description" : ""
-          }, {
-            "code" : "NRA-011",
-            "name" : "11师 (彭善部)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.42,
-            "lng" : 121.32,
-            "description" : "18th Army. Luodian."
-          }, {
-            "code" : "NRA-055",
-            "name" : "55师 (李觉部)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.22,
-            "lng" : 121.54,
-            "description" : "Pudong east flank."
-          }, {
-            "code" : "NRA-078",
-            "name" : "78师 (李文部)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.3,
-            "lng" : 121.3,
-            "description" : "Nanxiang defensive line."
-          }, {
-            "code" : "NRA-057",
-            "name" : "57师 (阮肇昌部)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.22,
-            "lng" : 121.43,
-            "description" : "Suzhou Creek west."
-          }, {
-            "code" : "NRA-036",
-            "name" : "36师 (宋希濂部)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.33,
-            "lng" : 121.33,
-            "description" : "German-trained. Huishan."
-          }, {
-            "code" : "NRA-014",
-            "name" : "14师 (陈时部)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.43,
-            "lng" : 121.31,
-            "description" : "18th Army. Luodian."
-          }, {
-            "code" : "NRA-058",
-            "name" : "58师 (俞济时部)",
-            "source" : "nationalist",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#2980b9",
-            "lat" : 31.03,
-            "lng" : 121.22,
-            "description" : "74th Corps. Songjiang."
-          }, {
-            "code" : "IJA-006",
-            "name" : "第6师团 (谷寿夫)",
-            "source" : "japanese",
-            "type" : "infantry",
-            "status" : "active",
-            "color" : "#e74c3c",
-            "lat" : 30.7,
-            "lng" : 121.35,
-            "description" : "Landed Nov 5 Jinshanwei."
-          } ],
-          "moves" : [ ],
-          "outcome" : "3",
-          "createdAt" : 1780930807182
-        } ],
-        "unitSnapshots" : [ {
-          "code" : "NRA-051",
-          "name" : "51师 (王耀武部)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.2,
-          "lng" : 121.38,
-          "description" : "74th Corps. Jiading."
-        }, {
-          "code" : "NRA-098",
-          "name" : "98师 (夏楚中部)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.42,
-          "lng" : 121.5,
-          "description" : "Baoshan fortress."
-        }, {
-          "code" : "NRA-15AG",
-          "name" : "第十五集团军 (陈诚)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#9b59b6",
-          "lat" : 31.35,
-          "lng" : 121.08,
-          "description" : "HQ 15th Army Group"
-        }, {
-          "code" : "IJA-SNLF",
-          "name" : "SNLF",
-          "source" : "japanese",
-          "type" : "naval",
-          "status" : "active",
-          "color" : "#c0392b",
-          "lat" : 31.25,
-          "lng" : 121.49,
-          "description" : ""
-        }, {
-          "code" : "CPC-N4A",
-          "name" : "新四军第一支队 (陈毅)",
-          "source" : "cpc",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#f1c40f",
-          "lat" : 31.67,
-          "lng" : 118.5,
-          "description" : "New Fourth Army 1st Det."
-        }, {
-          "code" : "IJA-114",
-          "name" : "第114师团 (末松茂治)",
-          "source" : "japanese",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#e74c3c",
-          "lat" : 30.69,
-          "lng" : 121.34,
-          "description" : "Landed Jinshanwei."
-        }, {
-          "code" : "CPC-UG",
-          "name" : "上海地下党交通站",
-          "source" : "cpc",
-          "type" : "civilian",
-          "status" : "active",
-          "color" : "#f1c40f",
-          "lat" : 31.23,
-          "lng" : 121.47,
-          "description" : "CPC Shanghai Underground."
-        }, {
-          "code" : "IJA-013",
-          "name" : "第13师团 (荻洲立兵)",
-          "source" : "japanese",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#e74c3c",
-          "lat" : 31.5,
-          "lng" : 121.23,
-          "description" : "Landed Oct Liuhe."
-        }, {
-          "code" : "NRA-008",
-          "name" : "8师 (陶峙岳部)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.38,
-          "lng" : 121.25,
-          "description" : "Jiading-Nanxiang axis."
-        }, {
-          "code" : "IJA-011",
-          "name" : "第11师团 (山室宗武)",
-          "source" : "japanese",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#e74c3c",
-          "lat" : 31.51,
-          "lng" : 121.28,
-          "description" : "Landed Chuanshakou Aug 23."
-        }, {
-          "code" : "CPC-8RA",
-          "name" : "八路军总部 (朱德/彭德怀)",
-          "source" : "cpc",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#f1c40f",
-          "lat" : 36.56,
-          "lng" : 109.49,
-          "description" : "8th Route Army HQ Yan'an."
-        }, {
-          "code" : "NRA-088",
-          "name" : "88师",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.32,
-          "lng" : 121.34,
-          "description" : ""
-        }, {
-          "code" : "IJA-018",
-          "name" : "第18师团 (牛岛贞雄)",
-          "source" : "japanese",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#e74c3c",
-          "lat" : 30.72,
-          "lng" : 121.33,
-          "description" : "Landed Nov 5 Jinshanwei."
-        }, {
-          "code" : "NRA-001",
-          "name" : "1师 (李铁军部)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.29,
-          "lng" : 121.41,
-          "description" : "Dachang meat grinder."
-        }, {
-          "code" : "NRA-067",
-          "name" : "67师 (黄维部)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.39,
-          "lng" : 121.36,
-          "description" : "18th Army. Luodian."
-        }, {
-          "code" : "NRA-087",
-          "name" : "87师",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.35,
-          "lng" : 121.35,
-          "description" : ""
-        }, {
-          "code" : "NRA-061",
-          "name" : "61师 (钟松部)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.23,
-          "lng" : 121.42,
-          "description" : "Suzhou Creek west bank."
-        }, {
-          "code" : "IJA-3FLT",
-          "name" : "第三舰队 (长谷川清)",
-          "source" : "japanese",
-          "type" : "naval",
-          "status" : "active",
-          "color" : "#c0392b",
-          "lat" : 31.38,
-          "lng" : 121.52,
-          "description" : "IJN 3rd Fleet."
-        }, {
-          "code" : "IJA-003",
-          "name" : "第3师团",
-          "source" : "japanese",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#e74c3c",
-          "lat" : 31.38,
-          "lng" : 121.51,
-          "description" : ""
-        }, {
-          "code" : "NRA-020B",
-          "name" : "第20独立旅",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.19,
-          "lng" : 121.43,
-          "description" : "Hongqiao. Oyama Incident."
-        }, {
-          "code" : "NRA-9AG",
-          "name" : "第九集团军 (张治中)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#3498db",
-          "lat" : 31.3,
-          "lng" : 121.28,
-          "description" : "HQ 9th Army Group"
-        }, {
-          "code" : "IJA-101",
-          "name" : "第101师团 (伊东政喜)",
-          "source" : "japanese",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#e74c3c",
-          "lat" : 31.39,
-          "lng" : 121.5,
-          "description" : "Landed Sept Wusong."
-        }, {
-          "code" : "CPC-115",
-          "name" : "八路军115师 (林彪部)",
-          "source" : "cpc",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#f1c40f",
-          "lat" : 35.15,
-          "lng" : 113.2,
-          "description" : "8RA 115th Div. Lin Biao."
-        }, {
-          "code" : "IJA-SEA",
-          "name" : "上海派遣军 (松井石根)",
-          "source" : "japanese",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#e74c3c",
-          "lat" : 31.4,
-          "lng" : 121.5,
-          "description" : "HQ Shanghai Expeditionary Army."
-        }, {
-          "code" : "IJA-009",
-          "name" : "第9师团 (吉住良辅)",
-          "source" : "japanese",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#e74c3c",
-          "lat" : 31.23,
-          "lng" : 121.42,
-          "description" : "Landed Oct 31 Suzhou Creek."
-        }, {
-          "code" : "SH-FLEET",
-          "name" : "Shanghai Fleet",
-          "source" : "base",
-          "type" : "naval",
-          "status" : "active",
-          "color" : "#3498db",
-          "lat" : 31.2,
-          "lng" : 121.5,
-          "description" : ""
-        }, {
-          "code" : "BJ-GARRISON",
-          "name" : "Beijing Garrison",
-          "source" : "base",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#e74c3c",
-          "lat" : 39.9,
-          "lng" : 116.4,
-          "description" : ""
-        }, {
-          "code" : "NRA-011",
-          "name" : "11师 (彭善部)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.42,
-          "lng" : 121.32,
-          "description" : "18th Army. Luodian."
-        }, {
-          "code" : "NRA-055",
-          "name" : "55师 (李觉部)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.22,
-          "lng" : 121.54,
-          "description" : "Pudong east flank."
-        }, {
-          "code" : "NRA-078",
-          "name" : "78师 (李文部)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.3,
-          "lng" : 121.3,
-          "description" : "Nanxiang defensive line."
-        }, {
-          "code" : "NRA-057",
-          "name" : "57师 (阮肇昌部)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.22,
-          "lng" : 121.43,
-          "description" : "Suzhou Creek west."
-        }, {
-          "code" : "NRA-036",
-          "name" : "36师 (宋希濂部)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.33,
-          "lng" : 121.33,
-          "description" : "German-trained. Huishan."
-        }, {
-          "code" : "NRA-014",
-          "name" : "14师 (陈时部)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.43,
-          "lng" : 121.31,
-          "description" : "18th Army. Luodian."
-        }, {
-          "code" : "NRA-058",
-          "name" : "58师 (俞济时部)",
-          "source" : "nationalist",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#2980b9",
-          "lat" : 31.03,
-          "lng" : 121.22,
-          "description" : "74th Corps. Songjiang."
-        }, {
-          "code" : "IJA-006",
-          "name" : "第6师团 (谷寿夫)",
-          "source" : "japanese",
-          "type" : "infantry",
-          "status" : "active",
-          "color" : "#e74c3c",
-          "lat" : 30.7,
-          "lng" : 121.35,
-          "description" : "Landed Nov 5 Jinshanwei."
-        } ],
-        "moves" : [ {
-          "code" : "NRA-088",
-          "fromLat" : 31.24,
-          "fromLng" : 121.47,
-          "toLat" : 31.32,
-          "toLng" : 121.34,
-          "action" : "advance"
-        }, {
-          "code" : "NRA-087",
-          "fromLat" : 31.29,
-          "fromLng" : 121.49,
-          "toLat" : 31.35,
-          "toLng" : 121.35,
-          "action" : "advance"
-        }, {
-          "code" : "NRA-011",
-          "fromLat" : 31.4,
-          "fromLng" : 121.35,
-          "toLat" : 31.42,
-          "toLng" : 121.32,
-          "action" : "move"
-        }, {
-          "code" : "NRA-036",
-          "fromLat" : 31.24,
-          "fromLng" : 121.46,
-          "toLat" : 31.33,
-          "toLng" : 121.33,
-          "action" : "advance"
-        }, {
-          "code" : "NRA-014",
-          "fromLat" : 31.41,
-          "fromLng" : 121.34,
-          "toLat" : 31.43,
-          "toLng" : 121.31,
-          "action" : "move"
-        } ],
-        "outcome" : "放弃上海市区，主力西撤至嘉定-太仓-昆山永备防线。以空间换时间，避免巷战消耗。日军进入上海但遭遇城外坚固阵地。",
-        "createdAt" : 1780930401949
-      } ],
-      "unitSnapshots" : [ {
-        "code" : "NRA-051",
-        "name" : "51师 (王耀武部)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 31.2,
-        "lng" : 121.38,
-        "description" : "74th Corps. Jiading."
-      }, {
-        "code" : "NRA-098",
-        "name" : "98师 (夏楚中部)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 31.42,
-        "lng" : 121.5,
-        "description" : "Baoshan fortress."
-      }, {
-        "code" : "NRA-15AG",
-        "name" : "第十五集团军 (陈诚)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#9b59b6",
-        "lat" : 31.35,
-        "lng" : 121.08,
-        "description" : "HQ 15th Army Group"
-      }, {
-        "code" : "IJA-SNLF",
-        "name" : "SNLF",
-        "source" : "japanese",
-        "type" : "naval",
-        "status" : "active",
-        "color" : "#c0392b",
-        "lat" : 31.25,
-        "lng" : 121.49,
-        "description" : ""
-      }, {
-        "code" : "CPC-N4A",
-        "name" : "新四军第一支队 (陈毅)",
-        "source" : "cpc",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#f1c40f",
-        "lat" : 31.67,
-        "lng" : 118.5,
-        "description" : "New Fourth Army 1st Det."
-      }, {
-        "code" : "IJA-114",
-        "name" : "第114师团 (末松茂治)",
-        "source" : "japanese",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#e74c3c",
-        "lat" : 30.69,
-        "lng" : 121.34,
-        "description" : "Landed Jinshanwei."
-      }, {
-        "code" : "CPC-UG",
-        "name" : "上海地下党交通站",
-        "source" : "cpc",
-        "type" : "civilian",
-        "status" : "active",
-        "color" : "#f1c40f",
-        "lat" : 31.23,
-        "lng" : 121.47,
-        "description" : "CPC Shanghai Underground."
-      }, {
-        "code" : "IJA-013",
-        "name" : "第13师团 (荻洲立兵)",
-        "source" : "japanese",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#e74c3c",
-        "lat" : 31.5,
-        "lng" : 121.23,
-        "description" : "Landed Oct Liuhe."
-      }, {
-        "code" : "NRA-008",
-        "name" : "8师 (陶峙岳部)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 31.38,
-        "lng" : 121.25,
-        "description" : "Jiading-Nanxiang axis."
-      }, {
-        "code" : "IJA-011",
-        "name" : "第11师团 (山室宗武)",
-        "source" : "japanese",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#e74c3c",
-        "lat" : 31.51,
-        "lng" : 121.28,
-        "description" : "Landed Chuanshakou Aug 23."
-      }, {
-        "code" : "CPC-8RA",
-        "name" : "八路军总部 (朱德/彭德怀)",
-        "source" : "cpc",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#f1c40f",
-        "lat" : 36.56,
-        "lng" : 109.49,
-        "description" : "8th Route Army HQ Yan'an."
-      }, {
-        "code" : "NRA-088",
-        "name" : "88师",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 31.24,
-        "lng" : 121.47,
-        "description" : ""
-      }, {
-        "code" : "IJA-018",
-        "name" : "第18师团 (牛岛贞雄)",
-        "source" : "japanese",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#e74c3c",
-        "lat" : 30.72,
-        "lng" : 121.33,
-        "description" : "Landed Nov 5 Jinshanwei."
-      }, {
-        "code" : "NRA-001",
-        "name" : "1师 (李铁军部)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 31.29,
-        "lng" : 121.41,
-        "description" : "Dachang meat grinder."
-      }, {
-        "code" : "NRA-067",
-        "name" : "67师 (黄维部)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 31.39,
-        "lng" : 121.36,
-        "description" : "18th Army. Luodian."
-      }, {
-        "code" : "NRA-087",
-        "name" : "87师",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 31.29,
-        "lng" : 121.49,
-        "description" : ""
-      }, {
-        "code" : "NRA-061",
-        "name" : "61师 (钟松部)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 31.23,
-        "lng" : 121.42,
-        "description" : "Suzhou Creek west bank."
-      }, {
-        "code" : "IJA-3FLT",
-        "name" : "第三舰队 (长谷川清)",
-        "source" : "japanese",
-        "type" : "naval",
-        "status" : "active",
-        "color" : "#c0392b",
-        "lat" : 31.38,
-        "lng" : 121.52,
-        "description" : "IJN 3rd Fleet."
-      }, {
-        "code" : "IJA-003",
-        "name" : "第3师团",
-        "source" : "japanese",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#e74c3c",
-        "lat" : 31.38,
-        "lng" : 121.51,
-        "description" : ""
-      }, {
-        "code" : "NRA-020B",
-        "name" : "第20独立旅",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 31.19,
-        "lng" : 121.43,
-        "description" : "Hongqiao. Oyama Incident."
-      }, {
-        "code" : "NRA-9AG",
-        "name" : "第九集团军 (张治中)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#3498db",
-        "lat" : 31.3,
-        "lng" : 121.28,
-        "description" : "HQ 9th Army Group"
-      }, {
-        "code" : "IJA-101",
-        "name" : "第101师团 (伊东政喜)",
-        "source" : "japanese",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#e74c3c",
-        "lat" : 31.39,
-        "lng" : 121.5,
-        "description" : "Landed Sept Wusong."
-      }, {
-        "code" : "CPC-115",
-        "name" : "八路军115师 (林彪部)",
-        "source" : "cpc",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#f1c40f",
-        "lat" : 35.15,
-        "lng" : 113.2,
-        "description" : "8RA 115th Div. Lin Biao."
-      }, {
-        "code" : "IJA-SEA",
-        "name" : "上海派遣军 (松井石根)",
-        "source" : "japanese",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#e74c3c",
-        "lat" : 31.4,
-        "lng" : 121.5,
-        "description" : "HQ Shanghai Expeditionary Army."
-      }, {
-        "code" : "IJA-009",
-        "name" : "第9师团 (吉住良辅)",
-        "source" : "japanese",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#e74c3c",
-        "lat" : 31.23,
-        "lng" : 121.42,
-        "description" : "Landed Oct 31 Suzhou Creek."
-      }, {
-        "code" : "SH-FLEET",
-        "name" : "Shanghai Fleet",
-        "source" : "base",
-        "type" : "naval",
-        "status" : "active",
-        "color" : "#3498db",
-        "lat" : 31.2,
-        "lng" : 121.5,
-        "description" : ""
-      }, {
-        "code" : "BJ-GARRISON",
-        "name" : "Beijing Garrison",
-        "source" : "base",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#e74c3c",
-        "lat" : 39.9,
-        "lng" : 116.4,
-        "description" : ""
-      }, {
-        "code" : "NRA-011",
-        "name" : "11师 (彭善部)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 31.4,
-        "lng" : 121.35,
-        "description" : "18th Army. Luodian."
-      }, {
-        "code" : "NRA-055",
-        "name" : "55师 (李觉部)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 31.22,
-        "lng" : 121.54,
-        "description" : "Pudong east flank."
-      }, {
-        "code" : "NRA-078",
-        "name" : "78师 (李文部)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 31.3,
-        "lng" : 121.3,
-        "description" : "Nanxiang defensive line."
-      }, {
-        "code" : "NRA-057",
-        "name" : "57师 (阮肇昌部)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 31.22,
-        "lng" : 121.43,
-        "description" : "Suzhou Creek west."
-      }, {
-        "code" : "NRA-036",
-        "name" : "36师 (宋希濂部)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 31.24,
-        "lng" : 121.46,
-        "description" : "German-trained. Huishan."
-      }, {
-        "code" : "NRA-014",
-        "name" : "14师 (陈时部)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 31.41,
-        "lng" : 121.34,
-        "description" : "18th Army. Luodian."
-      }, {
-        "code" : "NRA-058",
-        "name" : "58师 (俞济时部)",
-        "source" : "nationalist",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#2980b9",
-        "lat" : 31.03,
-        "lng" : 121.22,
-        "description" : "74th Corps. Songjiang."
-      }, {
-        "code" : "IJA-006",
-        "name" : "第6师团 (谷寿夫)",
-        "source" : "japanese",
-        "type" : "infantry",
-        "status" : "active",
-        "color" : "#e74c3c",
-        "lat" : 30.7,
-        "lng" : 121.35,
-        "description" : "Landed Nov 5 Jinshanwei."
-      } ],
-      "moves" : [ {
-        "code" : "IJA-SNLF",
-        "fromLat" : 31.26,
-        "fromLng" : 121.49,
-        "toLat" : 31.25,
-        "toLng" : 121.49,
-        "action" : "move"
-      }, {
-        "code" : "NRA-088",
-        "fromLat" : 31.26,
-        "fromLng" : 121.46,
-        "toLat" : 31.24,
-        "toLng" : 121.47,
-        "action" : "move"
-      }, {
-        "code" : "NRA-087",
-        "fromLat" : 31.28,
-        "fromLng" : 121.49,
-        "toLat" : 31.29,
-        "toLng" : 121.49,
-        "action" : "move"
-      }, {
-        "code" : "NRA-036",
-        "fromLat" : 31.25,
-        "fromLng" : 121.45,
-        "toLat" : 31.24,
-        "toLng" : 121.46,
-        "action" : "move"
-      } ],
-      "outcome" : "87师/88师/36师三面围攻日军虹口阵地。日军SNLF退守核心区，海军舰炮支援。国军伤亡惨重但未能完全清除日军据点。",
-      "createdAt" : 1780930401934
-    } ],
-    "unitSnapshots" : [ {
-      "code" : "NRA-051",
-      "name" : "51师 (王耀武部)",
-      "source" : "nationalist",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#2980b9",
-      "lat" : 31.2,
-      "lng" : 121.38,
-      "description" : "74th Corps. Jiading."
-    }, {
-      "code" : "NRA-098",
-      "name" : "98师 (夏楚中部)",
-      "source" : "nationalist",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#2980b9",
-      "lat" : 31.42,
-      "lng" : 121.5,
-      "description" : "Baoshan fortress."
-    }, {
-      "code" : "NRA-15AG",
-      "name" : "第十五集团军 (陈诚)",
-      "source" : "nationalist",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#9b59b6",
-      "lat" : 31.35,
-      "lng" : 121.08,
-      "description" : "HQ 15th Army Group"
-    }, {
-      "code" : "IJA-SNLF",
-      "name" : "SNLF",
-      "source" : "japanese",
-      "type" : "naval",
-      "status" : "active",
-      "color" : "#c0392b",
-      "lat" : 31.26,
-      "lng" : 121.49,
-      "description" : ""
-    }, {
-      "code" : "CPC-N4A",
-      "name" : "新四军第一支队 (陈毅)",
-      "source" : "cpc",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#f1c40f",
-      "lat" : 31.67,
-      "lng" : 118.5,
-      "description" : "New Fourth Army 1st Det."
-    }, {
-      "code" : "IJA-114",
-      "name" : "第114师团 (末松茂治)",
-      "source" : "japanese",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#e74c3c",
-      "lat" : 30.69,
-      "lng" : 121.34,
-      "description" : "Landed Jinshanwei."
-    }, {
-      "code" : "CPC-UG",
-      "name" : "上海地下党交通站",
-      "source" : "cpc",
-      "type" : "civilian",
-      "status" : "active",
-      "color" : "#f1c40f",
-      "lat" : 31.23,
-      "lng" : 121.47,
-      "description" : "CPC Shanghai Underground."
-    }, {
-      "code" : "IJA-013",
-      "name" : "第13师团 (荻洲立兵)",
-      "source" : "japanese",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#e74c3c",
-      "lat" : 31.5,
-      "lng" : 121.23,
-      "description" : "Landed Oct Liuhe."
-    }, {
-      "code" : "NRA-008",
-      "name" : "8师 (陶峙岳部)",
-      "source" : "nationalist",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#2980b9",
-      "lat" : 31.38,
-      "lng" : 121.25,
-      "description" : "Jiading-Nanxiang axis."
-    }, {
-      "code" : "IJA-011",
-      "name" : "第11师团 (山室宗武)",
-      "source" : "japanese",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#e74c3c",
-      "lat" : 31.51,
-      "lng" : 121.28,
-      "description" : "Landed Chuanshakou Aug 23."
-    }, {
-      "code" : "CPC-8RA",
-      "name" : "八路军总部 (朱德/彭德怀)",
-      "source" : "cpc",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#f1c40f",
-      "lat" : 36.56,
-      "lng" : 109.49,
-      "description" : "8th Route Army HQ Yan'an."
-    }, {
-      "code" : "NRA-088",
-      "name" : "88师",
-      "source" : "nationalist",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#2980b9",
-      "lat" : 31.26,
-      "lng" : 121.46,
-      "description" : ""
-    }, {
-      "code" : "IJA-018",
-      "name" : "第18师团 (牛岛贞雄)",
-      "source" : "japanese",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#e74c3c",
-      "lat" : 30.72,
-      "lng" : 121.33,
-      "description" : "Landed Nov 5 Jinshanwei."
-    }, {
-      "code" : "NRA-001",
-      "name" : "1师 (李铁军部)",
-      "source" : "nationalist",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#2980b9",
-      "lat" : 31.29,
-      "lng" : 121.41,
-      "description" : "Dachang meat grinder."
-    }, {
-      "code" : "NRA-067",
-      "name" : "67师 (黄维部)",
-      "source" : "nationalist",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#2980b9",
-      "lat" : 31.39,
-      "lng" : 121.36,
-      "description" : "18th Army. Luodian."
-    }, {
-      "code" : "NRA-087",
-      "name" : "87师",
-      "source" : "nationalist",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#2980b9",
-      "lat" : 31.28,
-      "lng" : 121.49,
-      "description" : ""
-    }, {
-      "code" : "NRA-061",
-      "name" : "61师 (钟松部)",
-      "source" : "nationalist",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#2980b9",
-      "lat" : 31.23,
-      "lng" : 121.42,
-      "description" : "Suzhou Creek west bank."
-    }, {
-      "code" : "IJA-3FLT",
-      "name" : "第三舰队 (长谷川清)",
-      "source" : "japanese",
-      "type" : "naval",
-      "status" : "active",
-      "color" : "#c0392b",
-      "lat" : 31.38,
-      "lng" : 121.52,
-      "description" : "IJN 3rd Fleet."
-    }, {
-      "code" : "IJA-003",
-      "name" : "第3师团",
-      "source" : "japanese",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#e74c3c",
-      "lat" : 31.38,
-      "lng" : 121.51,
-      "description" : ""
-    }, {
-      "code" : "NRA-020B",
-      "name" : "第20独立旅",
-      "source" : "nationalist",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#2980b9",
-      "lat" : 31.19,
-      "lng" : 121.43,
-      "description" : "Hongqiao. Oyama Incident."
-    }, {
-      "code" : "NRA-9AG",
-      "name" : "第九集团军 (张治中)",
-      "source" : "nationalist",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#3498db",
-      "lat" : 31.3,
-      "lng" : 121.28,
-      "description" : "HQ 9th Army Group"
-    }, {
-      "code" : "IJA-101",
-      "name" : "第101师团 (伊东政喜)",
-      "source" : "japanese",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#e74c3c",
-      "lat" : 31.39,
-      "lng" : 121.5,
-      "description" : "Landed Sept Wusong."
-    }, {
-      "code" : "CPC-115",
-      "name" : "八路军115师 (林彪部)",
-      "source" : "cpc",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#f1c40f",
-      "lat" : 35.15,
-      "lng" : 113.2,
-      "description" : "8RA 115th Div. Lin Biao."
-    }, {
-      "code" : "IJA-SEA",
-      "name" : "上海派遣军 (松井石根)",
-      "source" : "japanese",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#e74c3c",
-      "lat" : 31.4,
-      "lng" : 121.5,
-      "description" : "HQ Shanghai Expeditionary Army."
-    }, {
-      "code" : "IJA-009",
-      "name" : "第9师团 (吉住良辅)",
-      "source" : "japanese",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#e74c3c",
-      "lat" : 31.23,
-      "lng" : 121.42,
-      "description" : "Landed Oct 31 Suzhou Creek."
-    }, {
-      "code" : "SH-FLEET",
-      "name" : "Shanghai Fleet",
-      "source" : "base",
-      "type" : "naval",
-      "status" : "active",
-      "color" : "#3498db",
-      "lat" : 31.2,
-      "lng" : 121.5,
-      "description" : ""
-    }, {
-      "code" : "BJ-GARRISON",
-      "name" : "Beijing Garrison",
-      "source" : "base",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#e74c3c",
-      "lat" : 39.9,
-      "lng" : 116.4,
-      "description" : ""
-    }, {
-      "code" : "NRA-011",
-      "name" : "11师 (彭善部)",
-      "source" : "nationalist",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#2980b9",
-      "lat" : 31.4,
-      "lng" : 121.35,
-      "description" : "18th Army. Luodian."
-    }, {
-      "code" : "NRA-055",
-      "name" : "55师 (李觉部)",
-      "source" : "nationalist",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#2980b9",
-      "lat" : 31.22,
-      "lng" : 121.54,
-      "description" : "Pudong east flank."
-    }, {
-      "code" : "NRA-078",
-      "name" : "78师 (李文部)",
-      "source" : "nationalist",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#2980b9",
-      "lat" : 31.3,
-      "lng" : 121.3,
-      "description" : "Nanxiang defensive line."
-    }, {
-      "code" : "NRA-057",
-      "name" : "57师 (阮肇昌部)",
-      "source" : "nationalist",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#2980b9",
-      "lat" : 31.22,
-      "lng" : 121.43,
-      "description" : "Suzhou Creek west."
-    }, {
-      "code" : "NRA-036",
-      "name" : "36师 (宋希濂部)",
-      "source" : "nationalist",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#2980b9",
-      "lat" : 31.25,
-      "lng" : 121.45,
-      "description" : "German-trained. Huishan."
-    }, {
-      "code" : "NRA-014",
-      "name" : "14师 (陈时部)",
-      "source" : "nationalist",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#2980b9",
-      "lat" : 31.41,
-      "lng" : 121.34,
-      "description" : "18th Army. Luodian."
-    }, {
-      "code" : "NRA-058",
-      "name" : "58师 (俞济时部)",
-      "source" : "nationalist",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#2980b9",
-      "lat" : 31.03,
-      "lng" : 121.22,
-      "description" : "74th Corps. Songjiang."
-    }, {
-      "code" : "IJA-006",
-      "name" : "第6师团 (谷寿夫)",
-      "source" : "japanese",
-      "type" : "infantry",
-      "status" : "active",
-      "color" : "#e74c3c",
-      "lat" : 30.7,
-      "lng" : 121.35,
-      "description" : "Landed Nov 5 Jinshanwei."
-    } ],
-    "moves" : [ ],
-    "outcome" : "Starting positions",
-    "createdAt" : 1780930401930
+[
+  {
+    "id": "f36a927d",
+    "name": "台儿庄战役",
+    "createdAt": 1780940245045,
+    "root": {
+      "id": "3a8bd45f",
+      "name": "台儿庄战役 — 初始部署",
+      "description": "Initial deployment",
+      "round": 0,
+      "strategy": "initial",
+      "parentId": null,
+      "children": [
+        {
+          "id": "ad65f31b",
+          "name": "闪电突破·第一阶段——第10师团南下至滕县城下",
+          "description": "",
+          "round": 1,
+          "strategy": "historical",
+          "parentId": "3a8bd45f",
+          "children": [],
+          "unitSnapshots": [
+            {
+              "code": "IJA-21B",
+              "name": "第21旅团 (坂本支队)",
+              "source": "japanese",
+              "type": "infantry",
+              "status": "active",
+              "color": "#c0392b",
+              "lat": 35.12,
+              "lng": 118.52,
+              "description": "IJA 21st Infantry Brigade — Sakamoto Detachment. Approached Linyi from the east."
+            },
+            {
+              "code": "NRA-030",
+              "name": "30师 (张金照部)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 34.58,
+              "lng": 117.72,
+              "description": "30th Division — Zhang Jinzhao. North of Taierzhuang, blocking Japanese approach from Yixian."
+            },
+            {
+              "code": "IJA-10AR",
+              "name": "第10炮兵联队",
+              "source": "japanese",
+              "type": "infantry",
+              "status": "active",
+              "color": "#e74c3c",
+              "lat": 34.92,
+              "lng": 117.44,
+              "description": "IJA 10th Artillery Regiment. Heavy artillery support for the Taierzhuang assault."
+            },
+            {
+              "code": "NRA-031",
+              "name": "31师 (池峰城部)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 34.56,
+              "lng": 117.74,
+              "description": "31st Division — Chi Fengcheng. Core defender of Taierzhuang town. Elite unit with strong will."
+            },
+            {
+              "code": "IJA-13D",
+              "name": "第13师团 (荻洲立兵)",
+              "source": "japanese",
+              "type": "infantry",
+              "status": "active",
+              "color": "#e74c3c",
+              "lat": 33.5,
+              "lng": 117.3,
+              "description": "IJA 13th Division — Rippei Ogisu. Advanced from south via Bengbu toward Xuzhou. Southern pincer of the operation."
+            },
+            {
+              "code": "IJA-33B",
+              "name": "第33旅团 (濑谷支队)",
+              "source": "japanese",
+              "type": "infantry",
+              "status": "active",
+              "color": "#c0392b",
+              "lat": 34.88,
+              "lng": 117.38,
+              "description": "IJA 33rd Infantry Brigade — Part of 10th Division. Attacked toward Taierzhuang from Yixian."
+            },
+            {
+              "code": "IJA-NCA",
+              "name": "华北方面军 (寺内寿一)",
+              "source": "japanese",
+              "type": "infantry",
+              "status": "active",
+              "color": "#e74c3c",
+              "lat": 36.7,
+              "lng": 116.98,
+              "description": "IJA North China Area Army — Hisaichi Terauchi. Overall command of Japanese forces in North China."
+            },
+            {
+              "code": "NRA-115D",
+              "name": "115师 (东北军)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 35.03,
+              "lng": 118.34,
+              "description": "115th Division — Northeast Army remnant. Assisted Linyi defense."
+            },
+            {
+              "code": "IJA-5AR",
+              "name": "第5炮兵联队",
+              "source": "japanese",
+              "type": "infantry",
+              "status": "active",
+              "color": "#e74c3c",
+              "lat": 35.07,
+              "lng": 118.46,
+              "description": "IJA 5th Artillery Regiment. Provided fire support for the Linyi attack."
+            },
+            {
+              "code": "CPC-115T",
+              "name": "八路军115师 (林彪部)",
+              "source": "cpc",
+              "type": "infantry",
+              "status": "active",
+              "color": "#f1c40f",
+              "lat": 35.15,
+              "lng": 113.2,
+              "description": "8RA 115th Division — Lin Biao. After Pingxingguan victory, positioned in southern Shanxi."
+            },
+            {
+              "code": "NRA-5WA",
+              "name": "第5战区 (李宗仁/白崇禧)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#e67e22",
+              "lat": 34.26,
+              "lng": 117.18,
+              "description": "HQ 5th War Area — Li Zongren & Bai Chongxi. Overall command of Xuzhou campaign."
+            },
+            {
+              "code": "IJA-9B",
+              "name": "第9旅团 (国崎登)",
+              "source": "japanese",
+              "type": "infantry",
+              "status": "active",
+              "color": "#c0392b",
+              "lat": 35.08,
+              "lng": 118.48,
+              "description": "IJA 9th Infantry Brigade — Kunizaki Noboru. 5th Division's vanguard attacking Linyi."
+            },
+            {
+              "code": "NRA-004",
+              "name": "4师 (陈大庆部)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 34.74,
+              "lng": 117.45,
+              "description": "4th Division — Chen Daqing. Deployed for flanking maneuver against Japanese rear."
+            },
+            {
+              "code": "NRA-048",
+              "name": "48师 (桂军)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 34.26,
+              "lng": 117.12,
+              "description": "48th Division — Guangxi clique unit. Arrived as reinforcement."
+            },
+            {
+              "code": "NRA-027",
+              "name": "27师 (黄樵松部)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 34.52,
+              "lng": 117.7,
+              "description": "27th Division — Huang Qiaosong. Deployed west of Taierzhuang, guarding flank."
+            },
+            {
+              "code": "NRA-007",
+              "name": "7师 (桂军)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 34.28,
+              "lng": 117.08,
+              "description": "7th Division — Guangxi clique unit. Veteran of Northern Expedition."
+            },
+            {
+              "code": "NRA-089",
+              "name": "89师 (张雪中部)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 34.76,
+              "lng": 117.55,
+              "description": "89th Division — Zhang Xuezhong. Attacked Japanese forces at Yixian on Mar 26, inflicting heavy casualties."
+            },
+            {
+              "code": "NRA-122",
+              "name": "122师 (王铭章部)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 35.08,
+              "lng": 117.15,
+              "description": "122nd Division — Wang Mingzhang. Heroic last stand at Tengxian. Wang killed in action Mar 17."
+            },
+            {
+              "code": "NRA-002",
+              "name": "2师 (郑洞国部)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 34.72,
+              "lng": 117.48,
+              "description": "2nd Division — Zheng Dongguo. Elite central army unit. Part of Tang Enbo's counterattack force."
+            },
+            {
+              "code": "IJA-5D",
+              "name": "第5师团 (板垣征四郎)",
+              "source": "japanese",
+              "type": "infantry",
+              "status": "active",
+              "color": "#e74c3c",
+              "lat": 35.1,
+              "lng": 118.5,
+              "description": "IJA 5th Division — Seishiro Itagaki. Attacked from northeast via Linyi. Attempted to flank Taierzhuang."
+            },
+            {
+              "code": "NRA-025",
+              "name": "25师 (关麟征部)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 34.68,
+              "lng": 117.52,
+              "description": "25th Division — Guan Linzheng. Key unit for the encirclement of Japanese 10th Division."
+            },
+            {
+              "code": "NRA-124",
+              "name": "124师 (孙震兼)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 35.09,
+              "lng": 117.1,
+              "description": "124th Division — Sichuan troops. Fought at Tengxian alongside 122nd Division."
+            },
+            {
+              "code": "NRA-22AG",
+              "name": "第22集团军 (孙震部)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#9b59b6",
+              "lat": 35.1,
+              "lng": 117.12,
+              "description": "HQ 22nd Group Army — Sun Zhen. Sichuan troops. Defended Tengxian, suffered heavy losses."
+            },
+            {
+              "code": "NRA-21AG",
+              "name": "第21集团军 (廖磊部)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#9b59b6",
+              "lat": 34.3,
+              "lng": 117.1,
+              "description": "HQ 21st Group Army — Liao Lei. Guangxi troops. Reinforced from south."
+            },
+            {
+              "code": "NRA-20AG",
+              "name": "第20军团 (汤恩伯部)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#9b59b6",
+              "lat": 34.7,
+              "lng": 117.5,
+              "description": "HQ 20th Army Group — Tang Enbo. Main flanking/counterattack force. Equipped with artillery."
+            },
+            {
+              "code": "CPC-129",
+              "name": "八路军129师 (刘伯承部)",
+              "source": "cpc",
+              "type": "infantry",
+              "status": "active",
+              "color": "#f1c40f",
+              "lat": 36.0,
+              "lng": 114.0,
+              "description": "8RA 129th Division — Liu Bocheng. Active in Shanxi-Hebei border region. Harassed Japanese supply lines."
+            },
+            {
+              "code": "IJA-10D",
+              "name": "第10师团 (矶谷廉介)",
+              "source": "japanese",
+              "type": "infantry",
+              "status": "active",
+              "color": "#e74c3c",
+              "lat": 34.95,
+              "lng": 117.4,
+              "description": "IJA 10th Division — Rensuke Isogai. Main attacking force. Advanced south along Jinpu railway from Shandong."
+            },
+            {
+              "code": "NRA-59A",
+              "name": "第59军 (张自忠部)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 35.02,
+              "lng": 118.3,
+              "description": "59th Army — Zhang Zizhong. Rushed to reinforce Linyi. Launched night counterattacks on Japanese 5th Division."
+            },
+            {
+              "code": "NRA-2AG",
+              "name": "第2集团军 (孙连仲部)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#3498db",
+              "lat": 34.5,
+              "lng": 117.65,
+              "description": "HQ 2nd Army Group — Sun Lianzhong. Main defense at Taierzhuang."
+            },
+            {
+              "code": "NRA-044B",
+              "name": "第44独立旅",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 34.55,
+              "lng": 117.76,
+              "description": "44th Independent Brigade. Reserve force stationed east of the town."
+            },
+            {
+              "code": "NRA-3AG",
+              "name": "第3集团军 (庞炳勋部)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#9b59b6",
+              "lat": 35.05,
+              "lng": 118.38,
+              "description": "HQ 3rd Army Group — Pang Bingxun. Defended Linyi against Japanese 5th Division."
+            },
+            {
+              "code": "IJA-8B",
+              "name": "第8旅团 (濑谷启)",
+              "source": "japanese",
+              "type": "infantry",
+              "status": "active",
+              "color": "#c0392b",
+              "lat": 34.9,
+              "lng": 117.42,
+              "description": "IJA 8th Infantry Brigade — Seya Kei. Spearheaded the attack on Taierzhuang. ~4000 men with tank support."
+            },
+            {
+              "code": "NRA-059",
+              "name": "59军38师",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 35.01,
+              "lng": 118.32,
+              "description": "38th Division — Part of Zhang Zizhong's 59th Army."
+            },
+            {
+              "code": "NRA-039",
+              "name": "39师 (庞炳勋兼)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 35.06,
+              "lng": 118.36,
+              "description": "39th Division — Defended Linyi north gate. Blocked Itagaki's 5th Division advance."
+            }
+          ],
+          "moves": [],
+          "unitChanges": [
+            {
+              "code": "IJA-21B",
+              "changeType": "hold",
+              "fromLat": 35.12,
+              "fromLng": 118.52,
+              "toLat": 35.12,
+              "toLng": 118.52,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-030",
+              "changeType": "hold",
+              "fromLat": 34.58,
+              "fromLng": 117.72,
+              "toLat": 34.58,
+              "toLng": 117.72,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "IJA-10AR",
+              "changeType": "hold",
+              "fromLat": 34.92,
+              "fromLng": 117.44,
+              "toLat": 34.92,
+              "toLng": 117.44,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-031",
+              "changeType": "hold",
+              "fromLat": 34.56,
+              "fromLng": 117.74,
+              "toLat": 34.56,
+              "toLng": 117.74,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "IJA-13D",
+              "changeType": "hold",
+              "fromLat": 33.5,
+              "fromLng": 117.3,
+              "toLat": 33.5,
+              "toLng": 117.3,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "IJA-33B",
+              "changeType": "hold",
+              "fromLat": 34.88,
+              "fromLng": 117.38,
+              "toLat": 34.88,
+              "toLng": 117.38,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "IJA-NCA",
+              "changeType": "hold",
+              "fromLat": 36.7,
+              "fromLng": 116.98,
+              "toLat": 36.7,
+              "toLng": 116.98,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-115D",
+              "changeType": "hold",
+              "fromLat": 35.03,
+              "fromLng": 118.34,
+              "toLat": 35.03,
+              "toLng": 118.34,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "IJA-5AR",
+              "changeType": "hold",
+              "fromLat": 35.07,
+              "fromLng": 118.46,
+              "toLat": 35.07,
+              "toLng": 118.46,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "CPC-115T",
+              "changeType": "hold",
+              "fromLat": 35.15,
+              "fromLng": 113.2,
+              "toLat": 35.15,
+              "toLng": 113.2,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-5WA",
+              "changeType": "hold",
+              "fromLat": 34.26,
+              "fromLng": 117.18,
+              "toLat": 34.26,
+              "toLng": 117.18,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "IJA-9B",
+              "changeType": "hold",
+              "fromLat": 35.08,
+              "fromLng": 118.48,
+              "toLat": 35.08,
+              "toLng": 118.48,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-004",
+              "changeType": "hold",
+              "fromLat": 34.74,
+              "fromLng": 117.45,
+              "toLat": 34.74,
+              "toLng": 117.45,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-048",
+              "changeType": "hold",
+              "fromLat": 34.26,
+              "fromLng": 117.12,
+              "toLat": 34.26,
+              "toLng": 117.12,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-027",
+              "changeType": "hold",
+              "fromLat": 34.52,
+              "fromLng": 117.7,
+              "toLat": 34.52,
+              "toLng": 117.7,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-007",
+              "changeType": "hold",
+              "fromLat": 34.28,
+              "fromLng": 117.08,
+              "toLat": 34.28,
+              "toLng": 117.08,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-089",
+              "changeType": "hold",
+              "fromLat": 34.76,
+              "fromLng": 117.55,
+              "toLat": 34.76,
+              "toLng": 117.55,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-122",
+              "changeType": "hold",
+              "fromLat": 35.08,
+              "fromLng": 117.15,
+              "toLat": 35.08,
+              "toLng": 117.15,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-002",
+              "changeType": "hold",
+              "fromLat": 34.72,
+              "fromLng": 117.48,
+              "toLat": 34.72,
+              "toLng": 117.48,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "IJA-5D",
+              "changeType": "hold",
+              "fromLat": 35.1,
+              "fromLng": 118.5,
+              "toLat": 35.1,
+              "toLng": 118.5,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-025",
+              "changeType": "hold",
+              "fromLat": 34.68,
+              "fromLng": 117.52,
+              "toLat": 34.68,
+              "toLng": 117.52,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-124",
+              "changeType": "hold",
+              "fromLat": 35.09,
+              "fromLng": 117.1,
+              "toLat": 35.09,
+              "toLng": 117.1,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-22AG",
+              "changeType": "hold",
+              "fromLat": 35.1,
+              "fromLng": 117.12,
+              "toLat": 35.1,
+              "toLng": 117.12,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-21AG",
+              "changeType": "hold",
+              "fromLat": 34.3,
+              "fromLng": 117.1,
+              "toLat": 34.3,
+              "toLng": 117.1,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-20AG",
+              "changeType": "hold",
+              "fromLat": 34.7,
+              "fromLng": 117.5,
+              "toLat": 34.7,
+              "toLng": 117.5,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "CPC-129",
+              "changeType": "hold",
+              "fromLat": 36.0,
+              "fromLng": 114.0,
+              "toLat": 36.0,
+              "toLng": 114.0,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "IJA-10D",
+              "changeType": "hold",
+              "fromLat": 34.95,
+              "fromLng": 117.4,
+              "toLat": 34.95,
+              "toLng": 117.4,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-59A",
+              "changeType": "hold",
+              "fromLat": 35.02,
+              "fromLng": 118.3,
+              "toLat": 35.02,
+              "toLng": 118.3,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-2AG",
+              "changeType": "hold",
+              "fromLat": 34.5,
+              "fromLng": 117.65,
+              "toLat": 34.5,
+              "toLng": 117.65,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-044B",
+              "changeType": "hold",
+              "fromLat": 34.55,
+              "fromLng": 117.76,
+              "toLat": 34.55,
+              "toLng": 117.76,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-3AG",
+              "changeType": "hold",
+              "fromLat": 35.05,
+              "fromLng": 118.38,
+              "toLat": 35.05,
+              "toLng": 118.38,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "IJA-8B",
+              "changeType": "hold",
+              "fromLat": 34.9,
+              "fromLng": 117.42,
+              "toLat": 34.9,
+              "toLng": 117.42,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-059",
+              "changeType": "hold",
+              "fromLat": 35.01,
+              "fromLng": 118.32,
+              "toLat": 35.01,
+              "toLng": 118.32,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-039",
+              "changeType": "hold",
+              "fromLat": 35.06,
+              "fromLng": 118.36,
+              "toLat": 35.06,
+              "toLng": 118.36,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            }
+          ],
+          "commanderActions": {
+            "japanese": [
+              {
+                "side": "japanese",
+                "source": "llm",
+                "guidance": "闪电突破——第10师团主力沿津浦铁路南下攻占滕县。先侦察地形距离，再下达移动命令。",
+                "deployment": null,
+                "subRounds": [
+                  {
+                    "iteration": 1,
+                    "request": null,
+                    "response": {
+                      "id": "1ac994d5-07fd-4340-96db-914a39b11e8c",
+                      "object": "chat.completion",
+                      "created": 1781024585,
+                      "model": "deepseek-v4-pro",
+                      "choices": [
+                        {
+                          "index": 0,
+                          "message": {
+                            "role": "assistant",
+                            "content": "作战开始！我将执行闪电突破——沿津浦铁路南下，直取滕县。\n\n先侦察关键地形和距离。",
+                            "reasoning_content": "日军翻译官，矶谷廉介中将在此。现在由我来指挥第10师团进行台儿庄战役的初始部署。\n\n让我先了解当前态势：\n\n**第10师团（矶谷廉介）** 主力位于 (34.95, 117.40)，下属：\n- IJA-8B 第8旅团（濑谷启）在 (34.90, 117.42)\n- IJA-33B 第33旅团（濑谷支队）在 (34.88, 117.38)\n- IJA-10AR 第10炮兵联队在 (34.92, 117.44)\n- IJA-10D 第10师团（矶谷廉介）在 (34.95, 117.40)\n\n**第5师团（板垣征四郎）** 在临沂方向 (35.10, 118.50)\n**第13师团（荻洲立兵）** 在蚌埠方向 (33.50, 117.30)\n\n敌军在滕县附近有：\n- NRA-122 122师（王铭章部）(35.08, 117.15)\n- NRA-124 124师（孙震兼）(35.09, 117.10)\n- NRA-22AG 第22集团军（孙震部）(35.10, 117.12)\n\n在台儿庄附近有：\n- NRA-031 31师（池峰城部）(34.56, 117.74)\n- NRA-030 30师（张金照部）(34.58, 117.72)\n- NRA-027 27师（黄樵松部）(34.52, 117.70)\n\n首先，我需要侦察滕县方向和津浦铁路沿线的地形，然后下达移动命令。闪电突破——沿津浦铁路南下攻占滕县。\n\n让我先侦察几个关键位置：滕县周围、第10师团前方、以及台儿庄方向。",
+                            "tool_calls": [
+                              {
+                                "index": 0,
+                                "id": "call_00_sLAmDLglrTjVX6XYfbAG3032",
+                                "type": "function",
+                                "function": {
+                                  "name": "get_distance",
+                                  "arguments": "{\"lat1\": 34.95, \"lng1\": 117.40, \"lat2\": 35.08, \"lng2\": 117.15}"
+                                }
+                              },
+                              {
+                                "index": 1,
+                                "id": "call_01_2tPQNhrCbMVjBG9SEfp71354",
+                                "type": "function",
+                                "function": {
+                                  "name": "get_distance",
+                                  "arguments": "{\"lat1\": 34.90, \"lng1\": 117.42, \"lat2\": 35.08, \"lng2\": 117.15}"
+                                }
+                              },
+                              {
+                                "index": 2,
+                                "id": "call_02_K1R7ucRRAjqUCcxggOLB4078",
+                                "type": "function",
+                                "function": {
+                                  "name": "get_distance",
+                                  "arguments": "{\"lat1\": 34.88, \"lng1\": 117.38, \"lat2\": 35.08, \"lng2\": 117.15}"
+                                }
+                              },
+                              {
+                                "index": 3,
+                                "id": "call_03_ntNO3kYIdrLczNkSKc9Y6896",
+                                "type": "function",
+                                "function": {
+                                  "name": "query_radius",
+                                  "arguments": "{\"lat\": 35.08, \"lng\": 117.15, \"r\": 30}"
+                                }
+                              }
+                            ]
+                          },
+                          "logprobs": null,
+                          "finish_reason": "tool_calls"
+                        }
+                      ],
+                      "usage": {
+                        "prompt_tokens": 3418,
+                        "completion_tokens": 819,
+                        "total_tokens": 4237,
+                        "prompt_tokens_details": {
+                          "cached_tokens": 1152
+                        },
+                        "completion_tokens_details": {
+                          "reasoning_tokens": 436
+                        },
+                        "prompt_cache_hit_tokens": 1152,
+                        "prompt_cache_miss_tokens": 2266
+                      },
+                      "system_fingerprint": "fp_9954b31ca7_prod0820_fp8_kvcache_20260402"
+                    },
+                    "results": [
+                      {
+                        "tool_call_id": "call_00_sLAmDLglrTjVX6XYfbAG3032",
+                        "name": "get_distance",
+                        "content": {
+                          "distance_km": 27.0,
+                          "bearing_deg": 302.5
+                        }
+                      },
+                      {
+                        "tool_call_id": "call_01_2tPQNhrCbMVjBG9SEfp71354",
+                        "name": "get_distance",
+                        "content": {
+                          "distance_km": 31.7,
+                          "bearing_deg": 309.2
+                        }
+                      },
+                      {
+                        "tool_call_id": "call_02_K1R7ucRRAjqUCcxggOLB4078",
+                        "name": "get_distance",
+                        "content": {
+                          "distance_km": 30.6,
+                          "bearing_deg": 316.8
+                        }
+                      },
+                      {
+                        "tool_call_id": "call_03_ntNO3kYIdrLczNkSKc9Y6896",
+                        "name": "query_radius",
+                        "content": {
+                          "terrain": "Forest",
+                          "elevation": 250,
+                          "cities": [],
+                          "roadNodes": 12,
+                          "roadSegments": 15,
+                          "terrainProfile": {
+                            "Forest": 100.0
+                          }
+                        }
+                      }
+                    ],
+                    "timestamp": 1781024597672
+                  },
+                  {
+                    "iteration": 2,
+                    "request": null,
+                    "response": {
+                      "id": "d0baf417-a4e9-47d7-bffe-46eccd021d58",
+                      "object": "chat.completion",
+                      "created": 1781024598,
+                      "model": "deepseek-v4-pro",
+                      "choices": [
+                        {
+                          "index": 0,
+                          "message": {
+                            "role": "assistant",
+                            "content": "",
+                            "reasoning_content": "Let me analyze the results:\n\n1. Distance from IJA-10D (10th Division HQ, 34.95, 117.40) to NRA-122 (Wang Mingzhang, 35.08, 117.15): 27.0 km, bearing 302.5° (NW)\n2. Distance from IJA-8B (8th Brigade, 34.90, 117.42) to NRA-122: 31.7 km, bearing 309.2° (NW)\n3. Distance from IJA-33B (33rd Brigade, 34.88, 117.38) to NRA-122: 30.6 km, bearing 316.8° (NW)\n4. Terrain around Teng County (35.08, 117.15): Forest, elevation 250m, 12 road nodes, 15 road segments.\n\nNow let me also check the terrain where our forces currently are, and the path to Teng County. Let me also check the position of the 22nd Army Group and related units.\n\nI need to also check what's between us and Teng County. Let me query the terrain at our current position and along the route. Also need to check the enemy positions around Teng County more carefully.\n\nKey observations:\n- The 10th Division HQ is about 27 km south of Teng County (NRA-122 / Wang Mingzhang).\n- The 8th Brigade and 33rd Brigade are at similar distances (~31-32 km).\n- The terrain around Teng County is forest, elevation 250m - not great for tanks but manageable.\n- The enemy has three units clustered around Teng County: NRA-122, NRA-124, NRA-22AG.\n\nNow, my strategy as Isogai Rensuke:\n- \"闪电突破\" - lightning breakthrough along the Jin-Pu railway\n- I need to push north towards Teng County\n- The 10th Division should advance together with its brigades\n\nLet me check more terrain and distances. Let me also look at the road network - there are 12 road nodes and 15 road segments around Teng County. Good for mechanized movement.\n\nLet me query our own positions to understand the terrain we're currently on.",
+                            "tool_calls": [
+                              {
+                                "index": 0,
+                                "id": "call_00_XF7nDHQvzsmgCuhpv2ka7687",
+                                "type": "function",
+                                "function": {
+                                  "name": "query_radius",
+                                  "arguments": "{\"lat\": 34.93, \"lng\": 117.40, \"r\": 25}"
+                                }
+                              },
+                              {
+                                "index": 1,
+                                "id": "call_01_Nw0OFm8l9h6vdoj4CFrA5044",
+                                "type": "function",
+                                "function": {
+                                  "name": "get_distance",
+                                  "arguments": "{\"lat1\": 34.95, \"lng1\": 117.40, \"lat2\": 34.74, \"lng2\": 117.45}"
+                                }
+                              },
+                              {
+                                "index": 2,
+                                "id": "call_02_4TfJY7GP07tPlQIwyvV50250",
+                                "type": "function",
+                                "function": {
+                                  "name": "get_distance",
+                                  "arguments": "{\"lat1\": 34.95, \"lng1\": 117.40, \"lat2\": 34.76, \"lng2\": 117.55}"
+                                }
+                              }
+                            ]
+                          },
+                          "logprobs": null,
+                          "finish_reason": "tool_calls"
+                        }
+                      ],
+                      "usage": {
+                        "prompt_tokens": 4355,
+                        "completion_tokens": 737,
+                        "total_tokens": 5092,
+                        "prompt_tokens_details": {
+                          "cached_tokens": 3328
+                        },
+                        "completion_tokens_details": {
+                          "reasoning_tokens": 471
+                        },
+                        "prompt_cache_hit_tokens": 3328,
+                        "prompt_cache_miss_tokens": 1027
+                      },
+                      "system_fingerprint": "fp_9954b31ca7_prod0820_fp8_kvcache_20260402"
+                    },
+                    "results": [
+                      {
+                        "tool_call_id": "call_00_XF7nDHQvzsmgCuhpv2ka7687",
+                        "name": "query_radius",
+                        "content": {
+                          "terrain": "Forest",
+                          "elevation": 250,
+                          "cities": [
+                            {
+                              "name": "Zaozhuang",
+                              "lat": 34.881947,
+                              "lng": 117.568077
+                            }
+                          ],
+                          "roadNodes": 10,
+                          "roadSegments": 16,
+                          "terrainProfile": {
+                            "Forest": 100.0
+                          }
+                        }
+                      },
+                      {
+                        "tool_call_id": "call_01_Nw0OFm8l9h6vdoj4CFrA5044",
+                        "name": "get_distance",
+                        "content": {
+                          "distance_km": 23.8,
+                          "bearing_deg": 168.9
+                        }
+                      },
+                      {
+                        "tool_call_id": "call_02_4TfJY7GP07tPlQIwyvV50250",
+                        "name": "get_distance",
+                        "content": {
+                          "distance_km": 25.2,
+                          "bearing_deg": 147.0
+                        }
+                      }
+                    ],
+                    "timestamp": 1781024611558
+                  },
+                  {
+                    "iteration": 3,
+                    "request": null,
+                    "response": {
+                      "id": "a00d818a-f36c-49ff-beef-1894b3b9aa22",
+                      "object": "chat.completion",
+                      "created": 1781024611,
+                      "model": "deepseek-v4-pro",
+                      "choices": [
+                        {
+                          "index": 0,
+                          "message": {
+                            "role": "assistant",
+                            "content": "现在我对战场有了清晰的认识。第10师团主力位于枣庄附近的森林地带，滕县（敌军王铭章122师、124师、第22集团军）在我西北方向约27公里处。沿途有道路网，适合快速推进。\n\n作为矶谷廉介，我的判断是：滕县的川军不过是杂牌部队，装备低劣，不堪一击。我将以濑谷启的第8旅团为前锋，第33旅团为侧翼支援，炮兵联队提供火力掩护，一举突破至滕县城下。\n\n**\"一个旅团足以击溃川军三个师！\"** —— 这是闪电突破，无需等待板垣的第5师团。\n\n现在下达移动命令：",
+                            "reasoning_content": "Now I have a good picture:\n\n**Current 10th Division positions:**\n- IJA-10D (Isogai HQ): (34.95, 117.40)\n- IJA-8B (8th Brigade): (34.90, 117.42)\n- IJA-33B (33rd Brigade): (34.88, 117.38)\n- IJA-10AR (10th Artillery): (34.92, 117.44)\n\nAll in forest terrain, elevation 250m. Zaozhuang is nearby at (34.88, 117.57).\n\n**Enemy positions near Teng County (~35.08-35.10, 117.10-117.15):**\n- NRA-122 (Wang Mingzhang): (35.08, 117.15) - ~27 km NW of 10D\n- NRA-124 (Sun Zhen): (35.09, 117.10) \n- NRA-22AG (Sun Zhen Group Army): (35.10, 117.12)\n\n**Enemy blocking positions south of Teng County:**\n- NRA-004 (4th Division, Chen Daqing): (34.74, 117.45) - ~23.8 km south\n- NRA-089 (89th Division, Zhang Xuezhong): (34.76, 117.55) - ~25.2 km SE\n- NRA-20AG (20th Corps, Tang Enbo): (34.70, 117.50) - further south\n- NRA-002 (2nd Division, Zheng Dongguo): (34.72, 117.48)\n- NRA-025 (25th Division, Guan Linzheng): (34.68, 117.52)\n\nSo there are enemy forces between the 10th Division and Teng County. The 4th Division is at (34.74, 117.45), which is south of our position and slightly east - it's between us and Teng County.\n\nWait, let me reconsider. Our forces are at ~34.88-34.95 latitude, Teng County is at ~35.08-35.10. The enemy forces at 34.7-34.76 are actually south of us, not blocking the path to Teng County. The 4th Division at (34.74, 117.45) is about 23.8 km south of our HQ... but that's south, and we need to go north to Teng County.\n\nActually wait - let me re-examine. The bearing from 10D (34.95, 117.40) to Teng County (35.08, 117.15) is 302.5° - northwest. The 4th Division is at bearing 168.9° - south. So they're not directly blocking.\n\nBut there ARE enemy forces near Teng County itself: NRA-122, NRA-124, and NRA-22AG.\n\nNow, for the \"闪电突破\" strategy (lightning breakthrough):\n1. I should move the 10th Division's combat elements toward Teng County\n2. The 8th Brigade (濑谷启) should lead the attack as the vanguard\n3. The 33rd Brigade follows as support\n4. Artillery provides fire support\n5. The Division HQ moves forward to direct the battle\n\nThe approach: Move north along the railway line. The terrain is forest with roads - good for infantry and artillery movement.\n\nLet me plan the moves:\n\n**Phase 1 - Advance toward Teng County:**\n- IJA-8B (vanguard): Move from (34.90, 117.42) to around (35.00, 117.30) - advancing ~15 km NW toward Teng County\n- IJA-33B (support): Move from (34.88, 117.38) to around (34.98, 117.28) - parallel advance\n- IJA-10AR (artillery): Move from (34.92, 117.44) to around (34.97, 117.35) - supporting position\n- IJA-10D (HQ): Move from (34.95, 117.40) to around (34.99, 117.32) - forward command post\n\nThis is an incremental advance, getting closer to Teng County while maintaining formation. In subsequent turns we can strike Teng County directly.\n\nActually, as Isogai Rensuke, I'm aggressive. Let me think about this more boldly. The 10th Division should strike hard and fast. The enemy at Teng County is the 122nd Division of Wang Mingzhang (a Sichuan warlord unit - inferior troops). \n\nLet me advance the 8th Brigade (vanguard) and 33rd Brigade closer to Teng County. I'll move them about halfway to Teng County - to approximately (35.02, 117.25) for the 8th Brigade and (35.00, 117.22) for the 33rd Brigade. The division HQ and artillery can follow.\n\nWait, but we need to be careful not to overextend. Let me do a more measured approach - advance about 12-15 km toward Teng County along the railway axis. This puts us in striking distance for the next turn.\n\nLet me set the coordinates:\n- IJA-8B: (35.00, 117.30) - vanguard, ~14 km from current position, ~12 km from Teng\n- IJA-33B: (34.98, 117.27) - left flank support\n- IJA-10AR: (34.98, 117.35) - artillery support position  \n- IJA-10D: (35.00, 117.33) - division forward CP\n\nActually, let me be more aggressive. The enemy at Teng County is Sichuan militia - poorly equipped. Let me push the 8th Brigade to approximately (35.03, 117.22) which would be about 5-6 km from Teng County. Then next turn we can assault.\n\nLet me finalize:\n- IJA-8B: (35.03, 117.25) - vanguard position, 5-8 km from Teng\n- IJA-33B: (35.00, 117.22) - flank position\n- IJA-10AR: (35.00, 117.30) - artillery position  \n- IJA-10D: (35.02, 117.28) - forward command\n\nThis is aggressive but consistent with Isogai's character - he's bold and dismissive of Chinese forces.\n\nLet me verify distances from these positions to Teng County (35.08, 117.15):\n- IJA-8B at (35.03, 117.25) to Teng: need to calculate\n\nLet me execute the moves.",
+                            "tool_calls": [
+                              {
+                                "index": 0,
+                                "id": "call_00_yONQvRhrrKESmtXUWADW1775",
+                                "type": "function",
+                                "function": {
+                                  "name": "move_unit",
+                                  "arguments": "{\"code\": \"IJA-8B\", \"lat\": 35.03, \"lng\": 117.25}"
+                                }
+                              },
+                              {
+                                "index": 1,
+                                "id": "call_01_Kn5X9fKu3Cl6ho3g46CA8444",
+                                "type": "function",
+                                "function": {
+                                  "name": "move_unit",
+                                  "arguments": "{\"code\": \"IJA-33B\", \"lat\": 35.00, \"lng\": 117.22}"
+                                }
+                              },
+                              {
+                                "index": 2,
+                                "id": "call_02_0JPRSE3CbhU5maRuf9Of2253",
+                                "type": "function",
+                                "function": {
+                                  "name": "move_unit",
+                                  "arguments": "{\"code\": \"IJA-10AR\", \"lat\": 35.00, \"lng\": 117.30}"
+                                }
+                              },
+                              {
+                                "index": 3,
+                                "id": "call_03_AU5AqxCwcRoBiFMKWpUd6129",
+                                "type": "function",
+                                "function": {
+                                  "name": "move_unit",
+                                  "arguments": "{\"code\": \"IJA-10D\", \"lat\": 35.02, \"lng\": 117.28}"
+                                }
+                              }
+                            ]
+                          },
+                          "logprobs": null,
+                          "finish_reason": "tool_calls"
+                        }
+                      ],
+                      "usage": {
+                        "prompt_tokens": 5233,
+                        "completion_tokens": 1905,
+                        "total_tokens": 7138,
+                        "prompt_tokens_details": {
+                          "cached_tokens": 4352
+                        },
+                        "completion_tokens_details": {
+                          "reasoning_tokens": 1457
+                        },
+                        "prompt_cache_hit_tokens": 4352,
+                        "prompt_cache_miss_tokens": 881
+                      },
+                      "system_fingerprint": "fp_9954b31ca7_prod0820_fp8_kvcache_20260402"
+                    },
+                    "results": [
+                      {
+                        "tool_call_id": "call_00_yONQvRhrrKESmtXUWADW1775",
+                        "name": "move_unit",
+                        "content": {
+                          "moved": "IJA-8B",
+                          "lat": 35.03,
+                          "lng": 117.25
+                        }
+                      },
+                      {
+                        "tool_call_id": "call_01_Kn5X9fKu3Cl6ho3g46CA8444",
+                        "name": "move_unit",
+                        "content": {
+                          "moved": "IJA-33B",
+                          "lat": 35.0,
+                          "lng": 117.22
+                        }
+                      },
+                      {
+                        "tool_call_id": "call_02_0JPRSE3CbhU5maRuf9Of2253",
+                        "name": "move_unit",
+                        "content": {
+                          "moved": "IJA-10AR",
+                          "lat": 35.0,
+                          "lng": 117.3
+                        }
+                      },
+                      {
+                        "tool_call_id": "call_03_AU5AqxCwcRoBiFMKWpUd6129",
+                        "name": "move_unit",
+                        "content": {
+                          "moved": "IJA-10D",
+                          "lat": 35.02,
+                          "lng": 117.28
+                        }
+                      }
+                    ],
+                    "timestamp": 1781024648679
+                  },
+                  {
+                    "iteration": 4,
+                    "request": null,
+                    "response": {
+                      "id": "548997e9-7d75-4c26-ac81-7b5beb930236",
+                      "object": "chat.completion",
+                      "created": 1781024648,
+                      "model": "deepseek-v4-pro",
+                      "choices": [
+                        {
+                          "index": 0,
+                          "message": {
+                            "role": "assistant",
+                            "content": "**第10师团 矶谷廉介中将 命令**\n\n---\n\n### 态势判断\n\n滕县（35.08, 117.15）由川军杂牌部队防守——王铭章第122师、孙震第124师及第22集团军司令部，三支二流部队猬集一处。我军当面地形为丘陵林地（海拔250m），有道路网可供机动。津浦铁路从兖州经滕县直下徐州，正是我师团中央突破的轴线。\n\n板垣的第5师团远在临沂方向（直线距离80余公里），荻洲的第13师团尚在蚌埠。攻占滕县的头功，必属第10师团。\n\n### 已执行机动\n\n| 部队 | 原位置 | 新位置 | 任务 |\n|------|--------|--------|------|\n| **IJA-8B** 第8旅团（濑谷启） | (34.90, 117.42) | **(35.03, 117.25)** | 前锋，距滕县约9km |\n| **IJA-33B** 第33旅团（濑谷支队） | (34.88, 117.38) | **(35.00, 117.22)** | 左翼策应，距滕县约11km |\n| **IJA-10AR** 第10炮兵联队 | (34.92, 117.44) | **(35.00, 117.30)** | 炮兵阵地，射程覆盖滕县 |\n| **IJA-10D** 第10师团司令部 | (34.95, 117.40) | **(35.02, 117.28)** | 前进指挥所 |\n\n### 进攻态势\n\n```\n      滕县 (敌军)\n      NRA-122 王铭章\n      NRA-124 孙震\n      NRA-22AG 孙震集团军部\n          |\n     ~9km | \n          |\n    IJA-8B (前锋)  ← 主攻\n          |\n    IJA-10D (师团部) — IJA-10AR (炮兵)\n          |\n    IJA-33B (左翼)\n```\n\n第8旅团已推进至距滕县不足10公里处。炮兵联队进入发射阵地。川军装备窳劣、训练不足，一个旅团正面强攻即可粉碎其防线。第33旅团在左翼展开，既可侧击滕县，亦可警戒枣庄方向之敌（NRA-089张雪中部在枣庄附近）。\n\n下一步：待航空兵轰炸后，第8旅团发起总攻，一举夺取滕县，打开南下徐州的门户。",
+                            "reasoning_content": "All four moves executed successfully. Now let me summarize the situation and issue my report as Isogai Rensuke.\n\nLet me verify distances from our new positions to Teng County (NRA-122 at 35.08, 117.15):\n\n- IJA-8B at (35.03, 117.25): roughly sqrt((0.05*111)^2 + (0.10*111*cos(35.05))^2) ≈ 10.5 km\n- IJA-10D at (35.02, 117.28): roughly 13 km\n\nGood, we're now in striking distance.\n\nLet me also check if we need to coordinate with other Japanese forces. The 5th Division (Itagaki) is at (35.10, 118.50) - far to the east near Linyi. The 13th Division is far south at (33.50, 117.30).\n\nLet me provide my summary now."
+                          },
+                          "logprobs": null,
+                          "finish_reason": "stop"
+                        }
+                      ],
+                      "usage": {
+                        "prompt_tokens": 7134,
+                        "completion_tokens": 793,
+                        "total_tokens": 7927,
+                        "prompt_tokens_details": {
+                          "cached_tokens": 5120
+                        },
+                        "completion_tokens_details": {
+                          "reasoning_tokens": 205
+                        },
+                        "prompt_cache_hit_tokens": 5120,
+                        "prompt_cache_miss_tokens": 2014
+                      },
+                      "system_fingerprint": "fp_9954b31ca7_prod0820_fp8_kvcache_20260402"
+                    },
+                    "results": {
+                      "done": true
+                    },
+                    "timestamp": 1781024666465
+                  }
+                ],
+                "finalPlan": [
+                  {
+                    "index": 0,
+                    "id": "call_00_sLAmDLglrTjVX6XYfbAG3032",
+                    "type": "function",
+                    "function": {
+                      "name": "get_distance",
+                      "arguments": "{\"lat1\": 34.95, \"lng1\": 117.40, \"lat2\": 35.08, \"lng2\": 117.15}"
+                    }
+                  },
+                  {
+                    "index": 1,
+                    "id": "call_01_2tPQNhrCbMVjBG9SEfp71354",
+                    "type": "function",
+                    "function": {
+                      "name": "get_distance",
+                      "arguments": "{\"lat1\": 34.90, \"lng1\": 117.42, \"lat2\": 35.08, \"lng2\": 117.15}"
+                    }
+                  },
+                  {
+                    "index": 2,
+                    "id": "call_02_K1R7ucRRAjqUCcxggOLB4078",
+                    "type": "function",
+                    "function": {
+                      "name": "get_distance",
+                      "arguments": "{\"lat1\": 34.88, \"lng1\": 117.38, \"lat2\": 35.08, \"lng2\": 117.15}"
+                    }
+                  },
+                  {
+                    "index": 3,
+                    "id": "call_03_ntNO3kYIdrLczNkSKc9Y6896",
+                    "type": "function",
+                    "function": {
+                      "name": "query_radius",
+                      "arguments": "{\"lat\": 35.08, \"lng\": 117.15, \"r\": 30}"
+                    }
+                  },
+                  {
+                    "index": 0,
+                    "id": "call_00_XF7nDHQvzsmgCuhpv2ka7687",
+                    "type": "function",
+                    "function": {
+                      "name": "query_radius",
+                      "arguments": "{\"lat\": 34.93, \"lng\": 117.40, \"r\": 25}"
+                    }
+                  },
+                  {
+                    "index": 1,
+                    "id": "call_01_Nw0OFm8l9h6vdoj4CFrA5044",
+                    "type": "function",
+                    "function": {
+                      "name": "get_distance",
+                      "arguments": "{\"lat1\": 34.95, \"lng1\": 117.40, \"lat2\": 34.74, \"lng2\": 117.45}"
+                    }
+                  },
+                  {
+                    "index": 2,
+                    "id": "call_02_4TfJY7GP07tPlQIwyvV50250",
+                    "type": "function",
+                    "function": {
+                      "name": "get_distance",
+                      "arguments": "{\"lat1\": 34.95, \"lng1\": 117.40, \"lat2\": 34.76, \"lng2\": 117.55}"
+                    }
+                  },
+                  {
+                    "index": 0,
+                    "id": "call_00_yONQvRhrrKESmtXUWADW1775",
+                    "type": "function",
+                    "function": {
+                      "name": "move_unit",
+                      "arguments": "{\"code\": \"IJA-8B\", \"lat\": 35.03, \"lng\": 117.25}"
+                    }
+                  },
+                  {
+                    "index": 1,
+                    "id": "call_01_Kn5X9fKu3Cl6ho3g46CA8444",
+                    "type": "function",
+                    "function": {
+                      "name": "move_unit",
+                      "arguments": "{\"code\": \"IJA-33B\", \"lat\": 35.00, \"lng\": 117.22}"
+                    }
+                  },
+                  {
+                    "index": 2,
+                    "id": "call_02_0JPRSE3CbhU5maRuf9Of2253",
+                    "type": "function",
+                    "function": {
+                      "name": "move_unit",
+                      "arguments": "{\"code\": \"IJA-10AR\", \"lat\": 35.00, \"lng\": 117.30}"
+                    }
+                  },
+                  {
+                    "index": 3,
+                    "id": "call_03_AU5AqxCwcRoBiFMKWpUd6129",
+                    "type": "function",
+                    "function": {
+                      "name": "move_unit",
+                      "arguments": "{\"code\": \"IJA-10D\", \"lat\": 35.02, \"lng\": 117.28}"
+                    }
+                  }
+                ],
+                "rationale": "All four moves executed successfully. Now let me summarize the situation and issue my report as Isogai Rensuke.\n\nLet me verify distances from our new positions to Teng County (NRA-122 at 35.08, 117.15):\n\n- IJA-8B at (35.03, 117.25): roughly sqrt((0.05*111)^2 + (0.10*111*cos(35.05))^2) ≈ 10.5 km\n- IJA-10D at (35.02, 117.28): roughly 13 km\n\nGood, we're now in striking distance.\n\nLet me also check if we need to coordinate with other Japanese forces. The 5th Division (Itagaki) is at (35.10, 118.50) - far to the east near Linyi. The 13th Division is far south at (33.50, 117.30).\n\nLet me provide my summary now.",
+                "guidanceAssessment": "",
+                "feedback": null,
+                "risks": "",
+                "recommendations": "",
+                "timestamp": 1781024584967
+              }
+            ]
+          },
+          "outcome": "濑谷支队推进至滕县东南2.2km，师团本部前移至指挥位置。122师王铭章部据守滕县城。",
+          "createdAt": 1781024264425
+        },
+        {
+          "id": "16495167",
+          "name": "Round 1 Result",
+          "description": "",
+          "round": 1,
+          "strategy": "historical",
+          "parentId": "3a8bd45f",
+          "children": [],
+          "unitSnapshots": [
+            {
+              "code": "IJA-21B",
+              "name": "第21旅团 (坂本支队)",
+              "source": "japanese",
+              "type": "infantry",
+              "status": "active",
+              "color": "#c0392b",
+              "lat": 35.12,
+              "lng": 118.52,
+              "description": "IJA 21st Infantry Brigade — Sakamoto Detachment. Approached Linyi from the east."
+            },
+            {
+              "code": "NRA-030",
+              "name": "30师 (张金照部)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 34.58,
+              "lng": 117.72,
+              "description": "30th Division — Zhang Jinzhao. North of Taierzhuang, blocking Japanese approach from Yixian."
+            },
+            {
+              "code": "IJA-10AR",
+              "name": "第10炮兵联队",
+              "source": "japanese",
+              "type": "infantry",
+              "status": "active",
+              "color": "#e74c3c",
+              "lat": 34.92,
+              "lng": 117.44,
+              "description": "IJA 10th Artillery Regiment. Heavy artillery support for the Taierzhuang assault."
+            },
+            {
+              "code": "NRA-031",
+              "name": "31师 (池峰城部)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 34.56,
+              "lng": 117.74,
+              "description": "31st Division — Chi Fengcheng. Core defender of Taierzhuang town. Elite unit with strong will."
+            },
+            {
+              "code": "IJA-13D",
+              "name": "第13师团 (荻洲立兵)",
+              "source": "japanese",
+              "type": "infantry",
+              "status": "active",
+              "color": "#e74c3c",
+              "lat": 33.5,
+              "lng": 117.3,
+              "description": "IJA 13th Division — Rippei Ogisu. Advanced from south via Bengbu toward Xuzhou. Southern pincer of the operation."
+            },
+            {
+              "code": "IJA-33B",
+              "name": "第33旅团 (濑谷支队)",
+              "source": "japanese",
+              "type": "infantry",
+              "status": "active",
+              "color": "#c0392b",
+              "lat": 34.88,
+              "lng": 117.38,
+              "description": "IJA 33rd Infantry Brigade — Part of 10th Division. Attacked toward Taierzhuang from Yixian."
+            },
+            {
+              "code": "IJA-NCA",
+              "name": "华北方面军 (寺内寿一)",
+              "source": "japanese",
+              "type": "infantry",
+              "status": "active",
+              "color": "#e74c3c",
+              "lat": 36.7,
+              "lng": 116.98,
+              "description": "IJA North China Area Army — Hisaichi Terauchi. Overall command of Japanese forces in North China."
+            },
+            {
+              "code": "NRA-115D",
+              "name": "115师 (东北军)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 35.03,
+              "lng": 118.34,
+              "description": "115th Division — Northeast Army remnant. Assisted Linyi defense."
+            },
+            {
+              "code": "IJA-5AR",
+              "name": "第5炮兵联队",
+              "source": "japanese",
+              "type": "infantry",
+              "status": "active",
+              "color": "#e74c3c",
+              "lat": 35.07,
+              "lng": 118.46,
+              "description": "IJA 5th Artillery Regiment. Provided fire support for the Linyi attack."
+            },
+            {
+              "code": "CPC-115T",
+              "name": "八路军115师 (林彪部)",
+              "source": "cpc",
+              "type": "infantry",
+              "status": "active",
+              "color": "#f1c40f",
+              "lat": 35.15,
+              "lng": 113.2,
+              "description": "8RA 115th Division — Lin Biao. After Pingxingguan victory, positioned in southern Shanxi."
+            },
+            {
+              "code": "NRA-5WA",
+              "name": "第5战区 (李宗仁/白崇禧)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#e67e22",
+              "lat": 34.26,
+              "lng": 117.18,
+              "description": "HQ 5th War Area — Li Zongren & Bai Chongxi. Overall command of Xuzhou campaign."
+            },
+            {
+              "code": "IJA-9B",
+              "name": "第9旅团 (国崎登)",
+              "source": "japanese",
+              "type": "infantry",
+              "status": "active",
+              "color": "#c0392b",
+              "lat": 35.08,
+              "lng": 118.48,
+              "description": "IJA 9th Infantry Brigade — Kunizaki Noboru. 5th Division's vanguard attacking Linyi."
+            },
+            {
+              "code": "NRA-004",
+              "name": "4师 (陈大庆部)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 34.74,
+              "lng": 117.45,
+              "description": "4th Division — Chen Daqing. Deployed for flanking maneuver against Japanese rear."
+            },
+            {
+              "code": "NRA-048",
+              "name": "48师 (桂军)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 34.26,
+              "lng": 117.12,
+              "description": "48th Division — Guangxi clique unit. Arrived as reinforcement."
+            },
+            {
+              "code": "NRA-027",
+              "name": "27师 (黄樵松部)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 34.52,
+              "lng": 117.7,
+              "description": "27th Division — Huang Qiaosong. Deployed west of Taierzhuang, guarding flank."
+            },
+            {
+              "code": "NRA-007",
+              "name": "7师 (桂军)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 34.28,
+              "lng": 117.08,
+              "description": "7th Division — Guangxi clique unit. Veteran of Northern Expedition."
+            },
+            {
+              "code": "NRA-089",
+              "name": "89师 (张雪中部)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 34.76,
+              "lng": 117.55,
+              "description": "89th Division — Zhang Xuezhong. Attacked Japanese forces at Yixian on Mar 26, inflicting heavy casualties."
+            },
+            {
+              "code": "NRA-122",
+              "name": "122师 (王铭章部)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 35.08,
+              "lng": 117.15,
+              "description": "122nd Division — Wang Mingzhang. Heroic last stand at Tengxian. Wang killed in action Mar 17."
+            },
+            {
+              "code": "NRA-002",
+              "name": "2师 (郑洞国部)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 34.72,
+              "lng": 117.48,
+              "description": "2nd Division — Zheng Dongguo. Elite central army unit. Part of Tang Enbo's counterattack force."
+            },
+            {
+              "code": "IJA-5D",
+              "name": "第5师团 (板垣征四郎)",
+              "source": "japanese",
+              "type": "infantry",
+              "status": "active",
+              "color": "#e74c3c",
+              "lat": 35.1,
+              "lng": 118.5,
+              "description": "IJA 5th Division — Seishiro Itagaki. Attacked from northeast via Linyi. Attempted to flank Taierzhuang."
+            },
+            {
+              "code": "NRA-025",
+              "name": "25师 (关麟征部)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 34.68,
+              "lng": 117.52,
+              "description": "25th Division — Guan Linzheng. Key unit for the encirclement of Japanese 10th Division."
+            },
+            {
+              "code": "NRA-124",
+              "name": "124师 (孙震兼)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 35.09,
+              "lng": 117.1,
+              "description": "124th Division — Sichuan troops. Fought at Tengxian alongside 122nd Division."
+            },
+            {
+              "code": "NRA-22AG",
+              "name": "第22集团军 (孙震部)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#9b59b6",
+              "lat": 35.1,
+              "lng": 117.12,
+              "description": "HQ 22nd Group Army — Sun Zhen. Sichuan troops. Defended Tengxian, suffered heavy losses."
+            },
+            {
+              "code": "NRA-21AG",
+              "name": "第21集团军 (廖磊部)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#9b59b6",
+              "lat": 34.3,
+              "lng": 117.1,
+              "description": "HQ 21st Group Army — Liao Lei. Guangxi troops. Reinforced from south."
+            },
+            {
+              "code": "NRA-20AG",
+              "name": "第20军团 (汤恩伯部)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#9b59b6",
+              "lat": 34.7,
+              "lng": 117.5,
+              "description": "HQ 20th Army Group — Tang Enbo. Main flanking/counterattack force. Equipped with artillery."
+            },
+            {
+              "code": "CPC-129",
+              "name": "八路军129师 (刘伯承部)",
+              "source": "cpc",
+              "type": "infantry",
+              "status": "active",
+              "color": "#f1c40f",
+              "lat": 36.0,
+              "lng": 114.0,
+              "description": "8RA 129th Division — Liu Bocheng. Active in Shanxi-Hebei border region. Harassed Japanese supply lines."
+            },
+            {
+              "code": "IJA-10D",
+              "name": "第10师团 (矶谷廉介)",
+              "source": "japanese",
+              "type": "infantry",
+              "status": "active",
+              "color": "#e74c3c",
+              "lat": 34.95,
+              "lng": 117.4,
+              "description": "IJA 10th Division — Rensuke Isogai. Main attacking force. Advanced south along Jinpu railway from Shandong."
+            },
+            {
+              "code": "NRA-59A",
+              "name": "第59军 (张自忠部)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 35.02,
+              "lng": 118.3,
+              "description": "59th Army — Zhang Zizhong. Rushed to reinforce Linyi. Launched night counterattacks on Japanese 5th Division."
+            },
+            {
+              "code": "NRA-2AG",
+              "name": "第2集团军 (孙连仲部)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#3498db",
+              "lat": 34.5,
+              "lng": 117.65,
+              "description": "HQ 2nd Army Group — Sun Lianzhong. Main defense at Taierzhuang."
+            },
+            {
+              "code": "NRA-044B",
+              "name": "第44独立旅",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 34.55,
+              "lng": 117.76,
+              "description": "44th Independent Brigade. Reserve force stationed east of the town."
+            },
+            {
+              "code": "NRA-3AG",
+              "name": "第3集团军 (庞炳勋部)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#9b59b6",
+              "lat": 35.05,
+              "lng": 118.38,
+              "description": "HQ 3rd Army Group — Pang Bingxun. Defended Linyi against Japanese 5th Division."
+            },
+            {
+              "code": "IJA-8B",
+              "name": "第8旅团 (濑谷启)",
+              "source": "japanese",
+              "type": "infantry",
+              "status": "active",
+              "color": "#c0392b",
+              "lat": 34.9,
+              "lng": 117.42,
+              "description": "IJA 8th Infantry Brigade — Seya Kei. Spearheaded the attack on Taierzhuang. ~4000 men with tank support."
+            },
+            {
+              "code": "NRA-059",
+              "name": "59军38师",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 35.01,
+              "lng": 118.32,
+              "description": "38th Division — Part of Zhang Zizhong's 59th Army."
+            },
+            {
+              "code": "NRA-039",
+              "name": "39师 (庞炳勋兼)",
+              "source": "nationalist",
+              "type": "infantry",
+              "status": "active",
+              "color": "#2980b9",
+              "lat": 35.06,
+              "lng": 118.36,
+              "description": "39th Division — Defended Linyi north gate. Blocked Itagaki's 5th Division advance."
+            }
+          ],
+          "moves": [],
+          "unitChanges": [
+            {
+              "code": "IJA-21B",
+              "changeType": "hold",
+              "fromLat": 35.12,
+              "fromLng": 118.52,
+              "toLat": 35.12,
+              "toLng": 118.52,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-030",
+              "changeType": "hold",
+              "fromLat": 34.58,
+              "fromLng": 117.72,
+              "toLat": 34.58,
+              "toLng": 117.72,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "IJA-10AR",
+              "changeType": "hold",
+              "fromLat": 34.92,
+              "fromLng": 117.44,
+              "toLat": 34.92,
+              "toLng": 117.44,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-031",
+              "changeType": "hold",
+              "fromLat": 34.56,
+              "fromLng": 117.74,
+              "toLat": 34.56,
+              "toLng": 117.74,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "IJA-13D",
+              "changeType": "hold",
+              "fromLat": 33.5,
+              "fromLng": 117.3,
+              "toLat": 33.5,
+              "toLng": 117.3,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "IJA-33B",
+              "changeType": "hold",
+              "fromLat": 34.88,
+              "fromLng": 117.38,
+              "toLat": 34.88,
+              "toLng": 117.38,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "IJA-NCA",
+              "changeType": "hold",
+              "fromLat": 36.7,
+              "fromLng": 116.98,
+              "toLat": 36.7,
+              "toLng": 116.98,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-115D",
+              "changeType": "hold",
+              "fromLat": 35.03,
+              "fromLng": 118.34,
+              "toLat": 35.03,
+              "toLng": 118.34,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "IJA-5AR",
+              "changeType": "hold",
+              "fromLat": 35.07,
+              "fromLng": 118.46,
+              "toLat": 35.07,
+              "toLng": 118.46,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "CPC-115T",
+              "changeType": "hold",
+              "fromLat": 35.15,
+              "fromLng": 113.2,
+              "toLat": 35.15,
+              "toLng": 113.2,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-5WA",
+              "changeType": "hold",
+              "fromLat": 34.26,
+              "fromLng": 117.18,
+              "toLat": 34.26,
+              "toLng": 117.18,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "IJA-9B",
+              "changeType": "hold",
+              "fromLat": 35.08,
+              "fromLng": 118.48,
+              "toLat": 35.08,
+              "toLng": 118.48,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-004",
+              "changeType": "hold",
+              "fromLat": 34.74,
+              "fromLng": 117.45,
+              "toLat": 34.74,
+              "toLng": 117.45,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-048",
+              "changeType": "hold",
+              "fromLat": 34.26,
+              "fromLng": 117.12,
+              "toLat": 34.26,
+              "toLng": 117.12,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-027",
+              "changeType": "hold",
+              "fromLat": 34.52,
+              "fromLng": 117.7,
+              "toLat": 34.52,
+              "toLng": 117.7,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-007",
+              "changeType": "hold",
+              "fromLat": 34.28,
+              "fromLng": 117.08,
+              "toLat": 34.28,
+              "toLng": 117.08,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-089",
+              "changeType": "hold",
+              "fromLat": 34.76,
+              "fromLng": 117.55,
+              "toLat": 34.76,
+              "toLng": 117.55,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-122",
+              "changeType": "hold",
+              "fromLat": 35.08,
+              "fromLng": 117.15,
+              "toLat": 35.08,
+              "toLng": 117.15,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-002",
+              "changeType": "hold",
+              "fromLat": 34.72,
+              "fromLng": 117.48,
+              "toLat": 34.72,
+              "toLng": 117.48,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "IJA-5D",
+              "changeType": "hold",
+              "fromLat": 35.1,
+              "fromLng": 118.5,
+              "toLat": 35.1,
+              "toLng": 118.5,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-025",
+              "changeType": "hold",
+              "fromLat": 34.68,
+              "fromLng": 117.52,
+              "toLat": 34.68,
+              "toLng": 117.52,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-124",
+              "changeType": "hold",
+              "fromLat": 35.09,
+              "fromLng": 117.1,
+              "toLat": 35.09,
+              "toLng": 117.1,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-22AG",
+              "changeType": "hold",
+              "fromLat": 35.1,
+              "fromLng": 117.12,
+              "toLat": 35.1,
+              "toLng": 117.12,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-21AG",
+              "changeType": "hold",
+              "fromLat": 34.3,
+              "fromLng": 117.1,
+              "toLat": 34.3,
+              "toLng": 117.1,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-20AG",
+              "changeType": "hold",
+              "fromLat": 34.7,
+              "fromLng": 117.5,
+              "toLat": 34.7,
+              "toLng": 117.5,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "CPC-129",
+              "changeType": "hold",
+              "fromLat": 36.0,
+              "fromLng": 114.0,
+              "toLat": 36.0,
+              "toLng": 114.0,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "IJA-10D",
+              "changeType": "hold",
+              "fromLat": 34.95,
+              "fromLng": 117.4,
+              "toLat": 34.95,
+              "toLng": 117.4,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-59A",
+              "changeType": "hold",
+              "fromLat": 35.02,
+              "fromLng": 118.3,
+              "toLat": 35.02,
+              "toLng": 118.3,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-2AG",
+              "changeType": "hold",
+              "fromLat": 34.5,
+              "fromLng": 117.65,
+              "toLat": 34.5,
+              "toLng": 117.65,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-044B",
+              "changeType": "hold",
+              "fromLat": 34.55,
+              "fromLng": 117.76,
+              "toLat": 34.55,
+              "toLng": 117.76,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-3AG",
+              "changeType": "hold",
+              "fromLat": 35.05,
+              "fromLng": 118.38,
+              "toLat": 35.05,
+              "toLng": 118.38,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "IJA-8B",
+              "changeType": "hold",
+              "fromLat": 34.9,
+              "fromLng": 117.42,
+              "toLat": 34.9,
+              "toLng": 117.42,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-059",
+              "changeType": "hold",
+              "fromLat": 35.01,
+              "fromLng": 118.32,
+              "toLat": 35.01,
+              "toLng": 118.32,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            },
+            {
+              "code": "NRA-039",
+              "changeType": "hold",
+              "fromLat": 35.06,
+              "fromLng": 118.36,
+              "toLat": 35.06,
+              "toLng": 118.36,
+              "action": "hold",
+              "oldStatus": "",
+              "newStatus": "",
+              "description": "Stationary this round"
+            }
+          ],
+          "commanderActions": {},
+          "outcome": "Round 1: 0/0 units reached destination, 0 engagements (0 destroyed, 0 retreating)",
+          "createdAt": 1781101704341
+        }
+      ],
+      "unitSnapshots": [
+        {
+          "code": "IJA-21B",
+          "name": "第21旅团 (坂本支队)",
+          "source": "japanese",
+          "type": "infantry",
+          "status": "active",
+          "color": "#c0392b",
+          "lat": 35.12,
+          "lng": 118.52,
+          "description": "IJA 21st Infantry Brigade — Sakamoto Detachment. Approached Linyi from the east."
+        },
+        {
+          "code": "NRA-030",
+          "name": "30师 (张金照部)",
+          "source": "nationalist",
+          "type": "infantry",
+          "status": "active",
+          "color": "#2980b9",
+          "lat": 34.58,
+          "lng": 117.72,
+          "description": "30th Division — Zhang Jinzhao. North of Taierzhuang, blocking Japanese approach from Yixian."
+        },
+        {
+          "code": "NRA-031",
+          "name": "31师 (池峰城部)",
+          "source": "nationalist",
+          "type": "infantry",
+          "status": "active",
+          "color": "#2980b9",
+          "lat": 34.56,
+          "lng": 117.74,
+          "description": "31st Division — Chi Fengcheng. Core defender of Taierzhuang town. Elite unit with strong will."
+        },
+        {
+          "code": "IJA-10AR",
+          "name": "第10炮兵联队",
+          "source": "japanese",
+          "type": "infantry",
+          "status": "active",
+          "color": "#e74c3c",
+          "lat": 34.92,
+          "lng": 117.44,
+          "description": "IJA 10th Artillery Regiment. Heavy artillery support for the Taierzhuang assault."
+        },
+        {
+          "code": "IJA-33B",
+          "name": "第33旅团 (濑谷支队)",
+          "source": "japanese",
+          "type": "infantry",
+          "status": "active",
+          "color": "#c0392b",
+          "lat": 34.88,
+          "lng": 117.38,
+          "description": "IJA 33rd Infantry Brigade — Part of 10th Division. Attacked toward Taierzhuang from Yixian."
+        },
+        {
+          "code": "IJA-13D",
+          "name": "第13师团 (荻洲立兵)",
+          "source": "japanese",
+          "type": "infantry",
+          "status": "active",
+          "color": "#e74c3c",
+          "lat": 33.5,
+          "lng": 117.3,
+          "description": "IJA 13th Division — Rippei Ogisu. Advanced from south via Bengbu toward Xuzhou. Southern pincer of the operation."
+        },
+        {
+          "code": "IJA-NCA",
+          "name": "华北方面军 (寺内寿一)",
+          "source": "japanese",
+          "type": "infantry",
+          "status": "active",
+          "color": "#e74c3c",
+          "lat": 36.7,
+          "lng": 116.98,
+          "description": "IJA North China Area Army — Hisaichi Terauchi. Overall command of Japanese forces in North China."
+        },
+        {
+          "code": "NRA-115D",
+          "name": "115师 (东北军)",
+          "source": "nationalist",
+          "type": "infantry",
+          "status": "active",
+          "color": "#2980b9",
+          "lat": 35.03,
+          "lng": 118.34,
+          "description": "115th Division — Northeast Army remnant. Assisted Linyi defense."
+        },
+        {
+          "code": "IJA-5AR",
+          "name": "第5炮兵联队",
+          "source": "japanese",
+          "type": "infantry",
+          "status": "active",
+          "color": "#e74c3c",
+          "lat": 35.07,
+          "lng": 118.46,
+          "description": "IJA 5th Artillery Regiment. Provided fire support for the Linyi attack."
+        },
+        {
+          "code": "CPC-115T",
+          "name": "八路军115师 (林彪部)",
+          "source": "cpc",
+          "type": "infantry",
+          "status": "active",
+          "color": "#f1c40f",
+          "lat": 35.15,
+          "lng": 113.2,
+          "description": "8RA 115th Division — Lin Biao. After Pingxingguan victory, positioned in southern Shanxi."
+        },
+        {
+          "code": "NRA-5WA",
+          "name": "第5战区 (李宗仁/白崇禧)",
+          "source": "nationalist",
+          "type": "infantry",
+          "status": "active",
+          "color": "#e67e22",
+          "lat": 34.26,
+          "lng": 117.18,
+          "description": "HQ 5th War Area — Li Zongren & Bai Chongxi. Overall command of Xuzhou campaign."
+        },
+        {
+          "code": "IJA-9B",
+          "name": "第9旅团 (国崎登)",
+          "source": "japanese",
+          "type": "infantry",
+          "status": "active",
+          "color": "#c0392b",
+          "lat": 35.08,
+          "lng": 118.48,
+          "description": "IJA 9th Infantry Brigade — Kunizaki Noboru. 5th Division's vanguard attacking Linyi."
+        },
+        {
+          "code": "NRA-004",
+          "name": "4师 (陈大庆部)",
+          "source": "nationalist",
+          "type": "infantry",
+          "status": "active",
+          "color": "#2980b9",
+          "lat": 34.74,
+          "lng": 117.45,
+          "description": "4th Division — Chen Daqing. Deployed for flanking maneuver against Japanese rear."
+        },
+        {
+          "code": "NRA-048",
+          "name": "48师 (桂军)",
+          "source": "nationalist",
+          "type": "infantry",
+          "status": "active",
+          "color": "#2980b9",
+          "lat": 34.26,
+          "lng": 117.12,
+          "description": "48th Division — Guangxi clique unit. Arrived as reinforcement."
+        },
+        {
+          "code": "NRA-027",
+          "name": "27师 (黄樵松部)",
+          "source": "nationalist",
+          "type": "infantry",
+          "status": "active",
+          "color": "#2980b9",
+          "lat": 34.52,
+          "lng": 117.7,
+          "description": "27th Division — Huang Qiaosong. Deployed west of Taierzhuang, guarding flank."
+        },
+        {
+          "code": "NRA-007",
+          "name": "7师 (桂军)",
+          "source": "nationalist",
+          "type": "infantry",
+          "status": "active",
+          "color": "#2980b9",
+          "lat": 34.28,
+          "lng": 117.08,
+          "description": "7th Division — Guangxi clique unit. Veteran of Northern Expedition."
+        },
+        {
+          "code": "NRA-089",
+          "name": "89师 (张雪中部)",
+          "source": "nationalist",
+          "type": "infantry",
+          "status": "active",
+          "color": "#2980b9",
+          "lat": 34.76,
+          "lng": 117.55,
+          "description": "89th Division — Zhang Xuezhong. Attacked Japanese forces at Yixian on Mar 26, inflicting heavy casualties."
+        },
+        {
+          "code": "NRA-122",
+          "name": "122师 (王铭章部)",
+          "source": "nationalist",
+          "type": "infantry",
+          "status": "active",
+          "color": "#2980b9",
+          "lat": 35.08,
+          "lng": 117.15,
+          "description": "122nd Division — Wang Mingzhang. Heroic last stand at Tengxian. Wang killed in action Mar 17."
+        },
+        {
+          "code": "NRA-002",
+          "name": "2师 (郑洞国部)",
+          "source": "nationalist",
+          "type": "infantry",
+          "status": "active",
+          "color": "#2980b9",
+          "lat": 34.72,
+          "lng": 117.48,
+          "description": "2nd Division — Zheng Dongguo. Elite central army unit. Part of Tang Enbo's counterattack force."
+        },
+        {
+          "code": "IJA-5D",
+          "name": "第5师团 (板垣征四郎)",
+          "source": "japanese",
+          "type": "infantry",
+          "status": "active",
+          "color": "#e74c3c",
+          "lat": 35.1,
+          "lng": 118.5,
+          "description": "IJA 5th Division — Seishiro Itagaki. Attacked from northeast via Linyi. Attempted to flank Taierzhuang."
+        },
+        {
+          "code": "NRA-025",
+          "name": "25师 (关麟征部)",
+          "source": "nationalist",
+          "type": "infantry",
+          "status": "active",
+          "color": "#2980b9",
+          "lat": 34.68,
+          "lng": 117.52,
+          "description": "25th Division — Guan Linzheng. Key unit for the encirclement of Japanese 10th Division."
+        },
+        {
+          "code": "NRA-124",
+          "name": "124师 (孙震兼)",
+          "source": "nationalist",
+          "type": "infantry",
+          "status": "active",
+          "color": "#2980b9",
+          "lat": 35.09,
+          "lng": 117.1,
+          "description": "124th Division — Sichuan troops. Fought at Tengxian alongside 122nd Division."
+        },
+        {
+          "code": "NRA-22AG",
+          "name": "第22集团军 (孙震部)",
+          "source": "nationalist",
+          "type": "infantry",
+          "status": "active",
+          "color": "#9b59b6",
+          "lat": 35.1,
+          "lng": 117.12,
+          "description": "HQ 22nd Group Army — Sun Zhen. Sichuan troops. Defended Tengxian, suffered heavy losses."
+        },
+        {
+          "code": "NRA-21AG",
+          "name": "第21集团军 (廖磊部)",
+          "source": "nationalist",
+          "type": "infantry",
+          "status": "active",
+          "color": "#9b59b6",
+          "lat": 34.3,
+          "lng": 117.1,
+          "description": "HQ 21st Group Army — Liao Lei. Guangxi troops. Reinforced from south."
+        },
+        {
+          "code": "NRA-20AG",
+          "name": "第20军团 (汤恩伯部)",
+          "source": "nationalist",
+          "type": "infantry",
+          "status": "active",
+          "color": "#9b59b6",
+          "lat": 34.7,
+          "lng": 117.5,
+          "description": "HQ 20th Army Group — Tang Enbo. Main flanking/counterattack force. Equipped with artillery."
+        },
+        {
+          "code": "CPC-129",
+          "name": "八路军129师 (刘伯承部)",
+          "source": "cpc",
+          "type": "infantry",
+          "status": "active",
+          "color": "#f1c40f",
+          "lat": 36.0,
+          "lng": 114.0,
+          "description": "8RA 129th Division — Liu Bocheng. Active in Shanxi-Hebei border region. Harassed Japanese supply lines."
+        },
+        {
+          "code": "IJA-10D",
+          "name": "第10师团 (矶谷廉介)",
+          "source": "japanese",
+          "type": "infantry",
+          "status": "active",
+          "color": "#e74c3c",
+          "lat": 34.95,
+          "lng": 117.4,
+          "description": "IJA 10th Division — Rensuke Isogai. Main attacking force. Advanced south along Jinpu railway from Shandong."
+        },
+        {
+          "code": "NRA-59A",
+          "name": "第59军 (张自忠部)",
+          "source": "nationalist",
+          "type": "infantry",
+          "status": "active",
+          "color": "#2980b9",
+          "lat": 35.02,
+          "lng": 118.3,
+          "description": "59th Army — Zhang Zizhong. Rushed to reinforce Linyi. Launched night counterattacks on Japanese 5th Division."
+        },
+        {
+          "code": "NRA-2AG",
+          "name": "第2集团军 (孙连仲部)",
+          "source": "nationalist",
+          "type": "infantry",
+          "status": "active",
+          "color": "#3498db",
+          "lat": 34.5,
+          "lng": 117.65,
+          "description": "HQ 2nd Army Group — Sun Lianzhong. Main defense at Taierzhuang."
+        },
+        {
+          "code": "NRA-044B",
+          "name": "第44独立旅",
+          "source": "nationalist",
+          "type": "infantry",
+          "status": "active",
+          "color": "#2980b9",
+          "lat": 34.55,
+          "lng": 117.76,
+          "description": "44th Independent Brigade. Reserve force stationed east of the town."
+        },
+        {
+          "code": "NRA-3AG",
+          "name": "第3集团军 (庞炳勋部)",
+          "source": "nationalist",
+          "type": "infantry",
+          "status": "active",
+          "color": "#9b59b6",
+          "lat": 35.05,
+          "lng": 118.38,
+          "description": "HQ 3rd Army Group — Pang Bingxun. Defended Linyi against Japanese 5th Division."
+        },
+        {
+          "code": "IJA-8B",
+          "name": "第8旅团 (濑谷启)",
+          "source": "japanese",
+          "type": "infantry",
+          "status": "active",
+          "color": "#c0392b",
+          "lat": 34.9,
+          "lng": 117.42,
+          "description": "IJA 8th Infantry Brigade — Seya Kei. Spearheaded the attack on Taierzhuang. ~4000 men with tank support."
+        },
+        {
+          "code": "NRA-059",
+          "name": "59军38师",
+          "source": "nationalist",
+          "type": "infantry",
+          "status": "active",
+          "color": "#2980b9",
+          "lat": 35.01,
+          "lng": 118.32,
+          "description": "38th Division — Part of Zhang Zizhong's 59th Army."
+        },
+        {
+          "code": "NRA-039",
+          "name": "39师 (庞炳勋兼)",
+          "source": "nationalist",
+          "type": "infantry",
+          "status": "active",
+          "color": "#2980b9",
+          "lat": 35.06,
+          "lng": 118.36,
+          "description": "39th Division — Defended Linyi north gate. Blocked Itagaki's 5th Division advance."
+        }
+      ],
+      "moves": [],
+      "unitChanges": [],
+      "commanderActions": {},
+      "outcome": "Starting positions",
+      "createdAt": 1780940245045
+    }
   }
-} ]
+]

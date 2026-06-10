@@ -3,6 +3,7 @@ package com.getgoat.agent;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.getgoat.map.ConfigManager;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -63,18 +64,26 @@ public class CommanderConfig {
         CommanderConfig cfg = mapper.readValue(configFile.toFile(), CommanderConfig.class);
         cfg.baseDir = configFile.getParent();
 
+        // Merge global LLM defaults from config.properties (per-commander config overrides)
+        if (cfg.llm == null) cfg.llm = new LlmConfig();
+        LlmConfig c = cfg.llm;
+        if (c.provider == null || c.provider.isEmpty()) c.provider = ConfigManager.getLlmProvider();
+        if (c.model == null || c.model.isEmpty()) c.model = ConfigManager.getLlmModel();
+        if (c.endpoint == null || c.endpoint.isEmpty()) c.endpoint = ConfigManager.getLlmEndpoint();
+        if (c.apiKey == null || c.apiKey.isEmpty()) c.apiKey = ConfigManager.getLlmApiKey();
+        else if (c.apiKey.startsWith("env:")) {
+            String envVar = c.apiKey.substring(4);
+            String resolved = System.getenv(envVar);
+            c.apiKey = resolved != null ? resolved : "";
+        }
+        if (c.maxTokens <= 0) c.maxTokens = ConfigManager.getLlmMaxTokens();
+
         // Load system prompt from file
         Path spFile = cfg.baseDir.resolve(cfg.systemPromptFile);
         if (Files.exists(spFile)) {
             cfg.systemPrompt = Files.readString(spFile);
         } else {
             cfg.systemPrompt = "# " + cfg.name + " (" + cfg.side + ") commander prompt\n\nNot configured.";
-        }
-
-        // Resolve env vars in API key
-        if (cfg.llm != null && cfg.llm.apiKey != null && cfg.llm.apiKey.startsWith("env:")) {
-            String envVar = cfg.llm.apiKey.substring(4);
-            cfg.llm.apiKey = System.getenv(envVar);
         }
 
         return cfg;

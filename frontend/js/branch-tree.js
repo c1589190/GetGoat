@@ -18,6 +18,8 @@ panel.innerHTML =
         '<span id="branch-tree-name">&#9776; Branches</span>' +
         '<select id="branch-tree-select" style="display:none;width:100%;margin-top:4px;background:#333;color:#ccc;border:1px solid #555;border-radius:3px;font-size:10px;padding:2px 4px"><option value="">-- 选择分支 --</option></select>' +
         '<div id="branch-desc" style="display:none;font-size:9px;color:#888;margin-top:3px;line-height:1.3;max-height:60px;overflow-y:auto"></div>' +
+        '<button id="branch-deploy-btn" title="AI 指挥部署" style="background:#f39c12;color:#000;border:none;border-radius:3px;padding:2px 8px;font-size:11px;font-weight:bold;cursor:pointer;margin-right:2px">&#9878; Deploy</button>' +
+        '<button id="branch-sim-btn" title="推演裁决" style="background:#e74c3c;color:#fff;border:none;border-radius:3px;padding:2px 8px;font-size:11px;font-weight:bold;cursor:pointer;margin-right:2px">&#9877;</button>' +
         '<button id="branch-save-btn" class="primary" title="Save current state as new round">+R</button>' +
         '<button id="branch-new-btn" title="New branch from current node">&#10558;</button>' +
         '<button id="branch-newtree-btn" title="New tree from current units">&#9733;</button>' +
@@ -286,6 +288,7 @@ function truncate(str, len) {
 function applyBranchNode(nodeId) {
     if (!currentTreeId) return;
     currentNodeId = nodeId;
+    window.currentNodeIdForIntel = nodeId;  // for intel API queries
 
     // Clear combat radius
     if (window.combatRadiusLayer && window.combatRadiusCircle) {
@@ -397,6 +400,7 @@ function selectTree(treeId) {
     currentTreeId = treeId;
     currentNodeId = null;
     flatNodes = {};
+    window.currentTreeIdForIntel = treeId;  // for intel API queries
     if (window.combatRadiusLayer && window.combatRadiusCircle) {
         window.combatRadiusLayer.removeLayer(window.combatRadiusCircle);
         window.combatRadiusCircle = null;
@@ -413,5 +417,281 @@ document.getElementById('branch-tree-select').onchange = function() {
 
 // ---- Auto-load on init ----
 setTimeout(initTreeSelector, 5000);
+
+// ====================================================================
+//  AI Deploy — Commander Agent Integration
+// ====================================================================
+
+var deployPreviewMarkers = [];  // dashed preview arrows on map
+var currentDeployPlan = null;   // pending deployment plan from LLM
+
+// Build deploy dialog (hidden by default)
+var deployDialog = document.createElement('div');
+deployDialog.id = 'deploy-dialog';
+deployDialog.style.cssText = 'display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' +
+    'z-index:10000;background:#1a1a2e;border:1px solid #f39c12;border-radius:8px;padding:16px;' +
+    'min-width:400px;max-width:500px;box-shadow:0 4px 24px rgba(0,0,0,0.7)';
+deployDialog.innerHTML =
+    '<h3 style="color:#f39c12;margin:0 0 12px 0">&#9878; AI Commander Deployment</h3>' +
+    '<div style="margin-bottom:8px">' +
+        '<label style="color:#ccc;font-size:11px">阵营</label>' +
+        '<select id="deploy-side" style="width:100%;background:#333;color:#fff;border:1px solid #555;border-radius:3px;padding:4px 8px;font-size:12px;margin-top:2px">' +
+            '<option value="nationalist">Nationalist (国军)</option>' +
+            '<option value="japanese">Japanese (日军)</option>' +
+            '<option value="cpc">CPC (八路军)</option>' +
+        '</select>' +
+    '</div>' +
+    '<div style="margin-bottom:12px">' +
+        '<label style="color:#ccc;font-size:11px">作战指令 (Guidance)</label>' +
+        '<textarea id="deploy-guidance" rows="3" style="width:100%;background:#333;color:#fff;border:1px solid #555;border-radius:3px;padding:6px 8px;font-size:11px;margin-top:2px;resize:vertical" placeholder="例: 侦察台儿庄周边地形，主力从北面进攻，注意侧翼安全"></textarea>' +
+    '</div>' +
+    '<div id="deploy-status" style="color:#f39c12;font-size:10px;margin-bottom:8px;min-height:16px"></div>' +
+    '<div style="display:flex;gap:6px;justify-content:flex-end">' +
+        '<button id="deploy-cancel" style="padding:6px 16px;background:#444;color:#ccc;border:none;border-radius:3px;cursor:pointer;font-size:11px">取消</button>' +
+        '<button id="deploy-execute" style="padding:6px 16px;background:#f39c12;color:#000;border:none;border-radius:3px;cursor:pointer;font-size:11px;font-weight:bold">开始部署</button>' +
+    '</div>' +
+    // Review panel (shown after LLM returns)
+    '<div id="deploy-review" style="display:none;margin-top:12px;padding-top:12px;border-top:1px solid #444">' +
+        '<h4 style="color:#2ecc71;margin:0 0 8px 0">部署计划审核</h4>' +
+        '<div id="deploy-review-rationale" style="color:#ccc;font-size:10px;max-height:200px;overflow-y:auto;margin-bottom:8px;padding:6px;background:rgba(255,255,255,0.03);border-radius:3px;line-height:1.5"></div>' +
+        '<div id="deploy-review-moves" style="color:#ccc;font-size:10px;max-height:150px;overflow-y:auto;margin-bottom:10px"></div>' +
+        '<div style="display:flex;gap:6px;justify-content:flex-end">' +
+            '<button id="deploy-review-reject" style="padding:6px 12px;background:#e74c3c;color:#fff;border:none;border-radius:3px;cursor:pointer;font-size:11px">拒绝</button>' +
+            '<button id="deploy-review-execute" style="padding:6px 16px;background:#2ecc71;color:#000;border:none;border-radius:3px;cursor:pointer;font-size:11px;font-weight:bold">执行部署</button>' +
+        '</div>' +
+    '</div>';
+document.body.appendChild(deployDialog);
+
+// Deploy button handler
+document.getElementById('branch-deploy-btn').onclick = function() {
+    if (!currentTreeId) { alert('请先选择或创建一个分支树'); return; }
+    if (!currentNodeId) { alert('请先在分支树中选择一个节点作为当前态势'); return; }
+    showDeployDialog();
+};
+
+function showDeployDialog() {
+    document.getElementById('deploy-status').textContent = '';
+    document.getElementById('deploy-review').style.display = 'none';
+    document.getElementById('deploy-execute').style.display = 'inline-block';
+    deployDialog.style.display = 'block';
+    document.getElementById('deploy-guidance').focus();
+}
+
+document.getElementById('deploy-cancel').onclick = function() {
+    deployDialog.style.display = 'none';
+    clearDeployPreview();
+};
+
+document.getElementById('deploy-execute').onclick = function() {
+    var side = document.getElementById('deploy-side').value;
+    var guidance = document.getElementById('deploy-guidance').value.trim();
+    if (!guidance) { document.getElementById('deploy-status').textContent = '请输入作战指令'; return; }
+    executeAiDeploy(side, guidance);
+};
+
+document.getElementById('deploy-review-reject').onclick = function() {
+    deployDialog.style.display = 'none';
+    clearDeployPreview();
+    currentDeployPlan = null;
+};
+
+document.getElementById('deploy-review-execute').onclick = function() {
+    if (!currentDeployPlan) return;
+    executeApprovedDeployment(currentDeployPlan);
+    deployDialog.style.display = 'none';
+    currentDeployPlan = null;
+};
+
+function executeAiDeploy(side, guidance) {
+    var statusEl = document.getElementById('deploy-status');
+    var execBtn = document.getElementById('deploy-execute');
+    statusEl.textContent = 'AI 正在分析态势并制定部署计划...';
+    execBtn.disabled = true;
+    execBtn.textContent = '思考中...';
+
+    fetch('/api/commander/' + side + '/deploy?tree=' + encodeURIComponent(currentTreeId) +
+         '&node=' + encodeURIComponent(currentNodeId), {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({guidance: guidance})
+    })
+    .then(function(r){return r.json();})
+    .then(function(d){
+        if (d.error) { statusEl.textContent = '错误: ' + d.error; execBtn.disabled = false; execBtn.textContent = '开始部署'; return; }
+        if (!d.ok) { statusEl.textContent = '部署失败'; execBtn.disabled = false; execBtn.textContent = '开始部署'; return; }
+
+        currentDeployPlan = d;
+        statusEl.textContent = '部署计划已生成 (' + (d.subRounds||'?') + ' 轮思考)';
+        execBtn.style.display = 'none';
+
+        // Show review panel
+        var review = document.getElementById('deploy-review');
+        review.style.display = 'block';
+
+        // Rationale
+        var rationaleEl = document.getElementById('deploy-review-rationale');
+        var rationale = (d.rationale || '').replace(/\n/g, '<br>');
+        var risks = d.risks ? ('<br><br><b style="color:#e74c3c">⚠ 风险:</b> ' + d.risks.replace(/\n/g,'<br>')) : '';
+        var assessment = d.guidanceAssessment ? ('<br><br><b style="color:#f39c12">指令评估:</b> ' + d.guidanceAssessment.replace(/\n/g,'<br>')) : '';
+        rationaleEl.innerHTML = (rationale || '无详细说明') + assessment + risks;
+
+        // Moves list
+        var movesEl = document.getElementById('deploy-review-moves');
+        var plan = d.finalPlan;
+        if (plan && Array.isArray(plan) && plan.length > 0) {
+            var movesHtml = '<b>计划行动 (' + plan.length + '):</b><br>';
+            for (var i=0; i<plan.length; i++) {
+                var fn = plan[i].function;
+                if (!fn) continue;
+                var args = typeof fn.arguments === 'string' ? JSON.parse(fn.arguments) : fn.arguments;
+                movesHtml += '<span style="color:#f39c12">' + fn.name + '</span>: ';
+                if (fn.name === 'move_unit') movesHtml += args.code + ' → (' + Number(args.lat).toFixed(2) + ', ' + Number(args.lng).toFixed(2) + ')';
+                else if (fn.name === 'create_unit') movesHtml += args.code + ' ' + args.name + ' @ (' + Number(args.lat).toFixed(2) + ', ' + Number(args.lng).toFixed(2) + ')';
+                else if (fn.name === 'delete_unit') movesHtml += '<span style="color:#e74c3c">DELETE</span> ' + args.code;
+                else movesHtml += JSON.stringify(args).substring(0, 80);
+                movesHtml += '<br>';
+            }
+            movesEl.innerHTML = movesHtml;
+
+            // Draw preview arrows on map
+            previewDeployment(plan);
+        } else {
+            movesEl.innerHTML = '<span style="color:#888">无具体行动（LLM 可能只做了侦察）</span>';
+        }
+    })
+    .catch(function(e){
+        statusEl.textContent = '网络错误: ' + e;
+        execBtn.disabled = false;
+        execBtn.textContent = '开始部署';
+    });
+}
+
+/** Preview planned unit movements as dashed arrows on the map. */
+function previewDeployment(plan) {
+    clearDeployPreview();
+    if (!plan || !Array.isArray(plan)) return;
+    if (!window.unitMarkers || typeof L === 'undefined') return;
+
+    for (var i=0; i<plan.length; i++) {
+        var fn = plan[i].function;
+        if (!fn || fn.name !== 'move_unit') continue;
+        var args = typeof fn.arguments === 'string' ? JSON.parse(fn.arguments) : fn.arguments;
+        var code = args.code;
+        if (!code) continue;
+
+        var marker = window.unitMarkers[code];
+        if (!marker) continue; // unit not on map
+
+        var fromLatLng = marker.getLatLng();
+        var toLatLng = [Number(args.lat), Number(args.lng)];
+        var line = L.polyline([fromLatLng, toLatLng], {
+            color: '#f39c12', weight: 2, dashArray: '8, 8', opacity: 0.7
+        }).addTo(window.map || window.leafletMap);
+
+        // Arrow head at destination
+        var arrowIcon = L.divIcon({
+            className: '',
+            html: '<div style="color:#f39c12;font-size:14px;transform:rotate(-30deg)">➤</div>',
+            iconSize: [14, 14], iconAnchor: [7, 7]
+        });
+        var arrowMarker = L.marker(toLatLng, {icon: arrowIcon, interactive: false}).addTo(window.map || window.leafletMap);
+
+        deployPreviewMarkers.push(line, arrowMarker);
+    }
+}
+
+function clearDeployPreview() {
+    for (var i=0; i<deployPreviewMarkers.length; i++) {
+        if (deployPreviewMarkers[i] && deployPreviewMarkers[i].remove) {
+            deployPreviewMarkers[i].remove();
+        }
+    }
+    deployPreviewMarkers = [];
+}
+
+/** Execute the approved deployment plan on the live map. */
+function executeApprovedDeployment(plan) {
+    if (!plan || !plan.finalPlan || !Array.isArray(plan.finalPlan)) return;
+
+    clearDeployPreview();
+    var moves = plan.finalPlan;
+    var processed = 0;
+
+    function processNext(index) {
+        if (index >= moves.length) {
+            // All done — reload units and save round
+            flashNotify('Deployment executed: ' + processed + ' actions');
+            if (typeof loadUnits === 'function') loadUnits();
+            saveRound();
+            return;
+        }
+
+        var fn = moves[index].function;
+        if (!fn) { processNext(index + 1); return; }
+        var args = typeof fn.arguments === 'string' ? JSON.parse(fn.arguments) : fn.arguments;
+        if (!args) { processNext(index + 1); return; }
+
+        var endpoint, method, body;
+        if (fn.name === 'move_unit') {
+            endpoint = '/api/map/units/' + encodeURIComponent(args.code) + '?lat=' + args.lat + '&lng=' + args.lng;
+            method = 'PUT';
+            body = null;
+        } else if (fn.name === 'create_unit') {
+            endpoint = '/api/map/units';
+            method = 'POST';
+            body = JSON.stringify(args);
+        } else if (fn.name === 'delete_unit') {
+            endpoint = '/api/map/units/' + encodeURIComponent(args.code);
+            method = 'DELETE';
+            body = null;
+        } else {
+            processNext(index + 1); return;
+        }
+
+        fetch(endpoint, {method: method, body: body,
+            headers: body ? {'Content-Type':'application/json'} : {}})
+            .then(function(){processed++; processNext(index + 1);})
+            .catch(function(){processNext(index + 1);});
+    }
+
+    processNext(0);
+}
+
+// ====================================================================
+//  Simulate — Wargame Round Adjudication
+// ====================================================================
+
+document.getElementById('branch-sim-btn').onclick = function() {
+    if (!currentTreeId) { alert('请先选择或创建一个分支树'); return; }
+    if (!currentNodeId) { alert('请先在分支树中选择一个已有部署的节点'); return; }
+
+    var btn = this;
+    btn.disabled = true;
+    btn.textContent = '...';
+
+    fetch('/api/simulate?tree=' + encodeURIComponent(currentTreeId) +
+         '&node=' + encodeURIComponent(currentNodeId), { method: 'POST' })
+        .then(function(r){return r.json();})
+        .then(function(d){
+            if (d.error) { alert('模拟失败: ' + d.error); btn.disabled = false; btn.textContent = '⚔'; return; }
+            flashNotify('推演完成: ' + (d.summary || ''));
+            // Show combat report
+            var report = 'Round ' + d.round + '\n' +
+                '移动: ' + d.unitsReachedDestination + '/' + d.movementsResolved + ' 抵达\n' +
+                '接敌: ' + d.engagementsDetected + ' 对\n' +
+                '战果: ' + (d.destroyed||0) + ' 消灭, ' + (d.retreated||0) + ' 撤退, ' + (d.engaged||0) + ' 交战中';
+            alert(report);
+            // Reload tree to show new node
+            loadTree();
+            if (typeof loadUnits === 'function') loadUnits();
+            btn.disabled = false;
+            btn.textContent = '⚔';
+        })
+        .catch(function(e){
+            alert('模拟错误: ' + e);
+            btn.disabled = false;
+            btn.textContent = '⚔';
+        });
+};
 
 })();

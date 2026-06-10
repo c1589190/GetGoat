@@ -8,10 +8,25 @@ var riverLayer=L.geoJSON(null,{style:{color:'#2980b9',weight:1.5,opacity:0.7}}).
 var roadLayer=L.geoJSON(null,{style:function(f){return {color:f.properties.marked?'#FF5722':'#FF9800',weight:f.properties.marked?3:1.5,opacity:f.properties.marked?1:0.65};}}).addTo(map);
 var labelGroup=L.layerGroup().addTo(map),cityMarkerLayer=L.layerGroup().addTo(map);
 var selectCircle=null,selectMarker=null,currentRadius=100;
+window.currentViewedSide = 'god';
+window.currentTreeIdForIntel = null;
+window.currentNodeIdForIntel = null;
 
 document.getElementById('sidebar-toggle').addEventListener('click',function(){
     var sb=document.getElementById('sidebar');sb.classList.toggle('collapsed');
     this.textContent=sb.classList.contains('collapsed')?'▶':'◀';map.invalidateSize();
+});
+
+// Side selector tab clicks
+document.addEventListener('click',function(e){
+	if(e.target.classList.contains('side-tab')){
+		var side=e.target.getAttribute('data-side');
+		window.currentViewedSide=side;
+		document.querySelectorAll('.side-tab').forEach(function(t){
+			t.style.opacity=t.getAttribute('data-side')===side?'1':'0.5';
+		});
+		if(typeof loadUnits==='function')loadUnits();
+	}
 });
 var dt=document.getElementById('distance-tool');
 var rdv=document.createElement('div');rdv.style.marginTop='12px';
@@ -96,19 +111,38 @@ var UNIT_LABELS = {
 function unitIcon(type) { return UNIT_ICONS[type] || UNIT_ICONS.generic; }
 function unitLabel(type) { return UNIT_LABELS[type] || type; }
 
-function makeUnitMarker(u) {
+function makeUnitMarker(u, certainty) {
     var icon = u.icon || unitIcon(u.type);
     var bg = u.color || '#888';
+    var cert = certainty || 'confirmed';
+    var borderStyle = '1.5px solid rgba(255,255,255,0.9)';
+    var bgStyle = 'background:'+bg+';';
+    if(cert==='estimated' || cert==='outdated'){
+        borderStyle = '2px dashed rgba(255,255,255,0.6)';
+        if(cert==='outdated'){bgStyle='background:'+bg+';opacity:0.5;';}
+    }else if(cert==='decoy'){
+        borderStyle = '2px dashed '+bg;
+        bgStyle='background:transparent;';
+    }
+    var badgeHtml='';
+    if(cert==='outdated') badgeHtml='<span style="position:absolute;top:-4px;right:-4px;font-size:8px">⏰</span>';
+    else if(cert==='decoy') badgeHtml='<span style="position:absolute;top:-4px;right:-4px;font-size:9px;color:'+bg+'">?</span>';
     return L.divIcon({
         className: 'unit-marker',
-        html: '<span style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;background:'+bg+';border-radius:5px;border:1.5px solid rgba(255,255,255,0.9);font-size:13px;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.5);box-shadow:0 1px 4px rgba(0,0,0,0.5)">'+icon+'</span>',
+        html: '<span style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;'+bgStyle+'border-radius:5px;border:'+borderStyle+';font-size:13px;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.5);box-shadow:0 1px 4px rgba(0,0,0,0.5);position:relative">'+icon+badgeHtml+'</span>',
         iconSize: [28, 28],
         iconAnchor: [14, 14]
     });
 }
 
 function loadUnits(filterSource){
-    var url='/api/map/units'+(filterSource?'?source='+encodeURIComponent(filterSource):'');
+    var side=window.currentViewedSide;
+    var url='/api/map/units';
+    if(side && side!=='god' && window.currentTreeIdForIntel && window.currentNodeIdForIntel){
+        url+='?viewedBy='+encodeURIComponent(side)+'&tree='+encodeURIComponent(window.currentTreeIdForIntel)+'&node='+encodeURIComponent(window.currentNodeIdForIntel);
+    }else if(filterSource){
+        url+='?source='+encodeURIComponent(filterSource);
+    }
     fetch(url).then(function(r){return r.json();}).then(function(units){
         if(!Array.isArray(units)) return;
         unitLayer.clearLayers(); unitMarkers={};
@@ -117,23 +151,64 @@ function loadUnits(filterSource){
         if(cnt) cnt.textContent='('+units.length+')';
         if(units.length===0){list.innerHTML='<span style="color:#888">No units</span>';return;}
         for(var i=0;i<units.length;i++){(function(u){
-            var mk=L.marker([u.lat,u.lng],{icon:makeUnitMarker(u)})
-                .bindTooltip(u.name,{direction:'top'}).addTo(unitLayer);
+            var cert=u.certainty||'confirmed';
+            var icon=makeUnitMarker(u,cert);
+            var mk=L.marker([u.lat,u.lng],{icon:icon,opacity:cert==='decoy'?0.7:1})
+                .bindTooltip(u.name+(cert!=='confirmed'?' ['+cert+']':''),{direction:'top'}).addTo(unitLayer);
             mk.on('click',function(e){L.DomEvent.stopPropagation(e);selectUnit(u);});
             unitMarkers[u.code]=mk;
+            // Uncertainty circle for estimated/outdated
+            if(u.uncertaintyRadiusKm && u.uncertaintyRadiusKm>0){
+                L.circle([u.lat,u.lng],{radius:u.uncertaintyRadiusKm*1000,color:u.color||'#f39c12',
+                    weight:1,dashArray:'6,6',fillOpacity:0.05,interactive:false}).addTo(unitLayer);
+            }
             // List card
             var item=document.createElement('div');
             item.className='unit-card';
+            if(u.isPhantom) item.className+=' phantom-card';
             item.style.borderLeft='3px solid '+(u.color||'#888');
+            var certBadge=cert!=='confirmed'?' <span style="font-size:8px;color:'+(u.color||'#888')+'">['+cert+']</span>':'';
             item.innerHTML='<span class="uc-icon">'+unitIcon(u.type)+'</span>' +
-                '<span class="uc-name">'+u.name+'</span>' +
+                '<span class="uc-name">'+u.name+certBadge+'</span>' +
                 '<span class="uc-badges">' +
                 '<span class="uc-badge src">'+u.source+'</span>' +
-                '<span class="uc-badge status-'+u.status+'">'+u.status+'</span></span>';
+                '<span class="uc-badge status-'+u.status+'">'+(u.isPhantom?'decoy':u.status)+'</span></span>';
             item.onclick=function(e){selectUnit(u);map.setView([u.lat,u.lng],6);};
             list.appendChild(item);
         })(units[i]);}
+        // Combat zone detection: find overlapping opposing units
+        if (typeof combatZoneLayer === 'undefined') {
+            window.combatZoneLayer = L.layerGroup().addTo(map);
+        }
+        if (window.combatZoneLayer) window.combatZoneLayer.clearLayers();
+        for (var i=0;i<units.length;i++) {
+            for (var j=i+1;j<units.length;j++) {
+                var a=units[i], b=units[j];
+                if (a.source===b.source) continue;
+                var d=haversine(a.lat,a.lng,b.lat,b.lng);
+                if (d<0.01) { // within ~1km = same position = combat
+                    var midLat=(a.lat+b.lat)/2, midLng=(a.lng+b.lng)/2;
+                    L.circle([midLat,midLng], {radius:3000, color:'#e74c3c', weight:2,
+                        dashArray:'4,4', fillColor:'#e74c3c', fillOpacity:0.1,
+                        interactive:false}).addTo(window.combatZoneLayer);
+                    L.circleMarker([midLat,midLng], {radius:8, color:'#e74c3c', weight:2,
+                        fillColor:'#fff', fillOpacity:0.9}).bindTooltip('⚔ COMBAT: '+a.code+' vs '+b.code,
+                        {direction:'top',permanent:false}).addTo(window.combatZoneLayer);
+                } else if (d<10) { // within 10km = near engagement
+                    var mid2Lat=(a.lat+b.lat)/2, mid2Lng=(a.lng+b.lng)/2;
+                    L.circle([mid2Lat,mid2Lng], {radius:2000, color:'#f39c12', weight:1,
+                        dashArray:'3,6', fillOpacity:0, interactive:false}).addTo(window.combatZoneLayer);
+                }
+            }
+        }
     }).catch(function(e){console.warn(e);});
+}
+
+// Haversine distance helper
+function haversine(lat1,lng1,lat2,lng2){
+    var R=6371,dLat=(lat2-lat1)*Math.PI/180,dLng=(lng2-lng1)*Math.PI/180;
+    var a=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLng/2)*Math.sin(dLng/2);
+    return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
 }
 
 function loadSources(){
@@ -587,7 +662,8 @@ map.on('click', function(e) {
         clearLayers();
         selectedUnit = null;
         document.getElementById('unit-detail').style.display = 'none';
-        if (typeof clearMovePaths === 'function') clearMovePaths();
+        // Preserve move paths when viewing a branch node
+        if (!window.currentNodeIdForIntel && typeof clearMovePaths === 'function') clearMovePaths();
     }
 });
 
