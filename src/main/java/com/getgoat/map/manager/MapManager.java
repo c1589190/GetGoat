@@ -525,6 +525,283 @@ public class MapManager {
     public boolean isCacheExists() { return terrainGenerator.getTerrainCache().exists(); }
     public String getCachePath() { return terrainGenerator.getTerrainCache().getCachePath().toString(); }
 
+    // =========================================================================
+    // Compact cell encoding + grid views (LLM-facing)
+    // =========================================================================
+
+    /** Climate zone from latitude alone. */
+    private static String climateZone(double absLat) {
+        if (absLat > 75) return "POL";   // polar
+        if (absLat > 65) return "SPL";   // subpolar
+        if (absLat > 55) return "BOR";   // boreal
+        if (absLat > 35) return "TMP";   // temperate
+        if (absLat > 25) return "SUB";   // subtropical
+        return "TRP";                     // tropical
+    }
+
+    /**
+     * Build compact string for a single cell.
+     * Format: E:<elev>|T:<code3>|R:<relief>:<stddev>|C:<zone>|A:<speed>|O:<override>
+     */
+    public String buildCellCompact(double lat, double lng) {
+        TerrainCell cell = getTerrainAt(lat, lng);
+        if (cell == null) return "E:0|T:OCN|R:PLN:0|C:TRP|A:0.0|O:-";
+
+        ReliefClass relief = computeReliefClass(cell.getRow(), cell.getCol());
+        int stddev = 0;
+        if (terrainGrid != null) {
+            var cache = terrainGrid.getCache();
+            int r = cell.getRow(), c = cell.getCol();
+            if (cache.isClassified(r, c)) {
+                long sum = 0, sumSq = 0; int n = 0;
+                for (int dr = -1; dr <= 1; dr++) {
+                    for (int dc = -1; dc <= 1; dc++) {
+                        int nr = r + dr, nc = c + dc;
+                        if (nr < 0 || nr >= cache.getRows() || nc < 0 || nc >= cache.getCols()) continue;
+                        if (!cache.isClassified(nr, nc)) continue;
+                        int e = cache.getElevationShort(nr, nc);
+                        sum += e; sumSq += (long) e * e; n++;
+                    }
+                }
+                if (n >= 3) {
+                    int mean = (int) (sum / n);
+                    stddev = (int) Math.sqrt(Math.max(0, sumSq / n - (long) mean * mean));
+                }
+            }
+        }
+
+        String reliefCode = relief != null ? (relief.name().substring(0, 3).toUpperCase()) : "PLN";
+        double speedMod = 1.0 - cell.getTerrain().movementPenalty();
+        String overrideTag = "-";
+        if (overrideStore.isReady()) {
+            var ov = overrideStore.get(cell.getRow(), cell.getCol());
+            if (ov != null) {
+                StringBuilder sb = new StringBuilder();
+                if (ov.terrain() != null) sb.append(TerrainCell.terrainCode(ov.terrain()));
+                if (ov.elevation() != null) sb.append(sb.isEmpty() ? "" : ":").append((int)(double)ov.elevation());
+                if (!sb.isEmpty()) overrideTag = sb.toString();
+            }
+        }
+
+        return cell.toCompactString(reliefCode, stddev, climateZone(Math.abs(lat)), speedMod, overrideTag);
+    }
+
+    /**
+     * Build ASCII grid view for a bounding box.
+     * @param bounds   the area to render
+     * @param layers   comma-separated: "terrain,elevation,passability" (default all)
+     * @param maxCells hard limit (default 900 = 30×30)
+     * @return multi-line ASCII art string with legend and summary
+     */
+    public String buildGridView(GeoBounds bounds, String layers, int maxCells) {
+        if (terrainGrid == null) return "Error: terrain grid not loaded";
+        double cs = terrainGrid.getCellSizeDegrees();
+        long est = (long)(bounds.latSpan() / cs) * (long)(bounds.lngSpan() / cs);
+        if (est > maxCells) return String.format("Error: ~%d cells exceeds max %d. Narrow bounds.", est, maxCells);
+
+        boolean showTerrain = layers == null || layers.contains("terrain");
+        boolean showElev   = layers == null || layers.contains("elevation");
+        boolean showPass   = layers == null || layers.contains("passability");
+
+        int startRow = terrainGrid.latToRow(bounds.getSouthLat());
+        int endRow   = terrainGrid.latToRow(bounds.getNorthLat());
+        int startCol = terrainGrid.lngToCol(bounds.getWestLng());
+        int endCol   = terrainGrid.lngToCol(bounds.getEastLng());
+
+        // Clamp to valid range
+        int minRow = Math.min(startRow, endRow);
+        int maxRow = Math.max(startRow, endRow);
+        int minCol = Math.min(startCol, endCol);
+        int maxCol = Math.max(startCol, endCol);
+        startRow = Math.max(0, minRow);
+        endRow = Math.min(terrainGrid.getRows() - 1, maxRow);
+        startCol = Math.max(0, minCol);
+        endCol = Math.min(terrainGrid.getCols() - 1, maxCol);
+
+        int nRows = endRow - startRow + 1;
+        int nCols = endCol - startCol + 1;
+
+        var cache = terrainGrid.getCache();
+
+        // Pre-collect cell data with overrides applied
+        TerrainType[][] terrainMap = new TerrainType[nRows][nCols];
+        double[][] elevMap = new double[nRows][nCols];
+
+        java.util.Map<TerrainType, Integer> terrainCounts = new java.util.LinkedHashMap<>();
+        int landCount = 0, waterCount = 0;
+        double elevMin = Double.MAX_VALUE, elevMax = -Double.MAX_VALUE, elevSum = 0;
+        int cellCount = 0;
+
+        for (int ri = 0; ri < nRows; ri++) {
+            int row = startRow + ri;
+            for (int ci = 0; ci < nCols; ci++) {
+                int col = startCol + ci;
+                double lat = terrainGrid.rowToLat(row);
+                double lng = terrainGrid.colToLng(col);
+                TerrainCell cell = getTerrainAt(lat, lng);
+                if (cell == null) {
+                    terrainMap[ri][ci] = TerrainType.OCEAN;
+                    elevMap[ri][ci] = -3000;
+                } else {
+                    terrainMap[ri][ci] = cell.getTerrain();
+                    elevMap[ri][ci] = cell.getElevationMeters();
+                }
+                TerrainType tt = terrainMap[ri][ci];
+                terrainCounts.merge(tt, 1, Integer::sum);
+                if (tt.isWater()) waterCount++; else landCount++;
+                double ev = elevMap[ri][ci];
+                if (ev < elevMin) elevMin = ev;
+                if (ev > elevMax) elevMax = ev;
+                elevSum += ev;
+                cellCount++;
+            }
+        }
+        double elevMean = cellCount > 0 ? elevSum / cellCount : 0;
+
+        // Passability scoring
+        double passTotal = 0;
+        for (int ri = 0; ri < nRows; ri++)
+            for (int ci = 0; ci < nCols; ci++)
+                passTotal += 1.0 - terrainMap[ri][ci].movementPenalty();
+        double passScore = cellCount > 0 ? passTotal / cellCount : 0;
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("Grid: %.2f-%.2f%s, %.2f-%.2f%s (%d×%d cells, ~%.1fkm/cell)\n\n",
+            bounds.getSouthLat(), bounds.getNorthLat(), bounds.getSouthLat() >= 0 ? "N" : "S",
+            bounds.getWestLng(), bounds.getEastLng(), bounds.getWestLng() >= 0 ? "E" : "W",
+            nRows, nCols, cs * 111.32));
+
+        if (showTerrain) {
+            sb.append("=== 地貌 (Terrain) ===\n");
+            sb.append("Legend: ~=Ocean ≈=Coastal .=Plains n=Hills ▲=Mountain ^=HighMtn ▢=Plateau\n");
+            sb.append("        :=Desert ♣=Forest ♠=Taiga τ=Tundra *=Ice ~=Wetland #=Urban\n\n");
+            for (int ri = nRows - 1; ri >= 0; ri--) { // north-up
+                for (int ci = 0; ci < nCols; ci++)
+                    sb.append(TerrainCell.terrainChar(terrainMap[ri][ci]));
+                sb.append('\n');
+            }
+            sb.append('\n');
+        }
+
+        if (showElev) {
+            sb.append("=== 高程带 (Elevation Band) ===\n");
+            sb.append("Legend: a=<0m b=0-200m c=200-800m d=800-2500m e=>2500m\n\n");
+            for (int ri = nRows - 1; ri >= 0; ri--) {
+                for (int ci = 0; ci < nCols; ci++)
+                    sb.append(TerrainCell.elevationBandCode(elevMap[ri][ci]));
+                sb.append('\n');
+            }
+            sb.append('\n');
+        }
+
+        if (showPass) {
+            sb.append("=== 通行 (Passability) ===\n");
+            sb.append("Legend: █=blocked ▓=verySlow ▒=slow ░=moderate ' '=normal\n\n");
+            for (int ri = nRows - 1; ri >= 0; ri--) {
+                for (int ci = 0; ci < nCols; ci++)
+                    sb.append(TerrainCell.passabilityChar(terrainMap[ri][ci].movementPenalty()));
+                sb.append('\n');
+            }
+            sb.append('\n');
+        }
+
+        // Summary
+        sb.append("--- Summary ---\n");
+        sb.append(String.format("区域 %.2f-%.2f, %.2f-%.2f, %d 单元格\n",
+            bounds.getSouthLat(), bounds.getNorthLat(), bounds.getWestLng(), bounds.getEastLng(), cellCount));
+        sb.append("地貌分布: ");
+        boolean first = true;
+        for (var e : terrainCounts.entrySet()) {
+            if (!first) sb.append(" ");
+            sb.append(String.format("%s %d%%", e.getKey().getDisplayName(),
+                (int)Math.round(e.getValue() * 100.0 / cellCount)));
+            first = false;
+        }
+        sb.append(String.format("\n高程范围: %.0fm ~ %.0fm, 均值 %.0fm", elevMin, elevMax, elevMean));
+        sb.append(String.format("\n通行评估: 总分 %.2f (1.0=完全正常)", passScore));
+        return sb.toString();
+    }
+
+    /**
+     * Build summary stats JSON for a bounding box.
+     */
+    public String buildGridStatsJson(GeoBounds bounds) {
+        if (terrainGrid == null) return "{\"error\":\"terrain grid not loaded\"}";
+        double cs = terrainGrid.getCellSizeDegrees();
+        long est = (long)(bounds.latSpan() / cs) * (long)(bounds.lngSpan() / cs);
+        if (est > 10_000) return "{\"error\":\"~" + est + " cells too many, narrow bounds\"}";
+
+        int startRow = terrainGrid.latToRow(bounds.getSouthLat());
+        int endRow   = terrainGrid.latToRow(bounds.getNorthLat());
+        int startCol = terrainGrid.lngToCol(bounds.getWestLng());
+        int endCol   = terrainGrid.lngToCol(bounds.getEastLng());
+
+        int minRow = Math.min(startRow, endRow);
+        int maxRow = Math.max(startRow, endRow);
+        int minCol = Math.min(startCol, endCol);
+        int maxCol = Math.max(startCol, endCol);
+        startRow = Math.max(0, minRow);
+        endRow = Math.min(terrainGrid.getRows() - 1, maxRow);
+        startCol = Math.max(0, minCol);
+        endCol = Math.min(terrainGrid.getCols() - 1, maxCol);
+
+        int nRows = endRow - startRow + 1;
+        int nCols = endCol - startCol + 1;
+
+        java.util.Map<String, Integer> terrainDist = new java.util.LinkedHashMap<>();
+        java.util.Map<String, Integer> reliefDist = new java.util.LinkedHashMap<>();
+        double elevMin = Double.MAX_VALUE, elevMax = -Double.MAX_VALUE, elevSum = 0;
+        double passSum = 0;
+        int cellCount = 0;
+
+        for (int ri = 0; ri < nRows; ri++) {
+            int row = startRow + ri;
+            for (int ci = 0; ci < nCols; ci++) {
+                int col = startCol + ci;
+                double lat = terrainGrid.rowToLat(row);
+                double lng = terrainGrid.colToLng(col);
+                TerrainCell cell = getTerrainAt(lat, lng);
+                TerrainType tt = cell != null ? cell.getTerrain() : TerrainType.OCEAN;
+                double ev = cell != null ? cell.getElevationMeters() : -3000;
+
+                terrainDist.merge(tt.getDisplayName(), 1, Integer::sum);
+                ReliefClass rc = computeReliefClass(row, col);
+                reliefDist.merge(rc != null ? rc.name().charAt(0) + rc.name().substring(1).toLowerCase() : "Unknown", 1, Integer::sum);
+                if (ev < elevMin) elevMin = ev;
+                if (ev > elevMax) elevMax = ev;
+                elevSum += ev;
+                passSum += 1.0 - tt.movementPenalty();
+                cellCount++;
+            }
+        }
+
+        var root = new com.fasterxml.jackson.databind.ObjectMapper().createObjectNode();
+        root.put("cellCount", cellCount);
+        root.put("rows", nRows);
+        root.put("cols", nCols);
+
+        var b = root.putObject("bounds");
+        b.put("south", bounds.getSouthLat()); b.put("north", bounds.getNorthLat());
+        b.put("west", bounds.getWestLng()); b.put("east", bounds.getEastLng());
+
+        final int totalCells = cellCount; // effectively final for lambda
+        var t = root.putObject("terrainDistribution");
+        terrainDist.forEach((k, v) -> t.put(k, Math.round(v * 100.0 / totalCells)));
+
+        var r = root.putObject("reliefProfile");
+        reliefDist.forEach((k, v) -> r.put(k, Math.round(v * 100.0 / totalCells)));
+
+        var e = root.putObject("elevation");
+        e.put("min", (int) elevMin); e.put("max", (int) elevMax);
+        e.put("mean", (int) (elevSum / cellCount));
+
+        root.put("dominantTerrain", terrainDist.entrySet().stream()
+            .max(java.util.Map.Entry.comparingByValue()).map(java.util.Map.Entry::getKey).orElse("?"));
+        root.put("passabilityScore", Math.round(passSum / cellCount * 100.0) / 100.0);
+
+        return root.toString();
+    }
+
     public String applyUpgradeRules() {
         var img = terrainGenerator.getReliefImage();
         if (img == null) return "{\"ok\":false}";

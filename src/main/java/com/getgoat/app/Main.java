@@ -20,6 +20,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.Base64;
 import java.net.InetSocketAddress;
 import java.nio.file.*;
 import java.util.List;
@@ -93,6 +94,7 @@ public class Main {
         server.createContext("/", Main::handleRoot);
         server.createContext("/api/", Main::handleApi);
         server.createContext("/api/tools", Main::handleTools);
+        server.createContext("/api/map/terrain-image", Main::handleTerrainImage);
         server.setExecutor(java.util.concurrent.Executors.newFixedThreadPool(4));
         server.start();
         LOG.info("Server started at http://localhost:" + PORT);
@@ -602,6 +604,51 @@ public class Main {
                     lat, lng, cell.getTerrain().getDisplayName(), cell.getElevationMeters(),
                     cell.getRow(), cell.getCol(), cell.getColorHex());
             }
+            case "/api/map/cell" -> {
+                String q = exchange.getRequestURI().getQuery();
+                double lat = qp(q, "lat", 0), lng = qp(q, "lng", 0);
+                String fmt = qps(q, "format", null);
+                if ("json".equals(fmt)) {
+                    // Full JSON
+                    TerrainCell cell = ctx.mapManager.getTerrainAt(lat, lng);
+                    if (cell == null) yield "{\"error\":\"no data\"}";
+                    var obj = MAPPER.createObjectNode();
+                    obj.put("lat", Math.round(lat * 10000.0) / 10000.0);
+                    obj.put("lng", Math.round(lng * 10000.0) / 10000.0);
+                    obj.put("row", cell.getRow());
+                    obj.put("col", cell.getCol());
+                    obj.put("elevation", (int) cell.getElevationMeters());
+                    obj.put("terrain", cell.getTerrain().getDisplayName());
+                    obj.put("terrainCode", TerrainCell.terrainCode(cell.getTerrain()));
+                    obj.put("color", cell.getColorHex());
+                    obj.put("isWater", cell.isWater());
+                    obj.put("movementPenalty", cell.getTerrain().movementPenalty());
+                    // Check override
+                    var store = ctx.mapManager.getOverrideStore();
+                    if (store.isReady()) {
+                        var ov = store.get(cell.getRow(), cell.getCol());
+                        if (ov != null) {
+                            var o = obj.putObject("override");
+                            if (ov.terrain() != null) o.put("terrain", ov.terrain().getDisplayName());
+                            if (ov.elevation() != null) o.put("elevation", ov.elevation());
+                        }
+                    }
+                    yield obj.toString();
+                }
+                // Default: compact string
+                yield ctx.mapManager.buildCellCompact(lat, lng);
+            }
+            case "/api/map/grid-view" -> {
+                String q = exchange.getRequestURI().getQuery();
+                GeoBounds bounds = parseBounds(q);
+                String fmt = qps(q, "format", null);
+                if ("stats".equals(fmt)) {
+                    yield ctx.mapManager.buildGridStatsJson(bounds);
+                }
+                String layers = qps(q, "layers", "terrain,elevation,passability");
+                int maxCells = (int) qp(q, "maxCells", 900);
+                yield ctx.mapManager.buildGridView(bounds, layers, maxCells);
+            }
             case "/api/map/terrain-overrides" -> {
                 if (!ctx.branchManager.isWorkspaceReady())
                     yield "{\"error\":\"No workspace active. Create or load a workspace first.\"}";
@@ -915,6 +962,121 @@ public class Main {
             }
         }
         return result.toString();
+    }
+
+    // ---- Terrain image endpoint ----
+
+    private static void handleTerrainImage(HttpExchange exchange) throws IOException {
+        String q = exchange.getRequestURI().getQuery();
+        double lat = qp(q, "lat", Double.NaN);
+        double lng = qp(q, "lng", Double.NaN);
+        double r = qp(q, "r", 100);
+        int imgSize = (int) qp(q, "size", 512);
+        String fmt = qps(q, "format", "png");
+
+        if (Double.isNaN(lat) || Double.isNaN(lng)) {
+            String err = "{\"error\":\"lat and lng required\"}";
+            exchange.getResponseHeaders().set("Content-Type", "application/json");
+            exchange.sendResponseHeaders(400, err.length());
+            try (var os = exchange.getResponseBody()) { os.write(err.getBytes()); }
+            return;
+        }
+
+        double degRadius = r / 111.32;
+        double south = lat - degRadius;
+        double north = lat + degRadius;
+        double west = lng - degRadius;
+        double east = lng + degRadius;
+
+        BufferedImage img = new BufferedImage(imgSize, imgSize, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = img.createGraphics();
+        g.setColor(new Color(0, 0, 0, 0));
+        g.fillRect(0, 0, imgSize, imgSize);
+
+        var grid = ctx.mapManager.getTerrainGrid();
+        if (grid != null) {
+            double cellSize = grid.getCellSizeDegrees();
+            int startRow = grid.latToRow(north);
+            int endRow = grid.latToRow(south);
+            int startCol = grid.lngToCol(west);
+            int endCol = grid.lngToCol(east);
+            if (endCol < startCol) { int tmp = startCol; startCol = endCol; endCol = tmp; }
+
+            double latSpan = north - south;
+            double lngSpan = east - west;
+
+            for (int row = startRow; row <= endRow; row++) {
+                double cellCenterLat = grid.rowToLat(row);
+                double cellSouth = cellCenterLat - cellSize / 2.0;
+                double cellNorth = cellCenterLat + cellSize / 2.0;
+                for (int col = startCol; col <= endCol; col++) {
+                    double cellCenterLng = grid.colToLng(col);
+                    double cellWest = cellCenterLng - cellSize / 2.0;
+                    double cellEast = cellCenterLng + cellSize / 2.0;
+                    double dist = com.getgoat.map.geometry.SphericalEngine
+                        .haversineDistance(lat, lng, cellCenterLat, cellCenterLng);
+                    if (dist > r) continue;
+
+                    int px = (int) ((cellWest - west) / lngSpan * imgSize);
+                    int py = (int) ((north - cellNorth) / latSpan * imgSize);
+                    int pw = Math.max(1, (int) ((cellEast - cellWest) / lngSpan * imgSize));
+                    int ph = Math.max(1, (int) ((cellNorth - cellSouth) / latSpan * imgSize));
+
+                    var cell = ctx.mapManager.getTerrainAt(cellCenterLat, cellCenterLng);
+                    String hex = cell != null ? cell.getColorHex() : "#1a5276";
+                    g.setColor(Color.decode(hex));
+                    g.fillRect(Math.max(0, px), Math.max(0, py),
+                        Math.min(imgSize - px, pw), Math.min(imgSize - py, ph));
+                }
+            }
+        }
+
+        // Circular mask
+        int cx = imgSize / 2, cy = imgSize / 2;
+        int radiusPx = (int) (r / 111.32 * (imgSize / (2.0 * degRadius)));
+        for (int x = 0; x < imgSize; x++) {
+            for (int y = 0; y < imgSize; y++) {
+                int dx = x - cx, dy = y - cy;
+                if (dx * dx + dy * dy > radiusPx * radiusPx) {
+                    int alpha = img.getRGB(x, y) & 0xFF000000;
+                    img.setRGB(x, y, alpha);
+                }
+            }
+        }
+        g.dispose();
+
+        var bos = new ByteArrayOutputStream();
+        ImageIO.write(img, "PNG", bos);
+        byte[] bytes = bos.toByteArray();
+
+        if ("base64".equals(fmt)) {
+            // Return JSON-wrapped base64
+            String b64 = Base64.getEncoder().encodeToString(bytes);
+            var legend = MAPPER.createObjectNode();
+            for (var t : TerrainType.values())
+                legend.put(t.getDisplayName(), "#" + t.getColorHex().substring(1));
+            var resp = MAPPER.createObjectNode();
+            var center = resp.putObject("center");
+            center.put("lat", Math.round(lat * 10000.0) / 10000.0);
+            center.put("lng", Math.round(lng * 10000.0) / 10000.0);
+            resp.put("radiusKm", r);
+            resp.put("imageBase64", b64);
+            resp.put("mimeType", "image/png");
+            resp.put("width", imgSize);
+            resp.put("height", imgSize);
+            resp.set("legend", legend);
+            byte[] jsonBytes = resp.toString().getBytes();
+            exchange.getResponseHeaders().set("Content-Type", "application/json");
+            exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+            exchange.sendResponseHeaders(200, jsonBytes.length);
+            try (var os = exchange.getResponseBody()) { os.write(jsonBytes); }
+        } else {
+            exchange.getResponseHeaders().set("Content-Type", "image/png");
+            exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+            exchange.getResponseHeaders().set("Cache-Control", "public, max-age=30");
+            exchange.sendResponseHeaders(200, bytes.length);
+            try (var os = exchange.getResponseBody()) { os.write(bytes); }
+        }
     }
 
     // ---- Tools endpoint ----
