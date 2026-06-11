@@ -129,11 +129,25 @@ public class TerrainGrid {
         cache.putCell(row, col, t, meters);
     }
 
+    /**
+     * Write terrain type directly to the cache.
+     * @deprecated Prefer {@link com.getgoat.map.terrain.TerrainOverrideStore#put}
+     *             for manual edits — it survives cache regeneration.
+     *             This method is reserved for TerrainGenerator during initial classification.
+     */
+    @Deprecated
     public void setTerrainAt(double lat, double lng, TerrainType type) {
         int r = latToRow(lat), c = lngToCol(lng);
         if (r >= 0 && r < rows && c >= 0 && c < cols) setTerrain(r, c, type);
     }
 
+    /**
+     * Write elevation directly to the cache.
+     * @deprecated Prefer {@link com.getgoat.map.terrain.TerrainOverrideStore#put}
+     *             for manual edits — it survives cache regeneration.
+     *             This method is reserved for TerrainGenerator during initial classification.
+     */
+    @Deprecated
     public void setElevationAt(double lat, double lng, double meters) {
         int r = latToRow(lat), c = lngToCol(lng);
         if (r >= 0 && r < rows && c >= 0 && c < cols) setElevation(r, c, meters);

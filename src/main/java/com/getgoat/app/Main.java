@@ -41,6 +41,12 @@ public class Main {
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static final int PORT = 8080;
 
+    // ---- API safety limits ----
+    /** Maximum cells allowed in a single terrain/bundle export (prevents OOM). */
+    private static final long MAX_TERRAIN_EXPORT_CELLS = 10_000;
+    /** Maximum allowed query radius (km) for radius-based endpoints. */
+    private static final double MAX_RADIUS_KM = 500;
+
     // ---- Shared state ----
     private static AppContext ctx;
     private static Path FRONTEND_DIR;
@@ -71,6 +77,10 @@ public class Main {
         String wsDir = ConfigManager.getProperty("workspace.dir", null);
         if (wsDir != null && !wsDir.isEmpty()) {
             loadUnitsFromWorkspace(wsDir);
+            // Propagate workspace path to terrain override store
+            if (ctx.branchManager.isWorkspaceReady()) {
+                ctx.mapManager.setWorkspaceForOverrides(ctx.branchManager.getWorkspaceDir());
+            }
         }
 
         createDemoRegions();
@@ -239,8 +249,35 @@ public class Main {
         String contentType = "application/json";
 
         try {
-            // Unit sub-paths
-            if (path.startsWith("/api/map/units/") && path.length() > 15
+            // Workspace routes
+            if (path.equals("/api/workspaces")) {
+                if ("POST".equals(exchange.getRequestMethod())) {
+                    String body = new String(exchange.getRequestBody().readAllBytes());
+                    var n = MAPPER.readTree(body);
+                    String name = n.has("name") ? n.get("name").asText() : null;
+                    if (name == null || name.isEmpty()) {
+                        response = "{\"error\":\"name required\"}";
+                    } else {
+                        response = ctx.branchManager.createWorkspace(name);
+                    }
+                } else {
+                    response = ctx.branchManager.listWorkspaces();
+                }
+            } else if (path.startsWith("/api/workspaces/") && path.length() > 16) {
+                String sub = path.substring(16);
+                if (sub.endsWith("/load")) {
+                    String wsName = sub.substring(0, sub.length() - 5);
+                    if ("POST".equals(exchange.getRequestMethod())) {
+                        response = ctx.branchManager.switchWorkspace(wsName);
+                    } else {
+                        response = "{\"error\":\"Use POST to load workspace\"}";
+                    }
+                } else if ("DELETE".equals(exchange.getRequestMethod())) {
+                    response = ctx.branchManager.deleteWorkspace(sub);
+                } else {
+                    response = "{\"error\":\"unknown workspace sub-path\"}";
+                }
+            } else if (path.startsWith("/api/map/units/") && path.length() > 15
                     && !path.equals("/api/map/units/sources")
                     && !path.equals("/api/map/units/batch")) {
                 response = handleUnitSubPath(path, exchange);
@@ -449,14 +486,22 @@ public class Main {
             case "/api/map/stats" -> ctx.mapManager.exportStatsJson();
             case "/api/map/terrain" -> {
                 String q = exchange.getRequestURI().getQuery();
-                yield ctx.mapManager.exportTerrainTileJson(parseBounds(q));
+                GeoBounds bounds = parseBounds(q);
+                long est = estimateCellCount(bounds, ctx.mapManager.getTerrainGrid().getCellSizeDegrees());
+                if (est > MAX_TERRAIN_EXPORT_CELLS)
+                    yield "{\"error\":\"Bounds too large: ~" + est + " cells exceeds max " + MAX_TERRAIN_EXPORT_CELLS + ". Narrow your bounds.\"}";
+                yield ctx.mapManager.exportTerrainTileJson(bounds);
             }
             case "/api/map/regions" -> ctx.mapManager.exportRegionsGeoJson();
             case "/api/map/labels" -> ctx.mapManager.exportAllLabelsJson();
             case "/api/map/annotations" -> ctx.mapManager.exportAnnotationsGeoJson(GeoBounds.world());
             case "/api/map/bundle" -> {
                 String q = exchange.getRequestURI().getQuery();
-                yield ctx.mapManager.exportFullMapBundle(parseBounds(q));
+                GeoBounds bounds = parseBounds(q);
+                long est = estimateCellCount(bounds, ctx.mapManager.getTerrainGrid().getCellSizeDegrees());
+                if (est > MAX_TERRAIN_EXPORT_CELLS)
+                    yield "{\"error\":\"Bounds too large: ~" + est + " cells exceeds max " + MAX_TERRAIN_EXPORT_CELLS + ". Narrow your bounds.\"}";
+                yield ctx.mapManager.exportFullMapBundle(bounds);
             }
             case "/api/map/distance" -> handleDistance(exchange.getRequestURI().getQuery());
             case "/api/map/radius" -> handleRadius(exchange.getRequestURI().getQuery());
@@ -528,18 +573,17 @@ public class Main {
                 yield ctx.branchManager.exportTreeListJson();
             }
             case "/api/workspace/save" -> {
-                String wd = ConfigManager.getProperty("workspace.dir", null);
-                if (wd == null) yield "{\"error\":\"workspace.dir not configured\"}";
-                Path wp = Paths.get(wd); if (!wp.isAbsolute()) wp = Paths.get(System.getProperty("user.dir")).resolve(wd);
+                Path wp = ctx.branchManager.getWorkspaceDir();
+                if (wp == null) yield "{\"error\":\"no active workspace\"}";
                 Files.createDirectories(wp);
                 Files.writeString(wp.resolve("units.json"), ctx.unitsManager.exportAllJson());
                 ctx.branchManager.saveToDisk();
                 yield "{\"ok\":true,\"units\":" + ctx.unitsManager.count() + "}";
             }
             case "/api/workspace/load" -> {
-                String wd = ConfigManager.getProperty("workspace.dir", null);
-                if (wd == null) yield "{\"error\":\"workspace.dir not configured\"}";
-                loadUnitsFromWorkspace(wd);
+                Path wp = ctx.branchManager.getWorkspaceDir();
+                if (wp == null) yield "{\"error\":\"no active workspace\"}";
+                loadUnitsFromWorkspace(wp.toString());
                 yield "{\"ok\":true,\"units\":" + ctx.unitsManager.count() + "}";
             }
             case "/api/simulate" -> {
@@ -548,6 +592,30 @@ public class Main {
                     yield handleSimulate(qps(q, "tree", null), qps(q, "node", null));
                 }
                 yield "{\"error\":\"Use POST\"}";
+            }
+            case "/api/map/terrain-at" -> {
+                String q = exchange.getRequestURI().getQuery();
+                double lat = qp(q, "lat", 0), lng = qp(q, "lng", 0);
+                var cell = ctx.mapManager.getTerrainAt(lat, lng);
+                if (cell == null) yield "{\"error\":\"no data\"}";
+                yield String.format("{\"lat\":%.4f,\"lng\":%.4f,\"terrain\":\"%s\",\"elevation\":%.0f,\"row\":%d,\"col\":%d,\"color\":\"%s\"}",
+                    lat, lng, cell.getTerrain().getDisplayName(), cell.getElevationMeters(),
+                    cell.getRow(), cell.getCol(), cell.getColorHex());
+            }
+            case "/api/map/terrain-overrides" -> {
+                if (!ctx.branchManager.isWorkspaceReady())
+                    yield "{\"error\":\"No workspace active. Create or load a workspace first.\"}";
+                String method = exchange.getRequestMethod();
+                if ("GET".equals(method)) {
+                    yield handleOverrideQuery(exchange.getRequestURI().getQuery());
+                } else if ("POST".equals(method)) {
+                    String body = new String(exchange.getRequestBody().readAllBytes());
+                    yield handleOverrideCreate(body);
+                } else if ("DELETE".equals(method)) {
+                    String body = new String(exchange.getRequestBody().readAllBytes());
+                    yield handleOverrideDelete(body);
+                }
+                yield "{\"error\":\"Use GET, POST, or DELETE\"}";
             }
             case "/api/intel/sides" -> {
                 var sides = new java.util.LinkedHashSet<String>();
@@ -567,14 +635,29 @@ public class Main {
 
     private static String handleRadius(String q) {
         double lat = qp(q,"lat",0), lng = qp(q,"lng",0), r = qp(q,"r",100);
+        if (r > MAX_RADIUS_KM) return "{\"error\":\"Radius " + r + "km exceeds max " + MAX_RADIUS_KM + "km\"}";
         var result = ctx.mapManager.queryRadius(lat, lng, r);
-        return String.format("{\"center\":{\"lat\":%.4f,\"lng\":%.4f},\"radiusKm\":%.1f,\"cellsInRadius\":%d}",
-            lat, lng, r, result.cellsInRadius().size());
+        // Return richer result than before
+        try {
+            var obj = MAPPER.createObjectNode();
+            obj.put("center", MAPPER.createObjectNode().put("lat", lat).put("lng", lng));
+            obj.put("radiusKm", r);
+            obj.put("cellsInRadius", result.cellsInRadius().size());
+            obj.put("regionsInRadius", result.regionsInRadius().size());
+            obj.put("annotationsInRadius", result.annotationsInRadius().size());
+            obj.put("labelsInRadius", result.labelsInRadius().size());
+            obj.put("queryTimeMs", result.queryTimeMs());
+            return obj.toString();
+        } catch (Exception e) {
+            return String.format("{\"center\":{\"lat\":%.4f,\"lng\":%.4f},\"radiusKm\":%.1f,\"cellsInRadius\":%d}",
+                lat, lng, r, result.cellsInRadius().size());
+        }
     }
 
     private static String handleRadiusEnhanced(String q) {
         double lat = qp(q,"lat",Double.NaN), lng = qp(q,"lng",Double.NaN), r = qp(q,"r",100);
         if (Double.isNaN(lat)) return "{\"error\":\"lat,lng required\"}";
+        if (r > MAX_RADIUS_KM) return "{\"error\":\"Radius " + r + "km exceeds max " + MAX_RADIUS_KM + "km\"}";
         var result = ctx.mapManager.queryRadiusEnhanced(lat, lng, r);
         return String.format("{\"center\":{\"lat\":%.4f,\"lng\":%.4f},\"radiusKm\":%.1f,\"roadNodes\":%d,\"roadSegments\":%d}",
             lat, lng, r, result.roadNodes().size(), result.roadSegments().size());
@@ -679,6 +762,117 @@ public class Main {
             + ",\"unitsReachedDestination\":" + result.movements.stream().filter(m -> m.reached).count() + "}";
     }
 
+    // ========================================================================
+    //  Terrain override handlers
+    // ========================================================================
+
+    private static String handleOverrideQuery(String q) {
+        var store = ctx.mapManager.getOverrideStore();
+        if (!store.isReady()) return "{\"overrides\":[],\"count\":0}";
+
+        double lat = qp(q, "lat", Double.NaN);
+        double lng = qp(q, "lng", Double.NaN);
+        // Single-cell lookup
+        if (!Double.isNaN(lat) && !Double.isNaN(lng)) {
+            var grid = ctx.mapManager.getTerrainGrid();
+            if (grid == null) return "{\"error\":\"terrain grid not loaded\"}";
+            int row = grid.latToRow(lat);
+            int col = grid.lngToCol(lng);
+            var ov = store.get(row, col);
+            if (ov == null) return "null";
+            try { return MAPPER.writeValueAsString(ov); }
+            catch (Exception e) { return "null"; }
+        }
+
+        // Bounds-based query
+        GeoBounds bounds = parseBounds(q);
+        var list = store.inBounds(bounds, ctx.mapManager.getTerrainGrid().getCellSizeDegrees());
+        var result = MAPPER.createObjectNode();
+        result.put("count", list.size());
+        var arr = result.putArray("overrides");
+        try {
+            for (var ov : list) arr.add(MAPPER.valueToTree(ov));
+        } catch (Exception e) {}
+        return result.toString();
+    }
+
+    private static String handleOverrideCreate(String body) {
+        try {
+            var store = ctx.mapManager.getOverrideStore();
+            var grid = ctx.mapManager.getTerrainGrid();
+            if (grid == null) return "{\"error\":\"terrain grid not loaded\"}";
+
+            var node = MAPPER.readTree(body);
+            int created = 0, updated = 0;
+
+            // Support both single object and array of overrides
+            var items = node.has("overrides") ? node.get("overrides") : (node.has("lat") ? MAPPER.createArrayNode().add(node) : node);
+            if (!items.isArray()) return "{\"error\":\"Expected JSON object with lat,lng fields, or {overrides:[...]}\"}";
+
+            for (var item : items) {
+                double lat = item.has("lat") ? item.get("lat").asDouble() : Double.NaN;
+                double lng = item.has("lng") ? item.get("lng").asDouble() : Double.NaN;
+                if (Double.isNaN(lat) || Double.isNaN(lng)) continue;
+
+                int row = grid.latToRow(lat);
+                int col = grid.lngToCol(lng);
+                TerrainType terrain = null;
+                if (item.has("terrain") && !item.get("terrain").isNull()) {
+                    terrain = TerrainType.fromString(item.get("terrain").asText());
+                }
+                Double elevation = item.has("elevation") && !item.get("elevation").isNull()
+                    ? item.get("elevation").asDouble() : null;
+
+                if (terrain == null && elevation == null) continue; // nothing to override
+
+                boolean existed = store.get(row, col) != null;
+                store.put(row, col, terrain, elevation, lat, lng);
+                if (existed) updated++; else created++;
+            }
+            // Clear terrain quick cache after overrides changed
+            ctx.mapManager.invalidateCache();
+            return "{\"ok\":true,\"created\":" + created + ",\"updated\":" + updated + "}";
+        } catch (Exception e) {
+            return "{\"error\":\"" + esc(e.getMessage()) + "\"}";
+        }
+    }
+
+    private static String handleOverrideDelete(String body) {
+        try {
+            var store = ctx.mapManager.getOverrideStore();
+            var grid = ctx.mapManager.getTerrainGrid();
+            if (grid == null) return "{\"error\":\"terrain grid not loaded\"}";
+
+            var node = MAPPER.readTree(body);
+
+            // clearAll
+            if (node.has("clearAll") && node.get("clearAll").asBoolean()) {
+                int n = store.count();
+                store.clear();
+                ctx.mapManager.invalidateCache();
+                return "{\"ok\":true,\"deleted\":" + n + "}";
+            }
+
+            // Bulk or single delete
+            var items = node.has("overrides") ? node.get("overrides") : (node.has("lat") ? MAPPER.createArrayNode().add(node) : node);
+            if (!items.isArray()) return "{\"error\":\"Expected {overrides:[{lat,lng},...]} or {clearAll:true}\"}";
+
+            int deleted = 0;
+            for (var item : items) {
+                double lat = item.has("lat") ? item.get("lat").asDouble() : Double.NaN;
+                double lng = item.has("lng") ? item.get("lng").asDouble() : Double.NaN;
+                if (Double.isNaN(lat) || Double.isNaN(lng)) continue;
+                int row = grid.latToRow(lat);
+                int col = grid.lngToCol(lng);
+                if (store.remove(row, col)) deleted++;
+            }
+            if (deleted > 0) ctx.mapManager.invalidateCache();
+            return "{\"ok\":true,\"deleted\":" + deleted + "}";
+        } catch (Exception e) {
+            return "{\"error\":\"" + esc(e.getMessage()) + "\"}";
+        }
+    }
+
     private static String exportIntelFilteredUnits(String treeId, String nodeId, String side) {
         var tree = ctx.branchManager.getTree(treeId);
         if (tree == null) return "[]";
@@ -774,6 +968,13 @@ public class Main {
     private static GeoBounds parseBounds(String q) {
         if (q == null) return GeoBounds.world();
         return new GeoBounds(qp(q,"south",-90), qp(q,"north",90), qp(q,"west",-180), qp(q,"east",180));
+    }
+
+    /** Estimate how many cells a bounding box would contain at the given resolution. */
+    private static long estimateCellCount(GeoBounds bounds, double cellSizeDeg) {
+        long latCells = (long)(bounds.latSpan() / cellSizeDeg);
+        long lngCells = (long)(bounds.lngSpan() / cellSizeDeg);
+        return latCells * lngCells;
     }
 
     static String esc(String s) {

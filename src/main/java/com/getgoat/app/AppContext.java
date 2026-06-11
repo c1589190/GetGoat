@@ -76,6 +76,8 @@ public class AppContext {
             Path wsPath = Paths.get(wsDir);
             if (!wsPath.isAbsolute()) wsPath = Paths.get(System.getProperty("user.dir")).resolve(wsDir);
             agentManager.setWorkspace(wsPath);
+            // Propagate workspace to terrain override store (loads terrain_overrides.json if present)
+            mapManager.setWorkspaceForOverrides(branchManager.getWorkspaceDir());
             LOG.info("Workspace loaded from " + wsDir + " (" + unitsManager.count() + " units)");
         }
     }

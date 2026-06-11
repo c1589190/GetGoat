@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 # Compile and run the HTTP map server (starts on port 8080)
-MAVEN_OPTS="-Xmx4g -Xms2g" mvn exec:java -Dexec.mainClass="com.getgoat.app.MapDemo"
+MAVEN_OPTS="-Xmx2g -Xms1g" mvn exec:java -Dexec.mainClass="com.getgoat.app.Main"
 
 # Compile only
 mvn compile

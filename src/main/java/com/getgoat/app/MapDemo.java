@@ -399,8 +399,35 @@ public class MapDemo {
         String contentType = "application/json";
 
         try {
+            // Handle /api/workspaces (list & create)
+            if (path.equals("/api/workspaces")) {
+                if ("POST".equals(exchange.getRequestMethod())) {
+                    String body = new String(exchange.getRequestBody().readAllBytes());
+                    var n = new com.fasterxml.jackson.databind.ObjectMapper().readTree(body);
+                    String name = n.has("name") ? n.get("name").asText() : null;
+                    if (name == null || name.isEmpty())
+                        response = "{\"error\":\"name required\"}";
+                    else
+                        response = branchManager.createWorkspace(name);
+                } else {
+                    response = branchManager.listWorkspaces();
+                }
+            // Handle /api/workspaces/{name}/... sub-paths
+            } else if (path.startsWith("/api/workspaces/") && path.length() > 16) {
+                String sub = path.substring(16);  // skip "/api/workspaces/"
+                if (sub.endsWith("/load")) {
+                    String wsName = sub.substring(0, sub.length() - 5);
+                    if ("POST".equals(exchange.getRequestMethod()))
+                        response = branchManager.switchWorkspace(wsName);
+                    else
+                        response = "{\"error\":\"Use POST to load workspace\"}";
+                } else if ("DELETE".equals(exchange.getRequestMethod())) {
+                    response = branchManager.deleteWorkspace(sub);
+                } else {
+                    response = "{\"error\":\"unknown workspace sub-path\"}";
+                }
             // Handle /api/map/units/{code} sub-paths (skip /units/sources and /units/batch)
-            if (path.startsWith("/api/map/units/") && path.length() > 15
+            } else if (path.startsWith("/api/map/units/") && path.length() > 15
                     && !path.equals("/api/map/units/sources")
                     && !path.equals("/api/map/units/batch")) {
                 String code = java.net.URLDecoder.decode(path.substring(15), "UTF-8");

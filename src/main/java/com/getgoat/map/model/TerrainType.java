@@ -54,6 +54,23 @@ public enum TerrainType {
         return !isWater();
     }
 
+    /**
+     * Look up a TerrainType by constant name or display name.
+     * e.g. both "URBAN" and "Urban" return URBAN.
+     * Returns null if no match found.
+     */
+    public static TerrainType fromString(String s) {
+        if (s == null) return null;
+        // Try enum constant name first
+        try { return valueOf(s); }
+        catch (IllegalArgumentException ignored) {}
+        // Fall back to display name match
+        for (TerrainType t : values()) {
+            if (t.displayName.equalsIgnoreCase(s)) return t;
+        }
+        return null;
+    }
+
     /** Whether this terrain is passable by land units. */
     public boolean isPassable() {
         return this != OCEAN;

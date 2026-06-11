@@ -7,6 +7,8 @@
 
 var currentTreeId = null;
 var currentNodeId = null;
+var currentWorkspace = null;
+var allTrees = [];  // available trees in current workspace
 var flatNodes = {}; // nodeId -> {id, name, round, parentId, strategy, children[], outcome}
 
 // ---- Panel DOM ----
@@ -15,20 +17,21 @@ var panel = document.createElement('div');
 panel.id = 'branch-panel';
 panel.innerHTML =
     '<div id="branch-header">' +
-        '<span id="branch-tree-name">&#9776; Branches</span>' +
-        '<select id="branch-tree-select" style="display:none;width:100%;margin-top:4px;background:#333;color:#ccc;border:1px solid #555;border-radius:3px;font-size:10px;padding:2px 4px"><option value="">-- 选择分支 --</option></select>' +
-        '<div id="branch-desc" style="display:none;font-size:9px;color:#888;margin-top:3px;line-height:1.3;max-height:60px;overflow-y:auto"></div>' +
-        '<button id="branch-deploy-btn" title="AI 指挥部署" style="background:#f39c12;color:#000;border:none;border-radius:3px;padding:2px 8px;font-size:11px;font-weight:bold;cursor:pointer;margin-right:2px">&#9878; Deploy</button>' +
-        '<button id="branch-sim-btn" title="推演裁决" style="background:#e74c3c;color:#fff;border:none;border-radius:3px;padding:2px 8px;font-size:11px;font-weight:bold;cursor:pointer;margin-right:2px">&#9877;</button>' +
-        '<button id="branch-save-btn" class="primary" title="Save current state as new round">+R</button>' +
-        '<button id="branch-new-btn" title="New branch from current node">&#10558;</button>' +
-        '<button id="branch-newtree-btn" title="New tree from current units">&#9733;</button>' +
+        '<span id="branch-tree-name">战役推演</span>' +
+        '<button id="branch-refresh-btn" title="刷新">&#8635;</button>' +
+        '<button id="branch-newtree-btn" title="从当前单位创建新分支树">&#9733;</button>' +
         '<button id="branch-toggle-btn">&minus;</button>' +
     '</div>' +
-    '<div id="branch-body"><div style="color:#666;padding:8px;font-size:10px">加载中...</div></div>' +
+    '<div id="branch-selectors">' +
+        '<select id="workspace-select"><option value="">-- 选择战役 --</option></select>' +
+    '</div>' +
+    '<div id="branch-desc" style="display:none"></div>' +
+    '<div id="branch-body"><div style="color:#666;padding:8px 10px;font-size:10px">加载中...</div></div>' +
     '<div id="branch-actions">' +
-        '<button class="save-btn" id="branch-save-round">Save Round</button>' +
-        '<button class="new-branch-btn" id="branch-fork">New Branch</button>' +
+        '<button class="save-btn" id="branch-save-round">+ Round</button>' +
+        '<button class="new-branch-btn" id="branch-fork">&#10558; Fork</button>' +
+        '<button id="branch-deploy-btn">&#9878; AI</button>' +
+        '<button id="branch-sim-btn">&#9877; Sim</button>' +
         '<button id="branch-deselect">Deselect</button>' +
     '</div>';
 document.body.appendChild(panel);
@@ -118,12 +121,11 @@ document.getElementById('branch-newtree-btn').onclick = function() {
         body: JSON.stringify({name: name})
     }).then(function(r){return r.json();}).then(function(d){
         if (d.error) { alert(d.error); return; }
-        initTreeSelector(); // refresh dropdown, then load new tree
+        loadWorkspaceTrees(currentWorkspace); // reload trees after creating new one
     }).catch(function(e){ alert('Error: '+e); });
 };
 
 // Save current round
-document.getElementById('branch-save-btn').onclick = function() { saveRound(); };
 document.getElementById('branch-save-round').onclick = function() { saveRound(); };
 
 function saveRound() {
@@ -217,7 +219,7 @@ function loadTree() {
 function renderTree() {
     var body = document.getElementById('branch-body');
     if (!currentTreeId || Object.keys(flatNodes).length === 0) {
-        body.innerHTML = '<div style="color:#666;padding:8px;font-size:10px">No tree. Click &#9733; to create.</div>';
+        body.innerHTML = '<div style="color:#666;padding:8px 10px;font-size:10px">No tree loaded</div>';
         return;
     }
 
@@ -227,21 +229,53 @@ function renderTree() {
         if (!flatNodes[id].parentId) { root = flatNodes[id]; break; }
     }
     if (!root) {
-        body.innerHTML = '<div style="color:#f55;padding:8px">Tree error: no root</div>';
+        body.innerHTML = '<div style="color:#f55;padding:8px 10px">Tree error: no root</div>';
         return;
     }
 
-    var html = buildTreeHtml(root, 0);
-    body.innerHTML = '<ul>' + html + '</ul>';
+    // Root as compact header — always expanded, children fully visible below
+    var rootActive = currentNodeId === root.id;
+    var html = '<div class="tree-root-row' + (rootActive ? ' active' : '') + '" data-nodeid="' + root.id + '">' +
+        '<span class="root-icon">📍</span>' +
+        '<span class="root-name">' + escHtml(root.name) + '</span>' +
+        '<span class="root-badge">初始部署</span>' +
+        (root.children ? '<span class="root-meta">' + root.children.length + ' 回合</span>' : '') +
+        '<button class="root-apply-btn" title="应用初始部署">↺</button>' +
+        '</div>';
 
-    // Attach click handlers
+    // All children fully visible
+    if (root.children && root.children.length > 0) {
+        html += '<ul class="tree-children">';
+        for (var i = 0; i < root.children.length; i++) {
+            var child = flatNodes[root.children[i]];
+            if (child) html += buildTreeHtml(child, 1);
+        }
+        html += '</ul>';
+    }
+
+    body.innerHTML = html;
+
+    // Root row: click (except apply button) selects the root node
+    var rootRow = body.querySelector('.tree-root-row');
+    if (rootRow) {
+        rootRow.addEventListener('click', function(e) {
+            if (e.target.classList.contains('root-apply-btn')) {
+                e.stopPropagation();
+                applyBranchNode(root.id);
+                return;
+            }
+            e.stopPropagation();
+            applyBranchNode(root.id);
+        });
+    }
+
+    // Click handlers for child nodes
     var allNodes = body.querySelectorAll('.tree-node');
     for (var i = 0; i < allNodes.length; i++) {
         (function(el){
             el.onclick = function(e){
                 e.stopPropagation();
-                var nid = el.getAttribute('data-nodeid');
-                applyBranchNode(nid);
+                applyBranchNode(el.getAttribute('data-nodeid'));
             };
         })(allNodes[i]);
     }
@@ -255,14 +289,13 @@ function buildTreeHtml(node, depth) {
     else if (node.strategy === 'alt1') badgeHtml = '<span class="badge badge-alt">A1</span>';
     else if (node.strategy === 'alt2') badgeHtml = '<span class="badge badge-planb">A2</span>';
     else if (node.strategy === 'historical') badgeHtml = '<span class="badge badge-historical">史</span>';
-    else if (node.strategy !== 'initial') badgeHtml = '<span class="badge" style="background:#7f8c8d">' + node.strategy + '</span>';
+    else if (node.strategy !== 'initial') badgeHtml = '<span class="badge" style="background:#7f8c8d">' + escHtml(node.strategy) + '</span>';
 
-    var prefix = node.round === 0 ? '📍' : ('R' + node.round);
-    var moveCount = node.outcome ? '' : '';
+    var prefix = 'R' + node.round;
     var html = '<li><span class="' + cls + '" data-nodeid="' + node.id + '">' +
         '<span class="round-num">' + prefix + '</span>' +
-        node.name + badgeHtml +
-        (node.outcome ? '<span class="move-info">→ ' + truncate(node.outcome, 40) + '</span>' : '') +
+        escHtml(node.name) + badgeHtml +
+        (node.outcome ? '<span class="move-info">→ ' + escHtml(truncate(node.outcome, 40)) + '</span>' : '') +
         '</span>';
 
     if (node.children && node.children.length > 0) {
@@ -276,6 +309,11 @@ function buildTreeHtml(node, depth) {
 
     html += '</li>';
     return html;
+}
+
+function escHtml(str) {
+    if (!str) return '';
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
 function truncate(str, len) {
@@ -366,57 +404,89 @@ function flashNotify(msg) {
     setTimeout(function(){ el.remove(); }, 2500);
 }
 
-// ---- Tree selector ----
+// ---- Workspace selector ----
 
-/** Load tree list into dropdown, then load the specified (or last) tree. */
-function initTreeSelector() {
+function initWorkspaceSelector() {
+    fetch('/api/workspaces')
+        .then(function(r){return r.json();})
+        .then(function(wss){
+            var sel = document.getElementById('workspace-select');
+            if (!sel) return;
+            sel.innerHTML = '<option value="">-- 选择战役 --</option>';
+            if (!wss || wss.length === 0) {
+                var body = document.getElementById('branch-body');
+                if (body) body.innerHTML = '<div style="color:#666;padding:8px;font-size:10px">没有可用战役。请先创建 Workspace。</div>';
+                return;
+            }
+            for (var i = 0; i < wss.length; i++) {
+                var ws = wss[i];
+                var label = ws.name + ' (' + ws.unitCount + '单位, ' + ws.branchCount + '分支)';
+                sel.innerHTML += '<option value="' + ws.name + '"' + (ws.active ? ' selected' : '') + '>' + label + '</option>';
+                if (ws.active) { currentWorkspace = ws.name; }
+            }
+            // If a workspace is active, auto-load its trees
+            if (currentWorkspace) loadWorkspaceTrees(currentWorkspace);
+        })
+        .catch(function(){ console.warn('Failed to load workspaces'); });
+}
+
+/** Load branch trees for a workspace, auto-select the first one. */
+function loadWorkspaceTrees(wsName) {
     fetch('/api/branches')
         .then(function(r){return r.json();})
         .then(function(trees){
-            var sel = document.getElementById('branch-tree-select');
-            if (!sel) return;
-            sel.innerHTML = '<option value="">-- 选择分支 --</option>';
+            allTrees = trees || [];
             if (!trees || trees.length === 0) {
-                sel.style.display = 'none';
+                currentTreeId = null;
+                flatNodes = {};
+                document.getElementById('branch-tree-name').textContent = '📋 ' + wsName;
                 var body = document.getElementById('branch-body');
-                if (body) body.innerHTML = '<div style="color:#666;padding:8px;font-size:10px">暂无分支。点击 ★ 从当前单位创建。</div>';
+                if (body) body.innerHTML = '<div style="color:#666;padding:8px;font-size:10px">暂无分支树。点击 ★ 从当前单位创建。</div>';
                 return;
             }
-            sel.style.display = 'block';
-            for (var i = 0; i < trees.length; i++) {
-                sel.innerHTML += '<option value="' + trees[i].id + '">' + trees[i].name + '</option>';
-            }
-            // Select last tree by default
-            var lastId = trees[trees.length - 1].id;
-            sel.value = lastId;
-            selectTree(lastId);
+            // Auto-select first tree
+            currentTreeId = trees[0].id;
+            window.currentTreeIdForIntel = currentTreeId;
+            loadTree();
+            document.getElementById('branch-tree-name').textContent = '📋 ' + wsName;
         })
         .catch(function(){});
 }
 
-/** Switch to the selected tree. */
-function selectTree(treeId) {
-    if (!treeId) return;
-    currentTreeId = treeId;
-    currentNodeId = null;
-    flatNodes = {};
-    window.currentTreeIdForIntel = treeId;  // for intel API queries
-    if (window.combatRadiusLayer && window.combatRadiusCircle) {
-        window.combatRadiusLayer.removeLayer(window.combatRadiusCircle);
-        window.combatRadiusCircle = null;
-    }
-    if (typeof clearMovePaths === 'function') clearMovePaths();
-    document.getElementById('branch-desc').style.display = 'none';
-    document.getElementById('branch-tree-name').textContent = '📋 加载中...';
-    loadTree();
-}
+document.getElementById('workspace-select').onchange = function() {
+    var name = this.value;
+    if (!name) return;
 
-document.getElementById('branch-tree-select').onchange = function() {
-    selectTree(this.value);
+    var btn = document.getElementById('branch-refresh-btn');
+    btn.disabled = true; btn.textContent = '⏳';
+
+    fetch('/api/workspaces/' + encodeURIComponent(name) + '/load', { method: 'POST' })
+        .then(function(r){return r.json();})
+        .then(function(d){
+            if (d.error) { alert('切换失败: ' + d.error); btn.disabled = false; btn.textContent = '↻'; return; }
+            currentWorkspace = name;
+            currentTreeId = null;
+            currentNodeId = null;
+            flatNodes = {};
+            allTrees = [];
+            flashNotify('已加载: ' + name + ' (' + (d.units||0) + ' 单位, ' + (d.branches||0) + ' 分支)');
+            if (typeof loadUnits === 'function') loadUnits();
+            if (typeof clearMovePaths === 'function') clearMovePaths();
+            if (window.combatRadiusLayer && window.combatRadiusCircle) {
+                window.combatRadiusLayer.removeLayer(window.combatRadiusCircle);
+                window.combatRadiusCircle = null;
+            }
+            loadWorkspaceTrees(name);
+            btn.disabled = false; btn.textContent = '↻';
+        })
+        .catch(function(e){
+            alert('切换错误: ' + e);
+            btn.disabled = false; btn.textContent = '↻';
+        });
 };
 
 // ---- Auto-load on init ----
-setTimeout(initTreeSelector, 5000);
+setTimeout(initWorkspaceSelector, 5000);
 
 // ====================================================================
 //  AI Deploy — Commander Agent Integration
@@ -656,6 +726,32 @@ function executeApprovedDeployment(plan) {
 
     processNext(0);
 }
+
+// ====================================================================
+//  Refresh — Reload workspace units + branches from disk
+// ====================================================================
+
+document.getElementById('branch-refresh-btn').onclick = function() {
+    var btn = this;
+    btn.disabled = true;
+    btn.textContent = '...';
+    if (!currentWorkspace) { alert('Please select a workspace first'); return; }
+    fetch('/api/workspaces/' + encodeURIComponent(currentWorkspace) + '/load', { method: 'POST' })
+        .then(function(r){return r.json();})
+        .then(function(d){
+            if (d.error) { alert('Refresh failed: ' + d.error); btn.disabled = false; btn.textContent = '↻'; return; }
+            flashNotify('Refreshed: ' + (d.units||0) + ' units, ' + (d.branches||0) + ' branches');
+            if (typeof loadUnits === 'function') loadUnits();
+            loadWorkspaceTrees(currentWorkspace);
+            btn.disabled = false;
+            btn.textContent = '↻';
+        })
+        .catch(function(e){
+            alert('Refresh error: ' + e);
+            btn.disabled = false;
+            btn.textContent = '↻';
+        });
+};
 
 // ====================================================================
 //  Simulate — Wargame Round Adjudication

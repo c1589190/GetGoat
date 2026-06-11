@@ -8,6 +8,7 @@ import com.getgoat.map.geometry.SphericalEngine;
 import com.getgoat.map.model.*;
 import com.getgoat.map.terrain.TerrainCache;
 import com.getgoat.map.terrain.TerrainGenerator;
+import com.getgoat.map.terrain.TerrainOverrideStore;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.Point;
 
@@ -36,6 +37,7 @@ public class MapManager {
 
     // ---- Owned data ----
     private volatile TerrainGrid terrainGrid;
+    private final TerrainOverrideStore overrideStore = new TerrainOverrideStore();
     private final Map<String, Region> regions;
     private final Map<String, RegionLabel> labels;
     private final Map<String, Annotation> annotations;
@@ -115,6 +117,41 @@ public class MapManager {
         rebuildSpatialIndex();
     }
 
+    // ---- Terrain override layer ----
+
+    /** Access the override store for workspace integration. */
+    public TerrainOverrideStore getOverrideStore() {
+        return overrideStore;
+    }
+
+    /**
+     * Set workspace directory on the override store and load existing overrides.
+     * Called after workspace is loaded/created/switched.
+     */
+    public void setWorkspaceForOverrides(java.nio.file.Path workspaceDir) {
+        if (terrainGrid != null) {
+            overrideStore.setWorkspace(workspaceDir, terrainGrid.getCellSizeDegrees());
+        } else {
+            overrideStore.setWorkspace(workspaceDir,
+                com.getgoat.map.ConfigManager.getGridCellSize());
+        }
+    }
+
+    /**
+     * Apply any stored override to a terrain cell.
+     * If the cell has an override for terrain and/or elevation, those values
+     * replace the base (cache-derived) values.
+     */
+    private TerrainCell applyOverrides(TerrainCell cell) {
+        if (cell == null || !overrideStore.isReady()) return cell;
+        var ov = overrideStore.get(cell.getRow(), cell.getCol());
+        if (ov != null) {
+            if (ov.terrain() != null) cell.setTerrain(ov.terrain());
+            if (ov.elevation() != null) cell.setElevationMeters(ov.elevation());
+        }
+        return cell;
+    }
+
     // =========================================================================
     // Terrain queries
     // =========================================================================
@@ -138,7 +175,8 @@ public class MapManager {
 
     public TerrainCell getTerrainAt(double lat, double lng) {
         checkInitialized();
-        return terrainGrid.getCellAt(lat, lng);
+        TerrainCell cell = terrainGrid.getCellAt(lat, lng);
+        return applyOverrides(cell);
     }
 
     public TerrainCell getTerrainAt(GeoPoint point) {
@@ -146,13 +184,24 @@ public class MapManager {
     }
 
     public double getElevationAt(double lat, double lng) {
+        // Check override store first (may have elevation-only override)
+        if (overrideStore.isReady() && terrainGrid != null) {
+            int row = terrainGrid.latToRow(lat);
+            int col = terrainGrid.lngToCol(lng);
+            var ov = overrideStore.get(row, col);
+            if (ov != null && ov.elevation() != null) return ov.elevation();
+        }
         TerrainCell cell = getTerrainAt(lat, lng);
         return cell != null ? cell.getElevationMeters() : Double.NaN;
     }
 
     public List<TerrainCell> getTerrainInBounds(GeoBounds bounds) {
         checkInitialized();
-        return terrainGrid.getCellsInBounds(bounds);
+        List<TerrainCell> cells = terrainGrid.getCellsInBounds(bounds);
+        if (overrideStore.isReady()) {
+            for (TerrainCell cell : cells) applyOverrides(cell);
+        }
+        return cells;
     }
 
     public List<TerrainCell> getTerrainByType(TerrainType type) {
@@ -204,17 +253,19 @@ public class MapManager {
         // Handle longitude wrap
         GeoBounds bbox = new GeoBounds(south, north, west, east);
 
-        // 2. Find center cell
-        TerrainCell centerCell = terrainGrid.getCellAt(lat, lng);
+        // 2. Find center cell (via getTerrainAt so overrides apply)
+        TerrainCell centerCell = getTerrainAt(lat, lng);
 
         // 3. Find all cells in bbox, then filter by exact distance
         List<TerrainCell> bboxCells = terrainGrid.getCellsInBounds(bbox);
+        boolean hasOverrides = overrideStore.isReady();
         List<TerrainCell> cellsInRadius = new ArrayList<>();
         for (TerrainCell cell : bboxCells) {
             double dist = SphericalEngine.haversineDistance(
                 lat, lng,
                 cell.getCenter().getLatitude(), cell.getCenter().getLongitude());
             if (dist <= radiusKm) {
+                if (hasOverrides) applyOverrides(cell);
                 cellsInRadius.add(cell);
             }
         }
@@ -1170,9 +1221,11 @@ public class MapManager {
                 double h = displayRes / 2.0;
                 double s = clat - h, n = clat + h, w = clng - h, e = clng + h;
 
-                TerrainCell cell = terrainGrid.getCellAt(clat, clng);
+                TerrainCell cell = getTerrainAt(clat, clng);
                 TerrainType terrain = cell != null ? cell.getTerrain() : TerrainType.OCEAN;
                 double elevation = cell != null ? cell.getElevationMeters() : -3000;
+                // Relief computed from native cache (not affected by overrides — we want
+                // the underlying relief classification, not an overridden terrain type)
                 int cRow = terrainGrid.latToRow(clat);
                 int cCol = terrainGrid.lngToCol(clng);
                 ReliefClass relief = computeReliefClass(cRow, cCol);
@@ -1355,7 +1408,7 @@ public class MapManager {
                 double lng = -180.0 + (col + 0.5) * cellSizeDeg;
                 String key = row + ":" + col;
 
-                TerrainCell c = terrainGrid.getCellAt(lat, lng);
+                TerrainCell c = getTerrainAt(lat, lng);
                 TerrainType tt = c != null ? c.getTerrain() : TerrainType.OCEAN;
                 boolean isWater = tt.isWater();
                 boolean isLand = !isWater;
@@ -1646,9 +1699,13 @@ public class MapManager {
     // =========================================================================
 
     public void modifyTerrain(double lat, double lng, TerrainType newType) {
-        invalidateCache();
         checkInitialized();
-        terrainGrid.setTerrainAt(lat, lng, newType);
+        int row = terrainGrid.latToRow(lat);
+        int col = terrainGrid.lngToCol(lng);
+        // Route to override store (survives cache regeneration)
+        overrideStore.put(row, col, newType, null, lat, lng);
+        terrainQuickCache.clear();
+        invalidateCache();
     }
 
     public void modifyTerrainRegion(Geometry boundary, TerrainType newType) {
@@ -1662,14 +1719,22 @@ public class MapManager {
                 new org.locationtech.jts.geom.Coordinate(
                     cell.getCenter().getLongitude(), cell.getCenter().getLatitude()));
             if (boundary.contains(p)) {
-                cell.setTerrain(newType);
+                overrideStore.put(cell.getRow(), cell.getCol(), newType, null,
+                    cell.getCenter().getLatitude(), cell.getCenter().getLongitude());
             }
         }
+        terrainQuickCache.clear();
+        invalidateCache();
     }
 
     public void modifyElevation(double lat, double lng, double newElevation) {
         checkInitialized();
-        terrainGrid.setElevationAt(lat, lng, newElevation);
+        int row = terrainGrid.latToRow(lat);
+        int col = terrainGrid.lngToCol(lng);
+        // Route to override store (survives cache regeneration)
+        overrideStore.put(row, col, null, newElevation, lat, lng);
+        terrainQuickCache.clear();
+        invalidateCache();
     }
 
     // =========================================================================

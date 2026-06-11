@@ -35,8 +35,8 @@ public class BranchManager {
             Path dir = Paths.get(workspaceDir);
             if (!dir.isAbsolute()) dir = Paths.get(System.getProperty("user.dir")).resolve(workspaceDir);
             if (!Files.isDirectory(dir)) Files.createDirectories(dir);
-            this.workspaceDir = dir;
-            this.storePath = dir.resolve(DEFAULT_STORE);
+            this.workspaceDir = dir.normalize();
+            this.storePath = this.workspaceDir.resolve(DEFAULT_STORE);
             workspaceReady = true;
             loadFromDisk();
         } catch (IOException e) {
@@ -54,6 +54,120 @@ public class BranchManager {
         // Reload branches
         loadFromDisk();
         // Also reload units if units.json exists
+        return reloadUnitsFromWorkspace();
+    }
+
+    /** Resolve and validate a workspace name against the workspaces/ base directory.
+     *  Returns null if the resolved path escapes workspaces/ (path traversal prevention). */
+    private Path resolveWorkspacePath(String name) {
+        try {
+            Path baseDir = getWorkspacesBaseDir().normalize();
+            Path dir = baseDir.resolve(name).normalize();
+            // Ensure dir is still under workspaces/ (prevents path traversal like ../../etc)
+            if (!dir.startsWith(baseDir)) return null;
+            return dir;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    /** Get the workspaces/ base directory. */
+    private Path getWorkspacesBaseDir() {
+        Path baseDir = Paths.get("workspaces");
+        if (!baseDir.isAbsolute()) baseDir = Paths.get(System.getProperty("user.dir")).resolve("workspaces");
+        return baseDir;
+    }
+
+    /** Switch to a different workspace directory at runtime. */
+    public String switchWorkspace(String wsName) {
+        Path dir = resolveWorkspacePath(wsName);
+        if (dir == null || !Files.isDirectory(dir))
+            return "{\"error\":\"workspace not found: " + esc(wsName) + "\"}";
+        setWorkspace(dir.toString());
+        return reloadWorkspace();
+    }
+
+    /** List all available workspace names under workspaces/. */
+    public String listWorkspaces() {
+        Path baseDir = getWorkspacesBaseDir();
+        var result = new com.fasterxml.jackson.databind.node.ArrayNode(
+            new com.fasterxml.jackson.databind.ObjectMapper().getNodeFactory());
+        try {
+            if (Files.isDirectory(baseDir)) {
+                try (var stream = Files.newDirectoryStream(baseDir, p -> Files.isDirectory(p))) {
+                    for (Path p : stream) {
+                        var obj = result.addObject();
+                        String name = p.getFileName().toString();
+                        obj.put("name", name);
+                        obj.put("path", p.toString());
+                        boolean hasUnits = Files.exists(p.resolve("units.json"));
+                        boolean hasBranches = Files.exists(p.resolve("branches.json"));
+                        obj.put("hasUnits", hasUnits);
+                        obj.put("hasBranches", hasBranches);
+                        // Count units quickly
+                        int unitCount = 0;
+                        if (hasUnits) {
+                            try {
+                                var arr = new com.fasterxml.jackson.databind.ObjectMapper()
+                                    .readTree(p.resolve("units.json").toFile());
+                                unitCount = arr.size();
+                            } catch (Exception ignored) {}
+                        }
+                        obj.put("unitCount", unitCount);
+                        int branchCount = 0;
+                        if (hasBranches) {
+                            try {
+                                var arr = new com.fasterxml.jackson.databind.ObjectMapper()
+                                    .readTree(p.resolve("branches.json").toFile());
+                                branchCount = arr.size();
+                            } catch (Exception ignored) {}
+                        }
+                        obj.put("branchCount", branchCount);
+                        obj.put("active", workspaceDir != null && workspaceDir.equals(p));
+                    }
+                }
+            }
+        } catch (IOException e) {
+            LOG.warning("Failed to list workspaces: " + e.getMessage());
+        }
+        return result.toString();
+    }
+
+    /** Create a new empty workspace directory with a fresh units.json. */
+    public String createWorkspace(String name) {
+        Path dir = resolveWorkspacePath(name);
+        if (dir == null) return "{\"error\":\"invalid workspace name: " + esc(name) + "\"}";
+        if (Files.exists(dir)) return "{\"error\":\"workspace already exists: " + esc(name) + "\"}";
+        try {
+            Files.createDirectories(dir);
+            // Create empty units.json
+            Files.writeString(dir.resolve("units.json"), "[]");
+            return "{\"ok\":true,\"name\":\"" + esc(name) + "\"}";
+        } catch (IOException e) {
+            return "{\"error\":\"create failed: " + e.getMessage() + "\"}";
+        }
+    }
+
+    /** Delete a workspace directory and all its contents. */
+    public String deleteWorkspace(String name) {
+        Path dir = resolveWorkspacePath(name);
+        if (dir == null || !Files.isDirectory(dir))
+            return "{\"error\":\"workspace not found: " + esc(name) + "\"}";
+        // Prevent deleting currently active workspace
+        if (workspaceDir != null && workspaceDir.normalize().equals(dir.normalize()))
+            return "{\"error\":\"cannot delete active workspace\"}";
+        try {
+            Files.walk(dir)
+                .sorted(java.util.Comparator.reverseOrder())
+                .forEach(p -> { try { Files.delete(p); } catch (IOException ignored) {} });
+            return "{\"ok\":true,\"deleted\":\"" + esc(name) + "\"}";
+        } catch (IOException e) {
+            return "{\"error\":\"delete failed: " + e.getMessage() + "\"}";
+        }
+    }
+
+    /** Internal: reload units from workspaceDir/units.json. */
+    private String reloadUnitsFromWorkspace() {
         Path unitsFile = workspaceDir.resolve("units.json");
         int unitsLoaded = 0;
         if (Files.exists(unitsFile)) {
