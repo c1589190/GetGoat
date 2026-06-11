@@ -79,6 +79,33 @@ public class TerrainGrid {
         return new GeoBounds(south, north, west, east);
     }
 
+    /**
+     * Snap arbitrary lat/lng bounds to the nearest cell-aligned edges.
+     * Every pixel/character in the rendered output will correspond to exactly
+     * one geographic cell — no partial cells.
+     *
+     * @return normalized bounds snapped to grid cell boundaries
+     */
+    public GeoBounds snapBounds(GeoBounds in) {
+        int rowSouth = latToRow(in.getSouthLat());
+        int rowNorth = latToRow(in.getNorthLat());
+        int colWest = lngToCol(in.getWestLng());
+        int colEast = lngToCol(in.getEastLng());
+
+        double snappedSouth = -90.0 + Math.min(rowSouth, rowNorth) * cellSizeDegrees;
+        double snappedNorth = -90.0 + (Math.max(rowSouth, rowNorth) + 1) * cellSizeDegrees;
+        double snappedWest = -180.0 + Math.min(colWest, colEast) * cellSizeDegrees;
+        double snappedEast = -180.0 + (Math.max(colWest, colEast) + 1) * cellSizeDegrees;
+
+        // Clamp to globe
+        snappedSouth = Math.max(-90.0, snappedSouth);
+        snappedNorth = Math.min(90.0, snappedNorth);
+        snappedWest = Math.max(-180.0, snappedWest);
+        snappedEast = Math.min(180.0, snappedEast);
+
+        return new GeoBounds(snappedSouth, snappedNorth, snappedWest, snappedEast);
+    }
+
     // ---- Queries ----
 
     /**

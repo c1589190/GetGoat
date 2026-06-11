@@ -988,12 +988,21 @@ public class Main {
         double west = lng - degRadius;
         double east = lng + degRadius;
 
+        // Snap to cell boundaries — every pixel = one real geographic cell
+        var grid = ctx.mapManager.getTerrainGrid();
+        if (grid != null) {
+            GeoBounds snapped = grid.snapBounds(new GeoBounds(south, north, west, east));
+            south = snapped.getSouthLat();
+            north = snapped.getNorthLat();
+            west = snapped.getWestLng();
+            east = snapped.getEastLng();
+        }
+
         BufferedImage img = new BufferedImage(imgSize, imgSize, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = img.createGraphics();
         g.setColor(new Color(0, 0, 0, 0));
         g.fillRect(0, 0, imgSize, imgSize);
 
-        var grid = ctx.mapManager.getTerrainGrid();
         if (grid != null) {
             double cellSize = grid.getCellSizeDegrees();
             int startRow = grid.latToRow(north);

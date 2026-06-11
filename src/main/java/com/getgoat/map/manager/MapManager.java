@@ -596,30 +596,31 @@ public class MapManager {
     public String buildGridView(GeoBounds bounds, String layers, int maxCells) {
         if (terrainGrid == null) return "Error: terrain grid not loaded";
         double cs = terrainGrid.getCellSizeDegrees();
-        long est = (long)(bounds.latSpan() / cs) * (long)(bounds.lngSpan() / cs);
+
+        // Snap to cell boundaries — every character = one real geographic cell
+        GeoBounds snapped = terrainGrid.snapBounds(bounds);
+        long est = (long)(snapped.latSpan() / cs) * (long)(snapped.lngSpan() / cs);
         if (est > maxCells) return String.format("Error: ~%d cells exceeds max %d. Narrow bounds.", est, maxCells);
 
         boolean showTerrain = layers == null || layers.contains("terrain");
         boolean showElev   = layers == null || layers.contains("elevation");
         boolean showPass   = layers == null || layers.contains("passability");
 
-        int startRow = terrainGrid.latToRow(bounds.getSouthLat());
-        int endRow   = terrainGrid.latToRow(bounds.getNorthLat());
-        int startCol = terrainGrid.lngToCol(bounds.getWestLng());
-        int endCol   = terrainGrid.lngToCol(bounds.getEastLng());
+        // Compute rows/cols directly from snapped span (avoids boundary off-by-one)
+        int nRows = (int)(snapped.latSpan() / cs);
+        int nCols = (int)(snapped.lngSpan() / cs);
+        int startRow = terrainGrid.latToRow(snapped.getSouthLat());
+        int startCol = terrainGrid.lngToCol(snapped.getWestLng());
+        int endRow = startRow + nRows - 1;
+        int endCol = startCol + nCols - 1;
 
-        // Clamp to valid range
-        int minRow = Math.min(startRow, endRow);
-        int maxRow = Math.max(startRow, endRow);
-        int minCol = Math.min(startCol, endCol);
-        int maxCol = Math.max(startCol, endCol);
-        startRow = Math.max(0, minRow);
-        endRow = Math.min(terrainGrid.getRows() - 1, maxRow);
-        startCol = Math.max(0, minCol);
-        endCol = Math.min(terrainGrid.getCols() - 1, maxCol);
-
-        int nRows = endRow - startRow + 1;
-        int nCols = endCol - startCol + 1;
+        // Clamp to grid
+        startRow = Math.max(0, startRow);
+        startCol = Math.max(0, startCol);
+        endRow = Math.min(terrainGrid.getRows() - 1, endRow);
+        endCol = Math.min(terrainGrid.getCols() - 1, endCol);
+        nRows = endRow - startRow + 1;
+        nCols = endCol - startCol + 1;
 
         var cache = terrainGrid.getCache();
 
@@ -666,10 +667,12 @@ public class MapManager {
         double passScore = cellCount > 0 ? passTotal / cellCount : 0;
 
         StringBuilder sb = new StringBuilder();
-        sb.append(String.format("Grid: %.2f-%.2f%s, %.2f-%.2f%s (%d×%d cells, ~%.1fkm/cell)\n\n",
-            bounds.getSouthLat(), bounds.getNorthLat(), bounds.getSouthLat() >= 0 ? "N" : "S",
-            bounds.getWestLng(), bounds.getEastLng(), bounds.getWestLng() >= 0 ? "E" : "W",
+        sb.append(String.format("Snapped grid: %.4f-%.4f%s, %.4f-%.4f%s (%d×%d cells, ~%.1fkm/cell)\n",
+            snapped.getSouthLat(), snapped.getNorthLat(), snapped.getSouthLat() >= 0 ? "N" : "S",
+            snapped.getWestLng(), snapped.getEastLng(), snapped.getWestLng() >= 0 ? "E" : "W",
             nRows, nCols, cs * 111.32));
+        sb.append(String.format("Request bounds: %.4f-%.4f, %.4f-%.4f\n\n",
+            bounds.getSouthLat(), bounds.getNorthLat(), bounds.getWestLng(), bounds.getEastLng()));
 
         if (showTerrain) {
             sb.append("=== 地貌 (Terrain) ===\n");
@@ -707,8 +710,8 @@ public class MapManager {
 
         // Summary
         sb.append("--- Summary ---\n");
-        sb.append(String.format("区域 %.2f-%.2f, %.2f-%.2f, %d 单元格\n",
-            bounds.getSouthLat(), bounds.getNorthLat(), bounds.getWestLng(), bounds.getEastLng(), cellCount));
+        sb.append(String.format("区域 %.4f-%.4f, %.4f-%.4f, %d 单元格\n",
+            snapped.getSouthLat(), snapped.getNorthLat(), snapped.getWestLng(), snapped.getEastLng(), cellCount));
         sb.append("地貌分布: ");
         boolean first = true;
         for (var e : terrainCounts.entrySet()) {
@@ -728,25 +731,27 @@ public class MapManager {
     public String buildGridStatsJson(GeoBounds bounds) {
         if (terrainGrid == null) return "{\"error\":\"terrain grid not loaded\"}";
         double cs = terrainGrid.getCellSizeDegrees();
-        long est = (long)(bounds.latSpan() / cs) * (long)(bounds.lngSpan() / cs);
+
+        // Snap to cell boundaries
+        GeoBounds snapped = terrainGrid.snapBounds(bounds);
+        long est = (long)(snapped.latSpan() / cs) * (long)(snapped.lngSpan() / cs);
         if (est > 10_000) return "{\"error\":\"~" + est + " cells too many, narrow bounds\"}";
 
-        int startRow = terrainGrid.latToRow(bounds.getSouthLat());
-        int endRow   = terrainGrid.latToRow(bounds.getNorthLat());
-        int startCol = terrainGrid.lngToCol(bounds.getWestLng());
-        int endCol   = terrainGrid.lngToCol(bounds.getEastLng());
+        // Compute directly from snapped span
+        int nRows = (int)(snapped.latSpan() / cs);
+        int nCols = (int)(snapped.lngSpan() / cs);
+        int startRow = terrainGrid.latToRow(snapped.getSouthLat());
+        int startCol = terrainGrid.lngToCol(snapped.getWestLng());
+        int endRow = startRow + nRows - 1;
+        int endCol = startCol + nCols - 1;
 
-        int minRow = Math.min(startRow, endRow);
-        int maxRow = Math.max(startRow, endRow);
-        int minCol = Math.min(startCol, endCol);
-        int maxCol = Math.max(startCol, endCol);
-        startRow = Math.max(0, minRow);
-        endRow = Math.min(terrainGrid.getRows() - 1, maxRow);
-        startCol = Math.max(0, minCol);
-        endCol = Math.min(terrainGrid.getCols() - 1, maxCol);
-
-        int nRows = endRow - startRow + 1;
-        int nCols = endCol - startCol + 1;
+        // Clamp to grid
+        startRow = Math.max(0, startRow);
+        startCol = Math.max(0, startCol);
+        endRow = Math.min(terrainGrid.getRows() - 1, endRow);
+        endCol = Math.min(terrainGrid.getCols() - 1, endCol);
+        nRows = endRow - startRow + 1;
+        nCols = endCol - startCol + 1;
 
         java.util.Map<String, Integer> terrainDist = new java.util.LinkedHashMap<>();
         java.util.Map<String, Integer> reliefDist = new java.util.LinkedHashMap<>();
@@ -781,8 +786,8 @@ public class MapManager {
         root.put("cols", nCols);
 
         var b = root.putObject("bounds");
-        b.put("south", bounds.getSouthLat()); b.put("north", bounds.getNorthLat());
-        b.put("west", bounds.getWestLng()); b.put("east", bounds.getEastLng());
+        b.put("south", snapped.getSouthLat()); b.put("north", snapped.getNorthLat());
+        b.put("west", snapped.getWestLng()); b.put("east", snapped.getEastLng());
 
         final int totalCells = cellCount; // effectively final for lambda
         var t = root.putObject("terrainDistribution");
