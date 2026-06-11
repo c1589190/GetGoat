@@ -778,9 +778,11 @@ function loadGridForBounds(bounds) {
         east: bounds.getEast().toFixed(6)
     };
     console.log('Terrain edit: loading grid for', qBounds);
+    var MAX_CELLS = 5000; // allow up to ~70×70 grid
 
     fetch('/api/map/grid-view?south=' + qBounds.south + '&north=' + qBounds.north
         + '&west=' + qBounds.west + '&east=' + qBounds.east
+        + '&maxCells=' + MAX_CELLS
         + '&layers=terrain,elevation,passability')
         .then(function(r) {
             if (!r.ok) throw new Error('HTTP ' + r.status);
@@ -805,6 +807,11 @@ function loadGridForBounds(bounds) {
                 info.innerHTML = '吸附: ' + sb.south.toFixed(4) + '-' + sb.north.toFixed(4) + m[3]
                     + ', ' + sb.west.toFixed(4) + '-' + sb.east.toFixed(4) + m[6]
                     + ' (' + sb.rows + '×' + sb.cols + ' cells)';
+                // Auto-scale font for large grids
+                var maxDim = Math.max(sb.rows, sb.cols);
+                if (maxDim > 40) pre.style.fontSize = '7px';
+                else if (maxDim > 25) pre.style.fontSize = '9px';
+                else pre.style.fontSize = '10px';
                 console.log('Terrain edit: snapped', sb);
             } else {
                 console.warn('Terrain edit: could not parse snapped bounds from:', text.substring(0, 200));

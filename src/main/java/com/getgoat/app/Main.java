@@ -646,7 +646,7 @@ public class Main {
                     yield ctx.mapManager.buildGridStatsJson(bounds);
                 }
                 String layers = qps(q, "layers", "terrain,elevation,passability");
-                int maxCells = (int) qp(q, "maxCells", 900);
+                int maxCells = Math.min((int) qp(q, "maxCells", 2500), 10_000);
                 yield ctx.mapManager.buildGridView(bounds, layers, maxCells);
             }
             case "/api/map/terrain-overrides" -> {
