@@ -81,6 +81,32 @@
             <div id="unit-list" style="max-height:200px;overflow-y:auto;font-size:10px"></div>
         </div>
         <div id="stats-panel"><h3>Map Stats</h3><div id="stats-body">Loading...</div></div>
+        <div id="terrain-edit-panel" style="display:none">
+          <div class="panel-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:12px;font-weight:bold;color:#ff9800">📐 地形编辑</span>
+            <button id="terrain-edit-close" style="background:none;border:none;color:#999;cursor:pointer;font-size:14px">&times;</button>
+          </div>
+          <div id="grid-snap-info" style="font-size:9px;color:#888;margin-bottom:4px">在地图上 shift+拖拽 选择区域</div>
+          <pre id="grid-ascii" style="font-family:'DejaVu Sans Mono','Courier New',monospace;font-size:10px;line-height:1.1;background:rgba(0,0,0,0.35);padding:6px;border-radius:4px;overflow:auto;max-height:350px;white-space:pre;color:#ccc;margin:0"></pre>
+          <div id="cell-editor" style="display:none;margin-top:6px;padding:6px;background:rgba(255,255,255,0.05);border-radius:4px;font-size:10px">
+            <div style="color:#ff9800;margin-bottom:4px">选中格: <span id="cell-coord">—</span></div>
+            <select id="terrain-type-select" style="width:100%;margin:2px 0;background:#333;color:#fff;border:1px solid #555;border-radius:3px;padding:2px 4px;font-size:10px">
+              <option value="">(不变)</option>
+              <option value="OCEAN">Ocean 海洋</option><option value="COASTAL_WATER">Coastal Water 沿海</option>
+              <option value="PLAINS">Plains 平原</option><option value="HILLS">Hills 丘陵</option>
+              <option value="MOUNTAIN">Mountain 山地</option><option value="HIGH_MOUNTAIN">High Mountain 高山</option>
+              <option value="PLATEAU">Plateau 高原</option><option value="DESERT">Desert 沙漠</option>
+              <option value="FOREST">Forest 森林</option><option value="TAIGA">Taiga 针叶林</option>
+              <option value="TUNDRA">Tundra 冻原</option><option value="ICE">Ice 冰盖</option>
+              <option value="WETLAND">Wetland 湿地</option><option value="URBAN">Urban 城市</option>
+            </select>
+            <input id="elevation-input" type="number" placeholder="高程(m) 留空=不变" style="width:100%;margin:2px 0;background:#333;color:#fff;border:1px solid #555;border-radius:3px;padding:2px 4px;font-size:10px">
+            <div style="display:flex;gap:4px;margin-top:4px">
+              <button id="apply-override-btn" style="flex:1;padding:3px 6px;background:#ff9800;color:#000;border:none;border-radius:3px;cursor:pointer;font-size:10px;font-weight:bold">应用修正</button>
+              <button id="clear-override-btn" style="padding:3px 8px;background:#e74c3c;color:#fff;border:none;border-radius:3px;cursor:pointer;font-size:10px">清除</button>
+            </div>
+          </div>
+        </div>
     </div>
 </div>
 <!-- Display mode switcher — bottom-left -->
@@ -90,6 +116,7 @@
     <div class="mode-row">
       <button id="mode-units" class="mode-btn active">单位</button>
       <button id="mode-terrain" class="mode-btn">地形</button>
+      <button id="mode-terrain-edit" class="mode-btn">📐编辑</button>
     </div>
     <div class="mode-row" id="mode-radius-row" style="display:none">
       <span>半径</span>

@@ -633,6 +633,9 @@ function setMode(mode) {
 
 document.getElementById('mode-units').onclick = function() { setMode('units'); };
 document.getElementById('mode-terrain').onclick = function() { setMode('terrain'); };
+document.getElementById('mode-terrain-edit').onclick = function() {
+    if (terrainEditMode) exitTerrainEditMode(); else enterTerrainEditMode();
+};
 
 document.getElementById('unit-delete-btn').addEventListener('click', function() {
     deleteSelectedUnit();
@@ -696,6 +699,219 @@ document.getElementById('mode-radius').addEventListener('input', function() {
 });
 
 // Load units and sources on start (no demo units)
+// ====================================================================
+//  Terrain Edit Mode — grid selection + ASCII art rendering
+// ====================================================================
+
+var terrainEditMode = false;
+var editRectangle = null;
+var editStartPoint = null;
+var editDragging = false;
+var selectedGridCell = null; // {row, col, lat, lng}
+
+function enterTerrainEditMode() {
+    terrainEditMode = true;
+    document.getElementById('mode-terrain-edit').classList.add('active');
+    document.getElementById('terrain-edit-panel').style.display = 'block';
+    document.getElementById('mode-units').classList.remove('active');
+    document.getElementById('mode-terrain').classList.remove('active');
+    map.getContainer().style.cursor = 'crosshair';
+    map.dragging.disable();
+}
+
+function exitTerrainEditMode() {
+    terrainEditMode = false;
+    editStartPoint = null;
+    editDragging = false;
+    document.getElementById('mode-terrain-edit').classList.remove('active');
+    document.getElementById('mode-units').classList.add('active');
+    if (editRectangle) { map.removeLayer(editRectangle); editRectangle = null; }
+    map.getContainer().style.cursor = '';
+    map.dragging.enable();
+    document.getElementById('cell-editor').style.display = 'none';
+    selectedGridCell = null;
+}
+
+// Rectangle drag on map
+map.on('mousedown', function(e) {
+    if (!terrainEditMode) return;
+    if (e.originalEvent.shiftKey) {
+        // Shift+drag = area select
+        editStartPoint = e.latlng;
+        editDragging = false;
+        L.DomEvent.disableClickPropagation(e.originalEvent.target);
+    }
+});
+
+map.on('mousemove', function(e) {
+    if (!terrainEditMode || !editStartPoint) return;
+    editDragging = true;
+    var bounds = L.latLngBounds(editStartPoint, e.latlng);
+    if (editRectangle) map.removeLayer(editRectangle);
+    editRectangle = L.rectangle(bounds, {
+        color: '#ff9800', weight: 2, fillColor: '#ff9800', fillOpacity: 0.1,
+        dashArray: '5 5'
+    }).addTo(map);
+});
+
+map.on('mouseup', function(e) {
+    if (!terrainEditMode || !editStartPoint) return;
+    if (editDragging) {
+        var bounds = L.latLngBounds(editStartPoint, e.latlng);
+        loadGridForBounds(bounds);
+    }
+    if (editRectangle) { map.removeLayer(editRectangle); editRectangle = null; }
+    editStartPoint = null;
+    editDragging = false;
+});
+
+// Load ASCII grid view into panel
+function loadGridForBounds(bounds) {
+    var qBounds = {
+        south: bounds.getSouth().toFixed(6),
+        north: bounds.getNorth().toFixed(6),
+        west: bounds.getWest().toFixed(6),
+        east: bounds.getEast().toFixed(6)
+    };
+    API.getGridView(qBounds).then(function(text) {
+        var pre = document.getElementById('grid-ascii');
+        pre.textContent = text;
+        pre.classList.add('grid-interactive');
+
+        // Parse snapped bounds from header
+        var m = text.match(/Snapped grid:\s*([\d.-]+)-([\d.-]+)([NS]),\s*([\d.-]+)-([\d.-]+)([EW])\s*\((\d+)×(\d+)\s*cells/i);
+        if (m) {
+            var info = document.getElementById('grid-snap-info');
+            info.innerHTML = '吸附: ' + parseFloat(m[1]).toFixed(4) + '-' + parseFloat(m[2]).toFixed(4) + m[3]
+                + ', ' + parseFloat(m[4]).toFixed(4) + '-' + parseFloat(m[5]).toFixed(4) + m[6]
+                + ' (' + m[7] + '×' + m[8] + ' cells)';
+            // Store snapped bounds for grid cell click resolution
+            window._snappedBounds = {
+                south: parseFloat(m[1]), north: parseFloat(m[2]),
+                west: parseFloat(m[4]), east: parseFloat(m[5]),
+                rows: parseInt(m[7]), cols: parseInt(m[8])
+            };
+        }
+
+        document.getElementById('terrain-edit-panel').style.display = 'block';
+        document.getElementById('cell-editor').style.display = 'none';
+        selectedGridCell = null;
+    });
+}
+
+// Click on ASCII grid to select a cell
+document.getElementById('grid-ascii').addEventListener('click', function(e) {
+    var sb = window._snappedBounds;
+    if (!sb) return;
+
+    var pre = this;
+    var rect = pre.getBoundingClientRect();
+    var x = e.clientX - rect.left + pre.scrollLeft;
+    var y = e.clientY - rect.top + pre.scrollTop;
+
+    // Find terrain layer section
+    var text = pre.textContent;
+    var terrainIdx = text.indexOf('=== 地貌 (Terrain) ===');
+    if (terrainIdx < 0) return;
+
+    // Find the grid part — lines after the terrain section legend
+    var afterTerrain = text.substring(terrainIdx);
+    var lines = afterTerrain.split('\n');
+    // Skip lines until we hit the first grid line (single-char-per-cell pattern)
+    var gridStart = 0;
+    for (var i = 0; i < lines.length; i++) {
+        if (/^[~≈.n▲^▢:♣♠τ*# █▓▒░\t]+$/.test(lines[i]) && lines[i].trim().length > 0) {
+            gridStart = i;
+            break;
+        }
+    }
+
+    // Estimate which cell was clicked based on character position
+    var lineHeight = 11; // approximate from CSS font-size:10px line-height:1.1
+    // Count preceding text lines including the legend lines
+    var preLines = afterTerrain.substring(0, afterTerrain.indexOf(lines[gridStart])).split('\n').length - 1;
+    var rowIdx = Math.floor(y / lineHeight) - preLines;
+    if (rowIdx < 0 || rowIdx >= sb.rows) return;
+
+    var line = lines[gridStart + rowIdx] || '';
+    var colIdx = Math.floor(x / 6.5); // approximate monospace char width at 10px
+    if (colIdx < 0 || colIdx >= line.length || colIdx >= sb.cols) return;
+
+    // Convert grid position to lat/lng
+    var cellSize = (sb.north - sb.south) / sb.rows;
+    var lat = sb.north - (rowIdx + 0.5) * cellSize; // north-up: row 0 is top
+    var lng = sb.west + (colIdx + 0.5) * cellSize;
+
+    selectedGridCell = { rowIdx: rowIdx, colIdx: colIdx, lat: lat, lng: lng };
+
+    // Show cell editor
+    document.getElementById('cell-coord').textContent =
+        '行' + rowIdx + '列' + colIdx + ' (' + lat.toFixed(4) + ', ' + lng.toFixed(4) + ')';
+    document.getElementById('cell-editor').style.display = 'block';
+    document.getElementById('terrain-type-select').value = '';
+    document.getElementById('elevation-input').value = '';
+
+    // Load existing override if any
+    API.getTerrainOverrides({south: lat-0.001, north: lat+0.001, west: lng-0.001, east: lng+0.001})
+        .then(function(d) {
+            if (d && d.overrides && d.overrides.length > 0) {
+                var ov = d.overrides[0];
+                if (ov.terrain) document.getElementById('terrain-type-select').value = ov.terrain;
+                if (ov.elevation != null) document.getElementById('elevation-input').value = ov.elevation;
+            }
+        });
+});
+
+// Apply override button
+document.getElementById('apply-override-btn').addEventListener('click', function() {
+    if (!selectedGridCell) return;
+    var sel = document.getElementById('terrain-type-select');
+    var terrain = sel.value || null;
+    var elevStr = document.getElementById('elevation-input').value;
+    var elevation = elevStr ? parseFloat(elevStr) : null;
+    if (!terrain && elevation == null) return;
+
+    API.setTerrainOverride(selectedGridCell.lat, selectedGridCell.lng, terrain, elevation)
+        .then(function(r) {
+            if (r.ok) {
+                // Refresh grid
+                if (window._snappedBounds) {
+                    loadGridForBounds({
+                        getSouth: function() { return window._snappedBounds.south; },
+                        getNorth: function() { return window._snappedBounds.north; },
+                        getWest: function() { return window._snappedBounds.west; },
+                        getEast: function() { return window._snappedBounds.east; }
+                    });
+                }
+            }
+        });
+});
+
+// Clear override button
+document.getElementById('clear-override-btn').addEventListener('click', function() {
+    if (!selectedGridCell) return;
+    API.deleteTerrainOverride(selectedGridCell.lat, selectedGridCell.lng).then(function(r) {
+        if (r.ok) {
+            document.getElementById('terrain-type-select').value = '';
+            document.getElementById('elevation-input').value = '';
+            // Refresh grid
+            if (window._snappedBounds) {
+                loadGridForBounds({
+                    getSouth: function() { return window._snappedBounds.south; },
+                    getNorth: function() { return window._snappedBounds.north; },
+                    getWest: function() { return window._snappedBounds.west; },
+                    getEast: function() { return window._snappedBounds.east; }
+                });
+            }
+        }
+    });
+});
+
+// Close button
+document.getElementById('terrain-edit-close').addEventListener('click', function() {
+    exitTerrainEditMode();
+});
+
 setTimeout(function() {
     loadUnits();
     loadSources();

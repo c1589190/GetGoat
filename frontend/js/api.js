@@ -26,4 +26,11 @@ const API = {
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify({overrides: [{lat, lng}]})
         }).then(r => r.json()),
+    // Grid view (ASCII character art)
+    getGridView: (bounds, layers) =>
+        fetch(`/api/map/grid-view?south=${bounds.south}&north=${bounds.north}&west=${bounds.west}&east=${bounds.east}&layers=${layers||'terrain,elevation,passability'}`)
+            .then(r => r.text()),
+    getGridStats: (bounds) =>
+        fetch(`/api/map/grid-view?south=${bounds.south}&north=${bounds.north}&west=${bounds.west}&east=${bounds.east}&format=stats`)
+            .then(r => r.json()),
 };

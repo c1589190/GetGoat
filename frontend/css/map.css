@@ -548,3 +548,31 @@ html, body {
 /* Phantom/decoy unit cards */
 .unit-card.phantom-card { border-left-style: dashed !important; }
 
+/* ---- Terrain Edit Panel ---- */
+
+#terrain-edit-panel {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #ff9800;
+}
+
+#grid-ascii::-webkit-scrollbar { width: 4px; height: 4px; }
+#grid-ascii::-webkit-scrollbar-thumb { background: #555; border-radius: 2px; }
+
+/* Clickable grid cells in the ASCII art */
+#grid-ascii.grid-interactive span:hover {
+    background: rgba(255,152,0,0.5);
+    cursor: pointer;
+}
+
+/* Mode button styling */
+#mode-terrain-edit {
+    background: #3a2a10 !important;
+    color: #ff9800 !important;
+    border: 1px solid #ff9800 !important;
+}
+#mode-terrain-edit.active {
+    background: #ff9800 !important;
+    color: #000 !important;
+}
+
