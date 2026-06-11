@@ -665,6 +665,7 @@ function probeTerrain(lat, lng) {
 
 // ---- Unified map click handler ----
 map.on('click', function(e) {
+    if (terrainEditMode) return; // terrain edit mode handles its own interactions
     lastClickLat = e.latlng.lat;
     lastClickLng = e.latlng.lng;
 
@@ -732,25 +733,28 @@ function exitTerrainEditMode() {
     selectedGridCell = null;
 }
 
-// Rectangle drag on map
+// Rectangle drag on map — in edit mode, simple click-drag (no shift needed
+// because map.dragging is already disabled)
 map.on('mousedown', function(e) {
     if (!terrainEditMode) return;
-    if (e.originalEvent.shiftKey) {
-        // Shift+drag = area select
-        editStartPoint = e.latlng;
-        editDragging = false;
-        L.DomEvent.disableClickPropagation(e.originalEvent.target);
-    }
+    // Only start rectangle drag if NOT shift-click (shift-click = distance tool)
+    if (e.originalEvent.shiftKey) return;
+    editStartPoint = e.latlng;
+    editDragging = false;
+    L.DomEvent.stopPropagation(e.originalEvent);
 });
 
 map.on('mousemove', function(e) {
     if (!terrainEditMode || !editStartPoint) return;
+    var dx = Math.abs(e.latlng.lat - editStartPoint.lat);
+    var dy = Math.abs(e.latlng.lng - editStartPoint.lng);
+    if (dx < 0.001 && dy < 0.001) return; // dead zone — suppress tiny drags
     editDragging = true;
     var bounds = L.latLngBounds(editStartPoint, e.latlng);
     if (editRectangle) map.removeLayer(editRectangle);
     editRectangle = L.rectangle(bounds, {
-        color: '#ff9800', weight: 2, fillColor: '#ff9800', fillOpacity: 0.1,
-        dashArray: '5 5'
+        color: '#ff9800', weight: 2, fillColor: '#ff9800', fillOpacity: 0.12,
+        dashArray: '6 4'
     }).addTo(map);
 });
 
@@ -773,30 +777,47 @@ function loadGridForBounds(bounds) {
         west: bounds.getWest().toFixed(6),
         east: bounds.getEast().toFixed(6)
     };
-    API.getGridView(qBounds).then(function(text) {
-        var pre = document.getElementById('grid-ascii');
-        pre.textContent = text;
-        pre.classList.add('grid-interactive');
+    console.log('Terrain edit: loading grid for', qBounds);
 
-        // Parse snapped bounds from header
-        var m = text.match(/Snapped grid:\s*([\d.-]+)-([\d.-]+)([NS]),\s*([\d.-]+)-([\d.-]+)([EW])\s*\((\d+)×(\d+)\s*cells/i);
-        if (m) {
-            var info = document.getElementById('grid-snap-info');
-            info.innerHTML = '吸附: ' + parseFloat(m[1]).toFixed(4) + '-' + parseFloat(m[2]).toFixed(4) + m[3]
-                + ', ' + parseFloat(m[4]).toFixed(4) + '-' + parseFloat(m[5]).toFixed(4) + m[6]
-                + ' (' + m[7] + '×' + m[8] + ' cells)';
-            // Store snapped bounds for grid cell click resolution
-            window._snappedBounds = {
-                south: parseFloat(m[1]), north: parseFloat(m[2]),
-                west: parseFloat(m[4]), east: parseFloat(m[5]),
-                rows: parseInt(m[7]), cols: parseInt(m[8])
-            };
-        }
+    fetch('/api/map/grid-view?south=' + qBounds.south + '&north=' + qBounds.north
+        + '&west=' + qBounds.west + '&east=' + qBounds.east
+        + '&layers=terrain,elevation,passability')
+        .then(function(r) {
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            return r.text();
+        })
+        .then(function(text) {
+            if (text.startsWith('Error:')) { console.warn(text); return; }
 
-        document.getElementById('terrain-edit-panel').style.display = 'block';
-        document.getElementById('cell-editor').style.display = 'none';
-        selectedGridCell = null;
-    });
+            var pre = document.getElementById('grid-ascii');
+            pre.textContent = text;
+
+            // Parse snapped bounds from header — accept both × (U+00D7) and x (ASCII)
+            var m = text.match(/Snapped grid:\s*([\d.-]+)-([\d.-]+)([NS]),\s*([\d.-]+)-([\d.-]+)([EW])\s*\((\d+)[×x](\d+)\s*cells/i);
+            if (m) {
+                window._snappedBounds = {
+                    south: parseFloat(m[1]), north: parseFloat(m[2]),
+                    west: parseFloat(m[4]), east: parseFloat(m[5]),
+                    rows: parseInt(m[7]), cols: parseInt(m[8])
+                };
+                var sb = window._snappedBounds;
+                var info = document.getElementById('grid-snap-info');
+                info.innerHTML = '吸附: ' + sb.south.toFixed(4) + '-' + sb.north.toFixed(4) + m[3]
+                    + ', ' + sb.west.toFixed(4) + '-' + sb.east.toFixed(4) + m[6]
+                    + ' (' + sb.rows + '×' + sb.cols + ' cells)';
+                console.log('Terrain edit: snapped', sb);
+            } else {
+                console.warn('Terrain edit: could not parse snapped bounds from:', text.substring(0, 200));
+            }
+
+            document.getElementById('terrain-edit-panel').style.display = 'block';
+            document.getElementById('cell-editor').style.display = 'none';
+            selectedGridCell = null;
+        })
+        .catch(function(err) {
+            console.error('Terrain edit: grid load failed', err);
+            document.getElementById('grid-ascii').textContent = '加载失败: ' + err.message;
+        });
 }
 
 // Click on ASCII grid to select a cell
