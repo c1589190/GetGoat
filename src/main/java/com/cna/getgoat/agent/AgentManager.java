@@ -99,6 +99,15 @@ public class AgentManager {
         return a.executeFullRound(treeId, nodeId, guidance, maxIterations);
     }
 
+    /** Multi-round deployment with streaming callback — invoked after each sub-round. */
+    public CommanderAction executeFullRoundStreaming(String side, String treeId, String nodeId,
+            String guidance, int maxIterations,
+            java.util.function.Consumer<CommanderAction.SubRound> onSubRound) throws IOException {
+        Commander a = getAgent(side);
+        if (a == null) throw new IOException("No agent: " + side);
+        return a.executeFullRound(treeId, nodeId, guidance, maxIterations, onSubRound);
+    }
+
     public JsonNode generateDeployment(String side, String treeId, String nodeId, String guidance) {
         Commander a = getAgent(side);
         if (a == null) { var n = MAPPER.createObjectNode(); n.put("error", "No agent: " + side); return n; }

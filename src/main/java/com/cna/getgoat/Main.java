@@ -101,7 +101,7 @@ public class Main {
         server.createContext("/api/", Main::handleApi);
         server.createContext("/api/tools", Main::handleTools);
         server.createContext("/api/map/terrain-image", Main::handleTerrainImage);
-        server.setExecutor(java.util.concurrent.Executors.newFixedThreadPool(4));
+        server.setExecutor(java.util.concurrent.Executors.newFixedThreadPool(12));
         server.start();
         LOG.info("Server started at http://localhost:" + PORT);
         LOG.info("Open http://localhost:" + PORT + " in your browser.");
@@ -306,6 +306,9 @@ public class Main {
             response = "{\"error\":\"" + esc(e.getMessage()) + "\"}";
         }
 
+        // Null response means the handler already wrote the response (e.g., SSE streaming)
+        if (response == null) return;
+
         byte[] bytes = response.getBytes();
         exchange.getResponseHeaders().set("Content-Type", contentType);
         exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
@@ -375,6 +378,15 @@ public class Main {
             if (treeId == null || nodeId == null) return "{\"error\":\"tree,node required\"}";
             return ctx.agentManager.buildContext(side, treeId, nodeId, guidance);
         }
+        // SSE streaming deploy (GET with query params, writes directly to response)
+        if (parts.length == 2 && "deploy-stream".equals(parts[1])) {
+            String q = exchange.getRequestURI().getQuery();
+            String treeId = qps(q, "tree", null), nodeId = qps(q, "node", null);
+            String guidance = qps(q, "guidance", "");
+            if (treeId == null || nodeId == null) return "{\"error\":\"tree,node required\"}";
+            handleCommanderSse(exchange, side, treeId, nodeId, guidance);
+            return null; // response already written
+        }
         if (parts.length == 2 && "deploy".equals(parts[1]) && "POST".equals(exchange.getRequestMethod())) {
             String q = exchange.getRequestURI().getQuery();
             String treeId = qps(q, "tree", null), nodeId = qps(q, "node", null);
@@ -424,6 +436,81 @@ public class Main {
             return action != null ? "\"" + esc(action.guidance) + "\"" : "null";
         }
         return "{\"error\":\"unknown commander endpoint\"}";
+    }
+
+    // ---- SSE streaming for commander deployment ----
+
+    private static void handleCommanderSse(HttpExchange exchange, String side,
+            String treeId, String nodeId, String guidance) throws IOException {
+        exchange.getResponseHeaders().set("Content-Type", "text/event-stream");
+        exchange.getResponseHeaders().set("Cache-Control", "no-cache");
+        exchange.getResponseHeaders().set("Connection", "keep-alive");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+        exchange.sendResponseHeaders(200, 0); // chunked
+
+        OutputStream os = exchange.getResponseBody();
+        PrintWriter writer = new PrintWriter(new java.io.OutputStreamWriter(os, java.nio.charset.StandardCharsets.UTF_8), true);
+
+        try {
+            ctx.agentManager.executeFullRoundStreaming(side, treeId, nodeId, guidance, 32, sr -> {
+                try {
+                    ObjectNode event = MAPPER.createObjectNode();
+                    event.put("iteration", sr.iteration);
+                    // Extract rationale from response
+                    String rationale = "";
+                    JsonNode toolCalls = null;
+                    if (sr.response != null) {
+                        JsonNode choices = sr.response.get("choices");
+                        if (choices != null && choices.isArray() && choices.size() > 0) {
+                            JsonNode msg = choices.get(0).get("message");
+                            if (msg != null) {
+                                if (msg.has("reasoning_content") && !msg.get("reasoning_content").isNull())
+                                    rationale = msg.get("reasoning_content").asText();
+                                else if (msg.has("content") && !msg.get("content").isNull())
+                                    rationale = msg.get("content").asText();
+                                if (msg.has("tool_calls")) toolCalls = msg.get("tool_calls");
+                            }
+                        }
+                    }
+                    event.put("rationale", rationale);
+                    if (toolCalls != null) event.set("toolCalls", toolCalls);
+                    if (sr.results != null) {
+                        if (sr.results.has("done")) event.put("done", true);
+                        else event.set("toolResults", sr.results);
+                    }
+                    writer.write("event: subround\n");
+                    writer.write("data: " + MAPPER.writeValueAsString(event) + "\n\n");
+                    writer.flush();
+                } catch (Exception e) {
+                    LOG.warning("SSE subround write error: " + e.getMessage());
+                }
+            });
+
+            // Fetch the saved CommanderAction from the node
+            var tree = ctx.branchManager.getTree(treeId);
+            var node = tree != null ? tree.findNode(nodeId) : null;
+            var action = node != null ? node.getCommanderAction(side) : null;
+
+            ObjectNode done = MAPPER.createObjectNode();
+            done.put("ok", true);
+            if (action != null) {
+                done.put("source", action.source);
+                done.put("rationale", action.rationale != null ? action.rationale : "");
+                done.put("guidanceAssessment", action.guidanceAssessment != null ? action.guidanceAssessment : "");
+                done.put("risks", action.risks != null ? action.risks : "");
+                done.set("finalPlan", action.finalPlan != null ? action.finalPlan : MAPPER.createArrayNode());
+                done.put("subRounds", action.subRounds.size());
+            }
+            writer.write("event: done\n");
+            writer.write("data: " + MAPPER.writeValueAsString(done) + "\n\n");
+            writer.flush();
+        } catch (Exception e) {
+            writer.write("event: error\n");
+            writer.write("data: {\"error\":\"" + esc(e.getMessage()) + "\"}\n\n");
+            writer.flush();
+        } finally {
+            writer.close();
+        }
     }
 
     // ---- Intel path ----

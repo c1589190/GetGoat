@@ -76,8 +76,17 @@ public abstract class AbstractAgent {
      * @param maxIterations max sub-rounds (default 5)
      * @return CommanderAction with all subRounds populated
      */
+    /** Execute with no streaming callback (backward compatible). */
     public CommanderAction executeFullRound(String treeId, String nodeId, String guidance,
                                             int maxIterations) throws IOException {
+        return executeFullRound(treeId, nodeId, guidance, maxIterations, null);
+    }
+
+    /** Execute with optional streaming callback — invoked after each sub-round completes. */
+    public CommanderAction executeFullRound(String treeId, String nodeId, String guidance,
+                                            int maxIterations,
+                                            java.util.function.Consumer<CommanderAction.SubRound> onSubRound)
+                                            throws IOException {
         if (mode == null) throw new IllegalStateException("AgentMode not set");
 
         BranchTree tree = branchManager.getTree(treeId);
@@ -121,6 +130,8 @@ public abstract class AbstractAgent {
                     messages.add(toAssistantMessage(response));
                     messages.add(msg("user", "请继续。调用工具执行侦察或移动命令。"));
                     action.subRounds.add(sr);
+                    // Stream reasoning-only round
+                    if (onSubRound != null) onSubRound.accept(sr);
                     LOG.info("Reasoning detected, prompting to continue (iter " + (iter+1) + ")");
                     continue;
                 }
@@ -131,6 +142,8 @@ public abstract class AbstractAgent {
                 action.guidanceAssessment = extractField(response, "guidanceAssessment");
                 action.risks = extractField(response, "risks");
                 action.recommendations = extractField(response, "recommendations");
+                // Stream final completion
+                if (onSubRound != null) onSubRound.accept(sr);
                 LOG.info(mode.getName() + " complete: " + config.getName()
                     + " after " + (iter + 1) + " sub-rounds");
                 break;
@@ -139,6 +152,9 @@ public abstract class AbstractAgent {
             JsonNode results = executeToolCalls(toolCalls);
             sr.results = results;
             action.subRounds.add(sr);
+
+            // Stream sub-round with tool execution results
+            if (onSubRound != null) onSubRound.accept(sr);
 
             messages.add(toAssistantMessage(response));
             for (int i = 0; i < results.size(); i++) {
@@ -536,7 +552,17 @@ public abstract class AbstractAgent {
         for (CommanderAction.SubRound sr : subRounds) {
             if (sr.response == null) continue;
             JsonNode tc = extractToolCalls(sr.response);
-            if (tc != null && tc.isArray()) all.addAll((ArrayNode) tc);
+            if (tc != null && tc.isArray()) {
+                // Only collect action commands (move/create), not queries
+                for (JsonNode t : (ArrayNode) tc) {
+                    JsonNode fn = t.get("function");
+                    if (fn == null) continue;
+                    String name = fn.has("name") ? fn.get("name").asText() : "";
+                    if ("move_unit".equals(name) || "create_unit".equals(name)) {
+                        all.add(t);
+                    }
+                }
+            }
         }
         return all;
     }

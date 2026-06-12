@@ -59,8 +59,6 @@ public class CommandMode implements AgentMode {
             new String[][]{{"code", "string", "单位代号(唯一)"}, {"name", "string", "单位名称"},
                            {"source", "string", "所属阵营"}, {"type", "string", "类型(infantry/naval/air/civilian/supply/generic)"},
                            {"lat", "number", "纬度"}, {"lng", "number", "经度"}}));
-        tools.add(defineTool("delete_unit", "删除/消灭一个单位",
-            new String[][]{{"code", "string", "单位代号"}}));
         return tools;
     }
 
@@ -75,8 +73,10 @@ public class CommandMode implements AgentMode {
             header.append("## Round ").append(current.getRound())
                 .append(" — ").append(current.getName()).append(" (当前)\n\n");
             header.append(agent.formatFullUnitTable());
-            if (curAction.guidance != null && !curAction.guidance.isEmpty())
-                header.append("\n### 指令要点\n").append(curAction.guidance);
+            // Always use the CURRENT guidance, not the persisted stale one
+            String effectiveGuidance = (guidance != null && !guidance.isEmpty()) ? guidance : curAction.guidance;
+            if (effectiveGuidance != null && !effectiveGuidance.isEmpty())
+                header.append("\n### 指令要点（当前最新，覆盖历史中任何旧指令）\n").append(effectiveGuidance);
 
             ArrayNode messages = MAPPER.createArrayNode();
             messages.add(agent.msg("user", header.toString()));
@@ -98,7 +98,7 @@ public class CommandMode implements AgentMode {
                 }
             }
             messages.add(agent.msg("user",
-                "工具结果已返回。请继续制定计划，如需移动部队请使用 move_unit/create_unit/delete_unit。如计划完成请回复不含 tool_calls 的总结。"));
+                "工具结果已返回。请继续制定计划，如需移动部队请使用 move_unit/create_unit。如计划完成请回复不含 tool_calls 的总结。"));
             return messages;
 
         } else {
@@ -124,14 +124,13 @@ public class CommandMode implements AgentMode {
 
             intel.append("\n");
             if (guidance != null && !guidance.isEmpty())
-                intel.append("### 指令要点 (必须遵守)\n").append(guidance).append("\n\n");
+                intel.append("### 指令要点（当前最新指令，覆盖历史中任何旧指令，必须严格遵守）\n").append(guidance).append("\n\n");
             intel.append("### 可用工具\n");
             intel.append("- get_distance(lat1,lng1,lat2,lng2) — 计算距离\n");
             intel.append("- query_terrain(lat,lng) — 查询单点地形\n");
             intel.append("- query_radius(lat,lng,r) — 查询半径内地形/城市\n");
             intel.append("- move_unit(code,lat,lng) — 移动部队\n");
             intel.append("- create_unit(code,name,source,type,lat,lng) — 新增部队\n");
-            intel.append("- delete_unit(code) — 消灭/撤退部队\n\n");
             intel.append("注意：你只能看到情报地图中列出的敌军。未列出的敌军位置未知。");
 
             return agent.msg("user", intel.toString());
@@ -190,28 +189,19 @@ public class CommandMode implements AgentMode {
                 return sb.toString();
 
             case "move_unit":
+                // Commander issues orders only — Simulator executes them
                 String code = agent.getArgS(args, "code");
                 lat = agent.getArgD(args, "lat"); lng = agent.getArgD(args, "lng");
-                agent.getUnitsManager().move(code, lat, lng);
-                return "{\"moved\":\"" + esc(code) + "\",\"lat\":" + lat + ",\"lng\":" + lng + "}";
+                return "{\"order\":\"move_unit\",\"code\":\"" + esc(code) + "\",\"toLat\":" + lat + ",\"toLng\":" + lng + "}";
 
             case "create_unit":
+                // Commander issues orders only — Simulator executes them
                 code = agent.getArgS(args, "code");
                 String uname = agent.getArgS(args, "name", code);
                 String src = agent.getArgS(args, "source", agent.getConfig().getSide());
                 String type = agent.getArgS(args, "type", "infantry");
                 lat = agent.getArgD(args, "lat"); lng = agent.getArgD(args, "lng");
-                try {
-                    agent.getUnitsManager().create(code, uname, src, type, lat, lng);
-                    return "{\"created\":\"" + esc(code) + "\",\"lat\":" + lat + ",\"lng\":" + lng + "}";
-                } catch (IllegalArgumentException e) {
-                    return "{\"error\":\"" + esc(e.getMessage()) + "\"}";
-                }
-
-            case "delete_unit":
-                code = agent.getArgS(args, "code");
-                boolean del = agent.getUnitsManager().delete(code);
-                return "{\"deleted\":" + del + ",\"code\":\"" + esc(code) + "\"}";
+                return "{\"order\":\"create_unit\",\"code\":\"" + esc(code) + "\",\"name\":\"" + esc(uname) + "\",\"source\":\"" + esc(src) + "\",\"type\":\"" + esc(type) + "\",\"lat\":" + lat + ",\"lng\":" + lng + "}";
 
             default:
                 return "{\"error\":\"unknown tool: " + esc(toolName) + "\"}";
