@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 # Compile and run the HTTP map server (starts on port 8080)
-MAVEN_OPTS="-Xmx2g -Xms1g" mvn exec:java -Dexec.mainClass="com.getgoat.app.Main"
+MAVEN_OPTS="-Xmx2g -Xms1g" mvn exec:java
 
 # Compile only
 mvn compile
@@ -27,52 +27,54 @@ The MCP server requires `mcp-classpath.txt` generated once by `mvn dependency:bu
 
 GetGoat is a **grand-strategy wargame map system** — a Java 17 Maven project with a Leaflet web frontend. It classifies real-world terrain at hexagonal-raster resolution and exposes it through both a REST API and a Claude Code MCP server.
 
-### Two Entry Points
+### Entry Point
 
-Both entry points share the same core subsystems:
-
-| Entry Point | Class | Protocol | Purpose |
-|---|---|---|---|
-| `MapDemo` | `com.getgoat.app.MapDemo` | HTTP on :8080 | Web frontend + REST API |
-| `McpServer` | `com.getgoat.tools.McpServer` | JSON-RPC 2.0 over stdio | Claude Code tool integration |
+Single entry: `com.cna.getgoat.Main`
+- `--http` (default): starts HTTP server on :8080 serving frontend + REST API
+- `--mcp`: starts JSON-RPC 2.0 server over stdio for Claude Code tool integration
 
 ### Core Subsystems
 
-**Terrain Pipeline** (`com.getgoat.map.terrain`)
-- `TerrainGenerator` orchestrates classification: tries ETOPO1 elevation → GeoTIFF HSV relief → simulated fallback
-- `TerrainCache` is a memory-mapped file (`terrain_cache.bin`, ~1GB at 0.015625° resolution) — random-access terrain read without loading into heap
-- `TerrainGrid` wraps the cache with grid-indexing math (lat/lng ↔ row/col)
-- `ElevationLoader` loads ETOPO1 binary elevation; `ReliefMapLoader` parses HYP_HR_SR_OB_DR GeoTIFF for HSV-based classification
-- `TerrainClassifier` assigns terrain types (OCEAN, PLAINS, HILLS, MOUNTAIN, etc.) based on elevation + roughness
+**Config** (`com.cna.getgoat.config`)
+- `ConfigsManager` — instance-based configuration (was static `ConfigManager`). Loads from `config.properties`
+- `ConfigsLoader` — persistence layer for config updates
+- `CommanderConfig` — per-commander LLM configuration (side, provider, model, apiKey)
 
-**Map API** (`com.getgoat.map.manager.MapManager`)
-- The central entry point for all terrain queries: point terrain lookup, radius queries (with road/city/region overlay), A\* grid pathfinding, great-circle distance, road-network shortest path, relief profiles
-- Owns `TerrainGrid`, `RoadNetwork`, `RiverNetwork`, `AdminDivisionLoader`, user-defined `Region`s, labels, and annotations
-- Radius query results are LRU-cached (256 entries)
+**Map** (`com.cna.getgoat.map`)
+- `MapManager` — static singleton. Central entry for terrain queries, radius queries, A\* pathfinding, great-circle distance, road-network shortest path, relief profiles
+- `terrain/` — `TerrainGenerator`, `TerrainCache` (memory-mapped `terrain_cache.bin`), `TerrainGrid`, `ElevationLoader`, `ReliefMapLoader`, `TerrainClassifier`, `TerrainOverrideStore`, `TerrainCell`, `TerrainType`
+- `network/` — `RoadNetwork`, `RoadNode`, `RoadSegment`, `RiverNetwork`
+- `geometry/` — `SphericalEngine` (haversine/Vincenty distance, bearing, great-circle paths), `ProjectionUtil`, `GeoBounds`, `GeoPoint`
+- `data/` — `AdminDivisionLoader`, `GeoJsonLoader`, `GeoJsonWriter`, `ShapeFileReader`, `DataPathConfig`, `AdminDivision`
+- `annotation/` — `Region`, `RegionLabel`, `Annotation`, `RadiusQueryResult`
 
-**Units** (`com.getgoat.map.manager.UnitsManager`)
-- CRUD for game units with code-based identity, metadata (source, status, color, type, description), and lat/lng position
-- Supports list-by-source/status/name filters plus keyword search
+**Campaigns** (`com.cna.getgoat.map.campaigns`)
+- `CampaignsManager` — takes a campaign name, loads workspace, owns NodesManager + UnitsManager
+- `NodesManager` — (was `BranchManager`) IO for campaign nodes (branch trees)
+- `UnitsManager` — CRUD for game units with code-based identity
+- `node/` — `BranchTree`, `BranchNode`, `UnitSnapshot`, `UnitChange`, `Movement`, `CommanderAction`
+- `unit/` — `Unit` data model
+- `intel/` — `IntelCertainty`, `PhantomUnit`, `SideIntelEntry`, `SideIntelMap`
 
-**Branch/Decision Tree** (`com.getgoat.map.branch`)
-- `BranchManager` manages multiple `BranchTree` objects persisted to `branches.json`
-- Each tree is a hierarchy of `BranchNode`s representing wargame rounds
-- Nodes capture `UnitSnapshot`s (frozen unit state) and compute `UnitChange`s and `Movement`s via parent↔child diff
-- Applying a node restores its snapshot to the live unit map
+**Agent** (`com.cna.getgoat.agent`)
+- `AbstractAgent` — (was `BaseAgent`) generic agent interface. Takes SystemPrompt + Cache + LLManager
+- `Cache` — OpenAI-format LLM message cache, built from `CacheUnit` sequence
+- `CacheUnit` — single conversation message (system/user/assistant/tool roles)
+- `Commander` — extends AbstractAgent, multi-round deployment with returnable Cache
+- `Simulator` — extends AbstractAgent, accepts CacheUnit[] for other commanders
+- `mode/` — `CommandMode` (6 tools), `IntelMode` (6 tools), `SimulateMode` (9 tools)
+- `tool/` — `ToolsManager` + 18 Tool definitions (pure Java, not Web API)
+- `sim/` — `CombatResolver` (Lanchester equations), `EngagementDetector`, `MovementResolver`, `SimulationResult`
 
-**Commander Agent** (`com.getgoat.agent`)
-- Per-side LLM-powered agents that generate deployment plans for branch nodes
-- `AgentManager` loads commander configs from `workspaces/<name>/commanders/<side>/config.json`
-- `LLMCommanderAgent` calls external LLM APIs; `CommanderAgent` is the abstract base
-- Supports multi-round deployment, system prompt editing, and human feedback
+**LLM** (`com.cna.getgoat.llm`)
+- `LLManager` — unified LLM call manager. Routes to OpenAI/Anthropic providers with format translation
+- `provider/` — (planned) `AnthropicProvider`, `OpenAIProvider` for format isolation
 
-**MCP Tools** (`com.getgoat.tools`)
-- `ToolUnit` abstract class defines an OpenAI-compatible function definition + execution
-- `ToolRegistry` registers tools and dispatches tool calls
-- 15 tools: `get_terrain`, `query_radius`, `get_distance`, `find_path`, `get_relief_profile`, `list_units`, `get_unit`, `create_unit`, `move_unit`, `delete_unit`, `list_branches`, `get_branch_nodes`, `apply_branch`, `save_branch_round`, `save_workspace`, `load_workspace`
-
-**Geometry** (`com.getgoat.map.geometry`)
-- `SphericalEngine` — haversine distance, Vincenty distance, bearing, great-circle paths, point-in-polygon, destination from bearing+distance
+**Web** (`com.cna.getgoat.web` — planned)
+- `APIManager` — API routing dispatch
+- `HttpHandler` — REST API handlers
+- `MCPHandler` — MCP stdio JSON-RPC interface
+- `MapUI` — static frontend file service
 
 ### Frontend
 
@@ -80,11 +82,12 @@ Vanilla JS + Leaflet 1.9.4 in `frontend/`. Entry: `index.html`. Scripts: `map-co
 
 ### Configuration
 
-`config.properties` in project root overrides defaults in `ConfigManager.java`. Key settings:
-- `grid.cellSizeDegrees` — terrain resolution (0.015625 = ~1.7km at equator, ~265M cells; 0.03125 default)
+`config.properties` in project root overrides defaults in `ConfigsManager.java`. Key settings:
+- `grid.cellSizeDegrees` — terrain resolution (0.015625 = ~1.7km at equator; 0.03125 default)
 - `terrain.reliefTiff` / `terrain.fallbackTiff` — GeoTIFF elevation sources
-- `workspace.dir` — campaign scenario directory (e.g., `workspaces/taierzhuang-1938`)
+- `workspace.dir` — campaign scenario directory (e.g., `workspaces/songhu-1937`)
 - `relief.elevThreshold` / `relief.roughThreshold` — relief classification parameters
+- `llm.provider` / `llm.model` / `llm.endpoint` / `llm.apiKey` / `llm.maxTokens` — LLM defaults
 
 ### Workspace Structure
 
@@ -93,6 +96,7 @@ Each workspace (campaign scenario) contains:
 workspaces/<name>/
   units.json          — unit definitions
   branches.json       — branch trees with all nodes/snapshots
+  terrain_overrides.json — terrain override cells
   commanders/<side>/
     config.json       — {"side": "nationalist", "llm": {"apiKey": "..."}}
     prompt.txt        — system prompt for that side

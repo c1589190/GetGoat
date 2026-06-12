@@ -19,4 +19,4 @@ if [ -f "$DEPS_FILE" ]; then
     CP="$CP:$(cat $DEPS_FILE)"
 fi
 
-exec java -Xmx4g -Xms512m -cp "$CP" com.getgoat.app.Main --mcp
+exec java -Xmx4g -Xms512m -cp "$CP" com.cna.getgoat.Main --mcp
