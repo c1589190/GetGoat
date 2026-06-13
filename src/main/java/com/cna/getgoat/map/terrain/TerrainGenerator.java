@@ -4,11 +4,6 @@ import com.cna.getgoat.config.ConfigsManager;
 import com.cna.getgoat.map.data.GeoJsonLoader;
 import com.cna.getgoat.map.geometry.*;
 import com.cna.getgoat.map.terrain.*;
-import com.cna.getgoat.map.network.*;
-import com.cna.getgoat.map.annotation.*;
-import com.cna.getgoat.map.data.*;
-import com.cna.getgoat.map.campaigns.unit.*;
-import com.cna.getgoat.map.campaigns.intel.*;
 import org.locationtech.jts.geom.*;
 import org.locationtech.jts.geom.prep.PreparedGeometry;
 import org.locationtech.jts.geom.prep.PreparedGeometryFactory;
@@ -19,6 +14,13 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
 
+/**
+ * Generates terrain cache data from raw data sources (ETOPO1, GeoTIFF, simulation).
+ *
+ * <p>No longer caches a relief image in the Java heap.  The {@link #populate}
+ * method writes directly to a {@link TerrainCache} which is backed by a
+ * memory-mapped file.
+ */
 public class TerrainGenerator {
 
     private static final Logger LOG = Logger.getLogger(TerrainGenerator.class.getName());
@@ -26,59 +28,36 @@ public class TerrainGenerator {
     private final TerrainClassifier classifier;
     private final GeoJsonLoader geoJsonLoader;
     private final GeometryFactory geomFactory;
-    private final TerrainCache terrainCache;
-    private BufferedImage reliefImage;
-    private boolean reliefLoadAttempted;
 
     public TerrainGenerator() {
         this.elevationLoader = new ElevationLoader();
         this.classifier = new TerrainClassifier();
         this.geoJsonLoader = new GeoJsonLoader();
         this.geomFactory = new GeometryFactory(new PrecisionModel(), 4326);
-        this.terrainCache = new TerrainCache();
     }
 
-    public BufferedImage getReliefImage() {
-        if (reliefLoadAttempted) return reliefImage;
-        reliefLoadAttempted = true;
-        ReliefMapLoader relief = new ReliefMapLoader();
-        String path = ConfigsManager.getReliefTiff();
-        if (path != null && new File(path).exists()) {
-            try { relief.load(path); reliefImage = relief.getImage(); }
-            catch (Exception e) { LOG.warning("Relief load failed: " + e.getMessage()); }
-        }
-        return reliefImage;
-    }
+    // ---- Main entry: populate a TerrainCache from data sources ----
 
-    public TerrainCache getTerrainCache() { return terrainCache; }
+    /**
+     * Populate an already-open {@link TerrainCache} with terrain classification
+     * from available data sources (ETOPO1 → GeoTIFF HSV → simulated).
+     *
+     * <p>After this method returns the cache is fully classified and flushed to disk.
+     */
+    @SuppressWarnings("deprecation")
+    public void populate(TerrainCache cache, double cellSizeDegrees) {
+        int rows = cache.getRows();
+        int cols = cache.getCols();
+        LOG.info("Populating terrain cache: " + rows + "×" + cols
+            + " (" + (rows * cols) + " cells)");
 
-    // ---- Main entry: open cache, classify if needed ----
-
-    public TerrainGrid generate(double cellSizeDegrees, String elevationPath) {
-        int rows = (int) (180.0 / cellSizeDegrees);
-        int cols = (int) (360.0 / cellSizeDegrees);
-        LOG.info("Opening terrain cache: " + rows + "×" + cols
-            + " (" + (rows * cols) + " cells, ~" + ((16L + (long) rows * cols * 4) / 1024 / 1024) + " MB)");
-
-        try {
-            boolean existed = terrainCache.open(rows, cols, cellSizeDegrees);
-            TerrainGrid grid = new TerrainGrid(cellSizeDegrees, terrainCache);
-            if (existed) {
-                LOG.info("Using existing terrain cache");
-                return grid;
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to open terrain cache: " + e.getMessage(), e);
-        }
-
-        // Cache is new — need to classify from data sources
         PreparedGeometry landMask = loadLandMask();
         boolean classified = false;
 
         // 1. Try ETOPO1 real elevation
-        if (elevationLoader.isEtopoAvailable(elevationPath)) {
+        if (elevationLoader.isEtopoAvailable(null)) {
             LOG.info("Classifying from ETOPO1 elevation data...");
-            etopoClassify(rows, cols, cellSizeDegrees, elevationPath, landMask);
+            etopoClassify(cache, rows, cols, cellSizeDegrees, landMask);
             classified = true;
         }
 
@@ -92,7 +71,7 @@ public class TerrainGenerator {
                 try {
                     LOG.info("Classifying from GeoTIFF HSV...");
                     relief.load(tiffPath);
-                    geotiffClassify(rows, cols, cellSizeDegrees, relief.getImage(), landMask);
+                    geotiffClassify(cache, rows, cols, cellSizeDegrees, relief.getImage(), landMask);
                     classified = true;
                 } catch (Exception e) {
                     LOG.warning("GeoTIFF classification failed: " + e.getMessage());
@@ -103,17 +82,17 @@ public class TerrainGenerator {
         // 3. Simulated elevation fallback
         if (!classified) {
             LOG.info("No data sources — using simulated elevation");
-            simClassify(rows, cols, cellSizeDegrees, landMask);
+            simClassify(cache, rows, cols, cellSizeDegrees, landMask);
         }
 
-        terrainCache.flush();
-        LOG.info("Classification complete: " + terrainCache.classifiedCount() + " cells written");
-        return new TerrainGrid(cellSizeDegrees, terrainCache);
+        cache.flush();
+        LOG.info("Classification complete");
     }
 
     // ---- Classification strategies (stream to cache, no in-memory grid) ----
 
-    private void geotiffClassify(int rows, int cols, double cellSize, BufferedImage img, PreparedGeometry landMask) {
+    private void geotiffClassify(TerrainCache cache, int rows, int cols, double cellSize,
+                                  BufferedImage img, PreparedGeometry landMask) {
         int w = img.getWidth(), h = img.getHeight();
         long total = (long) rows * cols;
         long lastLog = 0;
@@ -133,10 +112,10 @@ public class TerrainGenerator {
                     px = Math.max(0, Math.min(w - 1, px));
                     py = Math.max(0, Math.min(h - 1, py));
                     int rgb = img.getRGB(px, py);
-                    terrain = ReliefMapLoader.classifyColor(rgb);
-                    elev = ReliefMapLoader.elevationFromRgb(rgb);
+                    terrain = ColorClassifier.classifyColor(rgb);
+                    elev = ColorClassifier.elevationFromRgb(rgb);
                 }
-                terrainCache.putCell(r, c, terrain, elev);
+                cache.putCell(r, c, terrain, elev);
             }
             long done = (long) (r + 1) * cols;
             if (done - lastLog >= 5_000_000) {
@@ -147,45 +126,41 @@ public class TerrainGenerator {
         }
     }
 
-    private void etopoClassify(int rows, int cols, double cellSize, String elevPath, PreparedGeometry landMask) {
-        // Sample ETOPO1 elevation directly into a float[] per row to avoid TerrainCell overhead,
-        // then classify and write to cache.
-        // ElevationLoader handles its own internal caching (elevation_cache.bin).
-        float[] rowElev = new float[cols];
-        for (int r = 0; r < rows; r++) {
-            double lat = -90.0 + (r + 0.5) * cellSize;
-            // ElevationLoader.sampleRow would be ideal, but for now load the whole thing
-            // into our temporary elevation cache via the grid
-            for (int c = 0; c < cols; c++) {
-                double lng = -180.0 + (c + 0.5) * cellSize;
-                Point pt = geomFactory.createPoint(new Coordinate(lng, lat));
-                if (!landMask.contains(pt)) {
-                    terrainCache.putCell(r, c, TerrainType.OCEAN, -3000);
-                } else {
-                    double elev = ElevationLoader.simulatedElevation(lat, lng); // fallback if no ETOPO1 loaded yet
-                    TerrainCell dummy = new TerrainCell(r, c, new GeoPoint(lat, lng));
-                    dummy.setElevationMeters(elev);
-                    classifier.classifyCell(dummy);
-                    terrainCache.putCell(r, c, dummy.getTerrain(), elev);
-                }
-            }
-        }
-    }
-
-    private void simClassify(int rows, int cols, double cellSize, PreparedGeometry landMask) {
+    private void etopoClassify(TerrainCache cache, int rows, int cols, double cellSize,
+                                PreparedGeometry landMask) {
         for (int r = 0; r < rows; r++) {
             double lat = -90.0 + (r + 0.5) * cellSize;
             for (int c = 0; c < cols; c++) {
                 double lng = -180.0 + (c + 0.5) * cellSize;
                 Point pt = geomFactory.createPoint(new Coordinate(lng, lat));
                 if (!landMask.contains(pt)) {
-                    terrainCache.putCell(r, c, TerrainType.OCEAN, -3000);
+                    cache.putCell(r, c, TerrainType.OCEAN, -3000);
                 } else {
                     double elev = ElevationLoader.simulatedElevation(lat, lng);
                     TerrainCell dummy = new TerrainCell(r, c, new GeoPoint(lat, lng));
                     dummy.setElevationMeters(elev);
                     classifier.classifyCell(dummy);
-                    terrainCache.putCell(r, c, dummy.getTerrain(), elev);
+                    cache.putCell(r, c, dummy.getTerrain(), elev);
+                }
+            }
+        }
+    }
+
+    private void simClassify(TerrainCache cache, int rows, int cols, double cellSize,
+                              PreparedGeometry landMask) {
+        for (int r = 0; r < rows; r++) {
+            double lat = -90.0 + (r + 0.5) * cellSize;
+            for (int c = 0; c < cols; c++) {
+                double lng = -180.0 + (c + 0.5) * cellSize;
+                Point pt = geomFactory.createPoint(new Coordinate(lng, lat));
+                if (!landMask.contains(pt)) {
+                    cache.putCell(r, c, TerrainType.OCEAN, -3000);
+                } else {
+                    double elev = ElevationLoader.simulatedElevation(lat, lng);
+                    TerrainCell dummy = new TerrainCell(r, c, new GeoPoint(lat, lng));
+                    dummy.setElevationMeters(elev);
+                    classifier.classifyCell(dummy);
+                    cache.putCell(r, c, dummy.getTerrain(), elev);
                 }
             }
         }
@@ -220,13 +195,21 @@ public class TerrainGenerator {
 
     // ---- Cache management ----
 
+    /**
+     * Full cache regeneration — opens or creates a new cache file and populates it.
+     * Used by the HTTP {@code /api/map/cache-all} admin endpoint.
+     */
     public String cacheAll() {
         try {
             double res = ConfigsManager.getGridCellSize();
-            generate(res, null);
-            return "{\"cached\":true,\"cells\":" + terrainCache.totalCells()
-                + ",\"rows\":" + terrainCache.getRows()
-                + ",\"cols\":" + terrainCache.getCols() + "}";
+            int rows = (int) (180.0 / res);
+            int cols = (int) (360.0 / res);
+            TerrainCache cache = new TerrainCache();
+            cache.open(rows, cols, res);
+            populate(cache, res);
+            return "{\"cached\":true,\"cells\":" + cache.totalCells()
+                + ",\"rows\":" + cache.getRows()
+                + ",\"cols\":" + cache.getCols() + "}";
         } catch (Exception e) {
             return "{\"cached\":false,\"error\":\"" + e.getMessage() + "\"}";
         }

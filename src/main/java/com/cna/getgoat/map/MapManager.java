@@ -49,7 +49,7 @@ public class MapManager {
     private final Map<String, Annotation> annotations;
 
     // ---- Subsystems ----
-    private final TerrainGenerator terrainGenerator;
+    private volatile TerrainUnitManager terrainUnit;
     private final GeoJsonWriter geoJsonWriter;
     private final DataPathConfig dataPath;
     private final RoadNetwork roadNetwork;
@@ -73,7 +73,6 @@ public class MapManager {
         this.regions = new ConcurrentHashMap<>();
         this.labels = new ConcurrentHashMap<>();
         this.annotations = new ConcurrentHashMap<>();
-        this.terrainGenerator = new TerrainGenerator();
         this.geoJsonWriter = new GeoJsonWriter();
         this.dataPath = new DataPathConfig();
         this.roadNetwork = new RoadNetwork();
@@ -98,10 +97,31 @@ public class MapManager {
      */
     public void initialize(double cellSizeDegrees) {
         LOG.info("Initializing MapManager...");
-        this.terrainGrid = terrainGenerator.generate(cellSizeDegrees, null);
+
+        // ---- Build TerrainUnitManager ----
+        int rows = (int) (180.0 / cellSizeDegrees);
+        int cols = (int) (360.0 / cellSizeDegrees);
+        TerrainCache cache = new TerrainCache();
+        try {
+            boolean existed = cache.open(rows, cols, cellSizeDegrees);
+            if (!existed || !cache.isComplete()) {
+                LOG.info("Populating terrain cache from data sources...");
+                new TerrainGenerator().populate(cache, cellSizeDegrees);
+            }
+        } catch (Exception e) {
+            LOG.severe("Failed to open terrain cache: " + e.getMessage());
+            throw new RuntimeException("Terrain cache initialization failed", e);
+        }
+
+        TerrainCacheLoader primaryLoader = new TerrainCacheLoader(cache);
+        GeoTIFFMapLoader fineLoader = GeoTIFFMapLoader.createIfAvailable(
+            com.cna.getgoat.config.ConfigsManager.getReliefTiff(), cellSizeDegrees);
+
+        this.terrainUnit = new TerrainUnitManager(primaryLoader, fineLoader, overrideStore);
+        this.terrainGrid = new TerrainGrid(cellSizeDegrees, cache);
+
         // Load admin divisions (provinces + cities)
         try {
-            // Try multiple paths — Maven exec:java may have different CWD
             String provPath = com.cna.getgoat.config.ConfigsManager.getProvincesJson();
             String cityPath = com.cna.getgoat.config.ConfigsManager.getCitiesJson();
             if (new java.io.File(provPath).exists()) adminDivisions.loadProvinces(provPath);
@@ -119,9 +139,13 @@ public class MapManager {
      * Reload the terrain grid from scratch.
      */
     public void reloadTerrain(double cellSizeDegrees) {
-        this.terrainGrid = terrainGenerator.generate(cellSizeDegrees, null);
+        // Re-initialize the terrain unit with a fresh cache
+        initialize(cellSizeDegrees);
         rebuildSpatialIndex();
     }
+
+    /** Access the unified terrain unit manager. */
+    public TerrainUnitManager getTerrainUnit() { return terrainUnit; }
 
     // ---- Terrain override layer ----
 
@@ -259,24 +283,12 @@ public class MapManager {
         // Handle longitude wrap
         GeoBounds bbox = new GeoBounds(south, north, west, east);
 
-        // 2. Find center cell (via getTerrainAt so overrides apply)
-        TerrainCell centerCell = getTerrainAt(lat, lng);
+        // 2. Find center cell & cells in radius (single consolidated pass from terrainUnit)
+        TerrainUnitManager.ConsolidatedResult consolidated = terrainUnit.queryConsolidated(lat, lng, radiusKm);
+        TerrainCell centerCell = consolidated.centerCell();
+        List<TerrainCell> cellsInRadius = consolidated.cellsInRadius();
 
-        // 3. Find all cells in bbox, then filter by exact distance
-        List<TerrainCell> bboxCells = terrainGrid.getCellsInBounds(bbox);
-        boolean hasOverrides = overrideStore.isReady();
-        List<TerrainCell> cellsInRadius = new ArrayList<>();
-        for (TerrainCell cell : bboxCells) {
-            double dist = SphericalEngine.haversineDistance(
-                lat, lng,
-                cell.getCenter().getLatitude(), cell.getCenter().getLongitude());
-            if (dist <= radiusKm) {
-                if (hasOverrides) applyOverrides(cell);
-                cellsInRadius.add(cell);
-            }
-        }
-
-        // 4. Find regions whose boundary intersects the radius
+        // 3. Find regions whose boundary intersects the radius
         List<Region> regionsInRadius = new ArrayList<>();
         // Build a JTS point for center, and a buffer polygon for radius
         org.locationtech.jts.geom.GeometryFactory gf =
@@ -404,47 +416,9 @@ public class MapManager {
     }
 
     /** Find all terrain cells within a geometry using equal-area sampling.
-     *  Longitude step is scaled by 1/cos(lat) so each cell covers ~same km². */
+     *  Delegates to TerrainUnitManager for fine-resolution access if available. */
     private List<TerrainCell> findCellsInGeometry(Geometry geom, double baseCellSizeDeg) {
-        var reliefImage = terrainGenerator.getReliefImage();
-        double imgW = reliefImage != null ? reliefImage.getWidth() : 0;
-        double imgH = reliefImage != null ? reliefImage.getHeight() : 0;
-
-        List<TerrainCell> result = new ArrayList<>();
-        org.locationtech.jts.geom.Envelope env = geom.getEnvelopeInternal();
-        // Limit max step to avoid infinite loop near poles
-        double latStep = Math.max(baseCellSizeDeg, 0.05);
-        for (double lat = env.getMinY(); lat <= env.getMaxY(); lat += latStep) {
-            // Equal-area: longitude step scales with 1/cos(lat)
-            double cosLat = Math.cos(Math.toRadians(Math.min(85, Math.abs(lat))));
-            double lngStep = latStep / Math.max(cosLat, 0.05);
-            for (double lng = env.getMinX(); lng <= env.getMaxX(); lng += lngStep) {
-                org.locationtech.jts.geom.Point pt = GF.createPoint(
-                    new org.locationtech.jts.geom.Coordinate(lng, lat));
-                if (!geom.contains(pt)) continue;
-
-                TerrainType terrain;
-                double elevation;
-                if (reliefImage != null) {
-                    int px = (int)((lng + 180.0) / 360.0 * imgW);
-                    int py = (int)((90.0 - lat) / 180.0 * imgH);
-                    px = Math.max(0, Math.min((int)imgW - 1, px));
-                    py = Math.max(0, Math.min((int)imgH - 1, py));
-                    int rgb = reliefImage.getRGB(px, py);
-                    terrain = com.cna.getgoat.map.terrain.ReliefMapLoader.classifyColor(rgb);
-                    elevation = com.cna.getgoat.map.terrain.ReliefMapLoader.elevationFromRgb(rgb);
-                } else {
-                    TerrainCell c = terrainGrid.getCellAt(lat, lng);
-                    terrain = c != null ? c.getTerrain() : TerrainType.OCEAN;
-                    elevation = c != null ? c.getElevationMeters() : -3000;
-                }
-                TerrainCell cell = new TerrainCell(0, 0, new GeoPoint(lat, lng));
-                cell.setTerrain(terrain);
-                cell.setElevationMeters(elevation);
-                result.add(cell);
-            }
-        }
-        return result;
+        return terrainUnit.sampleFineInGeometry(geom, baseCellSizeDeg);
     }
 
     private static final org.locationtech.jts.geom.GeometryFactory GF =
@@ -453,8 +427,15 @@ public class MapManager {
     /**
      * Debug: show the full classification pipeline for a single point.
      */
+    @SuppressWarnings("deprecation")
     public String debugClassificationPipeline(double lat, double lng) {
-        var img = terrainGenerator.getReliefImage();
+        // Debug method: load the full relief image temporarily
+        String tiffPath = com.cna.getgoat.config.ConfigsManager.getReliefTiff();
+        if (tiffPath == null || !new java.io.File(tiffPath).exists())
+            return "{\"error\":\"no relief image\"}";
+        var rl = new ReliefMapLoader();
+        try { rl.load(tiffPath); } catch (Exception e) { return "{\"error\":\"" + e.getMessage() + "\"}"; }
+        var img = rl.getImage();
         if (img == null) return "{\"error\":\"no relief image\"}";
         int w = img.getWidth(), hh = img.getHeight();
         int px = (int)((lng+180)/360*w), py = (int)((90-lat)/180*hh);
@@ -527,9 +508,25 @@ public class MapManager {
      * Rules are read from terrain-colors.json "upgradeRules" section.
      */
     /** Reload terrain after HSV config change. */
-    public String cacheAll() { return terrainGenerator.cacheAll(); }
-    public boolean isCacheExists() { return terrainGenerator.getTerrainCache().exists(); }
-    public String getCachePath() { return terrainGenerator.getTerrainCache().getCachePath().toString(); }
+    public String cacheAll() {
+        try {
+            double res = ConfigsManager.getGridCellSize();
+            new TerrainGenerator().populate(
+                ((TerrainCacheLoader) terrainUnit.getPrimaryLoader()).getCache(), res);
+            terrainUnit.invalidateStats();
+            return "{\"cached\":true}";
+        } catch (Exception e) {
+            return "{\"cached\":false,\"error\":\"" + e.getMessage() + "\"}";
+        }
+    }
+    public boolean isCacheExists() {
+        return terrainUnit != null && terrainUnit.getPrimaryLoader().isReady();
+    }
+    public String getCachePath() {
+        if (terrainUnit == null) return "null";
+        var p = ((TerrainCacheLoader) terrainUnit.getPrimaryLoader()).getCache();
+        return p.getCachePath().toString();
+    }
 
     // =========================================================================
     // Compact cell encoding + grid views (LLM-facing)
@@ -813,8 +810,15 @@ public class MapManager {
         return root.toString();
     }
 
+    @SuppressWarnings("deprecation")
     public String applyUpgradeRules() {
-        var img = terrainGenerator.getReliefImage();
+        // Admin operation: load full relief image temporarily
+        String tiffPath = com.cna.getgoat.config.ConfigsManager.getReliefTiff();
+        if (tiffPath == null || !new java.io.File(tiffPath).exists())
+            return "{\"ok\":false,\"error\":\"no relief image\"}";
+        var tempRl = new com.cna.getgoat.map.terrain.ReliefMapLoader();
+        try { tempRl.load(tiffPath); } catch (Exception e) { return "{\"ok\":false,\"error\":\"" + e.getMessage() + "\"}"; }
+        var img = tempRl.getImage();
         if (img == null) return "{\"ok\":false}";
         // Force reload config and re-classify
         try {
@@ -845,7 +849,13 @@ public class MapManager {
 
     /** Old applyUpgradeRules kept for reference */
     public String _applyUpgradeRules_old() {
-        var img = terrainGenerator.getReliefImage();
+        // Admin operation: load full relief image temporarily
+        String _tiffPath = com.cna.getgoat.config.ConfigsManager.getReliefTiff();
+        if (_tiffPath == null || !new java.io.File(_tiffPath).exists())
+            return "{\"ok\":false,\"error\":\"no relief image\"}";
+        var _tempRl = new com.cna.getgoat.map.terrain.ReliefMapLoader();
+        try { _tempRl.load(_tiffPath); } catch (Exception ex) { return "{\"ok\":false,\"error\":\"" + ex.getMessage() + "\"}"; }
+        var img = _tempRl.getImage();
         if (img == null) return "{\"ok\":false,\"error\":\"no relief image\"}";
         int w = img.getWidth(), hh = img.getHeight();
         int sampleR = Math.max(3, (int)(w/(360.0/terrainGrid.getCellSizeDegrees()))/3);
@@ -890,7 +900,13 @@ public class MapManager {
      */
     public String setRoughnessThreshold(double threshold) {
         // removed: com.cna.getgoat.map.terrain.ReliefMapLoader.setRoughnessThreshold(threshold);
-        var img = terrainGenerator.getReliefImage();
+        // Admin operation: load full relief image temporarily
+        String _tiffPath = com.cna.getgoat.config.ConfigsManager.getReliefTiff();
+        if (_tiffPath == null || !new java.io.File(_tiffPath).exists())
+            return "{\"ok\":false,\"error\":\"no relief image\"}";
+        var _tempRl = new com.cna.getgoat.map.terrain.ReliefMapLoader();
+        try { _tempRl.load(_tiffPath); } catch (Exception ex) { return "{\"ok\":false,\"error\":\"" + ex.getMessage() + "\"}"; }
+        var img = _tempRl.getImage();
         if (img == null) return "{\"ok\":false,\"error\":\"no relief image\"}";
 
         int w = img.getWidth(), hh = img.getHeight();
@@ -1022,11 +1038,16 @@ public class MapManager {
         // Terrain by direction
         TerrainDirectionBreakdown terrain = computeTerrainByDirection(lat, lng, radiusKm);
 
-        // Terrain type distribution + roughness + elevation bands within radius
-        Map<TerrainType, Double> terrainProfile = computeTerrainProfile(lat, lng, radiusKm);
-        Map<String, Double> roughnessProfile = computeReliefProfile(lat, lng, radiusKm);
-        Map<String, Double> bandProfile = computeElevationBandProfile(lat, lng, radiusKm);
-        ElevationProfile elevProfile = computeElevationProfile(lat, lng, radiusKm, terrainGenerator.getReliefImage());
+        // Terrain type distribution + elevation stats (single consolidated pass)
+        var consolidated = terrainUnit.queryConsolidated(lat, lng, radiusKm);
+        Map<TerrainType, Double> terrainProfile = new LinkedHashMap<>();
+        for (var e : consolidated.terrainProfile().entrySet()) {
+            TerrainType t = TerrainType.fromString(e.getKey());
+            if (t != null) terrainProfile.put(t, e.getValue());
+        }
+        ElevationProfile elevProfile = new ElevationProfile(
+            consolidated.elevStats().min(), consolidated.elevStats().max(),
+            consolidated.elevStats().mean(), consolidated.elevStats().range());
 
         long elapsed = System.currentTimeMillis() - t0;
         return new EnhancedRadiusResult(center, radiusKm, centerCell,
